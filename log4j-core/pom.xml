@@ -33,6 +33,13 @@
     <javadoc.skip>false</javadoc.skip>
   </properties>
   <dependencies>
+    <!-- Annotations from the Checker Framework: nullness, interning, locking, ... -->
+    <dependency>
+      <groupId>org.checkerframework</groupId>
+      <artifactId>checker-qual</artifactId>
+      <version>3.32.0</version>
+    </dependency>
+
     <dependency>
       <groupId>javax.activation</groupId>
       <artifactId>javax.activation-api</artifactId>
@@ -206,7 +213,13 @@
               <excludes>
                 <exclude>module-info.java</exclude>
               </excludes>
-              <proc>none</proc>
+	      <compilerArguments>
+		<Xlint:none/>
+	      </compilerArguments>
+              <compilerArgs>
+                <arg>-Xlint:none</arg>
+              </compilerArgs>
+              <!-- <proc>none</proc> -->
             </configuration>
           </execution>
           <execution>
