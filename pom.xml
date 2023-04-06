@@ -1496,6 +1496,7 @@
           <consoleOutput>true</consoleOutput>
           <excludes>
             <exclude>**/target/**/*</exclude>
+            <exclude>TAGS</exclude>
             <!-- Matches other RAT configurations in this POM -->
             <exclude>src/main/resources/META-INF/services/**/*</exclude>
             <!-- IntelliJ files -->
