@@ -1386,9 +1386,9 @@
               <Xmaxwarns>10000</Xmaxwarns>
               <!-- <Xlint/> -->
             </compilerArguments>
-	    <compilerArgs>
-	      <arg>-Xlint:none</arg>
-	    </compilerArgs>
+            <compilerArgs>
+              <arg>-Xlint:none</arg>
+            </compilerArgs>
           </configuration>
         </plugin>
 
@@ -1981,7 +1981,7 @@
               </annotationProcessors>
               <compilerArgs>
                 <!-- <arg>-Awarns</arg> --> <!-- -Awarns turns type-checking errors into warnings. -->
-		<arg>-AwarnUnneededSuppressions</arg>
+                <arg>-AwarnUnneededSuppressions</arg>
                 <arg>-nowarn</arg>
                 <arg>-Xlint:none</arg>
               </compilerArgs>
@@ -2021,9 +2021,9 @@
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
               <fork>true</fork>
-	      <compilerArguments>
-		<Xlint:none/>
-	      </compilerArguments>
+              <compilerArguments>
+                <Xlint:none/>
+              </compilerArguments>
               <compilerArgs combine.children="append">
                 <arg>-J-Xbootclasspath/p:${settings.localRepository}/com/google/errorprone/javac/${javac.version}/javac-${javac.version}.jar</arg>
                 <arg>-Xlint:none</arg>
