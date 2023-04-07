@@ -1495,6 +1495,7 @@
         <configuration>
           <consoleOutput>true</consoleOutput>
           <excludes>
+            <exclude>**/TAGS</exclude>
             <exclude>**/target/**/*</exclude>
             <!-- Matches other RAT configurations in this POM -->
             <exclude>src/main/resources/META-INF/services/**/*</exclude>
@@ -1976,7 +1977,7 @@
               </annotationProcessorPaths>
               <annotationProcessors>
                 <!-- Add all the checkers you want to enable here -->
-                <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
+                <annotationProcessor>org.checkerframework.checker.resourceleak.ResourceLeakChecker</annotationProcessor>
               </annotationProcessors>
               <compilerArgs>
                 <!-- <arg>-Awarns</arg> --> <!-- -Awarns turns type-checking errors into warnings. -->

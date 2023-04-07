@@ -16,6 +16,10 @@
  */
 package org.apache.logging.log4j.core.appender.db.jdbc;
 
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.mustcall.qual.MustCall;
+import org.checkerframework.checker.mustcall.qual.Owning;
+
 import java.io.Serializable;
 import java.io.StringReader;
 import java.sql.Clob;
@@ -61,6 +65,7 @@ import org.apache.logging.log4j.util.Strings;
 /**
  * An {@link AbstractDatabaseManager} implementation for relational databases accessed via JDBC.
  */
+@MustCall("closeResources")
 public final class JdbcDatabaseManager extends AbstractDatabaseManager {
 
     /**
@@ -469,7 +474,7 @@ public final class JdbcDatabaseManager extends AbstractDatabaseManager {
     private final List<ColumnConfig> columnConfigs;
     private final String sqlStatement;
     private final FactoryData factoryData;
-    private volatile Connection connection;
+    private volatile @Owning Connection connection;
     private volatile PreparedStatement statement;
     private volatile Reconnector reconnector;
     private volatile boolean isBatchSupported;
@@ -514,6 +519,7 @@ public final class JdbcDatabaseManager extends AbstractDatabaseManager {
         }
     }
 
+    @EnsuresCalledMethods(value="connection", methods="close")
     protected void closeResources(final boolean logExceptions) {
         final PreparedStatement tempPreparedStatement = this.statement;
         this.statement = null;

@@ -16,6 +16,9 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.mustcall.qual.NotOwning;
+import org.checkerframework.checker.mustcall.qual.Owning;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -69,7 +72,7 @@ public class ConfigurationSource {
      * @param stream the input stream, the caller is responsible for closing this resource.
      * @param file the file where the input stream originated
      */
-    public ConfigurationSource(final InputStream stream, final File file) {
+    public ConfigurationSource(final @NotOwning InputStream stream, final File file) {
         this.stream = Objects.requireNonNull(stream, "stream is null");
         this.data = null;
         this.source = new Source(file);
@@ -89,7 +92,7 @@ public class ConfigurationSource {
      * @param stream the input stream, the caller is responsible for closing this resource.
      * @param path the path where the input stream originated.
      */
-    public ConfigurationSource(final InputStream stream, final Path path) {
+    public ConfigurationSource(final @NotOwning InputStream stream, final Path path) {
         this.stream = Objects.requireNonNull(stream, "stream is null");
         this.data = null;
         this.source = new Source(path);
@@ -109,7 +112,7 @@ public class ConfigurationSource {
      * @param stream the input stream, the caller is responsible for closing this resource.
      * @param url the URL where the input stream originated
      */
-    public ConfigurationSource(final InputStream stream, final URL url) {
+    public ConfigurationSource(final @NotOwning InputStream stream, final URL url) {
         this.stream = Objects.requireNonNull(stream, "stream is null");
         this.data = null;
         this.lastModified = 0;
@@ -124,7 +127,7 @@ public class ConfigurationSource {
      * @param url the URL where the input stream originated
      * @param lastModified when the source was last modified.
      */
-    public ConfigurationSource(final InputStream stream, final URL url, long lastModified) {
+    public ConfigurationSource(final @NotOwning InputStream stream, final URL url, long lastModified) {
         this.stream = Objects.requireNonNull(stream, "stream is null");
         this.data = null;
         this.lastModified = lastModified;
@@ -138,7 +141,7 @@ public class ConfigurationSource {
      * @param stream the input stream, the caller is responsible for closing this resource.
      * @throws IOException if an exception occurred reading from the specified stream
      */
-    public ConfigurationSource(final InputStream stream) throws IOException {
+    public ConfigurationSource(final @NotOwning InputStream stream) throws IOException {
         this(toByteArray(stream), null, 0);
     }
 
@@ -277,7 +280,7 @@ public class ConfigurationSource {
      * @return a new {@code ConfigurationSource}
      * @throws IOException if a problem occurred while opening the new input stream
      */
-    public ConfigurationSource resetInputStream() throws IOException {
+    public @Owning ConfigurationSource resetInputStream() throws IOException {
         if (source != null && data != null) {
             return new ConfigurationSource(source, data, this.lastModified);
         } else if (isFile()) {

@@ -16,6 +16,9 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.mustcall.qual.MustCall;
+import org.checkerframework.checker.mustcall.qual.Owning;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.concurrent.TimeUnit;
@@ -26,6 +29,7 @@ import org.apache.logging.log4j.core.StringLayout;
  * Manages a Writer so that it can be shared by multiple Appenders and will
  * allow appenders to reconfigure without requiring a new writer.
  */
+@MustCall("closeWriter")
 public class WriterManager extends AbstractManager {
 
     /**
@@ -43,9 +47,9 @@ public class WriterManager extends AbstractManager {
     }
     protected final StringLayout layout;
 
-    private volatile Writer writer;
+    private volatile @Owning Writer writer;
 
-    public WriterManager(final Writer writer, final String streamName, final StringLayout layout,
+    public WriterManager(final @Owning Writer writer, final String streamName, final StringLayout layout,
             final boolean writeHeader) {
         super(null, streamName);
         this.writer = writer;
@@ -62,6 +66,7 @@ public class WriterManager extends AbstractManager {
         }
     }
 
+    @EnsuresCalledMethods(value="writer", methods="close")
     protected synchronized void closeWriter() {
         final Writer w = writer; // access volatile field only once per method
         try {

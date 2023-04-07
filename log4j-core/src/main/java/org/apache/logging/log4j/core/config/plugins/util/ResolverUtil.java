@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.plugins.util;
 
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -391,6 +392,7 @@ public class ResolverUtil {
      * @param jarStream
      * @param source
      */
+    @EnsuresCalledMethods(value="#1", methods="close")
     private void close(final JarInputStream jarStream, final Object source) {
         if (jarStream != null) {
             try {

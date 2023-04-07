@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.net;
 
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.mustcall.qual.Owning;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.DatagramPacket;
@@ -42,7 +44,7 @@ public class DatagramOutputStream extends OutputStream {
     private static final int SHIFT_2 = 16;
     private static final int SHIFT_3 = 24;
 
-    private DatagramSocket datagramSocket;
+    private @Owning DatagramSocket datagramSocket;
     private final InetAddress inetAddress;
     private final int port;
 
@@ -111,6 +113,7 @@ public class DatagramOutputStream extends OutputStream {
     }
 
     @Override
+    @EnsuresCalledMethods(value="datagramSocket", methods="close")
     public synchronized void close() throws IOException {
         if (datagramSocket != null) {
             if (data != null) {

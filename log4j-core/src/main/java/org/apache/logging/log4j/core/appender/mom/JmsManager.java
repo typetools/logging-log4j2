@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.appender.mom;
 
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
 import java.io.Serializable;
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
@@ -258,6 +259,7 @@ public class JmsManager extends AbstractManager {
         }
     }
 
+    @EnsuresCalledMethods(value="connection", methods="close")
     private boolean closeConnection() {
         if (connection == null) {
             return true;

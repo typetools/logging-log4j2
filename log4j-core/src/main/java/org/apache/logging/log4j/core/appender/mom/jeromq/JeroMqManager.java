@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.appender.mom.jeromq;
 
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.mustcall.qual.Owning;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -68,7 +70,7 @@ public class JeroMqManager extends AbstractManager {
         }
     }
 
-    private final ZMQ.Socket publisher;
+    private final @Owning ZMQ.Socket publisher;
 
     private JeroMqManager(final String name, final JeroMqConfiguration config) {
         super(null, name);
@@ -116,6 +118,7 @@ public class JeroMqManager extends AbstractManager {
         }
     }
 
+    @EnsuresCalledMethods(value="publisher", methods="close")
     @Override
     protected boolean releaseSub(final long timeout, final TimeUnit timeUnit) {
         publisher.close();

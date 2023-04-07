@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.net;
 
+import org.checkerframework.checker.mustcall.qual.Owning;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Properties;
@@ -42,7 +43,7 @@ public class JndiManager extends AbstractManager {
     private static final String PREFIX = "log4j2.enableJndi";
     private static final String JAVA_SCHEME = "java";
 
-    private final InitialContext context;
+    private final @Owning InitialContext context;
 
     private static boolean isJndiEnabled(final String subKey) {
         return PropertiesUtil.getProperties().getBooleanProperty(PREFIX + subKey, false);
@@ -98,7 +99,7 @@ public class JndiManager extends AbstractManager {
         return isJndiEnabled("Lookup");
     }
 
-    private JndiManager(final String name, final InitialContext context) {
+    private JndiManager(final String name, final @Owning InitialContext context) {
         super(null, name);
         this.context = context;
     }

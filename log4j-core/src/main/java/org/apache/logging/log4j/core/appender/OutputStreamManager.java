@@ -16,6 +16,10 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.mustcall.qual.MustCall;
+import org.checkerframework.checker.mustcall.qual.Owning;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
@@ -34,18 +38,19 @@ import org.apache.logging.log4j.core.util.Constants;
  * Manages an OutputStream so that it can be shared by multiple Appenders and will
  * allow appenders to reconfigure without requiring a new stream.
  */
+@MustCall("closeOutputStream")
 public class OutputStreamManager extends AbstractManager implements ByteBufferDestination {
     protected final Layout<?> layout;
     protected ByteBuffer byteBuffer;
-    private volatile OutputStream outputStream;
+    private volatile @Owning OutputStream outputStream;
     private boolean skipFooter;
 
-    protected OutputStreamManager(final OutputStream os, final String streamName, final Layout<?> layout,
+    protected OutputStreamManager(final @Owning OutputStream os, final String streamName, final Layout<?> layout,
             final boolean writeHeader) {
         this(os, streamName, layout, writeHeader, Constants.ENCODER_BYTE_BUFFER_SIZE);
     }
 
-    protected OutputStreamManager(final OutputStream os, final String streamName, final Layout<?> layout,
+    protected OutputStreamManager(final @Owning OutputStream os, final String streamName, final Layout<?> layout,
             final boolean writeHeader, final int bufferSize) {
         this(os, streamName, layout, writeHeader, ByteBuffer.wrap(new byte[bufferSize]));
     }
@@ -55,7 +60,7 @@ public class OutputStreamManager extends AbstractManager implements ByteBufferDe
      * @deprecated
      */
     @Deprecated
-    protected OutputStreamManager(final OutputStream os, final String streamName, final Layout<?> layout,
+    protected OutputStreamManager(final @Owning OutputStream os, final String streamName, final Layout<?> layout,
             final boolean writeHeader, final ByteBuffer byteBuffer) {
         super(null, streamName);
         this.outputStream = os;
@@ -295,6 +300,7 @@ public class OutputStreamManager extends AbstractManager implements ByteBufferDe
         flushDestination();
     }
 
+    @EnsuresCalledMethods(value="stream", methods="close")
     protected synchronized boolean closeOutputStream() {
         flush();
         final OutputStream stream = outputStream; // access volatile field only once per method

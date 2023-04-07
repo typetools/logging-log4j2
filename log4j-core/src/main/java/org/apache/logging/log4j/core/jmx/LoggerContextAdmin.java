@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.jmx;
 
+import org.checkerframework.checker.mustcall.qual.Owning;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.ByteArrayInputStream;
@@ -172,7 +173,7 @@ public class LoggerContextAdmin extends NotificationBroadcasterSupport implement
      * @return stream contents
      * @throws IOException if a problem occurred reading from the stream.
      */
-    private String readContents(final InputStream in, final Charset charset) throws IOException {
+    private String readContents(final @Owning InputStream in, final Charset charset) throws IOException {
         Reader reader = null;
         try {
             reader = new InputStreamReader(in, charset);

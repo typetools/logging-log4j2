@@ -16,6 +16,9 @@
  */
 package org.apache.logging.log4j.core.appender.rolling;
 
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.mustcall.qual.MustCall;
+import org.checkerframework.checker.mustcall.qual.Owning;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -37,6 +40,7 @@ import org.apache.logging.log4j.core.util.NullOutputStream;
  * Extends RollingFileManager but instead of using a buffered output stream, this class uses a {@code ByteBuffer} and a
  * {@code RandomAccessFile} to do the I/O.
  */
+@MustCall("closeOutputStream")
 public class RollingRandomAccessFileManager extends RollingFileManager {
     /**
      * The default buffer size.
@@ -45,7 +49,7 @@ public class RollingRandomAccessFileManager extends RollingFileManager {
 
     private static final RollingRandomAccessFileManagerFactory FACTORY = new RollingRandomAccessFileManagerFactory();
 
-    private RandomAccessFile randomAccessFile;
+    private @Owning RandomAccessFile randomAccessFile;
 
     @Deprecated
     public RollingRandomAccessFileManager(final LoggerContext loggerContext, final RandomAccessFile raf,
@@ -174,6 +178,7 @@ public class RollingRandomAccessFileManager extends RollingFileManager {
     }
 
     @Override
+    @EnsuresCalledMethods(value="randomAccessFile", methods="close")
 	public synchronized boolean closeOutputStream() {
 		flush();
 		if (randomAccessFile != null) {

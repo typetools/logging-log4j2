@@ -17,6 +17,8 @@
 
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+
 import javax.naming.Context;
 import javax.naming.NamingException;
 
@@ -37,6 +39,7 @@ public final class JndiCloser {
      * @throws NamingException if a problem occurred closing the specified JNDI Context
      * @see Context#close()
      */
+    @EnsuresCalledMethods(value="#1", methods="close")
     public static void close(final Context context) throws NamingException {
         if (context != null) {
             context.close();
@@ -50,6 +53,7 @@ public final class JndiCloser {
      * @return Whether closing succeeded
      * @see Context#close()
      */
+    @EnsuresCalledMethods(value="#1", methods="close")
     public static boolean closeSilently(final Context context) {
         try {
             close(context);

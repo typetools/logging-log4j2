@@ -23,6 +23,7 @@ public class CloseShieldWriter extends Writer {
 
     private final Writer delegate;
 
+    // Not @Owning because this wrapper does not close its delegate.
     public CloseShieldWriter(final Writer delegate) {
         this.delegate = delegate;
     }

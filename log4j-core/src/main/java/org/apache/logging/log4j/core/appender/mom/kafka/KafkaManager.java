@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.mom.kafka;
 
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Properties;
@@ -90,6 +91,7 @@ public class KafkaManager extends AbstractManager {
     }
 
     @Override
+    @EnsuresCalledMethods(value="this", methods="closeProducer")
     public boolean releaseSub(final long timeout, final TimeUnit timeUnit) {
         if (timeout > 0) {
             closeProducer(timeout, timeUnit);
@@ -99,6 +101,7 @@ public class KafkaManager extends AbstractManager {
         return true;
     }
 
+    @EnsuresCalledMethods(value="producer", methods="close")
     private void closeProducer(final long timeout, final TimeUnit timeUnit) {
         if (producer != null) {
             // This thread is a workaround for this Kafka issue:

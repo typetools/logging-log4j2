@@ -26,6 +26,7 @@ public class CloseShieldOutputStream extends OutputStream {
 
     private final OutputStream delegate;
 
+    // Not @Owning because this delegating OutputStream does not close its delegate.
     public CloseShieldOutputStream(final OutputStream delegate) {
         this.delegate = delegate;
     }

@@ -16,6 +16,10 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.mustcall.qual.MustCall;
+import org.checkerframework.checker.mustcall.qual.Owning;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -57,6 +61,7 @@ import org.apache.logging.log4j.util.Constants;
  * @since 2.1
  */
 //CHECKSTYLE:ON
+@MustCall("closeOutputStream")
 public class MemoryMappedFileManager extends OutputStreamManager {
     /**
      * Default length of region to map.
@@ -69,7 +74,7 @@ public class MemoryMappedFileManager extends OutputStreamManager {
     private final boolean immediateFlush;
     private final int regionLength;
     private final String advertiseURI;
-    private final RandomAccessFile randomAccessFile;
+    private final @Owning RandomAccessFile randomAccessFile;
     private MappedByteBuffer mappedBuffer;
     private long mappingOffset;
 
@@ -166,6 +171,7 @@ public class MemoryMappedFileManager extends OutputStreamManager {
         mappedBuffer.force();
     }
 
+    @EnsuresCalledMethods(value="randomAccessFile", methods="close")
     @Override
     public synchronized boolean closeOutputStream() {
         final long position = mappedBuffer.position();

@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.net;
 
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.mustcall.qual.Owning;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
@@ -58,7 +60,7 @@ public class TcpSocketManager extends AbstractSocketManager {
 
     private Reconnector reconnector;
 
-    private Socket socket;
+    private @Owning Socket socket;
 
     private final SocketOptions socketOptions;
 
@@ -256,6 +258,7 @@ public class TcpSocketManager extends AbstractSocketManager {
         }
     }
 
+    @EnsuresCalledMethods(value="socket", methods="close")
     @Override
     protected synchronized boolean closeOutputStream() {
         final boolean closed = super.closeOutputStream();

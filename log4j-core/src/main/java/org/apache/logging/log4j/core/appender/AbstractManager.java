@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.mustcall.qual.MustCall;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -42,6 +43,7 @@ import org.apache.logging.log4j.status.StatusLogger;
  * be aware of the pattern: allocate resources on construction and call {@link #close()} at some point.
  * </p>
  */
+@MustCall("releaseSub")
 public abstract class AbstractManager implements AutoCloseable {
 
     /**
