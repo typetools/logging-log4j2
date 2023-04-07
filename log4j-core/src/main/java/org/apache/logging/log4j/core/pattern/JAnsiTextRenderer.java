@@ -306,7 +306,7 @@ public final class JAnsiTextRenderer implements TextRenderer {
             j += beginTokenLen;
             final String spec = input.substring(j, k);
 
-            @SuppressWarnings("regex")  // AnsiRenderer is not yet annotated
+            @SuppressWarnings("regex")  // org.fusesource.jansi.AnsiRenderer is not yet annotated
             final String[] items = spec.split(AnsiRenderer.CODE_TEXT_SEPARATOR, 2);
             if (items.length == 1) {
                 output.append(input);
