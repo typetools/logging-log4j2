@@ -17,6 +17,8 @@
 
 package org.apache.logging.log4j.core.appender.rolling.action;
 
+import org.checkerframework.checker.regex.qual.Regex;
+
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -64,7 +66,7 @@ public class Duration implements Serializable, Comparable<Duration> {
     /**
      * The pattern for parsing.
      */
-    private static final Pattern PATTERN = Pattern.compile("P?(?:([0-9]+)D)?"
+    private static final @Regex(5) Pattern PATTERN = Pattern.compile("P?(?:([0-9]+)D)?"
             + "(T?(?:([0-9]+)H)?(?:([0-9]+)M)?(?:([0-9]+)?S)?)?", Pattern.CASE_INSENSITIVE);
 
     /**

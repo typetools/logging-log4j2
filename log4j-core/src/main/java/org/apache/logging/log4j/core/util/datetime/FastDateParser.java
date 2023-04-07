@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.util.datetime;
 
+import org.checkerframework.checker.regex.qual.Regex;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
@@ -462,7 +464,7 @@ public class FastDateParser implements DateParser, Serializable {
      * @param regex The regular expression to build
      * @return The map of string display names to field values
      */
-    private static Map<String, Integer> appendDisplayNames(final Calendar cal, final Locale locale, final int field, final StringBuilder regex) {
+    private static Map<String, Integer> appendDisplayNames(final Calendar cal, final Locale locale, final int field, final @Regex StringBuilder regex) {
         final Map<String, Integer> values = new HashMap<>();
 
         final Map<String, Integer> displayNames = cal.getDisplayNames(field, Calendar.ALL_STYLES, locale);
@@ -513,11 +515,11 @@ public class FastDateParser implements DateParser, Serializable {
 
         private Pattern pattern;
 
-        void createPattern(final StringBuilder regex) {
+        void createPattern(final @Regex StringBuilder regex) {
             createPattern(regex.toString());
         }
 
-        void createPattern(final String regex) {
+        void createPattern(final @Regex String regex) {
             this.pattern = Pattern.compile(regex);
         }
 
@@ -534,7 +536,8 @@ public class FastDateParser implements DateParser, Serializable {
 
         @Override
         boolean parse(final FastDateParser parser, final Calendar calendar, final String source, final ParsePosition pos, final int maxWidth) {
-            final Matcher matcher = pattern.matcher(source.substring(pos.getIndex()));
+            @SuppressWarnings("regex")  // BUG: pattern is not guaranteed to have a group (and sometimes doesn't, though maybe that doesn't flow to here?)
+            final @Regex(1) Matcher matcher = pattern.matcher(source.substring(pos.getIndex()));
             if (!matcher.lookingAt()) {
                 pos.setErrorIndex(pos.getIndex());
                 return false;
@@ -699,6 +702,7 @@ public class FastDateParser implements DateParser, Serializable {
          * @param definingCalendar  The Calendar to use
          * @param locale  The Locale to use
          */
+        @SuppressWarnings("regex")  // string concatenation to make @Regex String
         CaseInsensitiveTextStrategy(final int field, final Calendar definingCalendar, final Locale locale) {
             this.field = field;
             this.locale = locale;
@@ -838,7 +842,7 @@ public class FastDateParser implements DateParser, Serializable {
         TimeZoneStrategy(final Locale locale) {
             this.locale = locale;
 
-            final StringBuilder sb = new StringBuilder();
+            final @Regex StringBuilder sb = new @Regex StringBuilder();
             sb.append("((?iu)" + RFC_822_TIME_ZONE + "|" + GMT_OPTION );
 
             final Set<String> sorted = new TreeSet<>(LONGER_FIRST_LOWERCASE);
@@ -910,7 +914,7 @@ public class FastDateParser implements DateParser, Serializable {
          * Construct a Strategy that parses a TimeZone
          * @param pattern The Pattern
          */
-        ISO8601TimeZoneStrategy(final String pattern) {
+        ISO8601TimeZoneStrategy(final @Regex String pattern) {
             createPattern(pattern);
         }
 

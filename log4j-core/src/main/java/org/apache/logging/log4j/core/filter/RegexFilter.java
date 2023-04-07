@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.filter;
 
+import org.checkerframework.checker.regex.qual.Regex;
+
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -126,7 +128,7 @@ public final class RegexFilter extends AbstractFilter {
     @PluginFactory
     public static RegexFilter createFilter(
             //@formatter:off
-            @PluginAttribute("regex") final String regex,
+            @PluginAttribute("regex") final @Regex String regex,
             @PluginElement("PatternFlags") final String[] patternFlags,
             @PluginAttribute("useRawMsg") final Boolean useRawMsg,
             @PluginAttribute("onMatch") final Result match,

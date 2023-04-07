@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.regex.qual.Regex;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -41,8 +43,8 @@ import org.apache.logging.log4j.util.Strings;
  * PatternConverters}.
  */
 public final class PatternParser {
-    static final String DISABLE_ANSI = "disableAnsi";
-    static final String NO_CONSOLE_NO_ANSI = "noConsoleNoAnsi";
+    static final @Regex String DISABLE_ANSI = "disableAnsi";
+    static final @Regex String NO_CONSOLE_NO_ANSI = "noConsoleNoAnsi";
 
     /**
      * Escape character for format specifier.

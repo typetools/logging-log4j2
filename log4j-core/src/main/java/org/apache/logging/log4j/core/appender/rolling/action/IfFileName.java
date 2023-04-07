@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.appender.rolling.action;
 
+import org.checkerframework.checker.regex.qual.Regex;
+
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -57,7 +59,7 @@ public final class IfFileName implements PathCondition {
      * @param regex the regular expression that matches the baseDir-relative path of the file(s) to delete
      * @param nestedConditions nested conditions to evaluate if this condition accepts a path
      */
-    private IfFileName(final String glob, final String regex, final PathCondition... nestedConditions) {
+    private IfFileName(final String glob, final @Regex String regex, final PathCondition... nestedConditions) {
         if (regex == null && glob == null) {
             throw new IllegalArgumentException("Specify either a path glob or a regular expression. "
                     + "Both cannot be null.");
@@ -67,7 +69,7 @@ public final class IfFileName implements PathCondition {
         this.nestedConditions = PathCondition.copy(nestedConditions);
     }
 
-    static String createSyntaxAndPatternString(final String glob, final String regex) {
+    static String createSyntaxAndPatternString(final String glob, final @Regex String regex) {
         if (glob != null) {
             return glob.startsWith("glob:") ? glob : "glob:" + glob;
         }
@@ -135,7 +137,7 @@ public final class IfFileName implements PathCondition {
     public static IfFileName createNameCondition(
             // @formatter:off
             @PluginAttribute("glob") final String glob,
-            @PluginAttribute("regex") final String regex,
+            @PluginAttribute("regex") final @Regex String regex,
             @PluginElement("PathConditions") final PathCondition... nestedConditions) {
             // @formatter:on
         return new IfFileName(glob, regex, nestedConditions);

@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.regex.qual.Regex;
+
 /**
  * Pattern strings used throughout Log4j.
  *
@@ -26,17 +28,17 @@ public final class Patterns {
     /**
      * A pattern string for comma separated lists with optional whitespace.
      */
-    public static final String COMMA_SEPARATOR = toWhitespaceSeparator(",");
+    public static final @Regex String COMMA_SEPARATOR = toWhitespaceSeparator(",");
 
     /**
      * A pattern string for lists separated by commas with optional whitespace or just whitespace.
      */
-    public static final String COMMA_SPACE_SEPARATOR = toWhitespaceSeparator("[,\\s]");
+    public static final @Regex String COMMA_SPACE_SEPARATOR = toWhitespaceSeparator("[,\\s]");
 
     /**
      * The whitespace pattern string.
      */
-    public static final String WHITESPACE = "\\s*";
+    public static final @Regex String WHITESPACE = "\\s*";
 
     private Patterns() {
     }
@@ -47,7 +49,7 @@ public final class Patterns {
      * @param separator The separator.
      * @return a pattern for {@code separator} surrounded by whitespace.
      */
-    public static String toWhitespaceSeparator(final String separator) {
+    public static @Regex String toWhitespaceSeparator(final @Regex String separator) {
         return WHITESPACE + separator + WHITESPACE;
     }
 }

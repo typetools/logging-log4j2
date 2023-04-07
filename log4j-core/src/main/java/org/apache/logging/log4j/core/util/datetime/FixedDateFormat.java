@@ -17,6 +17,8 @@
 
 package org.apache.logging.log4j.core.util.datetime;
 
+import org.checkerframework.checker.regex.qual.Regex;
+
 import org.apache.logging.log4j.core.time.Instant;
 
 import java.util.Arrays;
@@ -156,7 +158,7 @@ public class FixedDateFormat {
         private static final char SECOND_FRACTION_PATTERN = 'n';
 
         private final String pattern;
-        private final String datePattern;
+        private final @Regex String datePattern;
         private final int escapeCount;
         private final char timeSeparatorChar;
         private final int timeSeparatorLength;
@@ -165,7 +167,7 @@ public class FixedDateFormat {
         private final int secondFractionDigits;
         private final FixedTimeZoneFormat fixedTimeZoneFormat;
 
-        FixedFormat(final String pattern, final String datePattern, final int escapeCount, final char timeSeparator,
+        FixedFormat(final String pattern, final @Regex String datePattern, final int escapeCount, final char timeSeparator,
                     final int timeSepLength, final char millisSeparator, final int millisSepLength,
                     final int secondFractionDigits, final FixedTimeZoneFormat timeZoneFormat) {
             this.timeSeparatorChar = timeSeparator;
@@ -193,7 +195,7 @@ public class FixedDateFormat {
          *
          * @return the date part of the pattern
          */
-        public String getDatePattern() {
+        public @Regex String getDatePattern() {
             return datePattern;
         }
 

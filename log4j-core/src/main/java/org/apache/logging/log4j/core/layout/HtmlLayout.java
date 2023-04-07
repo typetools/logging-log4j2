@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.regex.qual.Regex;
+
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.io.LineNumberReader;
@@ -57,7 +59,8 @@ public final class HtmlLayout extends AbstractStringLayout {
     public static final String DEFAULT_FONT_FAMILY = "arial,sans-serif";
 
     private static final String TRACE_PREFIX = "<br />&nbsp;&nbsp;&nbsp;&nbsp;";
-    private static final String REGEXP = Strings.LINE_SEPARATOR.equals("\n") ? "\n" : Strings.LINE_SEPARATOR + "|\n";
+
+    private static final @Regex String REGEXP = Strings.LINE_SEPARATOR.equals("\n") ? "\n" : Strings.LINE_SEPARATOR + "|\n";
     private static final String DEFAULT_TITLE = "Log4j Log Messages";
     private static final String DEFAULT_CONTENT_TYPE = "text/html";
     private static final String DEFAULT_DATE_PATTERN = "JVM_ELAPSE_TIME";

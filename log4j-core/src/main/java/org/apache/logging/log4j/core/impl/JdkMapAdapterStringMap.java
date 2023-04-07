@@ -90,6 +90,7 @@ public class JdkMapAdapterStringMap implements StringMap {
         }
     }
 
+    @SuppressWarnings("regex")  // lambda and captured wildcard
     private String[] getSortedKeys() {
         if (sortedKeys == null) {
             sortedKeys = map.keySet().toArray(Strings.EMPTY_ARRAY);

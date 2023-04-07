@@ -59,6 +59,7 @@ public final class RegexReplacementConverter extends LogEventPatternConverter {
      *                only the first line of the throwable will be formatted.
      * @return instance of class.
      */
+    @SuppressWarnings("regex")  // heterogeneous array
     public static RegexReplacementConverter newInstance(final Configuration config, final String[] options) {
         if (options.length != 3) {
             LOGGER.error("Incorrect number of options on replace. Expected 3 received " + options.length);

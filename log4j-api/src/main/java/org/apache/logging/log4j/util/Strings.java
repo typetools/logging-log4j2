@@ -20,6 +20,8 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Objects;
 
+import org.checkerframework.checker.regex.qual.Regex;
+
 /**
  * <em>Consider this class private.</em>
  *
@@ -32,8 +34,8 @@ public final class Strings {
     /**
      * The empty string.
      */
-    public static final String EMPTY = "";
-    private static final String COMMA_DELIMITED_RE = "\\s*,\\s*";
+    public static final @Regex String EMPTY = "";
+    private static final @Regex String COMMA_DELIMITED_RE = "\\s*,\\s*";
 
     /**
      * The empty array.
@@ -44,7 +46,8 @@ public final class Strings {
      * OS-dependent line separator, defaults to {@code "\n"} if the system property {@code ""line.separator"} cannot be
      * read.
      */
-    public static final String LINE_SEPARATOR = SystemPropertiesPropertySource.getSystemProperty("line.separator",
+    @SuppressWarnings("regex")  // line.separator is a regex
+    public static final @Regex String LINE_SEPARATOR = SystemPropertiesPropertySource.getSystemProperty("line.separator",
             "\n");
 
     /**

@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.tools.picocli;
 
+import org.checkerframework.checker.regex.qual.Regex;
+
 import static java.util.Locale.ENGLISH;
 import static org.apache.logging.log4j.core.tools.picocli.CommandLine.Help.Column.Overflow.SPAN;
 import static org.apache.logging.log4j.core.tools.picocli.CommandLine.Help.Column.Overflow.TRUNCATE;
@@ -2464,13 +2466,14 @@ public class CommandLine {
             return ++index;
         }
 
-        private String splitRegex(final Field field) {
+        @SuppressWarnings("regex")  // BUG: annotation elements should be checked that they are regular expressions
+        private @Regex String splitRegex(final Field field) {
             if (field.isAnnotationPresent(Option.class))     { return field.getAnnotation(Option.class).split(); }
             if (field.isAnnotationPresent(Parameters.class)) { return field.getAnnotation(Parameters.class).split(); }
             return "";
         }
         private String[] split(final String value, final Field field) {
-            final String regex = splitRegex(field);
+            final @Regex String regex = splitRegex(field);
             return regex.length() == 0 ? new String[] {value} : value.split(regex);
         }
 
@@ -2766,8 +2769,9 @@ public class CommandLine {
             public InetAddress convert(final String s) throws Exception { return InetAddress.getByName(s); }
         }
         static class PatternConverter implements ITypeConverter<Pattern> {
+            @SuppressWarnings("regex")  // overly generic formal parameter type in supertype
             @Override
-            public Pattern convert(final String s) { return Pattern.compile(s); }
+            public Pattern convert(final @Regex String s) { return Pattern.compile(s); }
         }
         static class UUIDConverter implements ITypeConverter<UUID> {
             @Override

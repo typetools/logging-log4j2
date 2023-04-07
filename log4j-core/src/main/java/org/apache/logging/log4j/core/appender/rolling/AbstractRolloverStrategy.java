@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.appender.rolling;
 
+import org.checkerframework.checker.regex.qual.Regex;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -131,7 +133,8 @@ public abstract class AbstractRolloverStrategy implements RolloverStrategy {
         }
         // since we insert a pattern inside a regex escaped string,
         // surround it with quote characters so that (\d) is treated as a pattern and not a literal
-        final String filePattern = fileName.replaceFirst("0*\\u0000", "\\\\E(0?\\\\d+)\\\\Q");
+        @SuppressWarnings("regex")  // string replacement and parentheses insertion
+        final @Regex(1) String filePattern = fileName.replaceFirst("0*\\u0000", "\\\\E(0?\\\\d+)\\\\Q");
         final Pattern pattern = Pattern.compile(filePattern);
         final Path current = currentFile.length() > 0 ? new File(currentFile).toPath() : null;
         LOGGER.debug("Current file: {}", currentFile);

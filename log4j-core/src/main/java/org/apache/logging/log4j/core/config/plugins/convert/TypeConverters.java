@@ -17,6 +17,8 @@
 
 package org.apache.logging.log4j.core.config.plugins.convert;
 
+import org.checkerframework.checker.regex.qual.Regex;
+
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -318,8 +320,9 @@ public final class TypeConverters {
      */
     @Plugin(name = "Pattern", category = CATEGORY)
     public static class PatternConverter implements TypeConverter<Pattern> {
+        @SuppressWarnings("regex")  // overly generic formal parameter type in supertype
         @Override
-        public Pattern convert(final String s) {
+        public Pattern convert(final @Regex String s) {
             return Pattern.compile(s);
         }
     }
