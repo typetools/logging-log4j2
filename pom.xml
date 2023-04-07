@@ -1981,8 +1981,8 @@
               </annotationProcessors>
               <compilerArgs>
                 <!-- <arg>-Awarns</arg> --> <!-- -Awarns turns type-checking errors into warnings. -->
-                <arg>-nowarn</arg>
                 <arg>-AwarnUnneededSuppressions</arg>
+                <arg>-nowarn</arg>
                 <arg>-Xlint:none</arg>
               </compilerArgs>
             </configuration>
