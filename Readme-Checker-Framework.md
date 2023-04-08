@@ -34,7 +34,9 @@ The output is
 ...
 ```
 
-The lack of error messages in the output console log (and the correctness of `@SuppressWarnings("regex")` in the source code) proves that the project contains no resource leaks.
+There are two `@SuppressWarnings("regex") // BUG` annotations that indicate a potential bug:  the code uses an arbitrary string as a regular expression without checking its syntax.
+
+The lack of error messages in the output console log (and the correctness of other `@SuppressWarnings("regex")` in the source code) proves that the project contains no other resource leaks.
 
 4. Examine the changes made to the source code to support the Resource Leak Checker.
 
