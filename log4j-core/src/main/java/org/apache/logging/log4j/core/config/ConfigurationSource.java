@@ -270,7 +270,7 @@ public class ConfigurationSource {
      *
      * @return the input stream that this configuration source was constructed with.
      */
-    public InputStream getInputStream() {
+    public @NotOwning InputStream getInputStream() {
         return stream;
     }
 
@@ -280,6 +280,7 @@ public class ConfigurationSource {
      * @return a new {@code ConfigurationSource}
      * @throws IOException if a problem occurred while opening the new input stream
      */
+    @SuppressWarnings("calledmethods")  // BUG: ConfigurationSource constructor says: "the caller is responsible for closing this resource", but `new FileInputStream` is never closed
     public @Owning ConfigurationSource resetInputStream() throws IOException {
         if (source != null && data != null) {
             return new ConfigurationSource(source, data, this.lastModified);
@@ -313,6 +314,7 @@ public class ConfigurationSource {
      * @param configLocation A URI representing the location of the configuration.
      * @return The ConfigurationSource for the configuration.
      */
+    @SuppressWarnings("calledmethods")  // BUG: ConfigurationSource constructor says: "the caller is responsible for closing this resource", but `new FileInputStream` is never closed
     public static ConfigurationSource fromUri(final URI configLocation) {
         final File configFile = FileUtils.fileFromUri(configLocation);
         if (configFile != null && configFile.exists() && configFile.canRead()) {
@@ -353,6 +355,7 @@ public class ConfigurationSource {
         return getConfigurationSource(url);
     }
 
+    @SuppressWarnings("calledmethods")  // BUG: ConfigurationSource constructor says: "the caller is responsible for closing this resource", but `urlConnection` and `getJarFile()` are never closed
     private static ConfigurationSource getConfigurationSource(URL url) {
         try {
             File file = FileUtils.fileFromUri(url.toURI());

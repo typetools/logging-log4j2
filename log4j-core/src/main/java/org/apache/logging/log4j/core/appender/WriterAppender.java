@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.mustcall.qual.Owning;
 import java.io.Serializable;
 import java.io.Writer;
 
@@ -159,7 +160,7 @@ public final class WriterAppender extends AbstractWriterAppender<WriterManager> 
     }
 
     private WriterAppender(final String name, final StringLayout layout, final Filter filter,
-            final WriterManager manager, final boolean ignoreExceptions, final Property[] properties) {
+            final @Owning WriterManager manager, final boolean ignoreExceptions, final Property[] properties) {
         super(name, layout, filter, ignoreExceptions, true, properties, manager);
     }
 

@@ -17,6 +17,8 @@
 
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.mustcall.qual.Owning;
 
 import org.apache.logging.log4j.status.StatusLogger;
@@ -39,7 +41,8 @@ public final class Closer {
      * @since 2.8
      * @since 2.11.2 returns a boolean instead of being a void return type.
      */
-    public static boolean close(final @Owning AutoCloseable closeable) throws Exception {
+    @EnsuresCalledMethods(value="#1", methods="close")
+    public static boolean close(final @Owning @MustCallUnknown AutoCloseable closeable) throws Exception {
         if (closeable != null) {
             StatusLogger.getLogger().debug("Closing {} {}", closeable.getClass().getSimpleName(), closeable);
             closeable.close();
@@ -54,7 +57,8 @@ public final class Closer {
      * @param closeable the resource to close; may be null
      * @return true if resource was closed successfully, or false if an exception was thrown
      */
-    public static boolean closeSilently(final @Owning AutoCloseable closeable) {
+    @EnsuresCalledMethods(value="#1", methods="close")
+    public static boolean closeSilently(final @Owning @MustCallUnknown AutoCloseable closeable) {
         try {
             return close(closeable);
         } catch (final Exception ignored) {

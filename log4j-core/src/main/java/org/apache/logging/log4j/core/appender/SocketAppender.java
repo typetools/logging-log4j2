@@ -16,6 +16,10 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.calledmethods.qual.CalledMethods;
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.mustcall.qual.InheritableMustCall;
+import org.checkerframework.checker.mustcall.qual.Owning;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,6 +54,7 @@ import org.apache.logging.log4j.core.util.Booleans;
 /**
  * An Appender that delivers events over socket connections. Supports both TCP and UDP.
  */
+@InheritableMustCall("stop")
 @Plugin(name = "Socket", category = Core.CATEGORY_NAME, elementType = Appender.ELEMENT_TYPE, printObject = true)
 public class SocketAppender extends AbstractOutputStreamAppender<AbstractSocketManager> {
 
@@ -290,7 +295,7 @@ public class SocketAppender extends AbstractOutputStreamAppender<AbstractSocketM
     private final Advertiser advertiser;
 
     protected SocketAppender(final String name, final Layout<? extends Serializable> layout, final Filter filter,
-            final AbstractSocketManager manager, final boolean ignoreExceptions, final boolean immediateFlush,
+            final @Owning AbstractSocketManager manager, final boolean ignoreExceptions, final boolean immediateFlush,
             final Advertiser advertiser, final Property[] properties) {
         super(name, layout, filter, ignoreExceptions, immediateFlush, properties, manager);
         if (advertiser != null) {
@@ -310,11 +315,12 @@ public class SocketAppender extends AbstractOutputStreamAppender<AbstractSocketM
      */
     @Deprecated
     protected SocketAppender(final String name, final Layout<? extends Serializable> layout, final Filter filter,
-            final AbstractSocketManager manager, final boolean ignoreExceptions, final boolean immediateFlush,
+            final @Owning AbstractSocketManager manager, final boolean ignoreExceptions, final boolean immediateFlush,
             final Advertiser advertiser) {
         this(name, layout, filter, manager, ignoreExceptions, immediateFlush, advertiser, Property.EMPTY_ARRAY);
     }
 
+    @EnsuresCalledMethods(value="manager", methods="releaseSub")
     @Override
     public boolean stop(final long timeout, final TimeUnit timeUnit) {
         setStopping();

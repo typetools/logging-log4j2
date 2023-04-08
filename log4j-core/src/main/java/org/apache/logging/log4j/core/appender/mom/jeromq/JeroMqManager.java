@@ -17,6 +17,7 @@
 package org.apache.logging.log4j.core.appender.mom.jeromq;
 
 import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 import org.checkerframework.checker.mustcall.qual.Owning;
 import java.util.Arrays;
 import java.util.List;
@@ -49,7 +50,8 @@ public class JeroMqManager extends AbstractManager {
     public static final String SYS_PROPERTY_IO_THREADS = "log4j.jeromq.ioThreads";
 
     private static final JeroMqManagerFactory FACTORY = new JeroMqManagerFactory();
-    private static final ZMQ.Context CONTEXT;
+    // closed in shutdown callback (SHUTDOWN_HOOK)
+    private static final @Owning ZMQ.Context CONTEXT;
 
     // Retained to avoid garbage collection of the hook
     private static final Cancellable SHUTDOWN_HOOK;
@@ -142,7 +144,7 @@ public class JeroMqManager extends AbstractManager {
                 endpoints));
     }
 
-    public static ZMQ.Context getContext() {
+    public static @NotOwning ZMQ.Context getContext() {
         return CONTEXT;
     }
 

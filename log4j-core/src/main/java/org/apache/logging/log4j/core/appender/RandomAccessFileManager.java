@@ -16,6 +16,9 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.mustcall.qual.Owning;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -24,6 +27,7 @@ import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LoggerContext;
@@ -42,10 +46,10 @@ public class RandomAccessFileManager extends OutputStreamManager {
     private static final RandomAccessFileManagerFactory FACTORY = new RandomAccessFileManagerFactory();
 
     private final String advertiseURI;
-    private final RandomAccessFile randomAccessFile;
+    private final @Owning RandomAccessFile randomAccessFile;
 
-    protected RandomAccessFileManager(final LoggerContext loggerContext, final RandomAccessFile file, final String fileName,
-            final OutputStream os, final int bufferSize, final String advertiseURI,
+    protected RandomAccessFileManager(final LoggerContext loggerContext, final @Owning RandomAccessFile file, final String fileName,
+            final @Owning OutputStream os, final int bufferSize, final String advertiseURI,
             final Layout<? extends Serializable> layout, final boolean writeHeader) {
         super(loggerContext, os, fileName, false, layout, writeHeader, ByteBuffer.wrap(new byte[bufferSize]));
         this.randomAccessFile = file;
@@ -206,10 +210,15 @@ public class RandomAccessFileManager extends OutputStreamManager {
             try {
                 FileUtils.makeParentDirs(file);
                 raf = new RandomAccessFile(name, "rw");
-                if (data.append) {
-                    raf.seek(raf.length());
-                } else {
-                    raf.setLength(0);
+                try {
+                    if (data.append) {
+                        raf.seek(raf.length());
+                    } else {
+                        raf.setLength(0);
+                    }
+                } catch (IOException e) {
+                    raf.close();
+                    throw e;
                 }
                 return new RandomAccessFileManager(data.getLoggerContext(), raf, name,
                         os, data.bufferSize, data.advertiseURI, data.layout, writeHeader);
@@ -218,6 +227,18 @@ public class RandomAccessFileManager extends OutputStreamManager {
             }
             return null;
         }
+    }
+
+    @EnsuresCalledMethods(value="randomAccessFile", methods="close")
+    @Override
+    public boolean releaseSub(final long timeout, final TimeUnit timeUnit) {
+        boolean result = super.releaseSub(timeout, timeUnit);
+        try {
+            randomAccessFile.close();
+        } catch (IOException e) {
+            return false;
+        }
+        return result;
     }
 
 }

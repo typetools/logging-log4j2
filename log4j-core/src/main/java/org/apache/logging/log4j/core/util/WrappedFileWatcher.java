@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
@@ -67,7 +68,7 @@ public class WrappedFileWatcher extends AbstractWatcher implements FileWatcher {
     }
 
     @Override
-    public List<ConfigurationListener> getListeners() {
+    public List</*@NotOwning*/ ConfigurationListener> getListeners() {
         if (super.getListeners() != null) {
             return Collections.unmodifiableList(super.getListeners());
         } else {

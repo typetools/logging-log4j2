@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.net;
 
+import org.checkerframework.checker.mustcall.qual.Owning;
+
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.InetAddress;
@@ -55,7 +57,7 @@ public abstract class AbstractSocketManager extends OutputStreamManager {
      * @param port The target port number.
      * @param bufferSize The buffer size.
      */
-    public AbstractSocketManager(final String name, final OutputStream os, final InetAddress inetAddress,
+    public AbstractSocketManager(final String name, final @Owning OutputStream os, final InetAddress inetAddress,
             final String host, final int port, final Layout<? extends Serializable> layout, final boolean writeHeader,
             final int bufferSize) {
         super(os, name, layout, writeHeader, bufferSize);

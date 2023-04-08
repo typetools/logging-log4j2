@@ -17,7 +17,8 @@
 package org.apache.logging.log4j.core.appender.db.jdbc;
 
 import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
-import org.checkerframework.checker.mustcall.qual.MustCall;
+import org.checkerframework.checker.mustcall.qual.CreatesMustCallFor;
+import org.checkerframework.checker.mustcall.qual.InheritableMustCall;
 import org.checkerframework.checker.mustcall.qual.Owning;
 
 import java.io.Serializable;
@@ -65,7 +66,7 @@ import org.apache.logging.log4j.util.Strings;
 /**
  * An {@link AbstractDatabaseManager} implementation for relational databases accessed via JDBC.
  */
-@MustCall("closeResources")
+@InheritableMustCall("closeResources")
 public final class JdbcDatabaseManager extends AbstractDatabaseManager {
 
     /**
@@ -519,6 +520,7 @@ public final class JdbcDatabaseManager extends AbstractDatabaseManager {
         }
     }
 
+    @SuppressWarnings("required.method.not.called")  // closes an alias of this.connection
     @EnsuresCalledMethods(value="connection", methods="close")
     protected void closeResources(final boolean logExceptions) {
         final PreparedStatement tempPreparedStatement = this.statement;
@@ -593,7 +595,15 @@ public final class JdbcDatabaseManager extends AbstractDatabaseManager {
         return true;
     }
 
+    @CreatesMustCallFor("this")
     private void connectAndPrepare() throws SQLException {
+        if (this.connection != null) {
+            try {
+                this.connection.close();
+            } catch (SQLException e) {
+                // nothing to do
+            }
+        }
         logger().debug("Acquiring JDBC connection from {}", this.getConnectionSource());
         this.connection = getConnectionSource().getConnection();
         logger().debug("Acquired JDBC connection {}", this.connection);

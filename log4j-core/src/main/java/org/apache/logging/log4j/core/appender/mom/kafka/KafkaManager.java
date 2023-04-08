@@ -17,6 +17,7 @@
 package org.apache.logging.log4j.core.appender.mom.kafka;
 
 import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.mustcall.qual.Owning;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Properties;
@@ -47,7 +48,7 @@ public class KafkaManager extends AbstractManager {
     static KafkaProducerFactory producerFactory = new DefaultKafkaProducerFactory();
 
     private final Properties config = new Properties();
-    private Producer<byte[], byte[]> producer;
+    private @Owning Producer<byte[], byte[]> producer;
     private final int timeoutMillis;
 
     private final String topic;

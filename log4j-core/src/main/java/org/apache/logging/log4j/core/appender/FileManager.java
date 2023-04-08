@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.mustcall.qual.Owning;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -67,7 +68,7 @@ public class FileManager extends OutputStreamManager {
      * @deprecated
      */
     @Deprecated
-    protected FileManager(final String fileName, final OutputStream os, final boolean append, final boolean locking,
+    protected FileManager(final String fileName, final @Owning OutputStream os, final boolean append, final boolean locking,
             final String advertiseURI, final Layout<? extends Serializable> layout, final int bufferSize,
             final boolean writeHeader) {
         this(fileName, os, append, locking, advertiseURI, layout, writeHeader, ByteBuffer.wrap(new byte[bufferSize]));
@@ -78,7 +79,7 @@ public class FileManager extends OutputStreamManager {
      * @since 2.6
      */
     @Deprecated
-    protected FileManager(final String fileName, final OutputStream os, final boolean append, final boolean locking,
+    protected FileManager(final String fileName, final @Owning OutputStream os, final boolean append, final boolean locking,
             final String advertiseURI, final Layout<? extends Serializable> layout, final boolean writeHeader,
             final ByteBuffer buffer) {
         super(os, fileName, layout, writeHeader, buffer);
@@ -98,7 +99,7 @@ public class FileManager extends OutputStreamManager {
      * @since 2.7
      */
     @Deprecated
-    protected FileManager(final LoggerContext loggerContext, final String fileName, final OutputStream os, final boolean append, final boolean locking,
+    protected FileManager(final LoggerContext loggerContext, final String fileName, final @Owning OutputStream os, final boolean append, final boolean locking,
             final boolean createOnDemand, final String advertiseURI, final Layout<? extends Serializable> layout,
             final boolean writeHeader, final ByteBuffer buffer) {
         super(loggerContext, os, fileName, createOnDemand, layout, writeHeader, buffer);
@@ -116,7 +117,7 @@ public class FileManager extends OutputStreamManager {
     /**
      * @since 2.9
      */
-    protected FileManager(final LoggerContext loggerContext, final String fileName, final OutputStream os, final boolean append, final boolean locking,
+    protected FileManager(final LoggerContext loggerContext, final String fileName, final @Owning OutputStream os, final boolean append, final boolean locking,
             final boolean createOnDemand, final String advertiseURI, final Layout<? extends Serializable> layout,
             final String filePermissions, final String fileOwner, final String fileGroup, final boolean writeHeader,
             final ByteBuffer buffer) {

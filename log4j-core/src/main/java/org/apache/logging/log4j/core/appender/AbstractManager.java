@@ -16,7 +16,9 @@
  */
 package org.apache.logging.log4j.core.appender;
 
-import org.checkerframework.checker.mustcall.qual.MustCall;
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.mustcall.qual.InheritableMustCall;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -43,7 +45,9 @@ import org.apache.logging.log4j.status.StatusLogger;
  * be aware of the pattern: allocate resources on construction and call {@link #close()} at some point.
  * </p>
  */
-@MustCall("releaseSub")
+// Normally, classes that implement AutoCloseable should be @MustCall("close").
+// But some clients only call releaseSub(), and close() does call stop(), which calls releaseSub().
+@InheritableMustCall("releaseSub")
 public abstract class AbstractManager implements AutoCloseable {
 
     /**
@@ -103,11 +107,13 @@ public abstract class AbstractManager implements AutoCloseable {
     /**
      * Called to signify that this Manager is no longer required by an Appender.
      */
+    @EnsuresCalledMethods(value="this", methods={"stop", "releaseSub"})
     @Override
     public void close() {
         stop(AbstractLifeCycle.DEFAULT_STOP_TIMEOUT, AbstractLifeCycle.DEFAULT_STOP_TIMEUNIT);
     }
 
+    @EnsuresCalledMethods(value="this", methods={"releaseSub"})
     public boolean stop(final long timeout, final TimeUnit timeUnit) {
         boolean stopped = true;
         LOCK.lock();

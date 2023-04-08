@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.net;
 
+import org.checkerframework.checker.mustcall.qual.Owning;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.InetAddress;
@@ -44,7 +45,7 @@ public class DatagramSocketManager extends AbstractSocketManager {
      * @param layout The layout
      * @param bufferSize The buffer size
      */
-    protected DatagramSocketManager(final String name, final OutputStream os, final InetAddress inetAddress, final String host,
+    protected DatagramSocketManager(final String name, final @Owning OutputStream os, final InetAddress inetAddress, final String host,
                 final int port, final Layout<? extends Serializable> layout, final int bufferSize) {
         super(name, os, inetAddress, host, port, layout, true, bufferSize);
     }

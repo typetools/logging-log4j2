@@ -17,7 +17,7 @@
 package org.apache.logging.log4j.core.appender;
 
 import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
-import org.checkerframework.checker.mustcall.qual.MustCall;
+import org.checkerframework.checker.mustcall.qual.InheritableMustCall;
 import org.checkerframework.checker.mustcall.qual.Owning;
 
 import java.io.File;
@@ -61,7 +61,7 @@ import org.apache.logging.log4j.util.Constants;
  * @since 2.1
  */
 //CHECKSTYLE:ON
-@MustCall("closeOutputStream")
+@InheritableMustCall("closeOutputStream")
 public class MemoryMappedFileManager extends OutputStreamManager {
     /**
      * Default length of region to map.
@@ -78,7 +78,7 @@ public class MemoryMappedFileManager extends OutputStreamManager {
     private MappedByteBuffer mappedBuffer;
     private long mappingOffset;
 
-    protected MemoryMappedFileManager(final RandomAccessFile file, final String fileName, final OutputStream os,
+    protected MemoryMappedFileManager(final @Owning RandomAccessFile file, final String fileName, final @Owning OutputStream os,
             final boolean immediateFlush, final long position, final int regionLength, final String advertiseURI,
             final Layout<? extends Serializable> layout, final boolean writeHeader) throws IOException {
         super(os, fileName, layout, writeHeader, ByteBuffer.wrap(Constants.EMPTY_BYTE_ARRAY));
@@ -86,7 +86,12 @@ public class MemoryMappedFileManager extends OutputStreamManager {
         this.randomAccessFile = Objects.requireNonNull(file, "RandomAccessFile");
         this.regionLength = regionLength;
         this.advertiseURI = advertiseURI;
-        this.mappedBuffer = mmap(randomAccessFile.getChannel(), getFileName(), position, regionLength);
+        try {
+            this.mappedBuffer = mmap(randomAccessFile.getChannel(), getFileName(), position, regionLength);
+        } catch (IOException e) {
+            file.close();
+            throw e;
+        }
         this.byteBuffer = mappedBuffer;
         this.mappingOffset = position;
     }

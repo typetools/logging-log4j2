@@ -18,6 +18,8 @@
 package org.apache.logging.log4j.core.util;
 
 import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
+import org.checkerframework.checker.mustcall.qual.Owning;
 
 import javax.naming.Context;
 import javax.naming.NamingException;
@@ -40,7 +42,7 @@ public final class JndiCloser {
      * @see Context#close()
      */
     @EnsuresCalledMethods(value="#1", methods="close")
-    public static void close(final Context context) throws NamingException {
+    public static void close(final @Owning @MustCallUnknown Context context) throws NamingException {
         if (context != null) {
             context.close();
         }
@@ -54,7 +56,7 @@ public final class JndiCloser {
      * @see Context#close()
      */
     @EnsuresCalledMethods(value="#1", methods="close")
-    public static boolean closeSilently(final Context context) {
+    public static boolean closeSilently(final @Owning @MustCallUnknown Context context) {
         try {
             close(context);
             return true;

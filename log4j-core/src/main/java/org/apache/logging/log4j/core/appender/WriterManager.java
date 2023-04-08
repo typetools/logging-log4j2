@@ -17,7 +17,8 @@
 package org.apache.logging.log4j.core.appender;
 
 import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
-import org.checkerframework.checker.mustcall.qual.MustCall;
+import org.checkerframework.checker.mustcall.qual.CreatesMustCallFor;
+import org.checkerframework.checker.mustcall.qual.InheritableMustCall;
 import org.checkerframework.checker.mustcall.qual.Owning;
 import java.io.IOException;
 import java.io.Writer;
@@ -29,7 +30,7 @@ import org.apache.logging.log4j.core.StringLayout;
  * Manages a Writer so that it can be shared by multiple Appenders and will
  * allow appenders to reconfigure without requiring a new writer.
  */
-@MustCall("closeWriter")
+@InheritableMustCall("closeWriter")
 public class WriterManager extends AbstractManager {
 
     /**
@@ -49,6 +50,7 @@ public class WriterManager extends AbstractManager {
 
     private volatile @Owning Writer writer;
 
+    @SuppressWarnings("required.method.not.called")  // https://tinyurl.com/cfissue/5762
     public WriterManager(final @Owning Writer writer, final String streamName, final StringLayout layout,
             final boolean writeHeader) {
         super(null, streamName);
@@ -110,7 +112,9 @@ public class WriterManager extends AbstractManager {
         return true;
     }
 
-    protected void setWriter(final Writer writer) {
+    @CreatesMustCallFor("this")
+    protected void setWriter(final @Owning Writer writer) {
+        closeWriter();
         final byte[] header = layout.getHeader();
         if (header != null) {
             try {
@@ -118,6 +122,11 @@ public class WriterManager extends AbstractManager {
                 this.writer = writer; // only update field if writer.write() succeeded
             } catch (final IOException ioe) {
                 logError("Unable to write header", ioe);
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    // do nothing
+                }
             }
         } else {
             this.writer = writer;

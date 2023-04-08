@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.mustcall.qual.Owning;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -128,7 +129,7 @@ public final class MemoryMappedFileAppender extends AbstractOutputStreamAppender
     private final Advertiser advertiser;
 
     private MemoryMappedFileAppender(final String name, final Layout<? extends Serializable> layout,
-            final Filter filter, final MemoryMappedFileManager manager, final String filename,
+            final Filter filter, final @Owning MemoryMappedFileManager manager, final String filename,
             final boolean ignoreExceptions, final boolean immediateFlush, final Advertiser advertiser,
             final Property[] properties) {
         super(name, layout, filter, ignoreExceptions, immediateFlush, properties, manager);

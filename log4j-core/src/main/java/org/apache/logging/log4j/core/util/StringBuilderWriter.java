@@ -16,7 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
-import org.checkerframework.checker.mustcall.qual.MustCall;
+import org.checkerframework.checker.mustcall.qual.InheritableMustCall;
 
 import java.io.Serializable;
 import java.io.Writer;
@@ -36,7 +36,7 @@ import java.io.Writer;
  * <li>Pick up Javadoc updates from revision 1722253.</li>
  * <ol>
  */
-@MustCall()
+@InheritableMustCall({})
 public class StringBuilderWriter extends Writer implements Serializable {
 
     private static final long serialVersionUID = -146927496096066153L;

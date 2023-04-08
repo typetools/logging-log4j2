@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rolling;
 
+import org.checkerframework.checker.mustcall.qual.Owning;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -89,7 +90,7 @@ public class RollingFileManager extends FileManager {
             AtomicReferenceFieldUpdater.newUpdater(RollingFileManager.class, PatternProcessor.class, "patternProcessor");
 
     @Deprecated
-    protected RollingFileManager(final String fileName, final String pattern, final OutputStream os,
+    protected RollingFileManager(final String fileName, final String pattern, final @Owning OutputStream os,
             final boolean append, final long size, final long initialTime, final TriggeringPolicy triggeringPolicy,
             final RolloverStrategy rolloverStrategy, final String advertiseURI,
             final Layout<? extends Serializable> layout, final int bufferSize, final boolean writeHeader) {
@@ -98,7 +99,7 @@ public class RollingFileManager extends FileManager {
     }
 
     @Deprecated
-    protected RollingFileManager(final String fileName, final String pattern, final OutputStream os,
+    protected RollingFileManager(final String fileName, final String pattern, final @Owning OutputStream os,
             final boolean append, final long size, final long initialTime, final TriggeringPolicy triggeringPolicy,
             final RolloverStrategy rolloverStrategy, final String advertiseURI,
             final Layout<? extends Serializable> layout, final boolean writeHeader, final ByteBuffer buffer) {
@@ -115,7 +116,7 @@ public class RollingFileManager extends FileManager {
     }
 
     @Deprecated
-    protected RollingFileManager(final LoggerContext loggerContext, final String fileName, final String pattern, final OutputStream os,
+    protected RollingFileManager(final LoggerContext loggerContext, final String fileName, final String pattern, final @Owning OutputStream os,
             final boolean append, final boolean createOnDemand, final long size, final long initialTime,
             final TriggeringPolicy triggeringPolicy, final RolloverStrategy rolloverStrategy,
             final String advertiseURI, final Layout<? extends Serializable> layout, final boolean writeHeader, final ByteBuffer buffer) {
@@ -134,7 +135,7 @@ public class RollingFileManager extends FileManager {
     /**
      * @since 2.9
      */
-    protected RollingFileManager(final LoggerContext loggerContext, final String fileName, final String pattern, final OutputStream os,
+    protected RollingFileManager(final LoggerContext loggerContext, final String fileName, final String pattern, final @Owning OutputStream os,
             final boolean append, final boolean createOnDemand, final long size, final long initialTime,
             final TriggeringPolicy triggeringPolicy, final RolloverStrategy rolloverStrategy,
             final String advertiseURI, final Layout<? extends Serializable> layout,

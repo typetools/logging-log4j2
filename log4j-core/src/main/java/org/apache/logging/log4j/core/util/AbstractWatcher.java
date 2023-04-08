@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 import java.util.List;
 
 import org.apache.logging.log4j.core.config.Configuration;
@@ -43,7 +44,7 @@ public abstract class AbstractWatcher implements Watcher {
     }
 
     @Override
-    public List<ConfigurationListener> getListeners() {
+    public List</*@NotOwning*/ ConfigurationListener> getListeners() {
         return configurationListeners;
     }
 

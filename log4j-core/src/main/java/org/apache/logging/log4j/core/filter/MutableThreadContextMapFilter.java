@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.filter;
 
+import org.checkerframework.checker.mustcall.qual.Owning;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -71,7 +72,7 @@ public class MutableThreadContextMapFilter extends AbstractFilter {
     private final ConfigurationScheduler scheduler;
     private final LastModifiedSource source;
     private final AuthorizationProvider authorizationProvider;
-    private final List<FilterConfigUpdateListener> listeners = new ArrayList<>();
+    private final List</*@Owning*/ FilterConfigUpdateListener> listeners = new ArrayList<>();
     private ScheduledFuture<?> future = null;
 
     private MutableThreadContextMapFilter(final Filter filter, final LastModifiedSource source,
@@ -100,7 +101,7 @@ public class MutableThreadContextMapFilter extends AbstractFilter {
         return super.stop(timeout, timeUnit);
     }
 
-    public void registerListener(FilterConfigUpdateListener listener) {
+    public void registerListener(@Owning FilterConfigUpdateListener listener) {
         listeners.add(listener);
     }
 

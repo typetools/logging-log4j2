@@ -17,7 +17,9 @@
 package org.apache.logging.log4j.core.appender;
 
 import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
-import org.checkerframework.checker.mustcall.qual.MustCall;
+import org.checkerframework.checker.mustcall.qual.CreatesMustCallFor;
+import org.checkerframework.checker.mustcall.qual.InheritableMustCall;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
 import org.checkerframework.checker.mustcall.qual.Owning;
 
 import java.io.IOException;
@@ -38,7 +40,7 @@ import org.apache.logging.log4j.core.util.Constants;
  * Manages an OutputStream so that it can be shared by multiple Appenders and will
  * allow appenders to reconfigure without requiring a new stream.
  */
-@MustCall("closeOutputStream")
+@InheritableMustCall("releaseSub") // releaseSub calls closeOutputStream
 public class OutputStreamManager extends AbstractManager implements ByteBufferDestination {
     protected final Layout<?> layout;
     protected ByteBuffer byteBuffer;
@@ -59,6 +61,7 @@ public class OutputStreamManager extends AbstractManager implements ByteBufferDe
      * @since 2.6
      * @deprecated
      */
+    @SuppressWarnings("required.method.not.called")  // false positive, this.outputStream was not already set
     @Deprecated
     protected OutputStreamManager(final @Owning OutputStream os, final String streamName, final Layout<?> layout,
             final boolean writeHeader, final ByteBuffer byteBuffer) {
@@ -74,7 +77,8 @@ public class OutputStreamManager extends AbstractManager implements ByteBufferDe
     /**
      * @since 2.7
      */
-    protected OutputStreamManager(final LoggerContext loggerContext, final OutputStream os, final String streamName,
+    @SuppressWarnings("required.method.not.called")  // false positive, this.outputStream was not already set
+    protected OutputStreamManager(final LoggerContext loggerContext, final @Owning OutputStream os, final String streamName,
             final boolean createOnDemand, final Layout<? extends Serializable> layout, final boolean writeHeader,
             final ByteBuffer byteBuffer) {
         super(loggerContext, streamName);
@@ -121,6 +125,7 @@ public class OutputStreamManager extends AbstractManager implements ByteBufferDe
     /**
      * Default hook to write footer during close.
      */
+    @EnsuresCalledMethods(value="outputStream", methods="close")
     @Override
     public boolean releaseSub(final long timeout, final TimeUnit timeUnit) {
         writeFooter();
@@ -165,14 +170,17 @@ public class OutputStreamManager extends AbstractManager implements ByteBufferDe
         return outputStream != null;
     }
 
-    protected OutputStream getOutputStream() throws IOException {
+    @SuppressWarnings({"required.method.not.called", "missing.creates.mustcall.for"})  // false positive, this.outputStream was not already set
+    protected @NotOwning OutputStream getOutputStream() throws IOException {
         if (outputStream == null) {
             outputStream = createOutputStream();
         }
         return outputStream;
     }
 
-    protected void setOutputStream(final OutputStream os) {
+    @CreatesMustCallFor("this")
+    protected void setOutputStream(final @Owning OutputStream os) {
+        closeOutputStream();
         this.outputStream = os;
     }
 
@@ -300,7 +308,8 @@ public class OutputStreamManager extends AbstractManager implements ByteBufferDe
         flushDestination();
     }
 
-    @EnsuresCalledMethods(value="stream", methods="close")
+    @SuppressWarnings("contracts.postcondition") // not closed if it's null or System.out or System.err
+    @EnsuresCalledMethods(value="outputStream", methods="close")
     protected synchronized boolean closeOutputStream() {
         flush();
         final OutputStream stream = outputStream; // access volatile field only once per method

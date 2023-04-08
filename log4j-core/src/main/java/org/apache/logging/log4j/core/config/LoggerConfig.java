@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.mustcall.qual.MustCall;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -91,7 +93,9 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
             try {
                 final Class<?> clazz = Loader.loadClass(factory);
                 if (clazz != null && LogEventFactory.class.isAssignableFrom(clazz)) {
-                    LOG_EVENT_FACTORY = (LogEventFactory) clazz.newInstance();
+                    @SuppressWarnings("mustcall:assignment")  // checker should handle `newInstance` specially
+                    @MustCall() LogEventFactory lef = (LogEventFactory) clazz.newInstance();
+                    LOG_EVENT_FACTORY = lef;
                 }
             } catch (final Exception ex) {
                 LOGGER.error("Unable to create LogEventFactory {}", factory, ex);

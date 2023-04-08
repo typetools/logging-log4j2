@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.mustcall.qual.Owning;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
@@ -150,7 +151,7 @@ public final class Loader {
      * @param defaultLoader The default ClassLoader.
      * @return An InputStream to read the resouce.
      */
-    public static InputStream getResourceAsStream(final String resource, final ClassLoader defaultLoader) {
+    public static @Owning InputStream getResourceAsStream(final String resource, final ClassLoader defaultLoader) {
         try {
             ClassLoader classLoader = getThreadContextClassLoader();
             InputStream is;

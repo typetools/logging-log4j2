@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.config.status;
 
+import org.checkerframework.checker.mustcall.qual.Owning;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -48,7 +49,7 @@ public class StatusConfiguration {
 
     private volatile boolean initialized;
 
-    private PrintStream destination = DEFAULT_STREAM;
+    private @Owning PrintStream destination = DEFAULT_STREAM;
     private Level status = DEFAULT_STATUS;
     private Verbosity verbosity = DEFAULT_VERBOSITY;
     private String[] verboseClasses;

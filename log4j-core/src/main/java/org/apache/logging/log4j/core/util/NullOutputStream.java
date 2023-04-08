@@ -17,6 +17,9 @@
 
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.mustcall.qual.MustCall;
+import org.checkerframework.checker.mustcall.qual.Owning;
+
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -29,6 +32,7 @@ import java.io.OutputStream;
  *
  * @since 2.3
  */
+@MustCall()  // no need to close NullOutputStream
 public class NullOutputStream extends OutputStream {
 
     private static final NullOutputStream INSTANCE = new NullOutputStream();
@@ -48,6 +52,7 @@ public class NullOutputStream extends OutputStream {
         return INSTANCE;
     }
 
+    @SuppressWarnings("super.invocation")  // no need to close NullOutputStream
     private NullOutputStream() {
         // do nothing
     }

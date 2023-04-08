@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.mustcall.qual.Owning;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -201,7 +202,7 @@ public final class RollingRandomAccessFileAppender extends AbstractOutputStreamA
     private final Advertiser advertiser;
 
     private RollingRandomAccessFileAppender(final String name, final Layout<? extends Serializable> layout,
-            final Filter filter, final RollingRandomAccessFileManager manager, final String fileName,
+            final Filter filter, final @Owning RollingRandomAccessFileManager manager, final String fileName,
             final String filePattern, final boolean ignoreExceptions, final boolean immediateFlush,
             final int bufferSize, final Advertiser advertiser, final Property[] properties) {
         super(name, layout, filter, ignoreExceptions, immediateFlush, properties, manager);

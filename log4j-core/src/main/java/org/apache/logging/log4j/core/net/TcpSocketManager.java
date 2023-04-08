@@ -17,7 +17,9 @@
 package org.apache.logging.log4j.core.net;
 
 import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.mustcall.qual.InheritableMustCall;
 import org.checkerframework.checker.mustcall.qual.Owning;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
@@ -44,6 +46,7 @@ import org.apache.logging.log4j.util.Strings;
 /**
  * Manager of TCP Socket connections.
  */
+@InheritableMustCall({"releaseSub", "closeOutputStream"})
 public class TcpSocketManager extends AbstractSocketManager {
     /**
      * The default reconnection delay (30000 milliseconds or 30 seconds).
@@ -99,7 +102,7 @@ public class TcpSocketManager extends AbstractSocketManager {
      *             {@link TcpSocketManager#TcpSocketManager(String, OutputStream, Socket, InetAddress, String, int, int, int, boolean, Layout, int, SocketOptions)}.
      */
     @Deprecated
-    public TcpSocketManager(final String name, final OutputStream os, final Socket socket,
+    public TcpSocketManager(final String name, final @Owning OutputStream os, final Socket socket,
             final InetAddress inetAddress, final String host, final int port, final int connectTimeoutMillis,
             final int reconnectionDelayMillis, final boolean immediateFail, final Layout<? extends Serializable> layout,
             final int bufferSize) {
@@ -133,7 +136,8 @@ public class TcpSocketManager extends AbstractSocketManager {
      * @param bufferSize
      *            The buffer size.
      */
-    public TcpSocketManager(final String name, final OutputStream os, final Socket socket,
+    @SuppressWarnings("required.method.not.called")  // https://tinyurl.com/cfissue/5672
+    public TcpSocketManager(final String name, final @Owning OutputStream os, final Socket socket,
             final InetAddress inetAddress, final String host, final int port, final int connectTimeoutMillis,
             final int reconnectionDelayMillis, final boolean immediateFail, final Layout<? extends Serializable> layout,
             final int bufferSize, final SocketOptions socketOptions) {
@@ -258,6 +262,7 @@ public class TcpSocketManager extends AbstractSocketManager {
         }
     }
 
+    @SuppressWarnings("required.method.not.called")  // called on an alias
     @EnsuresCalledMethods(value="socket", methods="close")
     @Override
     protected synchronized boolean closeOutputStream() {
@@ -367,6 +372,7 @@ public class TcpSocketManager extends AbstractSocketManager {
             }
         }
 
+        @SuppressWarnings("required.method.not.called")  // BUG: sock is not closed on exceptional exit
         private void connect(InetSocketAddress socketAddress) throws IOException {
             final Socket sock = createSocket(socketAddress);
             @SuppressWarnings("resource") // newOS is managed by the enclosing Manager.
@@ -407,12 +413,22 @@ public class TcpSocketManager extends AbstractSocketManager {
         final Socket newSocket = new Socket();
         if (socketOptions != null) {
             // Not sure which options must be applied before or after the connect() call.
-            socketOptions.apply(newSocket);
+            try {
+                socketOptions.apply(newSocket);
+            } catch (IOException e) {
+                newSocket.close();
+                throw e;
+            }
         }
         newSocket.connect(socketAddress, connectTimeoutMillis);
         if (socketOptions != null) {
             // Not sure which options must be applied before or after the connect() call.
-            socketOptions.apply(newSocket);
+            try {
+                socketOptions.apply(newSocket);
+            } catch (IOException e) {
+                newSocket.close();
+                throw e;
+            }
         }
         return newSocket;
     }
@@ -468,7 +484,7 @@ public class TcpSocketManager extends AbstractSocketManager {
         @Override
         public M createManager(final String name, final T data) {
             InetAddress inetAddress;
-            OutputStream os;
+            OutputStream os = null;
             try {
                 inetAddress = InetAddress.getByName(data.host);
             } catch (final UnknownHostException ex) {
@@ -483,6 +499,20 @@ public class TcpSocketManager extends AbstractSocketManager {
                 return createManager(name, os, socket, inetAddress, data);
             } catch (final IOException ex) {
                 LOGGER.error("TcpSocketManager ({}) caught exception and will continue:", name, ex);
+                if (socket != null) {
+                    try {
+                        socket.close();
+                    } catch (IOException e) {
+                        // do nothing
+                    }
+                }
+                if (os != null) {
+                    try {
+                        os.close();
+                    } catch (IOException e) {
+                        // do nothing
+                    }
+                }
                 os = NullOutputStream.getInstance();
             }
             if (data.reconnectDelayMillis == 0) {
@@ -493,7 +523,7 @@ public class TcpSocketManager extends AbstractSocketManager {
         }
 
         @SuppressWarnings("unchecked")
-        M createManager(final String name, final OutputStream os, final Socket socket, final InetAddress inetAddress, final T data) {
+        M createManager(final String name, final @Owning OutputStream os, final @Owning Socket socket, final InetAddress inetAddress, final T data) {
             return (M) new TcpSocketManager(name, os, socket, inetAddress, data.host, data.port,
                     data.connectTimeoutMillis, data.reconnectDelayMillis, data.immediateFail, data.layout,
                     data.bufferSize, data.socketOptions);

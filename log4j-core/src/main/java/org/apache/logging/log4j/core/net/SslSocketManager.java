@@ -185,6 +185,7 @@ public class SslSocketManager extends TcpSocketManager {
             final SslConfiguration sslConfiguration, final SocketOptions socketOptions) throws IOException {
         final SSLSocketFactory socketFactory = createSslSocketFactory(sslConfiguration);
         final SSLSocket socket = (SSLSocket) socketFactory.createSocket();
+        try {
         if (socketOptions != null) {
             // Not sure which options must be applied before or after the connect() call.
             socketOptions.apply(socket);
@@ -195,5 +196,13 @@ public class SslSocketManager extends TcpSocketManager {
             socketOptions.apply(socket);
         }
         return socket;
+        } catch (IOException e) {
+            try {
+                socket.close();
+            } catch (IOException e2) {
+                // nothing to do
+            }
+            throw e;
+        }
     }
 }

@@ -58,6 +58,7 @@ public class DatagramOutputStream extends OutputStream {
      * @param host The host to connect to.
      * @param port The port on the host.
      */
+    @SuppressWarnings("required.method.not.called")  // https://tinyurl.com/cfissue/5762
     public DatagramOutputStream(final String host, final int port, final byte[] header, final byte[] footer) {
         this.port = port;
         this.header = header;
@@ -117,7 +118,11 @@ public class DatagramOutputStream extends OutputStream {
     public synchronized void close() throws IOException {
         if (datagramSocket != null) {
             if (data != null) {
-                flush();
+                try {
+                    flush();
+                } catch (IOException e) {
+                    // nothing to do
+                }
             }
             datagramSocket.close();
             datagramSocket = null;

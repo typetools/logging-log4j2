@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.plugins.util;
 
+import java.util.stream.Stream;
 import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
 import java.io.File;
 import java.io.FileInputStream;
@@ -196,11 +197,10 @@ public class ResolverUtil {
                 if (VFSZIP.equals(url.getProtocol())) {
                     final String path = urlPath.substring(0, urlPath.length() - packageName.length() - 2);
                     final URL newURL = new URL(url.getProtocol(), url.getHost(), path);
-                    @SuppressWarnings("resource")
-                    final JarInputStream stream = new JarInputStream(newURL.openStream());
-                    try {
+                    // @SuppressWarnings("resource")
+                    try (final InputStream urlStream = newURL.openStream();
+                        final JarInputStream stream = new JarInputStream(urlStream)) {
                         loadImplementationsInJar(test, packageName, path, stream);
-                    } finally {
                         close(stream, newURL);
                     }
                 } else if (VFS.equals(url.getProtocol())) {
@@ -376,15 +376,12 @@ public class ResolverUtil {
      *        the jar file to be examined for classes
      */
     private void loadImplementationsInJar(final Test test, final String parent, final File jarFile) {
-        JarInputStream jarStream = null;
-        try {
-            jarStream = new JarInputStream(new FileInputStream(jarFile));
+        try (InputStream jarFileInputStream = new FileInputStream(jarFile); 
+             JarInputStream jarStream = new JarInputStream(jarFileInputStream)) {
             loadImplementationsInJar(test, parent, jarFile.getPath(), jarStream);
         } catch (final IOException ex) {
             LOGGER.error("Could not search JAR file '{}' for classes matching criteria {}, file not found", jarFile,
-                    test, ex);
-        } finally {
-            close(jarStream, jarFile);
+                         test, ex);
         }
     }
 

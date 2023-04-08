@@ -1498,6 +1498,7 @@
             <exclude>**/TAGS</exclude>
             <exclude>**/target/**/*</exclude>
             <exclude>TAGS</exclude>
+            <exclude>Readme-Checker-Framework.md</exclude>
             <!-- Matches other RAT configurations in this POM -->
             <exclude>src/main/resources/META-INF/services/**/*</exclude>
             <!-- IntelliJ files -->
@@ -1983,6 +1984,7 @@
               <compilerArgs>
                 <!-- <arg>-Awarns</arg> --> <!-- -Awarns turns type-checking errors into warnings. -->
                 <arg>-AwarnUnneededSuppressions</arg>
+                <!-- <arg>-AshowSuppressWarningsStrings</arg> -->
                 <arg>-nowarn</arg>
                 <arg>-Xlint:none</arg>
               </compilerArgs>

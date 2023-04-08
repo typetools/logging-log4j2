@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.mustcall.qual.Owning;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -43,7 +44,7 @@ public abstract class AbstractWriterAppender<M extends WriterManager> extends Ab
      * application crashes.
      */
     protected final boolean immediateFlush;
-    private final M manager;
+    private final @Owning M manager;
     private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
     private final Lock readLock = readWriteLock.readLock();
 
@@ -60,7 +61,7 @@ public abstract class AbstractWriterAppender<M extends WriterManager> extends Ab
      *            The OutputStreamManager.
      */
     protected AbstractWriterAppender(final String name, final StringLayout layout, final Filter filter,
-            final boolean ignoreExceptions, final boolean immediateFlush, final Property[] properties, final M manager) {
+            final boolean ignoreExceptions, final boolean immediateFlush, final Property[] properties, final @Owning M manager) {
         super(name, filter, layout, ignoreExceptions, properties);
         this.manager = manager;
         this.immediateFlush = immediateFlush;
@@ -79,7 +80,7 @@ public abstract class AbstractWriterAppender<M extends WriterManager> extends Ab
      */
     @Deprecated
     protected AbstractWriterAppender(final String name, final StringLayout layout, final Filter filter,
-            final boolean ignoreExceptions, final boolean immediateFlush, final M manager) {
+            final boolean ignoreExceptions, final boolean immediateFlush, final @Owning M manager) {
         super(name, filter, layout, ignoreExceptions, Property.EMPTY_ARRAY);
         this.manager = manager;
         this.immediateFlush = immediateFlush;

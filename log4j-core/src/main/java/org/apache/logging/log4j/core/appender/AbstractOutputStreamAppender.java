@@ -16,6 +16,11 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.mustcall.qual.InheritableMustCall;
+import org.checkerframework.checker.mustcall.qual.NotOwning;
+import org.checkerframework.checker.mustcall.qual.Owning;
+
 import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
@@ -31,6 +36,7 @@ import org.apache.logging.log4j.core.util.Constants;
  *
  * @param <M> The kind of {@link OutputStreamManager} under management
  */
+@InheritableMustCall("stop")
 public abstract class AbstractOutputStreamAppender<M extends OutputStreamManager> extends AbstractAppender {
 
     /**
@@ -104,7 +110,7 @@ public abstract class AbstractOutputStreamAppender<M extends OutputStreamManager
      */
     private final boolean immediateFlush;
 
-    private final M manager;
+    private final @Owning M manager;
 
     /**
      * Instantiates a WriterAppender and set the output destination to a new {@link java.io.OutputStreamWriter}
@@ -117,7 +123,7 @@ public abstract class AbstractOutputStreamAppender<M extends OutputStreamManager
      */
     @Deprecated
     protected AbstractOutputStreamAppender(final String name, final Layout<? extends Serializable> layout,
-            final Filter filter, final boolean ignoreExceptions, final boolean immediateFlush, final M manager) {
+            final Filter filter, final boolean ignoreExceptions, final boolean immediateFlush, final @Owning M manager) {
         super(name, filter, layout, ignoreExceptions, Property.EMPTY_ARRAY);
         this.manager = manager;
         this.immediateFlush = immediateFlush;
@@ -134,7 +140,7 @@ public abstract class AbstractOutputStreamAppender<M extends OutputStreamManager
      */
     protected AbstractOutputStreamAppender(final String name, final Layout<? extends Serializable> layout,
             final Filter filter, final boolean ignoreExceptions, final boolean immediateFlush,
-            final Property[] properties, final M manager) {
+            final Property[] properties, final @Owning M manager) {
         super(name, filter, layout, ignoreExceptions, properties);
         this.manager = manager;
         this.immediateFlush = immediateFlush;
@@ -154,7 +160,7 @@ public abstract class AbstractOutputStreamAppender<M extends OutputStreamManager
      *
      * @return the manager.
      */
-    public M getManager() {
+    public @NotOwning M getManager() {
         return manager;
     }
 
@@ -169,11 +175,13 @@ public abstract class AbstractOutputStreamAppender<M extends OutputStreamManager
         super.start();
     }
 
+    @EnsuresCalledMethods(value="manager", methods="releaseSub")
     @Override
     public boolean stop(final long timeout, final TimeUnit timeUnit) {
         return stop(timeout, timeUnit, true);
     }
 
+    @EnsuresCalledMethods(value="manager", methods="releaseSub")
     @Override
     protected boolean stop(final long timeout, final TimeUnit timeUnit, final boolean changeLifeCycleState) {
         boolean stopped = super.stop(timeout, timeUnit, changeLifeCycleState);

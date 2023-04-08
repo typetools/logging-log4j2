@@ -16,6 +16,11 @@
  */
 package org.apache.logging.log4j.core.appender.nosql;
 
+import java.io.IOException;
+import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
+import org.checkerframework.checker.mustcall.qual.InheritableMustCall;
+import org.checkerframework.checker.mustcall.qual.Owning;
+
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -38,6 +43,7 @@ import org.apache.logging.log4j.util.ReadOnlyStringMap;
  *
  * @param <W> A type parameter for reassuring the compiler that all operations are using the same {@link NoSqlObject}.
  */
+@InheritableMustCall("shutdownInternal")
 public final class NoSqlDatabaseManager<W> extends AbstractDatabaseManager {
     /**
      * Encapsulates data that {@link NoSQLDatabaseManagerFactory} uses to create managers.
@@ -98,7 +104,7 @@ public final class NoSqlDatabaseManager<W> extends AbstractDatabaseManager {
 
     private final NoSqlProvider<NoSqlConnection<W, ? extends NoSqlObject<W>>> provider;
 
-    private NoSqlConnection<W, ? extends NoSqlObject<W>> connection;
+    private @Owning NoSqlConnection<W, ? extends NoSqlObject<W>> connection;
 
     private final KeyValuePair[] additionalFields;
 
@@ -137,6 +143,9 @@ public final class NoSqlDatabaseManager<W> extends AbstractDatabaseManager {
     @Override
     protected void connectAndStart() {
         try {
+            if (this.connection != null) {
+                this.connection.close();
+            }
             this.connection = this.provider.getConnection();
         } catch (final Exception e) {
             throw new AppenderLoggingException("Failed to get connection from NoSQL connection provider.", e);
@@ -239,6 +248,7 @@ public final class NoSqlDatabaseManager<W> extends AbstractDatabaseManager {
         mapMessage.forEach((key, value) -> noSqlObject.set(key, value));
     }
 
+    @EnsuresCalledMethods(value="this.connection", methods="close")
     @Override
     protected boolean shutdownInternal() {
         // NoSQL doesn't use transactions, so all we need to do here is simply close the client

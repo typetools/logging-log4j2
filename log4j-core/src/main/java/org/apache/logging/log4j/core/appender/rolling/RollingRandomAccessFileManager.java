@@ -17,7 +17,7 @@
 package org.apache.logging.log4j.core.appender.rolling;
 
 import org.checkerframework.checker.calledmethods.qual.EnsuresCalledMethods;
-import org.checkerframework.checker.mustcall.qual.MustCall;
+import org.checkerframework.checker.mustcall.qual.InheritableMustCall;
 import org.checkerframework.checker.mustcall.qual.Owning;
 import java.io.File;
 import java.io.IOException;
@@ -40,7 +40,7 @@ import org.apache.logging.log4j.core.util.NullOutputStream;
  * Extends RollingFileManager but instead of using a buffered output stream, this class uses a {@code ByteBuffer} and a
  * {@code RandomAccessFile} to do the I/O.
  */
-@MustCall("closeOutputStream")
+@InheritableMustCall("closeOutputStream")
 public class RollingRandomAccessFileManager extends RollingFileManager {
     /**
      * The default buffer size.
@@ -64,7 +64,8 @@ public class RollingRandomAccessFileManager extends RollingFileManager {
     /**
      * @since 2.8.3
      */
-    public RollingRandomAccessFileManager(final LoggerContext loggerContext, final RandomAccessFile raf,
+    @SuppressWarnings("required.method.not.called")  // initialization in constructor
+    public RollingRandomAccessFileManager(final LoggerContext loggerContext, final @Owning RandomAccessFile raf,
             final String fileName, final String pattern, final OutputStream os, final boolean append,
             final boolean immediateFlush, final int bufferSize, final long size, final long initialTime,
             final TriggeringPolicy policy, final RolloverStrategy strategy, final String advertiseURI,
@@ -162,6 +163,7 @@ public class RollingRandomAccessFileManager extends RollingFileManager {
     }
 
     private void createFileAfterRollover(final String fileName) throws IOException {
+        closeOutputStream();
         this.randomAccessFile = new RandomAccessFile(fileName, "rw");
         if (isAttributeViewEnabled()) {
             defineAttributeView(Paths.get(fileName));

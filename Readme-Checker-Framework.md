@@ -27,6 +27,8 @@ The output is
 ...
 ```
 
+Search for "mustcall" and "resourceleak" within a `@SuppressWarnings` annotation.
+
 The lack of error messages in the output console log (and the correctness of `@SuppressWarnings("resourceleak")` in the source code) proves that the project contains no resource leaks.
 
 4. Examine the changes made to the source code to support the Resource Leak Checker.
