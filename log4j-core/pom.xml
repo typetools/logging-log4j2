@@ -217,19 +217,21 @@
             </configuration>
           </execution>
           <!-- <execution> -->
-          <!--   <!-\- then do a processing-only pass to generate plugins .dat file -\-> -->
-          <!--   <id>process-plugins</id> -->
-          <!--   <goals> -->
-          <!--     <goal>compile</goal> -->
-          <!--   </goals> -->
-          <!--   <phase>process-classes</phase> -->
-          <!--   <configuration> -->
-          <!--     <excludes> -->
-          <!--       <exclude>module-info.java</exclude> -->
-          <!--     </excludes> -->
-          <!--     <proc>only</proc> -->
-          <!--   </configuration> -->
-          <!-- </execution> -->
+            <!-- then do a processing-only pass to generate plugins .dat file -->
+            <!--
+            <id>process-plugins</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <phase>process-classes</phase>
+            <configuration>
+              <excludes>
+                <exclude>module-info.java</exclude>
+              </excludes>
+              <proc>only</proc>
+            </configuration>
+          </execution>
+          -->
         </executions>
       </plugin>
       <plugin>
