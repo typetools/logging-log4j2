@@ -63,15 +63,15 @@ public class ThrowableProxy implements Serializable {
 
     private final ExtendedStackTraceElement[] extendedStackTrace;
 
-    private final String localizedMessage;
+    private final @Nullable String localizedMessage;
 
     private final @Nullable String message;
 
-    private final String name;
+    private final @Nullable String name;
 
     private final ThrowableProxy[] suppressedProxies;
 
-    private final transient Throwable throwable;
+    private final transient @Nullable Throwable throwable;
 
     static final ThrowableProxy[] EMPTY_ARRAY = {};
 

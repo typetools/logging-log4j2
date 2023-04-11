@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -172,7 +173,7 @@ public class FileManager extends OutputStreamManager {
      * @return A FileManager for the File.
      */
     public static FileManager getFileManager(final String fileName, final boolean append, boolean locking,
-            final boolean bufferedIo, final boolean createOnDemand, final String advertiseUri,
+            final boolean bufferedIo, final boolean createOnDemand, final @Nullable String advertiseUri,
             final Layout<? extends Serializable> layout,
             final int bufferSize, final @Nullable String filePermissions, final @Nullable String fileOwner, final String fileGroup,
             final Configuration configuration) {

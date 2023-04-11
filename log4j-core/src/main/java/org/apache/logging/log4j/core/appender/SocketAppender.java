@@ -287,7 +287,7 @@ public class SocketAppender extends AbstractOutputStreamAppender<AbstractSocketM
         return new Builder();
     }
 
-    private final Object advertisement;
+    private final @Nullable Object advertisement;
     private final Advertiser advertiser;
 
     protected SocketAppender(final String name, final Layout<? extends Serializable> layout, final Filter filter,

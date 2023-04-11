@@ -136,7 +136,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
         @PluginElement("Properties")
         private Property @Nullable [] properties;
         @PluginConfiguration
-        private Configuration config;
+        private @Nullable Configuration config;
         @PluginElement("Filter")
         private @Nullable Filter filter;
 
