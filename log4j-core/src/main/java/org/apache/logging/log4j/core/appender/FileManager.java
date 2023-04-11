@@ -119,7 +119,7 @@ public class FileManager extends OutputStreamManager {
      */
     protected FileManager(final LoggerContext loggerContext, final String fileName, final OutputStream os, final boolean append, final boolean locking,
             final boolean createOnDemand, final String advertiseURI, final Layout<? extends Serializable> layout,
-            final String filePermissions, final String fileOwner, final String fileGroup, final boolean writeHeader,
+            final @Nullable String filePermissions, final @Nullable String fileOwner, final @Nullable String fileGroup, final boolean writeHeader,
             final ByteBuffer buffer) {
         super(loggerContext, os, fileName, createOnDemand, layout, writeHeader, buffer);
         this.isAppend = append;
@@ -175,7 +175,7 @@ public class FileManager extends OutputStreamManager {
     public static FileManager getFileManager(final String fileName, final boolean append, boolean locking,
             final boolean bufferedIo, final boolean createOnDemand, final @Nullable String advertiseUri,
             final Layout<? extends Serializable> layout,
-            final int bufferSize, final String filePermissions, final String fileOwner, final String fileGroup,
+            final int bufferSize, final @Nullable String filePermissions, final @Nullable String fileOwner, final @Nullable String fileGroup,
             final Configuration configuration) {
 
         if (locking && bufferedIo) {
@@ -326,7 +326,7 @@ public class FileManager extends OutputStreamManager {
      * @return File POSIX permissions
      * @see PosixFileAttributeView
      */
-    public Set<PosixFilePermission> getFilePermissions() {
+    public @Nullable Set<PosixFilePermission> getFilePermissions() {
         return filePermissions;
     }
 
@@ -336,7 +336,7 @@ public class FileManager extends OutputStreamManager {
      * @return File owner
      * @see FileOwnerAttributeView
      */
-    public String getFileOwner() {
+    public @Nullable String getFileOwner() {
         return fileOwner;
     }
 
@@ -346,7 +346,7 @@ public class FileManager extends OutputStreamManager {
      * @return File group
      * @see PosixFileAttributeView
      */
-    public String getFileGroup() {
+    public @Nullable String getFileGroup() {
         return fileGroup;
     }
 
@@ -383,8 +383,8 @@ public class FileManager extends OutputStreamManager {
         private final String advertiseURI;
         private final Layout<? extends Serializable> layout;
         private final String filePermissions;
-        private final String fileOwner;
-        private final String fileGroup;
+        private final @Nullable String fileOwner;
+        private final @Nullable String fileGroup;
 
         /**
          * Constructor.
@@ -402,7 +402,7 @@ public class FileManager extends OutputStreamManager {
          */
         public FactoryData(final boolean append, final boolean locking, final boolean bufferedIo, final int bufferSize,
                 final boolean createOnDemand, final String advertiseURI, final Layout<? extends Serializable> layout,
-                final String filePermissions, final String fileOwner, final String fileGroup,
+                final String filePermissions, final @Nullable String fileOwner, final @Nullable String fileGroup,
                 final Configuration configuration) {
             super(configuration);
             this.append = append;

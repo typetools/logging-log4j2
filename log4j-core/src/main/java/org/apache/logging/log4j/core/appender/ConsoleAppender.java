@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -98,7 +99,7 @@ public final class ConsoleAppender extends AbstractOutputStreamAppender<OutputSt
 
     private ConsoleAppender(final String name, final Layout<? extends Serializable> layout, final Filter filter,
             final OutputStreamManager manager, final boolean ignoreExceptions, final Target target,
-            final Property[] properties) {
+            final Property @Nullable [] properties) {
         super(name, layout, filter, ignoreExceptions, true, properties, manager);
         this.target = target;
     }
