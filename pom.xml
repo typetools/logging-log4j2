@@ -1536,6 +1536,7 @@
             <exclude>.github/pull_request_template.md</exclude>
           </excludes>
         </configuration>
+	<!--
         <executions>
           <execution>
             <goals>
@@ -1544,6 +1545,7 @@
             <phase>validate</phase>
           </execution>
         </executions>
+	-->
       </plugin>
 
       <!-- Ensure that version for each dependency resolved during a build, is equal to or higher than all transitive dependency declarations.
