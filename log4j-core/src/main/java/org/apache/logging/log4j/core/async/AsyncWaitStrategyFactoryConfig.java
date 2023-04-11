@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.async;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import com.lmax.disruptor.TimeoutBlockingWaitStrategy;
 import com.lmax.disruptor.WaitStrategy;
 import org.apache.logging.log4j.core.Core;
@@ -88,7 +89,7 @@ public class AsyncWaitStrategyFactoryConfig {
         }
     }
 
-    public AsyncWaitStrategyFactory createWaitStrategyFactory() {
+    public @Nullable AsyncWaitStrategyFactory createWaitStrategyFactory() {
         try {
             @SuppressWarnings("unchecked")
             final Class<? extends AsyncWaitStrategyFactory> klass = (Class<? extends AsyncWaitStrategyFactory>) Loader.loadClass(factoryClassName);

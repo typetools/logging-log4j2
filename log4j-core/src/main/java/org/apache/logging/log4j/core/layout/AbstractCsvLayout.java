@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.nio.charset.Charset;
 
 import org.apache.commons.csv.CSVFormat;
@@ -36,7 +37,7 @@ public abstract class AbstractCsvLayout extends AbstractStringLayout {
     private static final String CONTENT_TYPE = "text/csv";
 
     protected static CSVFormat createFormat(final String format, final Character delimiter, final Character escape,
-            final Character quote, final QuoteMode quoteMode, final String nullString, final String recordSeparator) {
+            final Character quote, final @Nullable QuoteMode quoteMode, final @Nullable String nullString, final @Nullable String recordSeparator) {
         CSVFormat csvFormat = CSVFormat.valueOf(format);
         if (isNotNul(delimiter)) {
             csvFormat = csvFormat.withDelimiter(delimiter);
@@ -59,7 +60,7 @@ public abstract class AbstractCsvLayout extends AbstractStringLayout {
         return csvFormat;
     }
 
-    private static boolean isNotNul(final Character character) {
+    private static boolean isNotNul(final @Nullable Character character) {
         return character != null && character.charValue() != 0;
     }
 

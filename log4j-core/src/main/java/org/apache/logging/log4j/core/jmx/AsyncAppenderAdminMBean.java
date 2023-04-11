@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.jmx;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  * The MBean interface for monitoring and managing an {@code AsyncAppender}.
  */
@@ -123,7 +125,7 @@ public interface AsyncAppenderAdminMBean {
      * Returns the name of the appender that any errors are logged to or {@code null}.
      * @return the name of the appender that any errors are logged to or {@code null}
      */
-    String getErrorRef();
+    @Nullable String getErrorRef();
 
     int getQueueCapacity();
 

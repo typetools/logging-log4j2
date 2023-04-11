@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.jmx;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Objects;
 
 import javax.management.ObjectName;
@@ -118,7 +119,7 @@ public class AsyncAppenderAdmin implements AsyncAppenderAdminMBean {
      * @return the name of the appender that any errors are logged to or {@code null}
      */
     @Override
-    public String getErrorRef() {
+    public @Nullable String getErrorRef() {
         return asyncAppender.getErrorRef();
     }
 

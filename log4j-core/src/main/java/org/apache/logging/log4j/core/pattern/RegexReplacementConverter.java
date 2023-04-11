@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -59,7 +60,7 @@ public final class RegexReplacementConverter extends LogEventPatternConverter {
      *                only the first line of the throwable will be formatted.
      * @return instance of class.
      */
-    public static RegexReplacementConverter newInstance(final Configuration config, final String[] options) {
+    public static @Nullable RegexReplacementConverter newInstance(final Configuration config, final String @Nullable [] options) {
         if (options.length != 3) {
             LOGGER.error("Incorrect number of options on replace. Expected 3 received " + options.length);
             return null;

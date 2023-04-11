@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.arbiters;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import javax.script.SimpleBindings;
 
 import org.apache.logging.log4j.Logger;
@@ -87,7 +88,7 @@ public class ScriptArbiter implements Arbiter {
             return this;
         }
 
-        public ScriptArbiter build() {
+        public @Nullable ScriptArbiter build() {
             AbstractScript script = null;
             for (Node child : node.getChildren()) {
                 PluginType<?> type = child.getType();

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.composite;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -237,7 +238,7 @@ public class DefaultMergeStrategy implements MergeStrategy {
         }
     }
 
-    private Node getLoggerNode(final Node parentNode, final String name) {
+    private @Nullable Node getLoggerNode(final Node parentNode, final @Nullable String name) {
         for (final Node node : parentNode.getChildren()) {
             final String nodeName = node.getAttributes().get(NAME);
             if (name == null && nodeName == null) {

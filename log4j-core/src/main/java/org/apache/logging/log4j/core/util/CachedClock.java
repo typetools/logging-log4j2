@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.concurrent.locks.LockSupport;
 
 /**
@@ -28,7 +29,7 @@ import java.util.concurrent.locks.LockSupport;
  */
 public final class CachedClock implements Clock {
     private static final int UPDATE_THRESHOLD = 1000;
-    private static volatile CachedClock instance;
+    private static volatile @Nullable CachedClock instance;
     private static final Object INSTANCE_LOCK = new Object();
     private volatile long millis = System.currentTimeMillis();
     private short count = 0;

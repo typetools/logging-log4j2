@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.filter;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -250,9 +251,9 @@ public final class TimeFilter extends AbstractFilter {
     public static TimeFilter createFilter(
             @PluginAttribute("start") final String start,
             @PluginAttribute("end") final String end,
-            @PluginAttribute("timezone") final String tz,
-            @PluginAttribute("onMatch") final Result match,
-            @PluginAttribute("onMismatch") final Result mismatch) {
+            @PluginAttribute("timezone") final @Nullable String tz,
+            @PluginAttribute("onMatch") final @Nullable Result match,
+            @PluginAttribute("onMismatch") final @Nullable Result mismatch) {
         final LocalTime startTime = parseTimestamp(start, LocalTime.MIN);
         final LocalTime endTime = parseTimestamp(end, LocalTime.MAX);
         final ZoneId timeZone = tz == null ? ZoneId.systemDefault() : ZoneId.of(tz);
@@ -261,7 +262,7 @@ public final class TimeFilter extends AbstractFilter {
         return new TimeFilter(startTime, endTime, timeZone, onMatch, onMismatch);
     }
 
-    private static LocalTime parseTimestamp(final String timestamp, final LocalTime defaultValue) {
+    private static LocalTime parseTimestamp(final @Nullable String timestamp, final LocalTime defaultValue) {
         if (timestamp == null) {
             return defaultValue;
         }

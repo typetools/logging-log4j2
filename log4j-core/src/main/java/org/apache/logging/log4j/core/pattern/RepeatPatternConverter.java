@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
@@ -31,7 +32,7 @@ import org.apache.logging.log4j.util.Strings;
 @PerformanceSensitive("allocation")
 public final class RepeatPatternConverter extends LogEventPatternConverter {
 
-    private final String result;
+    private final @Nullable String result;
 
     /**
      * Gets an instance of the class.
@@ -40,7 +41,7 @@ public final class RepeatPatternConverter extends LogEventPatternConverter {
      * @param options pattern options, an array of two elements: repeatString and count.
      * @return instance of class.
      */
-    public static RepeatPatternConverter newInstance(final Configuration config, final String[] options) {
+    public static @Nullable RepeatPatternConverter newInstance(final Configuration config, final String[] options) {
         if (options.length != 2) {
             LOGGER.error("Incorrect number of options on repeat. Expected 2 received " + options.length);
             return null;

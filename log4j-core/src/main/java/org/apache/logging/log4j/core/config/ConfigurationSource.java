@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -56,8 +57,8 @@ public class ConfigurationSource {
     public static final ConfigurationSource COMPOSITE_SOURCE = new ConfigurationSource(Constants.EMPTY_BYTE_ARRAY, null, 0);
 
     private final InputStream stream;
-    private volatile byte[] data;
-    private volatile Source source;
+    private volatile byte @Nullable [] data;
+    private volatile @Nullable Source source;
     private final long lastModified;
     // Set when the configuration has been updated so reset can use it for the next lastModified timestamp.
     private volatile long modifiedMillis;
@@ -157,7 +158,7 @@ public class ConfigurationSource {
         this.source = source;
     }
 
-    private ConfigurationSource(final byte[] data, final URL url, long lastModified) {
+    private ConfigurationSource(final byte[] data, final @Nullable URL url, long lastModified) {
         this.data = Objects.requireNonNull(data, "data is null");
         this.stream = new ByteArrayInputStream(data);
         this.lastModified = lastModified;
@@ -194,7 +195,7 @@ public class ConfigurationSource {
      *
      * @return the configuration source file, or {@code null}
      */
-    public File getFile() {
+    public @Nullable File getFile() {
         return source == null ? null : source.getFile();
     }
 
@@ -216,7 +217,7 @@ public class ConfigurationSource {
      *
      * @return the configuration source URL, or {@code null}
      */
-    public URL getURL() {
+    public @Nullable URL getURL() {
         return source == null ? null : source.getURL();
     }
 
@@ -240,7 +241,7 @@ public class ConfigurationSource {
      * Returns a URI representing the configuration resource or null if it cannot be determined.
      * @return The URI.
      */
-    public URI getURI() {
+    public @Nullable URI getURI() {
         return source == null ? null : source.getURI();
     }
 
@@ -258,7 +259,7 @@ public class ConfigurationSource {
      *
      * @return a string describing the configuration source file or URL, or {@code null}
      */
-    public String getLocation() {
+    public @Nullable String getLocation() {
         return source == null ? null : source.getLocation();
     }
 
@@ -277,7 +278,7 @@ public class ConfigurationSource {
      * @return a new {@code ConfigurationSource}
      * @throws IOException if a problem occurred while opening the new input stream
      */
-    public ConfigurationSource resetInputStream() throws IOException {
+    public @Nullable ConfigurationSource resetInputStream() throws IOException {
         if (source != null && data != null) {
             return new ConfigurationSource(source, data, this.lastModified);
         } else if (isFile()) {
@@ -310,7 +311,7 @@ public class ConfigurationSource {
      * @param configLocation A URI representing the location of the configuration.
      * @return The ConfigurationSource for the configuration.
      */
-    public static ConfigurationSource fromUri(final URI configLocation) {
+    public static @Nullable ConfigurationSource fromUri(final URI configLocation) {
         final File configFile = FileUtils.fileFromUri(configLocation);
         if (configFile != null && configFile.exists() && configFile.canRead()) {
             try {
@@ -342,7 +343,7 @@ public class ConfigurationSource {
      * @param loader The default ClassLoader to use.
      * @return The ConfigurationSource for the configuration.
      */
-    public static ConfigurationSource fromResource(final String resource, final ClassLoader loader) {
+    public static @Nullable ConfigurationSource fromResource(final String resource, final ClassLoader loader) {
         final URL url = Loader.getResource(resource, loader);
         if (url == null) {
             return null;
@@ -350,7 +351,7 @@ public class ConfigurationSource {
         return getConfigurationSource(url);
     }
 
-    private static ConfigurationSource getConfigurationSource(URL url) {
+    private static @Nullable ConfigurationSource getConfigurationSource(URL url) {
         try {
             File file = FileUtils.fileFromUri(url.toURI());
             URLConnection urlConnection = UrlConnectionFactory.createConnection(url);

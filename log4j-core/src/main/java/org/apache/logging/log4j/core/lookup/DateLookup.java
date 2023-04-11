@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.lookup;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,7 +44,7 @@ public class DateLookup implements StrLookup {
      * @return The formatted current date, never null.
      */
     @Override
-    public String lookup(final String key) {
+    public String lookup(final @Nullable String key) {
         return formatDate(System.currentTimeMillis(), key);
     }
 
@@ -54,11 +55,11 @@ public class DateLookup implements StrLookup {
      * @return The formatted date, never null.
      */
     @Override
-    public String lookup(final LogEvent event, final String key) {
+    public String lookup(final @Nullable LogEvent event, final @Nullable String key) {
         return event == null ? lookup(key) : formatDate(event.getTimeMillis(), key);
     }
 
-    private String formatDate(final long date, final String format) {
+    private String formatDate(final long date, final @Nullable String format) {
         DateFormat dateFormat = null;
         if (format != null) {
             try {

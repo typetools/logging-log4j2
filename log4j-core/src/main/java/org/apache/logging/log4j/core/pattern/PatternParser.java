@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -85,7 +86,7 @@ public final class PatternParser {
 
     private static final int DECIMAL = 10;
 
-    private final Configuration config;
+    private final @Nullable Configuration config;
 
     private final Map<String, Class<PatternConverter>> converterRules;
 
@@ -109,7 +110,7 @@ public final class PatternParser {
      * @param expected
      *            The expected base Class of each Converter or {@code null}.
      */
-    public PatternParser(final Configuration config, final String converterKey, final Class<?> expected) {
+    public PatternParser(final @Nullable Configuration config, final String converterKey, final Class<?> expected) {
         this(config, converterKey, expected, null);
     }
 
@@ -125,8 +126,8 @@ public final class PatternParser {
      * @param filterClass
      *            Filter the returned plugins after calling the plugin manager, can be {@code null}.
      */
-    public PatternParser(final Configuration config, final String converterKey, final Class<?> expectedClass,
-            final Class<?> filterClass) {
+    public PatternParser(final @Nullable Configuration config, final String converterKey, final @Nullable Class<?> expectedClass,
+            final @Nullable Class<?> filterClass) {
         this.config = config;
         final PluginManager manager = new PluginManager(converterKey);
         manager.collectPlugins(config == null ? null : config.getPluginPackages());
@@ -516,8 +517,8 @@ public final class PatternParser {
      *            do not do not output ANSI escape codes if {@link System#console()}
      * @return converter or null.
      */
-    private PatternConverter createConverter(final String converterId, final StringBuilder currentLiteral,
-            final Map<String, Class<PatternConverter>> rules, final List<String> options, final boolean disableAnsi,
+    private @Nullable PatternConverter createConverter(final String converterId, final StringBuilder currentLiteral,
+            final Map<String, @Nullable Class<PatternConverter>> rules, final List<String> options, final boolean disableAnsi,
             final boolean noConsoleNoAnsi) {
         String converterName = converterId;
         Class<PatternConverter> converterClass = null;

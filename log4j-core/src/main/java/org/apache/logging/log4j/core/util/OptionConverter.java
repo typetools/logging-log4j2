@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.InterruptedIOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -126,7 +127,7 @@ public final class OptionConverter {
      * @param defaultValue The default value.
      * @return true or false, depending on the value and/or default.
      */
-    public static boolean toBoolean(final String value, final boolean defaultValue) {
+    public static boolean toBoolean(final @Nullable String value, final boolean defaultValue) {
         if (value == null) {
             return defaultValue;
         }
@@ -146,7 +147,7 @@ public final class OptionConverter {
      * @param defaultValue The default value.
      * @return The value as an int.
      */
-    public static int toInt(final String value, final int defaultValue) {
+    public static int toInt(final @Nullable String value, final int defaultValue) {
         if (value != null) {
             final String s = value;
             try {
@@ -158,7 +159,7 @@ public final class OptionConverter {
         return defaultValue;
     }
 
-    public static Level toLevel(String value, Level defaultValue) {
+    public static @Nullable Level toLevel(@Nullable String value, @Nullable Level defaultValue) {
         if(value == null) {
             return defaultValue;
         }
@@ -229,7 +230,7 @@ public final class OptionConverter {
      * @param defaultValue The default value.
      * @return The size of the file as a long.
      */
-    public static long toFileSize(final String value, final long defaultValue) {
+    public static long toFileSize(final @Nullable String value, final long defaultValue) {
         if (value == null) {
             return defaultValue;
         }
@@ -265,7 +266,7 @@ public final class OptionConverter {
      * @param props The properties.
      * @return The String after substitution.
      */
-    public static String findAndSubst(final String key, final Properties props) {
+    public static @Nullable String findAndSubst(final @Nullable String key, final Properties props) {
         final String value = props.getProperty(key);
         if (value == null) {
             return null;
@@ -290,7 +291,7 @@ public final class OptionConverter {
      * @param defaultValue The object to return in case of non-fulfillment
      * @return The created object.
      */
-    public static Object instantiateByClassName(final String className, final Class<?> superClass,
+    public static Object instantiateByClassName(final @Nullable String className, final Class<?> superClass,
                                          final Object defaultValue) {
         if (className != null) {
             try {

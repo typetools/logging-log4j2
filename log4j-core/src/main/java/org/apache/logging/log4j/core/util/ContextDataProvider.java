@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.impl.JdkMapAdapterStringMap;
 import org.apache.logging.log4j.util.StringMap;
 
@@ -30,7 +31,7 @@ public interface ContextDataProvider {
      * Returns a Map containing context data to be injected into the event or null if no context data is to be added.
      * @return A Map containing the context data or null.
      */
-    Map<String, String> supplyContextData();
+    @Nullable Map<String, String> supplyContextData();
 
     /**
      * Returns the context data as a StringMap.

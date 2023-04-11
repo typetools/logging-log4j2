@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -57,7 +58,7 @@ public final class FileUtils {
      * @param uri the URI
      * @return the resulting file object
      */
-    public static File fileFromUri(URI uri) {
+    public static @Nullable File fileFromUri(@Nullable URI uri) {
         if (uri == null) {
             return null;
         }
@@ -92,11 +93,11 @@ public final class FileUtils {
         return null;
     }
 
-    public static boolean isFile(final URL url) {
+    public static boolean isFile(final @Nullable URL url) {
         return url != null && (url.getProtocol().equals(PROTOCOL_FILE) || url.getProtocol().equals(JBOSS_FILE));
     }
 
-    public static String getFileExtension(final File file) {
+    public static @Nullable String getFileExtension(final File file) {
         final String fileName = file.getName();
         if (fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0) {
             return fileName.substring(fileName.lastIndexOf(".") + 1);
@@ -152,9 +153,9 @@ public final class FileUtils {
      * @throws IOException If IO error during definition of file attribute view
      */
     public static void defineFilePosixAttributeView(final Path path,
-            final Set<PosixFilePermission> filePermissions,
-            final String fileOwner,
-            final String fileGroup) throws IOException {
+            final @Nullable Set<PosixFilePermission> filePermissions,
+            final @Nullable String fileOwner,
+            final @Nullable String fileGroup) throws IOException {
         final PosixFileAttributeView view = Files.getFileAttributeView(path, PosixFileAttributeView.class);
         if (view != null) {
             final UserPrincipalLookupService lookupService = FileSystems.getDefault()

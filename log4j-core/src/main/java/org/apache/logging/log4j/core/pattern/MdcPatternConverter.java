@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.util.PerformanceSensitive;
 import org.apache.logging.log4j.util.ReadOnlyStringMap;
 import org.apache.logging.log4j.core.LogEvent;
@@ -38,8 +39,8 @@ public final class MdcPatternConverter extends LogEventPatternConverter {
     /**
      * Name of property to output.
      */
-    private final String key;
-    private final String[] keys;
+    private final @Nullable String key;
+    private final String @Nullable [] keys;
     private final boolean full;
 
     /**
@@ -47,7 +48,7 @@ public final class MdcPatternConverter extends LogEventPatternConverter {
      *
      * @param options options, may be null.
      */
-    private MdcPatternConverter(final String[] options) {
+    private MdcPatternConverter(final String @Nullable [] options) {
         super(options != null && options.length > 0 ? "MDC{" + options[0] + '}' : "MDC", "mdc");
         if (options != null && options.length > 0) {
             full = false;
@@ -74,7 +75,7 @@ public final class MdcPatternConverter extends LogEventPatternConverter {
      * @param options options, may be null or first element contains name of property to format.
      * @return instance of PropertiesPatternConverter.
      */
-    public static MdcPatternConverter newInstance(final String[] options) {
+    public static MdcPatternConverter newInstance(final String @Nullable [] options) {
         return new MdcPatternConverter(options);
     }
 

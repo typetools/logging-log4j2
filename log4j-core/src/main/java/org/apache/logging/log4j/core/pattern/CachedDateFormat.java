@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.text.DateFormat;
 import java.text.FieldPosition;
 import java.text.NumberFormat;
@@ -348,7 +349,7 @@ final class CachedDateFormat extends DateFormat {
      * @return parsed date, likely null.
      */
     @Override
-    public Date parse(final String s, final ParsePosition pos) {
+    public @Nullable Date parse(final String s, final ParsePosition pos) {
         return formatter.parse(s, pos);
     }
 

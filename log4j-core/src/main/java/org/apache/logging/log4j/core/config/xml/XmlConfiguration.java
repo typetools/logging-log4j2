@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.xml;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -70,7 +71,7 @@ public class XmlConfiguration extends AbstractConfiguration implements Reconfigu
     private static final String LOG4J_XSD = "Log4j-config.xsd";
 
     private final List<Status> status = new ArrayList<>();
-    private Element rootElement;
+    private @Nullable Element rootElement;
     private boolean strict;
     private String schemaResource;
 
@@ -254,7 +255,7 @@ public class XmlConfiguration extends AbstractConfiguration implements Reconfigu
     }
 
     @Override
-    public Configuration reconfigure() {
+    public @Nullable Configuration reconfigure() {
         try {
             final ConfigurationSource source = getConfigurationSource().resetInputStream();
             if (source == null) {

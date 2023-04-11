@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.io.LineNumberReader;
@@ -67,11 +68,11 @@ public final class HtmlLayout extends AbstractStringLayout {
     // Print no location info by default
     private final boolean locationInfo;
     private final String title;
-    private final String contentType;
+    private final @Nullable String contentType;
     private final String font;
     private final String fontSize;
     private final String headerSize;
-    private final DatePatternConverter datePatternConverter;
+    private final @Nullable DatePatternConverter datePatternConverter;
 
     /**Possible font sizes */
     public static enum FontSize {
@@ -103,7 +104,7 @@ public final class HtmlLayout extends AbstractStringLayout {
     }
 
     private HtmlLayout(final boolean locationInfo, final String title, final String contentType, final Charset charset,
-        final String font, final String fontSize, final String headerSize, String datePattern, String timezone) {
+        final String font, final String fontSize, final String headerSize, String datePattern, @Nullable String timezone) {
         super(charset);
         this.locationInfo = locationInfo;
         this.title = title;
@@ -134,7 +135,7 @@ public final class HtmlLayout extends AbstractStringLayout {
         return locationInfo;
     }
 
-    private String addCharsetToContentType(final String contentType) {
+    private String addCharsetToContentType(final @Nullable String contentType) {
         if (contentType == null) {
             return DEFAULT_CONTENT_TYPE + "; charset=" + getCharset();
         }
@@ -354,7 +355,7 @@ public final class HtmlLayout extends AbstractStringLayout {
     public static HtmlLayout createLayout(
             @PluginAttribute(value = "locationInfo") final boolean locationInfo,
             @PluginAttribute(value = "title", defaultString = DEFAULT_TITLE) final String title,
-            @PluginAttribute("contentType") String contentType,
+            @PluginAttribute("contentType") @Nullable String contentType,
             @PluginAttribute(value = "charset", defaultString = "UTF-8") final Charset charset,
             @PluginAttribute("fontSize") String fontSize,
             @PluginAttribute(value = "fontName", defaultString = DEFAULT_FONT_FAMILY) final String font) {
@@ -406,7 +407,7 @@ public final class HtmlLayout extends AbstractStringLayout {
         private String datePattern = DEFAULT_DATE_PATTERN;
 
         @PluginBuilderAttribute
-        private String timezone = null; // null means default timezone
+        private @Nullable String timezone = null; // null means default timezone
 
         private Builder() {
         }

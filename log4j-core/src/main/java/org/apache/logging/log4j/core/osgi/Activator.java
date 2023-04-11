@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.osgi;
 
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -49,7 +50,7 @@ public final class Activator extends ProviderActivator implements SynchronousBun
 
     private final AtomicReference<BundleContext> contextRef = new AtomicReference<>();
 
-    private ServiceRegistration<ContextDataProvider> contextDataRegistration = null;
+    private @MonotonicNonNull ServiceRegistration<ContextDataProvider> contextDataRegistration = null;
 
     public Activator() {
         super(new Log4jProvider());

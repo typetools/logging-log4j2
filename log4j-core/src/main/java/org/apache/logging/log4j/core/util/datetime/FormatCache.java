@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.util.datetime;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -70,7 +71,7 @@ abstract class FormatCache<F extends Format> {
      * @throws IllegalArgumentException if pattern is invalid
      *  or <code>null</code>
      */
-    public F getInstance(final String pattern, TimeZone timeZone, Locale locale) {
+    public F getInstance(final String pattern, @Nullable TimeZone timeZone, @Nullable Locale locale) {
         if (pattern == null) {
             throw new NullPointerException("pattern must not be null");
         }
@@ -121,7 +122,7 @@ abstract class FormatCache<F extends Format> {
      *  pattern defined
      */
     // This must remain private, see LANG-884
-    private F getDateTimeInstance(final Integer dateStyle, final Integer timeStyle, final TimeZone timeZone, Locale locale) {
+    private F getDateTimeInstance(final @Nullable Integer dateStyle, final @Nullable Integer timeStyle, final @Nullable TimeZone timeZone, @Nullable Locale locale) {
         if (locale == null) {
             locale = Locale.getDefault();
         }
@@ -143,7 +144,7 @@ abstract class FormatCache<F extends Format> {
      *  pattern defined
      */
     // package protected, for access from FastDateFormat; do not make public or protected
-    F getDateTimeInstance(final int dateStyle, final int timeStyle, final TimeZone timeZone, final Locale locale) {
+    F getDateTimeInstance(final int dateStyle, final int timeStyle, final @Nullable TimeZone timeZone, final @Nullable Locale locale) {
         return getDateTimeInstance(Integer.valueOf(dateStyle), Integer.valueOf(timeStyle), timeZone, locale);
     }
 
@@ -160,7 +161,7 @@ abstract class FormatCache<F extends Format> {
      *  pattern defined
      */
     // package protected, for access from FastDateFormat; do not make public or protected
-    F getDateInstance(final int dateStyle, final TimeZone timeZone, final Locale locale) {
+    F getDateInstance(final int dateStyle, final @Nullable TimeZone timeZone, final @Nullable Locale locale) {
         return getDateTimeInstance(Integer.valueOf(dateStyle), null, timeZone, locale);
     }
 
@@ -177,7 +178,7 @@ abstract class FormatCache<F extends Format> {
      *  pattern defined
      */
     // package protected, for access from FastDateFormat; do not make public or protected
-    F getTimeInstance(final int timeStyle, final TimeZone timeZone, final Locale locale) {
+    F getTimeInstance(final int timeStyle, final @Nullable TimeZone timeZone, final @Nullable Locale locale) {
         return getDateTimeInstance(null, Integer.valueOf(timeStyle), timeZone, locale);
     }
 
@@ -191,7 +192,7 @@ abstract class FormatCache<F extends Format> {
      * @throws IllegalArgumentException if the Locale has no date/time pattern defined
      */
     // package protected, for access from test code; do not make public or protected
-    static String getPatternForStyle(final Integer dateStyle, final Integer timeStyle, final Locale locale) {
+    static String getPatternForStyle(final @Nullable Integer dateStyle, final @Nullable Integer timeStyle, final Locale locale) {
         final MultipartKey key = new MultipartKey(dateStyle, timeStyle, locale);
 
         String pattern = cDateTimeInstanceCache.get(key);
@@ -227,14 +228,14 @@ abstract class FormatCache<F extends Format> {
      * <p>Helper class to hold multi-part Map keys</p>
      */
     private static class MultipartKey {
-        private final Object[] keys;
+        private final @Nullable Object[] keys;
         private int hashCode;
 
         /**
          * Constructs an instance of <code>MultipartKey</code> to hold the specified objects.
          * @param keys the set of objects that make up the key.  Each key may be null.
          */
-        public MultipartKey(final Object... keys) {
+        public MultipartKey(final @Nullable Object... keys) {
             this.keys = keys;
         }
 
@@ -242,7 +243,7 @@ abstract class FormatCache<F extends Format> {
          * {@inheritDoc}
          */
         @Override
-        public boolean equals(final Object obj) {
+        public boolean equals(final @Nullable Object obj) {
             // Eliminate the usual boilerplate because
             // this inner static class is only used in a generic ConcurrentHashMap
             // which will not compare against other Object types

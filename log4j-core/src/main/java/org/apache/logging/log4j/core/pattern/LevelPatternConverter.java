@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -57,7 +58,7 @@ public class LevelPatternConverter extends LogEventPatternConverter {
      *            Level.
      * @return instance of pattern converter.
      */
-    public static LevelPatternConverter newInstance(final String[] options) {
+    public static LevelPatternConverter newInstance(final String @Nullable [] options) {
         if (options == null || options.length == 0) {
             return INSTANCE;
         }

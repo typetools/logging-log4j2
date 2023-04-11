@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.util.PerformanceSensitive;
@@ -39,7 +40,7 @@ public final class LoggerPatternConverter extends NamePatternConverter {
      *
      * @param options options, may be null.
      */
-    private LoggerPatternConverter(final String[] options) {
+    private LoggerPatternConverter(final String @Nullable [] options) {
         super("Logger", "logger", options);
     }
 
@@ -50,7 +51,7 @@ public final class LoggerPatternConverter extends NamePatternConverter {
      * @return instance of pattern converter.
      */
     public static LoggerPatternConverter newInstance(
-        final String[] options) {
+        final String @Nullable [] options) {
         if (options == null || options.length == 0) {
             return INSTANCE;
         }

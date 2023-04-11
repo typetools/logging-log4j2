@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -60,6 +61,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
      */
     protected volatile PrivateConfig privateConfig;
 
+    // Per toString, is nullable.
     // FIXME: ditto to the above
     private final LoggerContext context;
 
@@ -86,7 +88,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
      *
      * @return The parent Logger.
      */
-    public Logger getParent() {
+    public @Nullable Logger getParent() {
         final LoggerConfig lc = privateConfig.loggerConfig.getName().equals(getName()) ? privateConfig.loggerConfig
                 .getParent() : privateConfig.loggerConfig;
         if (lc == null) {
@@ -117,7 +119,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
      *
      * @param level The Level to use on this Logger, may be null.
      */
-    public synchronized void setLevel(final Level level) {
+    public synchronized void setLevel(final @Nullable Level level) {
         if (level == getLevel()) {
             return;
         }
@@ -148,7 +150,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
     }
 
     @Override
-    public void logMessage(final String fqcn, final Level level, final Marker marker, final Message message,
+    public void logMessage(final String fqcn, final Level level, final Marker marker, final @Nullable Message message,
             final Throwable t) {
         final Message msg = message == null ? new SimpleMessage(Strings.EMPTY) : message;
         final ReliabilityStrategy strategy = privateConfig.loggerConfig.getReliabilityStrategy();
@@ -446,7 +448,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
             return config.getFilter() != null;
         }
 
-        boolean filter(final Level level, final Marker marker, final String msg) {
+        boolean filter(final @Nullable Level level, final Marker marker, final String msg) {
             final Filter filter = config.getFilter();
             if (filter != null) {
                 final Filter.Result r = filter.filter(logger, level, marker, msg);
@@ -457,7 +459,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
             return level != null && intLevel >= level.intLevel();
         }
 
-        boolean filter(final Level level, final Marker marker, final String msg, final Throwable t) {
+        boolean filter(final @Nullable Level level, final Marker marker, final String msg, final Throwable t) {
             final Filter filter = config.getFilter();
             if (filter != null) {
                 final Filter.Result r = filter.filter(logger, level, marker, (Object) msg, t);
@@ -468,7 +470,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
             return level != null && intLevel >= level.intLevel();
         }
 
-        boolean filter(final Level level, final Marker marker, final String msg, final Object... p1) {
+        boolean filter(final @Nullable Level level, final Marker marker, final String msg, final Object... p1) {
             final Filter filter = config.getFilter();
             if (filter != null) {
                 final Filter.Result r = filter.filter(logger, level, marker, msg, p1);
@@ -479,7 +481,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
             return level != null && intLevel >= level.intLevel();
         }
 
-        boolean filter(final Level level, final Marker marker, final String msg, final Object p0) {
+        boolean filter(final @Nullable Level level, final Marker marker, final String msg, final Object p0) {
             final Filter filter = config.getFilter();
             if (filter != null) {
                 final Filter.Result r = filter.filter(logger, level, marker, msg, p0);
@@ -490,7 +492,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
             return level != null && intLevel >= level.intLevel();
         }
 
-        boolean filter(final Level level, final Marker marker, final String msg, final Object p0,
+        boolean filter(final @Nullable Level level, final Marker marker, final String msg, final Object p0,
                 final Object p1) {
             final Filter filter = config.getFilter();
             if (filter != null) {
@@ -502,7 +504,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
             return level != null && intLevel >= level.intLevel();
         }
 
-        boolean filter(final Level level, final Marker marker, final String msg, final Object p0,
+        boolean filter(final @Nullable Level level, final Marker marker, final String msg, final Object p0,
                 final Object p1, final Object p2) {
             final Filter filter = config.getFilter();
             if (filter != null) {
@@ -514,7 +516,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
             return level != null && intLevel >= level.intLevel();
         }
 
-        boolean filter(final Level level, final Marker marker, final String msg, final Object p0,
+        boolean filter(final @Nullable Level level, final Marker marker, final String msg, final Object p0,
                 final Object p1, final Object p2, final Object p3) {
             final Filter filter = config.getFilter();
             if (filter != null) {
@@ -526,7 +528,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
             return level != null && intLevel >= level.intLevel();
         }
 
-        boolean filter(final Level level, final Marker marker, final String msg, final Object p0,
+        boolean filter(final @Nullable Level level, final Marker marker, final String msg, final Object p0,
                 final Object p1, final Object p2, final Object p3,
                 final Object p4) {
             final Filter filter = config.getFilter();
@@ -539,7 +541,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
             return level != null && intLevel >= level.intLevel();
         }
 
-        boolean filter(final Level level, final Marker marker, final String msg, final Object p0,
+        boolean filter(final @Nullable Level level, final Marker marker, final String msg, final Object p0,
                 final Object p1, final Object p2, final Object p3,
                 final Object p4, final Object p5) {
             final Filter filter = config.getFilter();
@@ -552,7 +554,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
             return level != null && intLevel >= level.intLevel();
         }
 
-        boolean filter(final Level level, final Marker marker, final String msg, final Object p0,
+        boolean filter(final @Nullable Level level, final Marker marker, final String msg, final Object p0,
                 final Object p1, final Object p2, final Object p3,
                 final Object p4, final Object p5, final Object p6) {
             final Filter filter = config.getFilter();
@@ -565,7 +567,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
             return level != null && intLevel >= level.intLevel();
         }
 
-        boolean filter(final Level level, final Marker marker, final String msg, final Object p0,
+        boolean filter(final @Nullable Level level, final Marker marker, final String msg, final Object p0,
                 final Object p1, final Object p2, final Object p3,
                 final Object p4, final Object p5, final Object p6,
                 final Object p7) {
@@ -579,7 +581,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
             return level != null && intLevel >= level.intLevel();
         }
 
-        boolean filter(final Level level, final Marker marker, final String msg, final Object p0,
+        boolean filter(final @Nullable Level level, final Marker marker, final String msg, final Object p0,
                 final Object p1, final Object p2, final Object p3,
                 final Object p4, final Object p5, final Object p6,
                 final Object p7, final Object p8) {
@@ -593,7 +595,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
             return level != null && intLevel >= level.intLevel();
         }
 
-        boolean filter(final Level level, final Marker marker, final String msg, final Object p0,
+        boolean filter(final @Nullable Level level, final Marker marker, final String msg, final Object p0,
                 final Object p1, final Object p2, final Object p3,
                 final Object p4, final Object p5, final Object p6,
                 final Object p7, final Object p8, final Object p9) {
@@ -608,7 +610,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
             return level != null && intLevel >= level.intLevel();
         }
 
-        boolean filter(final Level level, final Marker marker, final CharSequence msg, final Throwable t) {
+        boolean filter(final @Nullable Level level, final Marker marker, final CharSequence msg, final Throwable t) {
             final Filter filter = config.getFilter();
             if (filter != null) {
                 final Filter.Result r = filter.filter(logger, level, marker, msg, t);
@@ -619,7 +621,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
             return level != null && intLevel >= level.intLevel();
         }
 
-        boolean filter(final Level level, final Marker marker, final Object msg, final Throwable t) {
+        boolean filter(final @Nullable Level level, final Marker marker, final Object msg, final Throwable t) {
             final Filter filter = config.getFilter();
             if (filter != null) {
                 final Filter.Result r = filter.filter(logger, level, marker, msg, t);
@@ -630,7 +632,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
             return level != null && intLevel >= level.intLevel();
         }
 
-        boolean filter(final Level level, final Marker marker, final Message msg, final Throwable t) {
+        boolean filter(final @Nullable Level level, final Marker marker, final Message msg, final Throwable t) {
             final Filter filter = config.getFilter();
             if (filter != null) {
                 final Filter.Result r = filter.filter(logger, level, marker, msg, t);
@@ -697,7 +699,7 @@ public class Logger extends AbstractLogger implements Supplier<LoggerConfig> {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (this == o) {
             return true;
         }

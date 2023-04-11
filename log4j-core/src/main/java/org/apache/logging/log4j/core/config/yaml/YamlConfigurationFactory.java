@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.yaml;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
@@ -59,7 +60,7 @@ public class YamlConfigurationFactory extends ConfigurationFactory {
     }
 
     @Override
-    public Configuration getConfiguration(final LoggerContext loggerContext, final ConfigurationSource source) {
+    public @Nullable Configuration getConfiguration(final LoggerContext loggerContext, final ConfigurationSource source) {
         if (!isActive) {
             return null;
         }

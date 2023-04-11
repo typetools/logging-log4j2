@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -46,7 +47,7 @@ public final class CustomLevels {
      */
     @PluginFactory
     public static CustomLevels createCustomLevels(//
-            @PluginElement("CustomLevels") final CustomLevelConfig[] customLevels) {
+            @PluginElement("CustomLevels") final CustomLevelConfig @Nullable [] customLevels) {
         return new CustomLevels(customLevels == null ? CustomLevelConfig.EMPTY_ARRAY : customLevels);
     }
 

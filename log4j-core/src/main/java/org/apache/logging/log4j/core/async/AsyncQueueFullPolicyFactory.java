@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.async;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.util.Loader;
@@ -78,7 +79,7 @@ public class AsyncQueueFullPolicyFactory {
     }
 
     private static boolean isRouterSelected(
-            String propertyValue,
+            @Nullable String propertyValue,
             Class<? extends AsyncQueueFullPolicy> policy,
             String shortPropertyValue) {
         return propertyValue != null && (shortPropertyValue.equalsIgnoreCase(propertyValue)

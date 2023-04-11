@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -75,7 +76,7 @@ public final class StyleConverter extends LogEventPatternConverter implements An
      *            be formatted.
      * @return instance of class.
      */
-    public static StyleConverter newInstance(final Configuration config, final String[] options) {
+    public static @Nullable StyleConverter newInstance(final Configuration config, final String @Nullable [] options) {
         if (options == null) {
             return null;
         }

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,7 +40,7 @@ class DynamicWordAbbreviator extends NameAbbreviator {
     /** Right-most number of words (at least one) that will not be abbreviated. */
     private final int rightWordCount;
 
-    static DynamicWordAbbreviator create(String pattern) {
+    static @Nullable DynamicWordAbbreviator create(@Nullable String pattern) {
         if (pattern != null) {
             Matcher matcher = Pattern.compile("1\\.([1-9][0-9]*)\\*").matcher(pattern);
             if (matcher.matches()) {
@@ -54,7 +55,7 @@ class DynamicWordAbbreviator extends NameAbbreviator {
     }
 
     @Override
-    public void abbreviate(final String original, final StringBuilder destination) {
+    public void abbreviate(final @Nullable String original, final @Nullable StringBuilder destination) {
         if (original == null || destination == null) {
             return;
         }
@@ -83,7 +84,7 @@ class DynamicWordAbbreviator extends NameAbbreviator {
         }
     }
 
-    static String[] split(final String input, final char delim) {
+    static String @Nullable [] split(final @Nullable String input, final char delim) {
         if (input == null) {
             return null;
         } else if (input.isEmpty()) {

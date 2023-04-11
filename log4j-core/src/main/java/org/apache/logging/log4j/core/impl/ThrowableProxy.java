@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.impl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Deque;
@@ -56,7 +57,7 @@ public class ThrowableProxy implements Serializable {
 
     private static final long serialVersionUID = -2752771578252251910L;
 
-    private final ThrowableProxy causeProxy;
+    private final @Nullable ThrowableProxy causeProxy;
 
     private int commonElementCount;
 
@@ -64,7 +65,7 @@ public class ThrowableProxy implements Serializable {
 
     private final String localizedMessage;
 
-    private final String message;
+    private final @Nullable String message;
 
     private final String name;
 
@@ -77,7 +78,7 @@ public class ThrowableProxy implements Serializable {
     /**
      * For JSON and XML IO via Jackson.
      */
-    @SuppressWarnings("unused")
+    @SuppressWarnings({"unused", "nullness"})
     ThrowableProxy() {
         this.throwable = null;
         this.name = null;
@@ -103,7 +104,7 @@ public class ThrowableProxy implements Serializable {
      * @param throwable The Throwable to wrap, must not be null.
      * @param visited   The set of visited suppressed exceptions.
      */
-    ThrowableProxy(final Throwable throwable, final Set<Throwable> visited) {
+    ThrowableProxy(final Throwable throwable, final @Nullable Set<Throwable> visited) {
         this.throwable = throwable;
         this.name = throwable.getClass().getName();
         this.message = throwable.getMessage();
@@ -145,7 +146,7 @@ public class ThrowableProxy implements Serializable {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(final @Nullable Object obj) {
         if (this == obj) {
             return true;
         }
@@ -192,7 +193,7 @@ public class ThrowableProxy implements Serializable {
      * @param suffix
      */
     @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
-    public void formatWrapper(final StringBuilder sb, final ThrowableProxy cause, final List<String> ignorePackages, final String suffix) {
+    public void formatWrapper(final StringBuilder sb, final ThrowableProxy cause, final @Nullable List<String> ignorePackages, final String suffix) {
         this.formatWrapper(sb, cause, ignorePackages, PlainTextRenderer.getInstance(), suffix);
     }
 
@@ -225,7 +226,7 @@ public class ThrowableProxy implements Serializable {
         ThrowableProxyRenderer.formatWrapper(sb,  cause, ignorePackages, textRenderer, suffix, lineSeparator);
     }
 
-    public ThrowableProxy getCauseProxy() {
+    public @Nullable ThrowableProxy getCauseProxy() {
         return this.causeProxy;
     }
 
@@ -271,7 +272,7 @@ public class ThrowableProxy implements Serializable {
      * @param lineSeparator The end-of-line separator.
      * @return The formatted Throwable that caused this Throwable.
      */
-    public String getCauseStackTraceAsString(final List<String> ignorePackages, final TextRenderer textRenderer, final String suffix, final String lineSeparator) {
+    public String getCauseStackTraceAsString(final @Nullable List<String> ignorePackages, final TextRenderer textRenderer, final String suffix, final String lineSeparator) {
         final StringBuilder sb = new StringBuilder();
         ThrowableProxyRenderer.formatCauseStackTrace(this, sb, ignorePackages, textRenderer, suffix, lineSeparator);
         return sb.toString();
@@ -403,7 +404,7 @@ public class ThrowableProxy implements Serializable {
      *
      * @return proxies for suppressed exceptions.
      */
-    public ThrowableProxy[] getSuppressedProxies() {
+    public ThrowableProxy @Nullable [] getSuppressedProxies() {
         return this.suppressedProxies;
     }
 
@@ -430,7 +431,7 @@ public class ThrowableProxy implements Serializable {
      *
      * @return The throwable or null if this object is deserialized from XML or JSON.
      */
-    public Throwable getThrowable() {
+    public @Nullable Throwable getThrowable() {
         return this.throwable;
     }
 

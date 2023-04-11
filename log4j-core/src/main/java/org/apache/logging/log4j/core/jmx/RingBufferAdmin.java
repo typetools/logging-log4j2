@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.jmx;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import javax.management.ObjectName;
 
 import com.lmax.disruptor.RingBuffer;
@@ -25,10 +26,10 @@ import com.lmax.disruptor.RingBuffer;
  */
 public class RingBufferAdmin implements RingBufferAdminMBean {
 
-    private final RingBuffer<?> ringBuffer;
+    private final @Nullable RingBuffer<?> ringBuffer;
     private final ObjectName objectName;
 
-    public static RingBufferAdmin forAsyncLogger(final RingBuffer<?> ringBuffer, final String contextName) {
+    public static RingBufferAdmin forAsyncLogger(final @Nullable RingBuffer<?> ringBuffer, final String contextName) {
         final String ctxName = Server.escape(contextName);
         final String name = String.format(PATTERN_ASYNC_LOGGER, ctxName);
         return new RingBufferAdmin(ringBuffer, name);

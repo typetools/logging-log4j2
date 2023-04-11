@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.net.ssl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,10 +35,10 @@ import org.apache.logging.log4j.core.util.NetUtils;
  */
 public class AbstractKeyStoreConfiguration extends StoreConfiguration<KeyStore> {
 
-    private final KeyStore keyStore;
-    private final String keyStoreType;
+    private final @Nullable KeyStore keyStore;
+    private final @Nullable String keyStoreType;
 
-    public AbstractKeyStoreConfiguration(final String location, final PasswordProvider passwordProvider, final String keyStoreType)
+    public AbstractKeyStoreConfiguration(final String location, final PasswordProvider passwordProvider, final @Nullable String keyStoreType)
             throws StoreConfigurationException {
         super(location, passwordProvider);
         this.keyStoreType = keyStoreType == null ? SslConfigurationDefaults.KEYSTORE_TYPE : keyStoreType;
@@ -57,7 +58,7 @@ public class AbstractKeyStoreConfiguration extends StoreConfiguration<KeyStore> 
      * @deprecated Use {@link #AbstractKeyStoreConfiguration(String, PasswordProvider, String)} instead
      */
     @Deprecated
-    public AbstractKeyStoreConfiguration(final String location, final String password, final String keyStoreType)
+    public AbstractKeyStoreConfiguration(final String location, final @Nullable String password, final String keyStoreType)
             throws StoreConfigurationException {
         this(location, new MemoryPasswordProvider(password == null ? null : password.toCharArray()), keyStoreType);
     }
@@ -108,7 +109,7 @@ public class AbstractKeyStoreConfiguration extends StoreConfiguration<KeyStore> 
         return ConfigurationSource.fromUri(NetUtils.toURI(filePathOrUri)).getInputStream();
     }
 
-    public KeyStore getKeyStore() {
+    public @Nullable KeyStore getKeyStore() {
         return this.keyStore;
     }
 
@@ -122,7 +123,7 @@ public class AbstractKeyStoreConfiguration extends StoreConfiguration<KeyStore> 
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(final @Nullable Object obj) {
         if (this == obj) {
             return true;
         }

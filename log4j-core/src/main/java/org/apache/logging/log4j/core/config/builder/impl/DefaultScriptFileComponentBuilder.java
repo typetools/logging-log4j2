@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.builder.impl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.builder.api.ScriptFileComponentBuilder;
 
@@ -28,7 +29,7 @@ class DefaultScriptFileComponentBuilder extends DefaultComponentAndConfiguration
         implements ScriptFileComponentBuilder {
 
     public DefaultScriptFileComponentBuilder(final DefaultConfigurationBuilder<? extends Configuration> builder,
-                                             final String name, final String path) {
+                                             final @Nullable String name, final String path) {
         super(builder, name != null ? name : path, "ScriptFile");
         addAttribute("path", path);
     }

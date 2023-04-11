@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.config.plugins.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.PolyNull;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -71,7 +73,7 @@ public class PluginManager {
      *
      * @param p The package name. Ignored if {@code null} or empty.
      */
-    public static void addPackage(final String p) {
+    public static void addPackage(final @Nullable String p) {
         if (Strings.isBlank(p)) {
             return;
         }
@@ -83,7 +85,7 @@ public class PluginManager {
      *
      * @param packages collection of package names to add. Empty and null package names are ignored.
      */
-    public static void addPackages(final Collection<String> packages) {
+    public static void addPackages(final Collection<@PolyNull String> packages) {
         for (final String pkg : packages) {
             if (Strings.isNotBlank(pkg)) {
                 PACKAGES.addIfAbsent(pkg);
@@ -97,7 +99,7 @@ public class PluginManager {
      * @param name The name of the plugin.
      * @return The plugin's type.
      */
-    public PluginType<?> getPluginType(final String name) {
+    public @Nullable PluginType<?> getPluginType(final String name) {
         return plugins.get(name.toLowerCase());
     }
 
@@ -123,7 +125,7 @@ public class PluginManager {
      * @param packages the list of packages to scan for plugins
      * @since 2.1
      */
-    public void collectPlugins(final List<String> packages) {
+    public void collectPlugins(final @Nullable List<String> packages) {
         if (isNotEmpty(packages) || isNotEmpty(PACKAGES)) {
             LOGGER.warn("The use of package scanning to locate plugins is deprecated and will be removed in a future release");
         }
@@ -160,7 +162,7 @@ public class PluginManager {
         plugins = newPlugins;
     }
 
-    private static void mergeByName(final Map<String, PluginType<?>> newPlugins, final List<PluginType<?>> plugins) {
+    private static void mergeByName(final Map<String, PluginType<?>> newPlugins, final @Nullable List<PluginType<?>> plugins) {
         if (plugins == null) {
             return;
         }
@@ -176,7 +178,7 @@ public class PluginManager {
         }
     }
 
-    private boolean isNotEmpty(List<String> list) {
+    private boolean isNotEmpty(@Nullable List<String> list) {
         return list != null && !list.isEmpty();
     }
 }

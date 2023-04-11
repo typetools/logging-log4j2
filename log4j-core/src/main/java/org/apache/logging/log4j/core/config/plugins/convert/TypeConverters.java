@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.config.plugins.convert;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -107,7 +108,7 @@ public final class TypeConverters {
         private static final String PREFIX_BASE64 = "Base64:";
 
         @Override
-        public byte[] convert(final String value) {
+        public byte[] convert(final @Nullable String value) {
             byte[] bytes;
             if (value == null || value.isEmpty()) {
                 bytes = Constants.EMPTY_BYTE_ARRAY;
@@ -408,7 +409,7 @@ public final class TypeConverters {
      * @throws IllegalArgumentException
      *         if no TypeConverter exists for the given class
      */
-    public static <T> T convert(final String s, final Class<? extends T> clazz, final Object defaultValue) {
+    public static <T> @Nullable T convert(final @Nullable String s, final Class<? extends T> clazz, final Object defaultValue) {
         @SuppressWarnings("unchecked")
         final TypeConverter<T> converter = (TypeConverter<T>) TypeConverterRegistry.getInstance().findCompatibleConverter(clazz);
         if (s == null) {
@@ -426,7 +427,7 @@ public final class TypeConverters {
     }
 
     @SuppressWarnings("unchecked")
-    private static <T> T parseDefaultValue(final TypeConverter<T> converter, final Object defaultValue) {
+    private static <T> @Nullable T parseDefaultValue(final TypeConverter<T> converter, final @Nullable Object defaultValue) {
         if (defaultValue == null) {
             return null;
         }

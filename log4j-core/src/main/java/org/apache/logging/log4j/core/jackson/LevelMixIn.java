@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.jackson;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Marker;
 
@@ -34,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 abstract class LevelMixIn {
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static Level getLevel(final String name) {
+    public static @Nullable Level getLevel(final String name) {
         return null;
     }
 

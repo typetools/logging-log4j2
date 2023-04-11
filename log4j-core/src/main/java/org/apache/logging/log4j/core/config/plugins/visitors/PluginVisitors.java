@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.config.plugins.visitors;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.annotation.Annotation;
 
 import org.apache.logging.log4j.Logger;
@@ -41,7 +42,7 @@ public final class PluginVisitors {
      * @param annotation the Plugin annotation class to find a PluginVisitor for.
      * @return a PluginVisitor instance if one could be created, or {@code null} otherwise.
      */
-    public static PluginVisitor<? extends Annotation> findVisitor(final Class<? extends Annotation> annotation) {
+    public static @Nullable PluginVisitor<? extends Annotation> findVisitor(final Class<? extends Annotation> annotation) {
         final PluginVisitorStrategy strategy = annotation.getAnnotation(PluginVisitorStrategy.class);
         if (strategy == null) {
             return null;

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.util.OptionConverter;
 import org.apache.logging.log4j.util.PerformanceSensitive;
@@ -38,7 +39,7 @@ abstract class SimpleLiteralPatternConverter extends LogEventPatternConverter im
         return of(value);
     }
 
-    static LogEventPatternConverter of(final String literal) {
+    static LogEventPatternConverter of(final @Nullable String literal) {
         if (literal == null || literal.isEmpty()) {
             return Noop.INSTANCE;
         }

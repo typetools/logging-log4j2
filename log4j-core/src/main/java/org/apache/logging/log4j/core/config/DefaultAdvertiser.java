@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Map;
 
 import org.apache.logging.log4j.core.config.plugins.Plugin;
@@ -33,7 +34,7 @@ public class DefaultAdvertiser implements Advertiser {
      * @return null
      */
     @Override
-    public Object advertise(final Map<String, String> properties) {
+    public @Nullable Object advertise(final Map<String, String> properties) {
         return null;
     }
 

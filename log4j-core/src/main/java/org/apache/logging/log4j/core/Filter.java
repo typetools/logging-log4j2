@@ -17,6 +17,8 @@
 
 package org.apache.logging.log4j.core;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.message.Message;
@@ -69,7 +71,7 @@ public interface Filter extends LifeCycle {
          * @param name The Result enum name, case-insensitive. If null, returns, null
          * @return a Result enum value or null if name is null
          */
-        public static Result toResult(final String name) {
+        public static @PolyNull Result toResult(final @PolyNull String name) {
             return toResult(name, null);
         }
 
@@ -105,7 +107,7 @@ public interface Filter extends LifeCycle {
      * @param params An array of parameters or null.
      * @return the Result.
      */
-    Result filter(Logger logger, Level level, Marker marker, String msg, Object... params);
+    Result filter(Logger logger, Level level, @Nullable Marker marker, String msg, Object @Nullable ... params);
 
     /**
      * Filter an event.
@@ -117,7 +119,7 @@ public interface Filter extends LifeCycle {
      * @param p0 the message parameters
      * @return the Result.
      */
-    Result filter(Logger logger, Level level, Marker marker, String message, Object p0);
+    Result filter(Logger logger, Level level, @Nullable Marker marker, String message, Object p0);
 
     /**
      * Filter an event.
@@ -130,7 +132,7 @@ public interface Filter extends LifeCycle {
      * @param p1 the message parameters
      * @return the Result.
      */
-    Result filter(Logger logger, Level level, Marker marker, String message, Object p0, Object p1);
+    Result filter(Logger logger, Level level, @Nullable Marker marker, String message, Object p0, Object p1);
 
     /**
      * Filter an event.
@@ -144,7 +146,7 @@ public interface Filter extends LifeCycle {
      * @param p2 the message parameters
      * @return the Result.
      */
-    Result filter(Logger logger, Level level, Marker marker, String message, Object p0, Object p1, Object p2);
+    Result filter(Logger logger, Level level, @Nullable Marker marker, String message, Object p0, Object p1, Object p2);
 
     /**
      * Filter an event.
@@ -159,7 +161,7 @@ public interface Filter extends LifeCycle {
      * @param p3 the message parameters
      * @return the Result.
      */
-    Result filter(Logger logger, Level level, Marker marker, String message, Object p0, Object p1, Object p2, Object p3);
+    Result filter(Logger logger, Level level, @Nullable Marker marker, String message, Object p0, Object p1, Object p2, Object p3);
 
     /**
      * Filter an event.
@@ -175,7 +177,7 @@ public interface Filter extends LifeCycle {
      * @param p4 the message parameters
      * @return the Result.
      */
-    Result filter(Logger logger, Level level, Marker marker, String message, Object p0, Object p1, Object p2, Object p3,
+    Result filter(Logger logger, Level level, @Nullable Marker marker, String message, Object p0, Object p1, Object p2, Object p3,
             Object p4);
 
     /**
@@ -193,7 +195,7 @@ public interface Filter extends LifeCycle {
      * @param p5 the message parameters
      * @return the Result.
      */
-    Result filter(Logger logger, Level level, Marker marker, String message, Object p0, Object p1, Object p2, Object p3,
+    Result filter(Logger logger, Level level, @Nullable Marker marker, String message, Object p0, Object p1, Object p2, Object p3,
             Object p4, Object p5);
 
     /**
@@ -212,7 +214,7 @@ public interface Filter extends LifeCycle {
      * @param p6 the message parameters
      * @return the Result.
      */
-    Result filter(Logger logger, Level level, Marker marker, String message, Object p0, Object p1, Object p2, Object p3,
+    Result filter(Logger logger, Level level, @Nullable Marker marker, String message, Object p0, Object p1, Object p2, Object p3,
             Object p4, Object p5, Object p6);
 
     /**
@@ -232,7 +234,7 @@ public interface Filter extends LifeCycle {
      * @param p7 the message parameters
      * @return the Result.
      */
-    Result filter(Logger logger, Level level, Marker marker, String message, Object p0, Object p1, Object p2, Object p3,
+    Result filter(Logger logger, Level level, @Nullable Marker marker, String message, Object p0, Object p1, Object p2, Object p3,
             Object p4, Object p5, Object p6, Object p7);
 
     /**
@@ -253,7 +255,7 @@ public interface Filter extends LifeCycle {
      * @param p8 the message parameters
      * @return the Result.
      */
-    Result filter(Logger logger, Level level, Marker marker, String message, Object p0, Object p1, Object p2, Object p3,
+    Result filter(Logger logger, Level level, @Nullable Marker marker, String message, Object p0, Object p1, Object p2, Object p3,
             Object p4, Object p5, Object p6, Object p7, Object p8);
 
     /**
@@ -275,7 +277,7 @@ public interface Filter extends LifeCycle {
      * @param p9 the message parameters
      * @return the Result.
      */
-    Result filter(Logger logger, Level level, Marker marker, String message, Object p0, Object p1, Object p2, Object p3,
+    Result filter(Logger logger, Level level, @Nullable Marker marker, String message, Object p0, Object p1, Object p2, Object p3,
             Object p4, Object p5, Object p6, Object p7, Object p8, Object p9);
 
     /**
@@ -287,7 +289,7 @@ public interface Filter extends LifeCycle {
      * @param t A Throwable or null.
      * @return the Result.
      */
-    Result filter(Logger logger, Level level, Marker marker, Object msg, Throwable t);
+    Result filter(Logger logger, Level level, @Nullable Marker marker, Object msg, @Nullable Throwable t);
 
     /**
      * Filter an event.
@@ -298,7 +300,7 @@ public interface Filter extends LifeCycle {
      * @param t A Throwable or null.
      * @return the Result.
      */
-    Result filter(Logger logger, Level level, Marker marker, Message msg, Throwable t);
+    Result filter(Logger logger, Level level, @Nullable Marker marker, Message msg, @Nullable Throwable t);
 
     /**
      * Filter an event.
@@ -308,7 +310,7 @@ public interface Filter extends LifeCycle {
      * @param msg The Message
      * @return the Result.
      */
-    default Result filter(Logger logger, Level level, Marker marker, String msg) {
+    default Result filter(Logger logger, Level level, @Nullable Marker marker, String msg) {
         return filter(logger, level, marker, msg, Constants.EMPTY_OBJECT_ARRAY);
     }
 

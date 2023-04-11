@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.lookup;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Arrays;
 
 import org.apache.logging.log4j.util.Chars;
@@ -172,7 +173,7 @@ public abstract class StrMatcher {
      * @param chars  the characters to match, null or empty matches nothing
      * @return a new matcher for the given char[]
      */
-    public static StrMatcher charSetMatcher(final char[] chars) {
+    public static StrMatcher charSetMatcher(final char @Nullable [] chars) {
         if (chars == null || chars.length == 0) {
             return NONE_MATCHER;
         }
@@ -188,7 +189,7 @@ public abstract class StrMatcher {
      * @param chars  the characters to match, null or empty matches nothing
      * @return a new Matcher for the given characters
      */
-    public static StrMatcher charSetMatcher(final String chars) {
+    public static StrMatcher charSetMatcher(final @Nullable String chars) {
         if (Strings.isEmpty(chars)) {
             return NONE_MATCHER;
         }
@@ -204,7 +205,7 @@ public abstract class StrMatcher {
      * @param str  the string to match, null or empty matches nothing
      * @return a new Matcher for the given String
      */
-    public static StrMatcher stringMatcher(final String str) {
+    public static StrMatcher stringMatcher(final @Nullable String str) {
         if (Strings.isEmpty(str)) {
             return NONE_MATCHER;
         }

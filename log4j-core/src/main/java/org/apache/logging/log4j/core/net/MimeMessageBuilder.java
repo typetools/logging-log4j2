@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.net;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.nio.charset.StandardCharsets;
 
 import javax.mail.Message;
@@ -71,7 +72,7 @@ public class MimeMessageBuilder implements Builder<MimeMessage> {
         return this;
     }
 
-    public MimeMessageBuilder setSubject(final String subject) throws MessagingException {
+    public MimeMessageBuilder setSubject(final @Nullable String subject) throws MessagingException {
         if (subject != null) {
             message.setSubject(subject, StandardCharsets.UTF_8.name());
         }
@@ -91,11 +92,11 @@ public class MimeMessageBuilder implements Builder<MimeMessage> {
         return message;
     }
 
-    private static InternetAddress parseAddress(final String address) throws AddressException {
+    private static @Nullable InternetAddress parseAddress(final @Nullable String address) throws AddressException {
         return address == null ? null : new InternetAddress(address);
     }
 
-    private static InternetAddress[] parseAddresses(final String addresses) throws AddressException {
+    private static InternetAddress[] parseAddresses(final @Nullable String addresses) throws AddressException {
         return addresses == null ? null : InternetAddress.parse(addresses, true);
     }
 }

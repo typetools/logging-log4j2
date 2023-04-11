@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.yaml;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 
 import org.apache.logging.log4j.core.LoggerContext;
@@ -39,7 +40,7 @@ public class YamlConfiguration extends JsonConfiguration {
     }
 
     @Override
-    public Configuration reconfigure() {
+    public @Nullable Configuration reconfigure() {
         try {
             final ConfigurationSource source = getConfigurationSource().resetInputStream();
             if (source == null) {

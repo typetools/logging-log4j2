@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.UUID;
 
 import org.apache.logging.log4j.core.LogEvent;
@@ -45,7 +46,7 @@ public final class UuidPatternConverter extends LogEventPatternConverter {
      * @param options options, currently ignored, may be null.
      * @return instance of SequencePatternConverter.
      */
-    public static UuidPatternConverter newInstance(final String[] options) {
+    public static UuidPatternConverter newInstance(final String @Nullable [] options) {
         if (options.length == 0) {
             return new UuidPatternConverter(false);
         }

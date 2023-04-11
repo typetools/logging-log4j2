@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Collection;
 import java.util.Map;
 
@@ -40,7 +41,7 @@ public final class Assert {
      * @return true if the value is empty, false otherwise
      * @since 2.8
      */
-    public static boolean isEmpty(final Object o) {
+    public static boolean isEmpty(final @Nullable Object o) {
         if (o == null) {
             return true;
         }

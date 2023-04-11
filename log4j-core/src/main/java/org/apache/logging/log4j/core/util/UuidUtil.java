@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.nio.ByteBuffer;
 import java.security.SecureRandom;
 import java.util.Random;
@@ -71,7 +72,7 @@ public final class UuidUtil {
      * @param mac MAC address
      * @return Least
      */
-    static long initialize(byte[] mac) {
+    static long initialize(byte @Nullable [] mac) {
         final Random randomGenerator = new SecureRandom();
         if (mac == null || mac.length == 0) {
             mac = new byte[6];

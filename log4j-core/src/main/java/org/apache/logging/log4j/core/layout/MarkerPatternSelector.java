@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,10 +48,10 @@ public class MarkerPatternSelector implements PatternSelector, LocationAware {
     public static class Builder implements org.apache.logging.log4j.core.util.Builder<MarkerPatternSelector> {
 
         @PluginElement("PatternMatch")
-        private PatternMatch[] properties;
+        private PatternMatch @Nullable [] properties;
 
         @PluginBuilderAttribute("defaultPattern")
-        private String defaultPattern;
+        private @Nullable String defaultPattern;
 
         @PluginBuilderAttribute(value = "alwaysWriteExceptions")
         private boolean alwaysWriteExceptions = true;
@@ -65,7 +66,7 @@ public class MarkerPatternSelector implements PatternSelector, LocationAware {
         private Configuration configuration;
 
         @Override
-        public MarkerPatternSelector build() {
+        public @Nullable MarkerPatternSelector build() {
             if (defaultPattern == null) {
                 defaultPattern = PatternLayout.DEFAULT_CONVERSION_PATTERN;
             }

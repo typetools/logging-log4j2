@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.tools.picocli;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import static java.util.Locale.ENGLISH;
 import static org.apache.logging.log4j.core.tools.picocli.CommandLine.Help.Column.Overflow.SPAN;
 import static org.apache.logging.log4j.core.tools.picocli.CommandLine.Help.Column.Overflow.TRUNCATE;
@@ -219,7 +220,7 @@ public class CommandLine {
      * @see Command#subcommands()
      * @since 0.9.8
      */
-    public CommandLine getParent() {
+    public @Nullable CommandLine getParent() {
         return parent;
     }
 
@@ -443,7 +444,7 @@ public class CommandLine {
         }
         return false;
     }
-    private static Object execute(final CommandLine parsed) {
+    private static @Nullable Object execute(final CommandLine parsed) {
         final Object command = parsed.getCommand();
         if (command instanceof Runnable) {
             try {
@@ -484,7 +485,7 @@ public class CommandLine {
          *      {@link ExecutionException#getCommandLine()} to get the command or subcommand where processing failed
          */
         @Override
-        public List<Object> handleParseResult(final List<CommandLine> parsedCommands, final PrintStream out, final Help.Ansi ansi) {
+        public List<@Nullable Object> handleParseResult(final List<CommandLine> parsedCommands, final PrintStream out, final Help.Ansi ansi) {
             if (printHelpIfRequested(parsedCommands, out, ansi)) { return Collections.emptyList(); }
             return Arrays.asList(execute(parsedCommands.get(0)));
         }
@@ -535,7 +536,7 @@ public class CommandLine {
          *      {@link ExecutionException#getCommandLine()} to get the command or subcommand where processing failed
          */
         @Override
-        public List<Object> handleParseResult(final List<CommandLine> parsedCommands, final PrintStream out, final Help.Ansi ansi) {
+        public List<@Nullable Object> handleParseResult(final List<CommandLine> parsedCommands, final PrintStream out, final Help.Ansi ansi) {
             if (printHelpIfRequested(parsedCommands, out, ansi)) { return Collections.emptyList(); }
             final CommandLine last = parsedCommands.get(parsedCommands.size() - 1);
             return Arrays.asList(execute(last));
@@ -561,7 +562,8 @@ public class CommandLine {
          *      {@link ExecutionException#getCommandLine()} to get the command or subcommand where processing failed
          */
         @Override
-        public List<Object> handleParseResult(final List<CommandLine> parsedCommands, final PrintStream out, final Help.Ansi ansi) {
+        // BUG: @return clause doesn't mention possibility of returning null
+        public @Nullable List<@Nullable Object> handleParseResult(final List<CommandLine> parsedCommands, final PrintStream out, final Help.Ansi ansi) {
             if (printHelpIfRequested(parsedCommands, out, ansi)) {
                 return null;
             }
@@ -834,7 +836,7 @@ public class CommandLine {
      * @see #parseWithHandlers(IParseResultHandler, PrintStream, Help.Ansi, IExceptionHandler, String...)
      * @see RunFirst
      */
-    public static <C extends Callable<T>, T> T call(final C callable, final PrintStream out, final String... args) {
+    public static <C extends Callable<T>, T> @Nullable T call(final C callable, final PrintStream out, final String... args) {
         return call(callable, out, Help.Ansi.AUTO, args);
     }
     /**
@@ -882,7 +884,7 @@ public class CommandLine {
      * @see #parseWithHandlers(IParseResultHandler, PrintStream, Help.Ansi, IExceptionHandler, String...)
      * @see RunLast
      */
-    public static <C extends Callable<T>, T> T call(final C callable, final PrintStream out, final Help.Ansi ansi, final String... args) {
+    public static <C extends Callable<T>, T> @Nullable T call(final C callable, final PrintStream out, final Help.Ansi ansi, final String... args) {
         final CommandLine cmd = new CommandLine(callable); // validate command outside of try-catch
         final List<Object> results = cmd.parseWithHandlers(new RunLast(), out, ansi, new DefaultExceptionHandler(), args);
         return results == null || results.isEmpty() ? null : (T) results.get(0);
@@ -1036,10 +1038,10 @@ public class CommandLine {
         this.commandName = Assert.notNull(commandName, "commandName");
         return this;
     }
-    private static boolean empty(final String str) { return str == null || str.trim().length() == 0; }
-    private static boolean empty(final Object[] array) { return array == null || array.length == 0; }
-    private static boolean empty(final Text txt) { return txt == null || txt.plain.toString().trim().length() == 0; }
-    private static String str(final String[] arr, final int i) { return (arr == null || arr.length == 0) ? "" : arr[i]; }
+    private static boolean empty(final @Nullable String str) { return str == null || str.trim().length() == 0; }
+    private static boolean empty(final Object @Nullable [] array) { return array == null || array.length == 0; }
+    private static boolean empty(final @Nullable Text txt) { return txt == null || txt.plain.toString().trim().length() == 0; }
+    private static String str(final String @Nullable [] arr, final int i) { return (arr == null || arr.length == 0) ? "" : arr[i]; }
     private static boolean isBoolean(final Class<?> type) { return type == Boolean.class || type == Boolean.TYPE; }
     private static CommandLine toCommandLine(final Object obj) { return obj instanceof CommandLine ? (CommandLine) obj : new CommandLine(obj);}
     private static boolean isMultiValue(final Field field) {  return isMultiValue(field.getType()); }
@@ -1779,7 +1781,7 @@ public class CommandLine {
         public boolean contains(final int value) { return min <= value && max >= value; }
 
         @Override
-        public boolean equals(final Object object) {
+        public boolean equals(final @Nullable Object object) {
             if (!(object instanceof Range)) { return false; }
             final Range other = (Range) object;
             return other.max == this.max && other.min == this.min && other.isVariable == this.isVariable;
@@ -2236,7 +2238,7 @@ public class CommandLine {
                                                   final Range arity,
                                                   final Stack<String> args,
                                                   final Class<?> cls,
-                                                  final Set<Field> initialized,
+                                                  final @Nullable Set<Field> initialized,
                                                   final String argDescription) throws Exception {
             final boolean noMoreValues = args.isEmpty();
             String value = args.isEmpty() ? null : trim(args.pop()); // unquote the value
@@ -2620,7 +2622,7 @@ public class CommandLine {
             return unquote(value);
         }
 
-        private String unquote(final String value) {
+        private String unquote(final @Nullable String value) {
             return value == null
                     ? null
                     : (value.length() > 1 && value.startsWith("\"") && value.endsWith("\""))
@@ -2831,7 +2833,7 @@ public class CommandLine {
         /** The String to use as the separator between options and option parameters. {@code "="} by default,
          * initialized from {@link Command#separator()} if defined.
          * @see #parameterLabelRenderer */
-        public String separator;
+        public @Nullable String separator;
 
         /** The String to use as the program name in the synopsis line of the help message.
          * {@link #DEFAULT_COMMAND_NAME} by default, initialized from {@link Command#name()} if defined. */
@@ -2868,37 +2870,37 @@ public class CommandLine {
         public IParamLabelRenderer parameterLabelRenderer;
 
         /** If {@code true}, the synopsis line(s) will show an abbreviated synopsis without detailed option names. */
-        public Boolean abbreviateSynopsis;
+        public @Nullable Boolean abbreviateSynopsis;
 
         /** If {@code true}, the options list is sorted alphabetically. */
-        public Boolean sortOptions;
+        public @Nullable Boolean sortOptions;
 
         /** If {@code true}, the options list will show default values for all options except booleans. */
-        public Boolean showDefaultValues;
+        public @Nullable Boolean showDefaultValues;
 
         /** Character used to prefix required options in the options list. */
-        public Character requiredOptionMarker;
+        public @Nullable Character requiredOptionMarker;
 
         /** Optional heading preceding the header section. Initialized from {@link Command#headerHeading()}, or null. */
-        public String headerHeading;
+        public @Nullable String headerHeading;
 
         /** Optional heading preceding the synopsis. Initialized from {@link Command#synopsisHeading()}, {@code "Usage: "} by default. */
-        public String synopsisHeading;
+        public @Nullable String synopsisHeading;
 
         /** Optional heading preceding the description section. Initialized from {@link Command#descriptionHeading()}, or null. */
-        public String descriptionHeading;
+        public @Nullable String descriptionHeading;
 
         /** Optional heading preceding the parameter list. Initialized from {@link Command#parameterListHeading()}, or null. */
-        public String parameterListHeading;
+        public @Nullable String parameterListHeading;
 
         /** Optional heading preceding the options list. Initialized from {@link Command#optionListHeading()}, or null. */
-        public String optionListHeading;
+        public @Nullable String optionListHeading;
 
         /** Optional heading preceding the subcommand list. Initialized from {@link Command#commandListHeading()}. {@code "Commands:%n"} by default. */
-        public String commandListHeading;
+        public @Nullable String commandListHeading;
 
         /** Optional heading preceding the footer section. Initialized from {@link Command#footerHeading()}, or null. */
-        public String footerHeading;
+        public @Nullable String footerHeading;
 
         /** Constructs a new {@code Help} instance with a default color scheme, initialized from annotatations
          * on the specified class and superclasses.
@@ -2982,7 +2984,7 @@ public class CommandLine {
          * @return this Help instance (for method chaining)
          * @see CommandLine#getSubcommands()
          */
-        public Help addAllSubcommands(final Map<String, CommandLine> commands) {
+        public Help addAllSubcommands(final @Nullable Map<String, CommandLine> commands) {
             if (commands != null) {
                 for (final Map.Entry<String, CommandLine> entry : commands.entrySet()) {
                     addSubcommand(entry.getKey(), entry.getValue().getCommand());
@@ -3048,7 +3050,7 @@ public class CommandLine {
          * @return a detailed synopsis
          * @deprecated use {@link #detailedSynopsis(int, Comparator, boolean)} instead. */
         @Deprecated
-        public String detailedSynopsis(final Comparator<Field> optionSort, final boolean clusterBooleanOptions) {
+        public String detailedSynopsis(final @Nullable Comparator<Field> optionSort, final boolean clusterBooleanOptions) {
             return detailedSynopsis(0, optionSort, clusterBooleanOptions);
         }
 
@@ -3058,7 +3060,7 @@ public class CommandLine {
          * @param optionSort comparator to sort options or {@code null} if options should not be sorted
          * @param clusterBooleanOptions {@code true} if boolean short options should be clustered into a single string
          * @return a detailed synopsis */
-        public String detailedSynopsis(final int synopsisHeadingLength, final Comparator<Field> optionSort, final boolean clusterBooleanOptions) {
+        public String detailedSynopsis(final int synopsisHeadingLength, final @Nullable Comparator<Field> optionSort, final boolean clusterBooleanOptions) {
             Text optionText = ansi().new Text(0);
             final List<Field> fields = new ArrayList<>(optionFields); // iterate in declaration order
             if (optionSort != null) {
@@ -3165,7 +3167,7 @@ public class CommandLine {
          * @param valueLabelRenderer used for options with a parameter
          * @return the fully formatted option list
          */
-        public String optionList(final Layout layout, final Comparator<Field> optionSort, final IParamLabelRenderer valueLabelRenderer) {
+        public String optionList(final Layout layout, final @Nullable Comparator<Field> optionSort, final IParamLabelRenderer valueLabelRenderer) {
             final List<Field> fields = new ArrayList<>(optionFields); // options are stored in order of declaration
             if (optionSort != null) {
                 Collections.sort(fields, optionSort); // default: sort options ABC
@@ -3200,7 +3202,7 @@ public class CommandLine {
             return result + new String(spaces(countTrailingSpaces(values)));
         }
         private static char[] spaces(final int length) { final char[] result = new char[length]; Arrays.fill(result, ' '); return result; }
-        private static int countTrailingSpaces(final String str) {
+        private static int countTrailingSpaces(final @Nullable String str) {
             if (str == null) {return 0;}
             int trailingSpaces = 0;
             for (int i = str.length() - 1; i >= 0 && str.charAt(i) == ' '; i--) { trailingSpaces++; }
@@ -3213,7 +3215,7 @@ public class CommandLine {
          * @param sb the StringBuilder to collect the formatted strings
          * @param params the parameters to pass to the format method when formatting each value
          * @return the specified StringBuilder */
-        public static StringBuilder join(final Ansi ansi, final String[] values, final StringBuilder sb, final Object... params) {
+        public static StringBuilder join(final Ansi ansi, final String @Nullable [] values, final StringBuilder sb, final Object... params) {
             if (values != null) {
                 final TextTable table = new TextTable(ansi, usageHelpWidth);
                 table.indentWrappedLines = 0;
@@ -3225,7 +3227,7 @@ public class CommandLine {
             }
             return sb;
         }
-        private static String format(final String formatString,  final Object... params) {
+        private static String format(final @Nullable String formatString,  final Object... params) {
             return formatString == null ? "" : String.format(formatString, params);
         }
         /** Returns command custom synopsis as a string. A custom synopsis can be zero or more lines, and can be
@@ -3339,7 +3341,7 @@ public class CommandLine {
             Collections.sort(strings, Collections.reverseOrder(Help.shortestFirst()));
             return strings.get(0).length();
         }
-        private static String join(final String[] names, final int offset, final int length, final String separator) {
+        private static String join(final String @Nullable [] names, final int offset, final int length, final String separator) {
             if (names == null) { return ""; }
             final StringBuilder result = new StringBuilder();
             for (int i = offset; i < offset + length; i++) {
@@ -3487,7 +3489,7 @@ public class CommandLine {
          */
         static class DefaultOptionRenderer implements IOptionRenderer {
             public String requiredMarker = " ";
-            public Object command;
+            public @Nullable Object command;
             private String sep;
             private boolean showDefault;
             @Override
@@ -4024,7 +4026,7 @@ public class CommandLine {
              *          TextTable#rowCount() row count}
              * @since 2.0 (previous versions returned a {@code java.awt.Point} object)
              */
-            public Cell putValue(int row, int col, Text value) {
+            public Cell putValue(int row, int col, @Nullable Text value) {
                 if (row > rowCount() - 1) {
                     throw new IllegalArgumentException("Cannot write to row " + row + ": rowCount=" + rowCount());
                 }
@@ -4216,7 +4218,7 @@ public class CommandLine {
                 replace(optionParamStyles, System.getProperty("picocli.color.optionParams"));
                 return this;
             }
-            private void replace(final List<IStyle> styles, final String property) {
+            private void replace(final List<IStyle> styles, final @Nullable String property) {
                 if (property != null) {
                     styles.clear();
                     addAll(styles, Style.parse(property));
@@ -4596,7 +4598,7 @@ public class CommandLine {
                 public String plainString() {  return plain.toString().substring(from, from + length); }
 
                 @Override
-                public boolean equals(final Object obj) { return toString().equals(String.valueOf(obj)); }
+                public boolean equals(final @Nullable Object obj) { return toString().equals(String.valueOf(obj)); }
                 @Override
                 public int hashCode() { return toString().hashCode(); }
 
@@ -4625,7 +4627,7 @@ public class CommandLine {
                     return sb.toString();
                 }
 
-                private StyledSection findSectionContaining(final int index) {
+                private @Nullable StyledSection findSectionContaining(final int index) {
                     for (final StyledSection section : sections) {
                         if (index >= section.startIndex && index < section.startIndex + section.length) {
                             return section;
@@ -4662,7 +4664,7 @@ public class CommandLine {
             if (tracer.level.isEnabled(this)) { tracer.stream.printf(prefix(msg), params); }
         }
         private String prefix(final String msg) { return "[picocli " + this + "] " + msg; }
-        static TraceLevel lookup(final String key) { return key == null ? WARN : empty(key) || "true".equalsIgnoreCase(key) ? INFO : valueOf(key); }
+        static TraceLevel lookup(final @Nullable String key) { return key == null ? WARN : empty(key) || "true".equalsIgnoreCase(key) ? INFO : valueOf(key); }
     }
     private static class Tracer {
         TraceLevel level = TraceLevel.lookup(System.getProperty("picocli.trace"));

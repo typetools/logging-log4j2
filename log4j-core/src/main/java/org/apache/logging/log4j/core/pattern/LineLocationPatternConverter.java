@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.core.impl.LocationAware;
@@ -46,7 +47,7 @@ public final class LineLocationPatternConverter extends LogEventPatternConverter
      * @return instance of pattern converter.
      */
     public static LineLocationPatternConverter newInstance(
-        final String[] options) {
+        final String @Nullable [] options) {
         return INSTANCE;
     }
 

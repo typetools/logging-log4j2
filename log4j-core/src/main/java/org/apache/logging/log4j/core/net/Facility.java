@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.net;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.apache.logging.log4j.util.EnglishEnums;
 
 /**
@@ -210,7 +212,7 @@ public enum Facility {
      * @param name The Facility enum name, case-insensitive. If null, returns, null
      * @return a Facility enum value or null if name is null
      */
-    public static Facility toFacility(final String name) {
+    public static @PolyNull Facility toFacility(final @PolyNull String name) {
         return toFacility(name, null);
     }
 
@@ -221,7 +223,7 @@ public enum Facility {
      * @param defaultFacility the Facility to return if name is null
      * @return a Facility enum value or null if name is null
      */
-    public static Facility toFacility(final String name, final Facility defaultFacility) {
+    public static Facility toFacility(final @Nullable String name, final Facility defaultFacility) {
         return EnglishEnums.valueOf(Facility.class, name, defaultFacility);
     }
 

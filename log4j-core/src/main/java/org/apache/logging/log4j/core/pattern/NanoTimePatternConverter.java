@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.util.PerformanceSensitive;
@@ -34,7 +35,7 @@ public final class NanoTimePatternConverter extends LogEventPatternConverter {
      * @param options
      *            options, may be null.
      */
-    private NanoTimePatternConverter(final String[] options) {
+    private NanoTimePatternConverter(final String @Nullable [] options) {
         super("Nanotime", "nanotime");
     }
 
@@ -45,7 +46,7 @@ public final class NanoTimePatternConverter extends LogEventPatternConverter {
      *            options, may be null.
      * @return instance of pattern converter.
      */
-    public static NanoTimePatternConverter newInstance(final String[] options) {
+    public static NanoTimePatternConverter newInstance(final String @Nullable [] options) {
         return new NanoTimePatternConverter(options);
     }
 

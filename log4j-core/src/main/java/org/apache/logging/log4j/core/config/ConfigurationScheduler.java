@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Date;
 import java.util.Queue;
 import java.util.concurrent.Callable;
@@ -39,7 +40,7 @@ public class ConfigurationScheduler extends AbstractLifeCycle {
     private static final String SIMPLE_NAME = "Log4j2 " + ConfigurationScheduler.class.getSimpleName();
     private static final int MAX_SCHEDULED_ITEMS = 5;
 
-    private volatile ScheduledExecutorService executorService;
+    private volatile @Nullable ScheduledExecutorService executorService;
     private int scheduledItems = 0;
     private final String name;
 
@@ -146,7 +147,7 @@ public class ConfigurationScheduler extends AbstractLifeCycle {
      * @param command The Runnable to run,
      * @return a ScheduledFuture representing the next time the command will run.
      */
-    public CronScheduledFuture<?> scheduleWithCron(final CronExpression cronExpression, final Date startDate, final Runnable command) {
+    public CronScheduledFuture<?> scheduleWithCron(final CronExpression cronExpression, final @Nullable Date startDate, final Runnable command) {
         final Date fireDate = cronExpression.getNextValidTimeAfter(startDate == null ? new Date() : startDate);
         final CronRunnable runnable = new CronRunnable(command, cronExpression);
         final ScheduledFuture<?> future = schedule(runnable, nextFireInterval(fireDate), TimeUnit.MILLISECONDS);

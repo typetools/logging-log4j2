@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.net.ssl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
@@ -35,7 +36,7 @@ import org.apache.logging.log4j.core.config.plugins.PluginFactory;
 @Plugin(name = "KeyStore", category = Core.CATEGORY_NAME, printObject = true)
 public class KeyStoreConfiguration extends AbstractKeyStoreConfiguration {
 
-    private final String keyManagerFactoryAlgorithm;
+    private final @Nullable String keyManagerFactoryAlgorithm;
 
     /**
      *
@@ -57,7 +58,7 @@ public class KeyStoreConfiguration extends AbstractKeyStoreConfiguration {
      */
     @Deprecated
     public KeyStoreConfiguration(final String location,
-                                 final char[] password,
+                                 final char @Nullable [] password,
                                  final String keyStoreType,
                                  final String keyManagerFactoryAlgorithm) throws StoreConfigurationException {
         this(location, new MemoryPasswordProvider(password), keyStoreType, keyManagerFactoryAlgorithm);
@@ -72,7 +73,7 @@ public class KeyStoreConfiguration extends AbstractKeyStoreConfiguration {
      * @deprecated Use {@link #KeyStoreConfiguration(String, PasswordProvider, String, String)} instead
      */
     @Deprecated
-    public KeyStoreConfiguration(final String location, final String password, final String keyStoreType,
+    public KeyStoreConfiguration(final String location, final @Nullable String password, final String keyStoreType,
             final String keyManagerFactoryAlgorithm) throws StoreConfigurationException {
         this(location, new MemoryPasswordProvider(password == null ? null : password.toCharArray()), keyStoreType,
                 keyManagerFactoryAlgorithm);
@@ -96,10 +97,10 @@ public class KeyStoreConfiguration extends AbstractKeyStoreConfiguration {
     public static KeyStoreConfiguration createKeyStoreConfiguration(
             // @formatter:off
             @PluginAttribute("location") final String location,
-            @PluginAttribute(value = "password", sensitive = true) final char[] password,
-            @PluginAttribute("passwordEnvironmentVariable") final String passwordEnvironmentVariable,
-            @PluginAttribute("passwordFile") final String passwordFile,
-            @PluginAttribute("type") final String keyStoreType,
+            @PluginAttribute(value = "password", sensitive = true) final char @Nullable [] password,
+            @PluginAttribute("passwordEnvironmentVariable") final @Nullable String passwordEnvironmentVariable,
+            @PluginAttribute("passwordFile") final @Nullable String passwordFile,
+            @PluginAttribute("type") final @Nullable String keyStoreType,
             @PluginAttribute("keyManagerFactoryAlgorithm") final String keyManagerFactoryAlgorithm) throws StoreConfigurationException {
             // @formatter:on
 
@@ -132,7 +133,7 @@ public class KeyStoreConfiguration extends AbstractKeyStoreConfiguration {
             // @formatter:off
             final String location,
             final char[] password,
-            final String keyStoreType,
+            final @Nullable String keyStoreType,
             final String keyManagerFactoryAlgorithm) throws StoreConfigurationException {
             // @formatter:on
         return createKeyStoreConfiguration(location, password, null, null, keyStoreType, keyManagerFactoryAlgorithm);
@@ -154,8 +155,8 @@ public class KeyStoreConfiguration extends AbstractKeyStoreConfiguration {
     public static KeyStoreConfiguration createKeyStoreConfiguration(
             // @formatter:off
             final String location,
-            final String password,
-            final String keyStoreType,
+            final @Nullable String password,
+            final @Nullable String keyStoreType,
             final String keyManagerFactoryAlgorithm) throws StoreConfigurationException {
             // @formatter:on
         return createKeyStoreConfiguration(location,
@@ -187,7 +188,7 @@ public class KeyStoreConfiguration extends AbstractKeyStoreConfiguration {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(final @Nullable Object obj) {
         if (this == obj) {
             return true;
         }

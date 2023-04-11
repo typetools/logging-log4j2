@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -148,15 +149,15 @@ public abstract class AbstractStringLayout extends AbstractLayout<String> implem
         StringBuilders.trimToMaxSize(stringBuilder, MAX_STRING_BUILDER_SIZE);
     }
 
-    private Encoder<StringBuilder> textEncoder;
+    private @Nullable Encoder<StringBuilder> textEncoder;
     /**
      * The charset for the formatted message.
      */
     private final Charset charset;
 
-    private final Serializer footerSerializer;
+    private final @Nullable Serializer footerSerializer;
 
-    private final Serializer headerSerializer;
+    private final @Nullable Serializer headerSerializer;
 
     protected AbstractStringLayout(final Charset charset) {
         this(charset, (byte[]) null, (byte[]) null);
@@ -169,7 +170,7 @@ public abstract class AbstractStringLayout extends AbstractLayout<String> implem
      * @param header the header bytes
      * @param footer the footer bytes
      */
-    protected AbstractStringLayout(final Charset aCharset, final byte[] header, final byte[] footer) {
+    protected AbstractStringLayout(final @Nullable Charset aCharset, final byte @Nullable [] header, final byte @Nullable [] footer) {
         super(null, header, footer);
         this.headerSerializer = null;
         this.footerSerializer = null;
@@ -185,7 +186,7 @@ public abstract class AbstractStringLayout extends AbstractLayout<String> implem
      * @param headerSerializer the header bytes serializer
      * @param footerSerializer the footer bytes serializer
      */
-    protected AbstractStringLayout(final Configuration config, final Charset aCharset,
+    protected AbstractStringLayout(final @Nullable Configuration config, final Charset aCharset,
             final Serializer headerSerializer, final Serializer footerSerializer) {
         super(config, null, null);
         this.headerSerializer = headerSerializer;
@@ -263,7 +264,7 @@ public abstract class AbstractStringLayout extends AbstractLayout<String> implem
         return StringEncoder.toBytes(serializable, getCharset());
     }
 
-    protected String serializeToString(final Serializer serializer) {
+    protected @Nullable String serializeToString(final @Nullable Serializer serializer) {
         if (serializer == null) {
             return null;
         }

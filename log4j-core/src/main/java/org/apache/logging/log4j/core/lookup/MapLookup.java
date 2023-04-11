@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.lookup;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class MapLookup implements StrLookup {
     /**
      * Map keys are variable names and value.
      */
-    private final Map<String, String> map;
+    private final @Nullable Map<String, String> map;
 
     /**
      * Constructor when used directly as a plugin.
@@ -49,7 +50,7 @@ public class MapLookup implements StrLookup {
      * @param map
      *        the map of keys to values, may be null
      */
-    public MapLookup(final Map<String, String> map) {
+    public MapLookup(final @Nullable Map<String, String> map) {
         this.map = map;
     }
 
@@ -98,7 +99,7 @@ public class MapLookup implements StrLookup {
         MainMapLookup.setMainArguments(args);
     }
 
-    static Map<String, String> toMap(final List<String> args) {
+    static @Nullable Map<String, String> toMap(final @Nullable List<String> args) {
         if (args == null) {
             return null;
         }
@@ -106,7 +107,7 @@ public class MapLookup implements StrLookup {
         return initMap(args.toArray(Strings.EMPTY_ARRAY), newMap(size));
     }
 
-    static Map<String, String> toMap(final String[] args) {
+    static @Nullable Map<String, String> toMap(final String @Nullable [] args) {
         if (args == null) {
             return null;
         }
@@ -118,7 +119,7 @@ public class MapLookup implements StrLookup {
     }
 
     @Override
-    public String lookup(final LogEvent event, final String key) {
+    public @Nullable String lookup(final @Nullable LogEvent event, final String key) {
         final boolean isMapMessage = event != null && event.getMessage() instanceof MapMessage;
         if (isMapMessage) {
             final String obj = ((MapMessage) event.getMessage()).get(key);
@@ -143,7 +144,7 @@ public class MapLookup implements StrLookup {
      * @return the matching value, null if no match
      */
     @Override
-    public String lookup(final String key) {
+    public @Nullable String lookup(final @Nullable String key) {
         if (key == null || map == null) {
             return null;
         }

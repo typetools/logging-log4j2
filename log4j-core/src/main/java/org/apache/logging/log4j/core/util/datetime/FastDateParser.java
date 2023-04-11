@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util.datetime;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
@@ -128,7 +129,7 @@ public class FastDateParser implements DateParser, Serializable {
      *
      * @since 3.5
      */
-    protected FastDateParser(final String pattern, final TimeZone timeZone, final Locale locale, final Date centuryStart) {
+    protected FastDateParser(final String pattern, final TimeZone timeZone, final Locale locale, final @Nullable Date centuryStart) {
         this.pattern = pattern;
         this.timeZone = timeZone;
         this.locale = locale;
@@ -209,7 +210,7 @@ public class FastDateParser implements DateParser, Serializable {
             this.definingCalendar = definingCalendar;
         }
 
-        StrategyAndWidth getNextStrategy() {
+        @Nullable StrategyAndWidth getNextStrategy() {
             if (currentIdx >= pattern.length()) {
                 return null;
             }
@@ -298,7 +299,7 @@ public class FastDateParser implements DateParser, Serializable {
      * @return <code>true</code>if equal to this instance
      */
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(final @Nullable Object obj) {
         if (!(obj instanceof FastDateParser)) {
             return false;
         }
@@ -393,7 +394,7 @@ public class FastDateParser implements DateParser, Serializable {
      * @see org.apache.commons.lang3.time.DateParser#parse(java.lang.String, java.text.ParsePosition)
      */
     @Override
-    public Date parse(final String source, final ParsePosition pos) {
+    public @Nullable Date parse(final String source, final ParsePosition pos) {
         // timing tests indicate getting new instance is 19% faster than cloning
         final Calendar cal= Calendar.getInstance(timeZone, locale);
         cal.clear();

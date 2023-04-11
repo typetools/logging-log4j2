@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.arbiters;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,7 @@ import org.apache.logging.log4j.core.config.plugins.PluginBuilderFactory;
         printObject = true)
 public class SelectArbiter {
 
-    public Arbiter evaluateConditions(List<Arbiter> conditions) {
+    public @Nullable Arbiter evaluateConditions(List<Arbiter> conditions) {
         Optional<Arbiter> opt = conditions.stream().filter((c) -> c instanceof DefaultArbiter)
                 .reduce((a, b) -> {
                     throw new IllegalStateException("Multiple elements: " + a + ", " + b);

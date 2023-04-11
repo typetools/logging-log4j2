@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.script;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.status.StatusLogger;
 
@@ -27,21 +28,21 @@ public abstract class AbstractScript {
     protected static final Logger LOGGER = StatusLogger.getLogger();
     protected static final String DEFAULT_LANGUAGE = "JavaScript";
 
-    private final String language;
-    private final String scriptText;
+    private final @Nullable String language;
+    private final @Nullable String scriptText;
     private final String name;
 
-    public AbstractScript(final String name, final String language, final String scriptText) {
+    public AbstractScript(final @Nullable String name, final @Nullable String language, final @Nullable String scriptText) {
         this.language = language;
         this.scriptText = scriptText;
         this.name = name == null ? this.toString() : name;
     }
 
-    public String getLanguage() {
+    public @Nullable String getLanguage() {
         return this.language;
     }
 
-    public String getScriptText() {
+    public @Nullable String getScriptText() {
         return this.scriptText;
     }
 

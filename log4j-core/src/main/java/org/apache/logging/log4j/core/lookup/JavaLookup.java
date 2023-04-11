@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.lookup;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Locale;
 
 import org.apache.logging.log4j.core.LogEvent;
@@ -98,7 +99,7 @@ public class JavaLookup extends AbstractLookup {
      * @return The value of the environment variable.
      */
     @Override
-    public String lookup(final LogEvent event, final String key) {
+    public String lookup(final LogEvent event, final @Nullable String key) {
         switch (key) {
         case "version":
             return "Java version " + getSystemProperty("java.version");

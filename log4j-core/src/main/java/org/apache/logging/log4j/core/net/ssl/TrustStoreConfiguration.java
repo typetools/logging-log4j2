@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.net.ssl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -34,12 +35,12 @@ import org.apache.logging.log4j.core.config.plugins.PluginFactory;
 @Plugin(name = "TrustStore", category = Core.CATEGORY_NAME, printObject = true)
 public class TrustStoreConfiguration extends AbstractKeyStoreConfiguration {
 
-    private final String trustManagerFactoryAlgorithm;
+    private final @Nullable String trustManagerFactoryAlgorithm;
 
     public TrustStoreConfiguration(final String location,
                                    final PasswordProvider passwordProvider,
                                    final String keyStoreType,
-                                   final String trustManagerFactoryAlgorithm) throws StoreConfigurationException {
+                                   final @Nullable String trustManagerFactoryAlgorithm) throws StoreConfigurationException {
         super(location, passwordProvider, keyStoreType);
         this.trustManagerFactoryAlgorithm = trustManagerFactoryAlgorithm == null ? TrustManagerFactory
                 .getDefaultAlgorithm() : trustManagerFactoryAlgorithm;
@@ -49,7 +50,7 @@ public class TrustStoreConfiguration extends AbstractKeyStoreConfiguration {
      * @deprecated Use {@link #TrustStoreConfiguration(String, PasswordProvider, String, String)} instead
      */
     @Deprecated
-    public TrustStoreConfiguration(final String location, final char[] password, final String keyStoreType,
+    public TrustStoreConfiguration(final String location, final char @Nullable [] password, final String keyStoreType,
             final String trustManagerFactoryAlgorithm) throws StoreConfigurationException {
         this(location, new MemoryPasswordProvider(password), keyStoreType, trustManagerFactoryAlgorithm);
         if (password != null) {
@@ -61,7 +62,7 @@ public class TrustStoreConfiguration extends AbstractKeyStoreConfiguration {
      * @deprecated Use {@link #TrustStoreConfiguration(String, PasswordProvider, String, String)} instead
      */
     @Deprecated
-    public TrustStoreConfiguration(final String location, final String password, final String keyStoreType,
+    public TrustStoreConfiguration(final String location, final @Nullable String password, final String keyStoreType,
             final String trustManagerFactoryAlgorithm) throws StoreConfigurationException {
         this(location, new MemoryPasswordProvider(password == null ? null : password.toCharArray()), keyStoreType,
                 trustManagerFactoryAlgorithm);
@@ -85,10 +86,10 @@ public class TrustStoreConfiguration extends AbstractKeyStoreConfiguration {
     public static TrustStoreConfiguration createKeyStoreConfiguration(
             // @formatter:off
             @PluginAttribute("location") final String location,
-            @PluginAttribute(value = "password", sensitive = true) final char[] password,
-            @PluginAttribute("passwordEnvironmentVariable") final String passwordEnvironmentVariable,
-            @PluginAttribute("passwordFile") final String passwordFile,
-            @PluginAttribute("type") final String keyStoreType,
+            @PluginAttribute(value = "password", sensitive = true) final char @Nullable [] password,
+            @PluginAttribute("passwordEnvironmentVariable") final @Nullable String passwordEnvironmentVariable,
+            @PluginAttribute("passwordFile") final @Nullable String passwordFile,
+            @PluginAttribute("type") final @Nullable String keyStoreType,
             @PluginAttribute("trustManagerFactoryAlgorithm") final String trustManagerFactoryAlgorithm) throws StoreConfigurationException {
             // @formatter:on
 
@@ -143,9 +144,9 @@ public class TrustStoreConfiguration extends AbstractKeyStoreConfiguration {
     public static TrustStoreConfiguration createKeyStoreConfiguration(
             // @formatter:off
             final String location,
-            final String password,
-            final String keyStoreType,
-            final String trustManagerFactoryAlgorithm) throws StoreConfigurationException {
+            final @Nullable String password,
+            final @Nullable String keyStoreType,
+            final @Nullable String trustManagerFactoryAlgorithm) throws StoreConfigurationException {
             // @formatter:on
         return createKeyStoreConfiguration(location, (password == null ? null : password.toCharArray()),
                 null, null, keyStoreType, trustManagerFactoryAlgorithm);
@@ -167,7 +168,7 @@ public class TrustStoreConfiguration extends AbstractKeyStoreConfiguration {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(final @Nullable Object obj) {
         if (this == obj) {
             return true;
         }

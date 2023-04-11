@@ -16,6 +16,9 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /*
  * This file originated from the Quartz scheduler with no change in licensing.
  * Copyright Terracotta, Inc.
@@ -235,14 +238,14 @@ public final class CronExpression {
     }
 
     private final String cronExpression;
-    private TimeZone timeZone = null;
-    protected transient TreeSet<Integer> seconds;
-    protected transient TreeSet<Integer> minutes;
-    protected transient TreeSet<Integer> hours;
-    protected transient TreeSet<Integer> daysOfMonth;
-    protected transient TreeSet<Integer> months;
-    protected transient TreeSet<Integer> daysOfWeek;
-    protected transient TreeSet<Integer> years;
+    private @MonotonicNonNull TimeZone timeZone = null;
+    protected transient @MonotonicNonNull TreeSet<Integer> seconds;
+    protected transient @MonotonicNonNull TreeSet<Integer> minutes;
+    protected transient @MonotonicNonNull TreeSet<Integer> hours;
+    protected transient @MonotonicNonNull TreeSet<Integer> daysOfMonth;
+    protected transient @MonotonicNonNull TreeSet<Integer> months;
+    protected transient @MonotonicNonNull TreeSet<Integer> daysOfWeek;
+    protected transient @MonotonicNonNull TreeSet<Integer> years;
 
     protected transient boolean lastdayOfWeek = false;
     protected transient int nthdayOfWeek = 0;
@@ -1104,7 +1107,7 @@ public final class CronExpression {
         }
     }
 
-    TreeSet<Integer> getSet(final int type) {
+    @Nullable TreeSet<Integer> getSet(final int type) {
         switch (type) {
             case SECOND:
                 return seconds;
@@ -1175,7 +1178,7 @@ public final class CronExpression {
     //
     ////////////////////////////////////////////////////////////////////////////
 
-    public Date getTimeAfter(Date afterTime) {
+    public @Nullable Date getTimeAfter(Date afterTime) {
 
         // Computation is based on Gregorian year only.
         final Calendar cl = new java.util.GregorianCalendar(getTimeZone());
@@ -1589,7 +1592,7 @@ public final class CronExpression {
         }
     }
 
-    protected Date getTimeBefore(final Date targetDate) {
+    protected @Nullable Date getTimeBefore(final Date targetDate) {
         final Calendar cl = Calendar.getInstance(getTimeZone());
 
         // CronTrigger does not deal with milliseconds, so truncate target
@@ -1658,7 +1661,7 @@ public final class CronExpression {
      * NOT YET IMPLEMENTED: Returns the final time that the
      * <code>CronExpression</code> will match.
      */
-    public Date getFinalFireTime() {
+    public @Nullable Date getFinalFireTime() {
         // FUTURE_TODO: implement QUARTZ-423
         return null;
     }

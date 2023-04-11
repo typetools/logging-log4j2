@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.regex.Pattern;
 
 import org.apache.logging.log4j.Logger;
@@ -69,9 +70,9 @@ public final class RegexReplacement {
      * @return A RegexReplacement.
      */
     @PluginFactory
-    public static RegexReplacement createRegexReplacement(
-            @PluginAttribute("regex") final Pattern regex,
-            @PluginAttribute("replacement") final String replacement) {
+    public static @Nullable RegexReplacement createRegexReplacement(
+            @PluginAttribute("regex") final @Nullable Pattern regex,
+            @PluginAttribute("replacement") final @Nullable String replacement) {
         if (regex == null) {
             LOGGER.error("A regular expression is required for replacement");
             return null;

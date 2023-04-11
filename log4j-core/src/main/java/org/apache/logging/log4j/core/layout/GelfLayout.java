@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import static org.apache.logging.log4j.util.Chars.LF;
 import static org.apache.logging.log4j.util.Chars.NUL;
 
@@ -88,12 +89,12 @@ public final class GelfLayout extends AbstractStringLayout {
         },
         OFF {
             @Override
-            public DeflaterOutputStream createDeflaterOutputStream(final OutputStream os) throws IOException {
+            public @Nullable DeflaterOutputStream createDeflaterOutputStream(final OutputStream os) throws IOException {
                 return null;
             }
         };
 
-        public abstract DeflaterOutputStream createDeflaterOutputStream(OutputStream os) throws IOException;
+        public abstract @Nullable DeflaterOutputStream createDeflaterOutputStream(OutputStream os) throws IOException;
     }
 
     private static final char C = ',';
@@ -112,7 +113,7 @@ public final class GelfLayout extends AbstractStringLayout {
     private final boolean includeNullDelimiter;
     private final boolean includeNewLineDelimiter;
     private final boolean omitEmptyFields;
-    private final PatternLayout layout;
+    private final @Nullable PatternLayout layout;
     private final FieldWriter mdcWriter;
     private final FieldWriter mapWriter;
 
@@ -162,7 +163,7 @@ public final class GelfLayout extends AbstractStringLayout {
         private boolean omitEmptyFields;
 
         @PluginBuilderAttribute
-        private String messagePattern;
+        private @Nullable String messagePattern;
 
         @PluginBuilderAttribute
         private String threadContextPrefix = "";
@@ -171,7 +172,7 @@ public final class GelfLayout extends AbstractStringLayout {
         private String mapPrefix = "";
 
         @PluginElement("PatternSelector")
-        private PatternSelector patternSelector;
+        private @Nullable PatternSelector patternSelector;
 
         public Builder() {
             setCharset(StandardCharsets.UTF_8);
@@ -205,7 +206,7 @@ public final class GelfLayout extends AbstractStringLayout {
                     threadContextPrefix, mapPrefix);
         }
 
-        private ListChecker createChecker(String excludes, String includes) {
+        private ListChecker createChecker(@Nullable String excludes, @Nullable String includes) {
             ListChecker checker = null;
             if (excludes != null) {
                 final String[] array = excludes.split(Patterns.COMMA_SEPARATOR);
@@ -420,7 +421,7 @@ public final class GelfLayout extends AbstractStringLayout {
          * @param prefix The prefix value. Null values will be ignored.
          * @return this builder.
          */
-        public B setThreadContextPrefix(final String prefix) {
+        public B setThreadContextPrefix(final @Nullable String prefix) {
             if (prefix != null) {
                 this.threadContextPrefix = prefix;
             }
@@ -432,7 +433,7 @@ public final class GelfLayout extends AbstractStringLayout {
          * @param prefix The prefix value. Null values will be ignored.
          * @return this builder.
          */
-        public B setMapPrefix(final String prefix) {
+        public B setMapPrefix(final @Nullable String prefix) {
             if (prefix != null) {
                 this.mapPrefix = prefix;
             }
@@ -450,11 +451,11 @@ public final class GelfLayout extends AbstractStringLayout {
                 false, false, false, null, null, null, "", "");
     }
 
-    private GelfLayout(final Configuration config, final String host, final KeyValuePair[] additionalFields,
+    private GelfLayout(final @Nullable Configuration config, final String host, final KeyValuePair @Nullable [] additionalFields,
             final CompressionType compressionType, final int compressionThreshold, final boolean includeStacktrace,
             final boolean includeThreadContext, final boolean includeMapMessage, final boolean includeNullDelimiter,
-            final boolean includeNewLineDelimiter, final boolean omitEmptyFields, final ListChecker mdcChecker,
-            final ListChecker mapChecker, final PatternLayout patternLayout, final String mdcPrefix,
+            final boolean includeNewLineDelimiter, final boolean omitEmptyFields, final @Nullable ListChecker mdcChecker,
+            final @Nullable ListChecker mapChecker, final @Nullable PatternLayout patternLayout, final String mdcPrefix,
             final String mapPrefix) {
         super(config, StandardCharsets.UTF_8, null, null);
         this.host = host != null ? host : NetUtils.getLocalHostname();
@@ -666,7 +667,7 @@ public final class GelfLayout extends AbstractStringLayout {
         return builder;
     }
 
-    private static boolean valueNeedsLookup(final String value) {
+    private static boolean valueNeedsLookup(final @Nullable String value) {
         return value != null && value.contains("${");
     }
 
@@ -708,7 +709,7 @@ public final class GelfLayout extends AbstractStringLayout {
         return result;
     }
 
-    private static CharSequence toNullSafeString(final CharSequence s) {
+    private static CharSequence toNullSafeString(final @Nullable CharSequence s) {
         return s == null ? Strings.EMPTY : s;
     }
 

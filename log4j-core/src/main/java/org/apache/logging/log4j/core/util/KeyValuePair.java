@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Objects;
 
 import org.apache.logging.log4j.core.config.Node;
@@ -107,7 +108,7 @@ public final class KeyValuePair {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(final @Nullable Object obj) {
         if (this == obj) {
             return true;
         }

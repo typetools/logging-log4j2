@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.util.PerformanceSensitive;
 
@@ -40,7 +41,7 @@ public final class FileDatePatternConverter {
      * @param options options, may be null.
      * @return instance of pattern converter.
      */
-    public static PatternConverter newInstance(final String[] options) {
+    public static PatternConverter newInstance(final String @Nullable [] options) {
         if (options == null || options.length == 0) {
             return DatePatternConverter.newInstance(
                 new String[]{

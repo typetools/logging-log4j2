@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.File;
 import java.util.List;
 
@@ -29,7 +30,7 @@ import org.apache.logging.log4j.core.util.Watcher;
  */
 public class ConfigurationFileWatcher extends AbstractWatcher implements FileWatcher {
 
-    private File file;
+    private @Nullable File file;
     private long lastModifiedMillis;
 
     public ConfigurationFileWatcher(final Configuration configuration, final Reconfigurable reconfigurable,

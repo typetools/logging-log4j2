@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.lookup;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.PolyNull;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -187,12 +189,12 @@ public class StrSubstitutor implements ConfigurationAware {
      * Stores the default variable value delimiter
      */
     private String valueDelimiterString;
-    private StrMatcher valueDelimiterMatcher;
+    private @Nullable StrMatcher valueDelimiterMatcher;
 
     /**
      * Escape string to avoid matching the value delimiter matcher;
      */
-    private StrMatcher valueEscapeDelimiterMatcher;
+    private @Nullable StrMatcher valueEscapeDelimiterMatcher;
 
     /**
      * Variable resolution is delegated to an implementer of VariableResolver.
@@ -207,7 +209,7 @@ public class StrSubstitutor implements ConfigurationAware {
     /**
      * The currently active Configuration for use by ConfigurationAware StrLookup implementations.
      */
-    private Configuration configuration;
+    private @Nullable Configuration configuration;
 
     //-----------------------------------------------------------------------
     /**
@@ -224,7 +226,7 @@ public class StrSubstitutor implements ConfigurationAware {
      *
      * @param valueMap  the map with the variables' values, may be null
      */
-    public StrSubstitutor(final Map<String, String> valueMap) {
+    public StrSubstitutor(final @Nullable Map<String, String> valueMap) {
         this(new PropertiesLookup(valueMap), DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
     }
 
@@ -236,7 +238,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param suffix  the suffix for variables, not null
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public StrSubstitutor(final Map<String, String> valueMap, final String prefix, final String suffix) {
+    public StrSubstitutor(final @Nullable Map<String, String> valueMap, final String prefix, final String suffix) {
         this(new PropertiesLookup(valueMap), prefix, suffix, DEFAULT_ESCAPE);
     }
 
@@ -249,7 +251,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param escape  the escape character
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public StrSubstitutor(final Map<String, String> valueMap, final String prefix, final String suffix,
+    public StrSubstitutor(final @Nullable Map<String, String> valueMap, final String prefix, final String suffix,
                           final char escape) {
         this(new PropertiesLookup(valueMap), prefix, suffix, escape);
     }
@@ -264,8 +266,8 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param valueDelimiter  the variable default value delimiter, may be null
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public StrSubstitutor(final Map<String, String> valueMap, final String prefix, final String suffix,
-                              final char escape, final String valueDelimiter) {
+    public StrSubstitutor(final @Nullable Map<String, String> valueMap, final String prefix, final String suffix,
+                              final char escape, final @Nullable String valueDelimiter) {
         this(new PropertiesLookup(valueMap), prefix, suffix, escape, valueDelimiter);
     }
 
@@ -275,7 +277,7 @@ public class StrSubstitutor implements ConfigurationAware {
      *
      * @param properties  the map with the variables' values, may be null
      */
-    public StrSubstitutor(final Properties properties) {
+    public StrSubstitutor(final @Nullable Properties properties) {
         this(toTypeSafeMap(properties));
     }
 
@@ -284,7 +286,7 @@ public class StrSubstitutor implements ConfigurationAware {
      *
      * @param variableResolver  the variable resolver, may be null
      */
-    public StrSubstitutor(final StrLookup variableResolver) {
+    public StrSubstitutor(final @Nullable StrLookup variableResolver) {
         this(variableResolver, DEFAULT_PREFIX, DEFAULT_SUFFIX, DEFAULT_ESCAPE);
     }
 
@@ -297,7 +299,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param escape  the escape character
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public StrSubstitutor(final StrLookup variableResolver, final String prefix, final String suffix,
+    public StrSubstitutor(final @Nullable StrLookup variableResolver, final String prefix, final String suffix,
                           final char escape) {
         this.setVariableResolver(variableResolver);
         this.setVariablePrefix(prefix);
@@ -315,7 +317,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param valueDelimiter  the variable default value delimiter string, may be null
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public StrSubstitutor(final StrLookup variableResolver, final String prefix, final String suffix, final char escape, final String valueDelimiter) {
+    public StrSubstitutor(final @Nullable StrLookup variableResolver, final String prefix, final String suffix, final char escape, final @Nullable  String valueDelimiter) {
         this.setVariableResolver(variableResolver);
         this.setVariablePrefix(prefix);
         this.setVariableSuffix(suffix);
@@ -332,7 +334,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param escape  the escape character
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public StrSubstitutor(final StrLookup variableResolver, final StrMatcher prefixMatcher,
+    public StrSubstitutor(final @Nullable StrLookup variableResolver, final StrMatcher prefixMatcher,
                           final StrMatcher suffixMatcher,
                           final char escape) {
         this(variableResolver, prefixMatcher, suffixMatcher, escape, DEFAULT_VALUE_DELIMITER,
@@ -350,8 +352,8 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param valueDelimiterMatcher  the variable default value delimiter matcher, may be null
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public StrSubstitutor(final StrLookup variableResolver, final StrMatcher prefixMatcher,
-            final StrMatcher suffixMatcher, final char escape, final StrMatcher valueDelimiterMatcher) {
+    public StrSubstitutor(final @Nullable StrLookup variableResolver, final StrMatcher prefixMatcher,
+            final StrMatcher suffixMatcher, final char escape, final @Nullable StrMatcher valueDelimiterMatcher) {
         this.setVariableResolver(variableResolver);
         this.setVariablePrefixMatcher(prefixMatcher);
         this.setVariableSuffixMatcher(suffixMatcher);
@@ -370,9 +372,9 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param valueEscapeMatcher the matcher to escape defaulting, may be null.
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public StrSubstitutor(final StrLookup variableResolver, final StrMatcher prefixMatcher,
-                          final StrMatcher suffixMatcher, final char escape, final StrMatcher valueDelimiterMatcher,
-                          final StrMatcher valueEscapeMatcher) {
+    public StrSubstitutor(final @Nullable StrLookup variableResolver, final StrMatcher prefixMatcher,
+                          final StrMatcher suffixMatcher, final char escape, final @Nullable StrMatcher valueDelimiterMatcher,
+                          final @Nullable StrMatcher valueEscapeMatcher) {
         this.setVariableResolver(variableResolver);
         this.setVariablePrefixMatcher(prefixMatcher);
         this.setVariableSuffixMatcher(suffixMatcher);
@@ -403,7 +405,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param valueMap  the map with the values, may be null
      * @return the result of the replace operation
      */
-    public static String replace(final Object source, final Map<String, String> valueMap) {
+    public static @Nullable String replace(final @Nullable Object source, final @Nullable Map<String, String> valueMap) {
         return new StrSubstitutor(valueMap).replace(source);
     }
 
@@ -419,7 +421,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @return the result of the replace operation
      * @throws IllegalArgumentException if the prefix or suffix is null
      */
-    public static String replace(final Object source, final Map<String, String> valueMap, final String prefix,
+    public static @Nullable String replace(final @Nullable Object source, final @Nullable Map<String, String> valueMap, final String prefix,
                                  final String suffix) {
         return new StrSubstitutor(valueMap, prefix, suffix).replace(source);
     }
@@ -432,7 +434,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param valueProperties the properties with values, may be null
      * @return the result of the replace operation
      */
-    public static String replace(final Object source, final Properties valueProperties) {
+    public static @Nullable String replace(final @Nullable Object source, final @Nullable Properties valueProperties) {
         if (valueProperties == null) {
             return Objects.toString(source, null);
         }
@@ -467,7 +469,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param source  the string to replace in, null returns null
      * @return the result of the replace operation
      */
-    public String replace(final String source) {
+    public @PolyNull String replace(final @PolyNull String source) {
         return replace(null, source);
     }
     //-----------------------------------------------------------------------
@@ -479,7 +481,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param source  the string to replace in, null returns null
      * @return the result of the replace operation
      */
-    public String replace(final LogEvent event, final String source) {
+    public @PolyNull String replace(final @Nullable LogEvent event, final @PolyNull String source) {
         if (source == null) {
             return null;
         }
@@ -507,7 +509,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param length  the length within the array to be processed, must be valid
      * @return the result of the replace operation
      */
-    public String replace(final String source, final int offset, final int length) {
+    public @PolyNull String replace(final @PolyNull String source, final int offset, final int length) {
         return replace(null, source, offset, length);
     }
 
@@ -525,7 +527,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param length  the length within the array to be processed, must be valid
      * @return the result of the replace operation
      */
-    public String replace(final LogEvent event, final String source, final int offset, final int length) {
+    public @PolyNull String replace(final @Nullable LogEvent event, final @PolyNull String source, final int offset, final int length) {
         if (source == null) {
             return null;
         }
@@ -549,7 +551,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param source  the character array to replace in, not altered, null returns null
      * @return the result of the replace operation
      */
-    public String replace(final char[] source) {
+    public @PolyNull String replace(final char @PolyNull [] source) {
         return replace(null, source);
     }
 
@@ -563,7 +565,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param source  the character array to replace in, not altered, null returns null
      * @return the result of the replace operation
      */
-    public String replace(final LogEvent event, final char[] source) {
+    public @PolyNull String replace(final @Nullable  LogEvent event, final char @PolyNull [] source) {
         if (source == null) {
             return null;
         }
@@ -590,7 +592,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param length  the length within the array to be processed, must be valid
      * @return the result of the replace operation
      */
-    public String replace(final char[] source, final int offset, final int length) {
+    public @PolyNull String replace(final char @PolyNull [] source, final int offset, final int length) {
         return replace(null, source, offset, length);
     }
 
@@ -609,7 +611,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param length  the length within the array to be processed, must be valid
      * @return the result of the replace operation
      */
-    public String replace(final LogEvent event, final char[] source, final int offset, final int length) {
+    public @Nullable String replace(final @Nullable LogEvent event, final char @Nullable [] source, final int offset, final int length) {
         if (source == null) {
             return null;
         }
@@ -631,7 +633,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param source  the buffer to use as a template, not changed, null returns null
      * @return the result of the replace operation
      */
-    public String replace(final StringBuffer source) {
+    public @PolyNull String replace(final @PolyNull StringBuffer source) {
         return replace(null, source);
     }
 
@@ -645,7 +647,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param source  the buffer to use as a template, not changed, null returns null
      * @return the result of the replace operation
      */
-    public String replace(final LogEvent event, final StringBuffer source) {
+    public @PolyNull String replace(final @Nullable LogEvent event, final @PolyNull StringBuffer source) {
         if (source == null) {
             return null;
         }
@@ -672,7 +674,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param length  the length within the array to be processed, must be valid
      * @return the result of the replace operation
      */
-    public String replace(final StringBuffer source, final int offset, final int length) {
+    public @PolyNull String replace(final @PolyNull StringBuffer source, final int offset, final int length) {
         return replace(null, source, offset, length);
     }
 
@@ -691,7 +693,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param length  the length within the array to be processed, must be valid
      * @return the result of the replace operation
      */
-    public String replace(final LogEvent event, final StringBuffer source, final int offset, final int length) {
+    public @PolyNull String replace(final @Nullable LogEvent event, final @PolyNull StringBuffer source, final int offset, final int length) {
         if (source == null) {
             return null;
         }
@@ -713,7 +715,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param source  the builder to use as a template, not changed, null returns null
      * @return the result of the replace operation
      */
-    public String replace(final StringBuilder source) {
+    public @PolyNull String replace(final @PolyNull StringBuilder source) {
         return replace(null, source);
     }
 
@@ -727,7 +729,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param source  the builder to use as a template, not changed, null returns null.
      * @return the result of the replace operation.
      */
-    public String replace(final LogEvent event, final StringBuilder source) {
+    public @PolyNull String replace(final @Nullable LogEvent event, final @PolyNull StringBuilder source) {
         if (source == null) {
             return null;
         }
@@ -753,7 +755,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param length  the length within the array to be processed, must be valid
      * @return the result of the replace operation
      */
-    public String replace(final StringBuilder source, final int offset, final int length) {
+    public @PolyNull String replace(final @PolyNull StringBuilder source, final int offset, final int length) {
         return replace(null, source, offset, length);
     }
 
@@ -772,7 +774,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param length  the length within the array to be processed, must be valid
      * @return the result of the replace operation
      */
-    public String replace(final LogEvent event, final StringBuilder source, final int offset, final int length) {
+    public @PolyNull String replace(final @Nullable LogEvent event, final @PolyNull StringBuilder source, final int offset, final int length) {
         if (source == null) {
             return null;
         }
@@ -794,7 +796,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param source  the source to replace in, null returns null
      * @return the result of the replace operation
      */
-    public String replace(final Object source) {
+    public @PolyNull String replace(final @PolyNull Object source) {
         return replace(null, source);
     }
     //-----------------------------------------------------------------------
@@ -807,7 +809,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param source  the source to replace in, null returns null
      * @return the result of the replace operation
      */
-    public String replace(final LogEvent event, final Object source) {
+    public @PolyNull String replace(final @Nullable LogEvent event, final @PolyNull Object source) {
         if (source == null) {
             return null;
         }
@@ -830,7 +832,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param source  the buffer to replace in, updated, null returns zero
      * @return true if altered
      */
-    public boolean replaceIn(final StringBuffer source) {
+    public boolean replaceIn(final @Nullable StringBuffer source) {
         if (source == null) {
             return false;
         }
@@ -851,7 +853,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param length  the length within the buffer to be processed, must be valid
      * @return true if altered
      */
-    public boolean replaceIn(final StringBuffer source, final int offset, final int length) {
+    public boolean replaceIn(final @Nullable StringBuffer source, final int offset, final int length) {
         return replaceIn(null, source, offset, length);
     }
 
@@ -870,7 +872,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param length  the length within the buffer to be processed, must be valid
      * @return true if altered
      */
-    public boolean replaceIn(final LogEvent event, final StringBuffer source, final int offset, final int length) {
+    public boolean replaceIn(final @Nullable LogEvent event, final @Nullable StringBuffer source, final int offset, final int length) {
         if (source == null) {
             return false;
         }
@@ -895,7 +897,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param source  the builder to replace in, updated, null returns zero
      * @return true if altered
      */
-    public boolean replaceIn(final StringBuilder source) {
+    public boolean replaceIn(final @Nullable StringBuilder source) {
         return replaceIn(null, source);
     }
 
@@ -908,7 +910,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param source  the builder to replace in, updated, null returns zero
      * @return true if altered
      */
-    public boolean replaceIn(final LogEvent event, final StringBuilder source) {
+    public boolean replaceIn(final @Nullable LogEvent event, final @Nullable StringBuilder source) {
         if (source == null) {
             return false;
         }
@@ -927,7 +929,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param length  the length within the builder to be processed, must be valid
      * @return true if altered
      */
-    public boolean replaceIn(final StringBuilder source, final int offset, final int length) {
+    public boolean replaceIn(final @Nullable StringBuilder source, final int offset, final int length) {
         return replaceIn(null, source, offset, length);
     }
 
@@ -945,7 +947,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param length  the length within the builder to be processed, must be valid
      * @return true if altered
      */
-    public boolean replaceIn(final LogEvent event, final StringBuilder source, final int offset, final int length) {
+    public boolean replaceIn(final @Nullable LogEvent event, final @Nullable StringBuilder source, final int offset, final int length) {
         if (source == null) {
             return false;
         }
@@ -970,7 +972,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param length  the length within the builder to be processed, must be valid
      * @return true if altered
      */
-    protected boolean substitute(final LogEvent event, final StringBuilder buf, final int offset, final int length) {
+    protected boolean substitute(final @Nullable LogEvent event, final StringBuilder buf, final int offset, final int length) {
         return substitute(event, buf, offset, length, null) > 0;
     }
 
@@ -987,8 +989,8 @@ public class StrSubstitutor implements ConfigurationAware {
      * @return the length change that occurs, unless priorVariables is null when the int
      *  represents a boolean flag as to whether any change occurred.
      */
-    private int substitute(final LogEvent event, final StringBuilder buf, final int offset, final int length,
-                           List<String> priorVariables) {
+    private int substitute(final @Nullable LogEvent event, final StringBuilder buf, final int offset, final int length,
+                           @Nullable List<String> priorVariables) {
         final StrMatcher prefixMatcher = getVariablePrefixMatcher();
         final StrMatcher suffixMatcher = getVariableSuffixMatcher();
         final char escape = getEscapeChar();
@@ -1173,7 +1175,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param endPos  the end position of the variable including the suffix, valid
      * @return the variable's value or <b>null</b> if the variable is unknown
      */
-    protected LookupResult resolveVariable(final LogEvent event, final String variableName, final StringBuilder buf,
+    protected @Nullable LookupResult resolveVariable(final @Nullable LogEvent event, final String variableName, final StringBuilder buf,
                                      final int startPos, final int endPos) {
         final StrLookup resolver = getVariableResolver();
         if (resolver == null) {
@@ -1362,7 +1364,7 @@ public class StrSubstitutor implements ConfigurationAware {
      *
      * @return the variable default value delimiter matcher in use, may be null
      */
-    public StrMatcher getValueDelimiterMatcher() {
+    public @Nullable StrMatcher getValueDelimiterMatcher() {
         return valueDelimiterMatcher;
     }
 
@@ -1381,7 +1383,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param valueDelimiterMatcher  variable default value delimiter matcher to use, may be null
      * @return this, to enable chaining
      */
-    public StrSubstitutor setValueDelimiterMatcher(final StrMatcher valueDelimiterMatcher) {
+    public StrSubstitutor setValueDelimiterMatcher(final @Nullable StrMatcher valueDelimiterMatcher) {
         this.valueDelimiterMatcher = valueDelimiterMatcher;
         return this;
     }
@@ -1416,7 +1418,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param valueDelimiter  the variable default value delimiter string to use, may be null or empty
      * @return this, to enable chaining
      */
-    public StrSubstitutor setValueDelimiter(final String valueDelimiter) {
+    public StrSubstitutor setValueDelimiter(final @Nullable String valueDelimiter) {
         if (Strings.isEmpty(valueDelimiter)) {
             setValueDelimiterMatcher(null);
             return this;
@@ -1488,7 +1490,7 @@ public class StrSubstitutor implements ConfigurationAware {
      * @param iterable  the iterable to append
      * @param separator  the separator to use, null means no separator
      */
-    public void appendWithSeparators(final StringBuilder sb, final Iterable<?> iterable, String separator) {
+    public void appendWithSeparators(final StringBuilder sb, final @Nullable Iterable<?> iterable, @Nullable String separator) {
         if (iterable != null) {
             separator = separator == null ? Strings.EMPTY : separator;
             final Iterator<?> it = iterable.iterator();

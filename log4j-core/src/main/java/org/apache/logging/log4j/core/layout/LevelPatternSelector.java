@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.LogEvent;
@@ -47,10 +48,10 @@ public class LevelPatternSelector implements PatternSelector, LocationAware {
     public static class Builder implements org.apache.logging.log4j.core.util.Builder<LevelPatternSelector> {
 
         @PluginElement("PatternMatch")
-        private PatternMatch[] properties;
+        private PatternMatch @Nullable [] properties;
 
         @PluginBuilderAttribute("defaultPattern")
-        private String defaultPattern;
+        private @Nullable String defaultPattern;
 
         @PluginBuilderAttribute(value = "alwaysWriteExceptions")
         private boolean alwaysWriteExceptions = true;
@@ -65,7 +66,7 @@ public class LevelPatternSelector implements PatternSelector, LocationAware {
         private Configuration configuration;
 
         @Override
-        public LevelPatternSelector build() {
+        public @Nullable LevelPatternSelector build() {
             if (defaultPattern == null) {
                 defaultPattern = PatternLayout.DEFAULT_CONVERSION_PATTERN;
             }

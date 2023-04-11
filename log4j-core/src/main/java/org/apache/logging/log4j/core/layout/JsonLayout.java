@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.Charset;
@@ -139,8 +140,8 @@ public final class JsonLayout extends AbstractJacksonLayout {
     @Deprecated
     protected JsonLayout(final Configuration config, final boolean locationInfo, final boolean properties,
             final boolean encodeThreadContextAsList,
-            final boolean complete, final boolean compact, final boolean eventEol, final String endOfLine,final String headerPattern,
-            final String footerPattern, final Charset charset, final boolean includeStacktrace) {
+            final boolean complete, final boolean compact, final boolean eventEol, final String endOfLine,final @Nullable String headerPattern,
+            final @Nullable String footerPattern, final @Nullable Charset charset, final boolean includeStacktrace) {
         super(config, new JacksonFactory.JSON(encodeThreadContextAsList, includeStacktrace, false, false).newWriter(
                 locationInfo, properties, compact),
                 charset, compact, complete, eventEol, endOfLine,
@@ -152,7 +153,7 @@ public final class JsonLayout extends AbstractJacksonLayout {
     private JsonLayout(final Configuration config, final boolean locationInfo, final boolean properties,
                        final boolean encodeThreadContextAsList,
                        final boolean complete, final boolean compact, final boolean eventEol, final String endOfLine,
-                       final String headerPattern, final String footerPattern, final Charset charset,
+                       final @Nullable String headerPattern, final @Nullable String footerPattern, final @Nullable Charset charset,
                        final boolean includeStacktrace, final boolean stacktraceAsString,
                        final boolean includeNullDelimiter, final boolean includeTimeMillis,
                        final KeyValuePair[] additionalFields, final boolean objectMessageAsJsonObject) {
@@ -171,7 +172,7 @@ public final class JsonLayout extends AbstractJacksonLayout {
      * @return a byte array containing the header, opening the JSON array.
      */
     @Override
-    public byte[] getHeader() {
+    public byte @Nullable [] getHeader() {
         if (!this.complete) {
             return null;
         }
@@ -190,7 +191,7 @@ public final class JsonLayout extends AbstractJacksonLayout {
      * @return a byte array containing the footer, closing the JSON array.
      */
     @Override
-    public byte[] getFooter() {
+    public byte @Nullable [] getFooter() {
         if (!this.complete) {
             return null;
         }
@@ -260,9 +261,9 @@ public final class JsonLayout extends AbstractJacksonLayout {
             final boolean complete,
             final boolean compact,
             final boolean eventEol,
-            final String headerPattern,
-            final String footerPattern,
-            final Charset charset,
+            final @Nullable String headerPattern,
+            final @Nullable String footerPattern,
+            final @Nullable Charset charset,
             final boolean includeStacktrace) {
         final boolean encodeThreadContextAsList = properties && propertiesAsList;
         return new JsonLayout(config, locationInfo, properties, encodeThreadContextAsList, complete, compact, eventEol,

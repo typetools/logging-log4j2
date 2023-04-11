@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class ThrowablePatternConverter extends LogEventPatternConverter {
      * @deprecated Use ThrowablePatternConverter(String name, String stule, String[] options, Configuration config)
      */
     @Deprecated
-    protected ThrowablePatternConverter(final String name, final String style, final String[] options) {
+    protected ThrowablePatternConverter(final String name, final String style, final String @Nullable [] options) {
         this(name, style, options, null);
     }
 
@@ -72,7 +73,7 @@ public class ThrowablePatternConverter extends LogEventPatternConverter {
      * @param options options, may be null.
      * @param config
      */
-    protected ThrowablePatternConverter(final String name, final String style, final String[] options, final Configuration config) {
+    protected ThrowablePatternConverter(final String name, final String style, final String @Nullable [] options, final @Nullable Configuration config) {
         super(name, style);
         this.options = ThrowableFormatOptions.newInstance(options);
         if (options != null && options.length > 0) {
@@ -119,7 +120,7 @@ public class ThrowablePatternConverter extends LogEventPatternConverter {
      *                only the first line of the throwable will be formatted.
      * @return instance of class.
      */
-    public static ThrowablePatternConverter newInstance(final Configuration config, final String[] options) {
+    public static ThrowablePatternConverter newInstance(final Configuration config, final String @Nullable [] options) {
         return new ThrowablePatternConverter("Throwable", "throwable", options, config);
     }
 
@@ -138,7 +139,7 @@ public class ThrowablePatternConverter extends LogEventPatternConverter {
         }
     }
 
-    private void formatSubShortOption(final Throwable t, final String suffix, final StringBuilder buffer) {
+    private void formatSubShortOption(final @Nullable Throwable t, final String suffix, final StringBuilder buffer) {
         StackTraceElement[] trace;
         StackTraceElement throwingMethod = null;
         int len;

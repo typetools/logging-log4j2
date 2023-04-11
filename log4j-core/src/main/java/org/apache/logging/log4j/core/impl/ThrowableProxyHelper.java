@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.impl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.net.URL;
 import java.security.CodeSource;
 import java.util.ArrayList;
@@ -47,9 +48,9 @@ class ThrowableProxyHelper {
      */
     static final class CacheEntry {
         private final ExtendedClassInfo element;
-        private final ClassLoader loader;
+        private final @Nullable ClassLoader loader;
 
-        private CacheEntry(final ExtendedClassInfo element, final ClassLoader loader) {
+        private CacheEntry(final ExtendedClassInfo element, final @Nullable ClassLoader loader) {
             this.element = element;
             this.loader = loader;
         }
@@ -68,8 +69,8 @@ class ThrowableProxyHelper {
     static ExtendedStackTraceElement[] toExtendedStackTrace(
             final ThrowableProxy src,
             final Deque<Class<?>> stack, final Map<String, CacheEntry> map,
-            final StackTraceElement[] rootTrace,
-            final StackTraceElement[] stackTrace) {
+            final StackTraceElement @Nullable [] rootTrace,
+            final StackTraceElement @Nullable [] stackTrace) {
         int stackLength;
         if (rootTrace != null) {
             int rootIndex = rootTrace.length - 1;
@@ -122,7 +123,7 @@ class ThrowableProxyHelper {
         return extStackTrace;
     }
 
-    static ThrowableProxy[] toSuppressedProxies(final Throwable thrown, Set<Throwable> suppressedVisited) {
+    static ThrowableProxy @Nullable [] toSuppressedProxies(final Throwable thrown, Set<Throwable> suppressedVisited) {
         try {
             final Throwable[] suppressed = thrown.getSuppressed();
             if (suppressed == null || suppressed.length == 0) {
@@ -152,7 +153,7 @@ class ThrowableProxyHelper {
      * @param exact             True if the class was obtained via Reflection.getCallerClass.
      * @return The CacheEntry.
      */
-    private static CacheEntry toCacheEntry(final Class<?> callerClass, final boolean exact) {
+    private static CacheEntry toCacheEntry(final @Nullable Class<?> callerClass, final boolean exact) {
         String location = "?";
         String version = "?";
         ClassLoader lastLoader = null;
@@ -197,7 +198,7 @@ class ThrowableProxyHelper {
      * @param className  The name of the Class.
      * @return The Class object for the Class or null if it could not be located.
      */
-    private static Class<?> loadClass(final ClassLoader lastLoader, final String className) {
+    private static @Nullable Class<?> loadClass(final @Nullable ClassLoader lastLoader, final String className) {
         // XXX: this is overly complicated
         Class<?> clazz;
         if (lastLoader != null) {
@@ -220,7 +221,7 @@ class ThrowableProxyHelper {
         return clazz;
     }
 
-    private static Class<?> loadClass(final String className) {
+    private static @Nullable Class<?> loadClass(final String className) {
         try {
             return Loader.loadClass(className, ThrowableProxyHelper.class.getClassLoader());
         } catch (final ClassNotFoundException | NoClassDefFoundError | SecurityException e) {

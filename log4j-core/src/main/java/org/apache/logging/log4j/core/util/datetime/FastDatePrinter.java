@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util.datetime;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
@@ -601,7 +602,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
      * @return {@code true} if equal
      */
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(final @Nullable Object obj) {
         if (obj instanceof FastDatePrinter == false) {
             return false;
         }
@@ -1532,7 +1533,7 @@ public class FastDatePrinter implements DatePrinter, Serializable {
          * {@inheritDoc}
          */
         @Override
-        public boolean equals(final Object obj) {
+        public boolean equals(final @Nullable Object obj) {
             if (this == obj) {
                 return true;
             }

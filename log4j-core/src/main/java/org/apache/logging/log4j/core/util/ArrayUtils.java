@@ -17,6 +17,8 @@
 
 package org.apache.logging.log4j.core.util;
 
+
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.reflect.Array;
 
 /**
@@ -31,7 +33,7 @@ public class ArrayUtils {
      * @return {@code true} if the array is empty or {@code null}
      * @since 2.1
      */
-    public static boolean isEmpty(final byte[] array) {
+    public static boolean isEmpty(final byte @Nullable [] array) {
         return getLength(array) == 0;
     }
     
@@ -55,7 +57,7 @@ public class ArrayUtils {
      * @throws IllegalArgumentException if the object argument is not an array.
      * @since 2.1
      */
-    public static int getLength(final Object array) {
+    public static int getLength(final @Nullable Object array) {
         if (array == null) {
             return 0;
         }

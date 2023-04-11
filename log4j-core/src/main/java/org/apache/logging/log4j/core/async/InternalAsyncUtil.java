@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.async;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.util.Constants;
 import org.apache.logging.log4j.message.AsynchronouslyFormattable;
 import org.apache.logging.log4j.message.Message;
@@ -35,7 +36,7 @@ public class InternalAsyncUtil {
      * @param msg the message object to inspect, modify and return
      * @return Returns the specified message, with its content frozen
      */
-    public static Message makeMessageImmutable(final Message msg) {
+    public static Message makeMessageImmutable(final @Nullable Message msg) {
         // if the Message instance is reused, there is no point in freezing its message here
         if (msg != null && !canFormatMessageInBackground(msg)) {
             msg.getFormattedMessage(); // LOG4J2-763: ask message to makeMessageImmutable parameters

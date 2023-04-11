@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -183,7 +184,7 @@ public final class HighlightConverter extends LogEventPatternConverter implement
      *                throwable will be formatted.
      * @return instance of class.
      */
-    public static HighlightConverter newInstance(final Configuration config, final String[] options) {
+    public static @Nullable HighlightConverter newInstance(final Configuration config, final String @Nullable [] options) {
         if (options.length < 1) {
             LOGGER.error("Incorrect number of options on style. Expected at least 1, received " + options.length);
             return null;

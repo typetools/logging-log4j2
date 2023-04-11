@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.util.PerformanceSensitive;
@@ -46,7 +47,7 @@ public final class NdcPatternConverter extends LogEventPatternConverter {
      * @param options options, may be null.
      * @return instance of NdcPatternConverter.
      */
-    public static NdcPatternConverter newInstance(final String[] options) {
+    public static NdcPatternConverter newInstance(final String @Nullable [] options) {
         return INSTANCE;
     }
 

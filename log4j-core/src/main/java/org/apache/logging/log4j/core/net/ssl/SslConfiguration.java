@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.net.ssl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -43,13 +44,13 @@ import org.apache.logging.log4j.status.StatusLogger;
 @Plugin(name = "Ssl", category = Core.CATEGORY_NAME, printObject = true)
 public class SslConfiguration {
     private static final StatusLogger LOGGER = StatusLogger.getLogger();
-    private final KeyStoreConfiguration keyStoreConfig;
-    private final TrustStoreConfiguration trustStoreConfig;
+    private final @Nullable KeyStoreConfiguration keyStoreConfig;
+    private final @Nullable TrustStoreConfiguration trustStoreConfig;
     private final SSLContext sslContext;
     private final String protocol;
     private final boolean verifyHostName;
 
-    private SslConfiguration(final String protocol, final KeyStoreConfiguration keyStoreConfig,
+    private SslConfiguration(final @Nullable String protocol, final KeyStoreConfiguration keyStoreConfig,
             final TrustStoreConfiguration trustStoreConfig, boolean verifyHostName) {
         this.keyStoreConfig = keyStoreConfig;
         this.trustStoreConfig = trustStoreConfig;
@@ -126,7 +127,7 @@ public class SslConfiguration {
         return createSslContext(false, false);
     }
 
-    private SSLContext createSslContextWithDefaultKeyManagerFactory() throws TrustStoreConfigurationException {
+    private @Nullable SSLContext createSslContextWithDefaultKeyManagerFactory() throws TrustStoreConfigurationException {
         try {
             return createSslContext(true, false);
         } catch (final KeyStoreConfigurationException dummy) {
@@ -135,7 +136,7 @@ public class SslConfiguration {
         }
     }
 
-    private SSLContext createSslContextWithDefaultTrustManagerFactory() throws KeyStoreConfigurationException {
+    private @Nullable SSLContext createSslContextWithDefaultTrustManagerFactory() throws KeyStoreConfigurationException {
         try {
             return createSslContext(false, true);
         }
@@ -145,7 +146,7 @@ public class SslConfiguration {
         }
     }
 
-    private SSLContext createDefaultSslContext() {
+    private @Nullable SSLContext createDefaultSslContext() {
         try {
             return SSLContext.getDefault();
         } catch (final NoSuchAlgorithmException e) {
@@ -264,7 +265,7 @@ public class SslConfiguration {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(final @Nullable Object obj) {
         if (this == obj) {
             return true;
         }

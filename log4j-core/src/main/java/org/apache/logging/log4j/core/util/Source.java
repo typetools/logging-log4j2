@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -46,7 +47,7 @@ public class Source {
         }
     }
 
-    private static File toFile(final Path path) {
+    private static @Nullable File toFile(final Path path) {
         try {
             return Objects.requireNonNull(path, "path").toFile();
         } catch (final UnsupportedOperationException e) {
@@ -55,7 +56,7 @@ public class Source {
     }
 
     // LOG4J2-3527 - Don't use Paths.get().
-    private static File toFile(final URI uri) {
+    private static @Nullable File toFile(final URI uri) {
         try {
             final String scheme = Objects.requireNonNull(uri, "uri").getScheme();
             if (Strings.isBlank(scheme) || scheme.equals("file")) {
@@ -78,9 +79,9 @@ public class Source {
         }
     }
 
-    private final File file;
-    private final URI uri;
-    private final String location;
+    private final @Nullable File file;
+    private final @Nullable URI uri;
+    private final @Nullable String location;
 
     /**
      * Constructs a Source from a ConfigurationSource.
@@ -155,7 +156,7 @@ public class Source {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj) {
             return true;
         }
@@ -172,7 +173,7 @@ public class Source {
      *
      * @return the configuration source file, or {@code null}
      */
-    public File getFile() {
+    public @Nullable File getFile() {
         return file;
     }
 
@@ -182,7 +183,7 @@ public class Source {
      *
      * @return a string describing the configuration source file or URI, or {@code null}
      */
-    public String getLocation() {
+    public @Nullable String getLocation() {
         return location;
     }
 
@@ -201,14 +202,14 @@ public class Source {
      *
      * @return the configuration source URI, or {@code null}
      */
-    public URI getURI() {
+    public @Nullable URI getURI() {
         return uri;
     }
 
     /**
      * Gets the configuration source URL.
      *
-     * @return the configuration source URI, or {@code null}
+     * @return the configuration source URI
      */
     public URL getURL() {
         try {

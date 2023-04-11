@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.lookup;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Objects;
 
 import javax.naming.NamingException;
@@ -57,7 +58,7 @@ public class JndiLookup extends AbstractLookup {
      * @return The String value of the JNDI resource.
      */
     @Override
-    public String lookup(final LogEvent event, final String key) {
+    public @Nullable String lookup(final LogEvent event, final @Nullable String key) {
         if (key == null) {
             return null;
         }

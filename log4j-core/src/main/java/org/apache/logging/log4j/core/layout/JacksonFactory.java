@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -135,7 +136,7 @@ abstract class JacksonFactory {
         }
 
         @Override
-        protected PrettyPrinter newCompactPrinter() {
+        protected @Nullable PrettyPrinter newCompactPrinter() {
             // Yes, null is the proper answer.
             return null;
         }

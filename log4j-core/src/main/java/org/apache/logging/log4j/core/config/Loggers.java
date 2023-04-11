@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.concurrent.ConcurrentMap;
 
 /**
@@ -23,9 +24,9 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class Loggers {
     private final ConcurrentMap<String, LoggerConfig> map;
-    private final LoggerConfig root;
+    private final @Nullable LoggerConfig root;
 
-    public Loggers(final ConcurrentMap<String, LoggerConfig> map, final LoggerConfig root) {
+    public Loggers(final ConcurrentMap<String, LoggerConfig> map, final @Nullable LoggerConfig root) {
         this.map = map;
         this.root = root;
     }
@@ -34,7 +35,7 @@ public class Loggers {
         return map;
     }
 
-    public LoggerConfig getRoot() {
+    public @Nullable LoggerConfig getRoot() {
         return root;
     }
 }

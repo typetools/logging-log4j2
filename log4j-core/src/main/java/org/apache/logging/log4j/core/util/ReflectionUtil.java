@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -86,7 +87,7 @@ public final class ReflectionUtil {
      *                              {@code field} is not {@code static}.
      * @see Field#get(Object)
      */
-    public static Object getFieldValue(final Field field, final Object instance) {
+    public static Object getFieldValue(final Field field, final @Nullable Object instance) {
         makeAccessible(field);
         if (!Modifier.isStatic(field.getModifiers())) {
             Objects.requireNonNull(instance, "No instance given for non-static field");
@@ -120,7 +121,7 @@ public final class ReflectionUtil {
      *                              {@code field} is not {@code static}.
      * @see Field#set(Object, Object)
      */
-    public static void setFieldValue(final Field field, final Object instance, final Object value) {
+    public static void setFieldValue(final Field field, final @Nullable Object instance, final Object value) {
         makeAccessible(field);
         if (!Modifier.isStatic(field.getModifiers())) {
             Objects.requireNonNull(instance, "No instance given for non-static field");

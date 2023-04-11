@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
@@ -33,7 +34,7 @@ public final class MarkerSimpleNamePatternConverter extends LogEventPatternConve
      * Private constructor.
      * @param options options, may be null.
      */
-    private MarkerSimpleNamePatternConverter(final String[] options) {
+    private MarkerSimpleNamePatternConverter(final String @Nullable [] options) {
         super("MarkerSimpleName", "markerSimpleName");
     }
 
@@ -43,7 +44,7 @@ public final class MarkerSimpleNamePatternConverter extends LogEventPatternConve
      * @param options options, may be null.
      * @return instance of pattern converter.
      */
-    public static MarkerSimpleNamePatternConverter newInstance(final String[] options) {
+    public static MarkerSimpleNamePatternConverter newInstance(final String @Nullable [] options) {
         return new MarkerSimpleNamePatternConverter(options);
     }
 

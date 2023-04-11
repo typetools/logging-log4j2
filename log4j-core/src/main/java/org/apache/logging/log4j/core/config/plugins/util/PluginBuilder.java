@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.config.plugins.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
@@ -61,7 +62,7 @@ public class PluginBuilder implements Builder<Object> {
 
     private Configuration configuration;
     private Node node;
-    private LogEvent event;
+    private @Nullable LogEvent event;  // injectFields() and generateParameters() test against null
 
     /**
      * Constructs a PluginBuilder for a given PluginType.
@@ -112,7 +113,7 @@ public class PluginBuilder implements Builder<Object> {
      * @return the plugin object or {@code null} if there was a problem creating it.
      */
     @Override
-    public Object build() {
+    public @Nullable Object build() {
         verify();
         // first try to use a builder class if one is available
         try {
@@ -149,7 +150,7 @@ public class PluginBuilder implements Builder<Object> {
         Objects.requireNonNull(this.node, "No Node object was set.");
     }
 
-    private static Builder<?> createBuilder(final Class<?> clazz)
+    private static @Nullable Builder<?> createBuilder(final Class<?> clazz)
         throws InvocationTargetException, IllegalAccessException {
         for (final Method method : clazz.getDeclaredMethods()) {
             if (method.isAnnotationPresent(PluginBuilderFactory.class) &&
@@ -240,7 +241,7 @@ public class PluginBuilder implements Builder<Object> {
     /**
      * {@code object.getClass().getSimpleName()} returns {@code Builder}, when we want {@code PatternLayout$Builder}.
      */
-    private static String simpleName(final Object object) {
+    private static String simpleName(final @Nullable Object object) {
         if (object == null) {
             return "null";
         }
@@ -310,7 +311,7 @@ public class PluginBuilder implements Builder<Object> {
         return args;
     }
 
-    private static String[] extractPluginAliases(final Annotation... parmTypes) {
+    private static String @Nullable [] extractPluginAliases(final Annotation... parmTypes) {
         String[] aliases = null;
         for (final Annotation a : parmTypes) {
             if (a instanceof PluginAliases) {

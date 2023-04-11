@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.impl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -145,7 +146,7 @@ public class Log4jContextFactory implements LoggerContextFactory, ShutdownCallba
      * @return The LoggerContext.
      */
     @Override
-    public LoggerContext getContext(final String fqcn, final ClassLoader loader, final Object externalContext,
+    public LoggerContext getContext(final String fqcn, final @Nullable ClassLoader loader, final @Nullable Object externalContext,
                                     final boolean currentContext) {
         final LoggerContext ctx = selector.getContext(fqcn, loader, currentContext);
         if (externalContext != null && ctx.getExternalContext() == null) {
@@ -167,8 +168,8 @@ public class Log4jContextFactory implements LoggerContextFactory, ShutdownCallba
      * @param source The configuration source.
      * @return The LoggerContext.
      */
-    public LoggerContext getContext(final String fqcn, final ClassLoader loader, final Object externalContext,
-                                    final boolean currentContext, final ConfigurationSource source) {
+    public LoggerContext getContext(final String fqcn, final @Nullable ClassLoader loader, final @Nullable Object externalContext,
+                                    final boolean currentContext, final @Nullable ConfigurationSource source) {
         final LoggerContext ctx = selector.getContext(fqcn, loader, currentContext, null);
         if (externalContext != null && ctx.getExternalContext() == null) {
             ctx.setExternalContext(externalContext);
@@ -197,7 +198,7 @@ public class Log4jContextFactory implements LoggerContextFactory, ShutdownCallba
      * @param configuration The Configuration.
      * @return The LoggerContext.
      */
-    public LoggerContext getContext(final String fqcn, final ClassLoader loader, final Object externalContext,
+    public LoggerContext getContext(final String fqcn, final @Nullable ClassLoader loader, final @Nullable Object externalContext,
             final boolean currentContext, final Configuration configuration) {
         final LoggerContext ctx = selector.getContext(fqcn, loader, currentContext, null);
         if (externalContext != null && ctx.getExternalContext() == null) {
@@ -225,8 +226,8 @@ public class Log4jContextFactory implements LoggerContextFactory, ShutdownCallba
      * @return The LoggerContext.
      */
     @Override
-    public LoggerContext getContext(final String fqcn, final ClassLoader loader, final Object externalContext,
-                                    final boolean currentContext, final URI configLocation, final String name) {
+    public LoggerContext getContext(final String fqcn, final @Nullable ClassLoader loader, final @Nullable Object externalContext,
+                                    final boolean currentContext, final @Nullable URI configLocation, final @Nullable String name) {
         final LoggerContext ctx = selector.getContext(fqcn, loader, currentContext, configLocation);
         if (externalContext != null && ctx.getExternalContext() == null) {
             ctx.setExternalContext(externalContext);
@@ -248,8 +249,8 @@ public class Log4jContextFactory implements LoggerContextFactory, ShutdownCallba
         return ctx;
     }
 
-    public LoggerContext getContext(final String fqcn, final ClassLoader loader, final Map.Entry<String, Object> entry,
-            final boolean currentContext, final URI configLocation, final String name) {
+    public LoggerContext getContext(final String fqcn, final @Nullable ClassLoader loader, final Map.Entry<String, Object> entry,
+            final boolean currentContext, final @Nullable URI configLocation, final @Nullable String name) {
         final LoggerContext ctx = selector.getContext(fqcn, loader, entry, currentContext, configLocation);
         if (name != null) {
             ctx.setName(name);
@@ -268,8 +269,8 @@ public class Log4jContextFactory implements LoggerContextFactory, ShutdownCallba
         return ctx;
     }
 
-    public LoggerContext getContext(final String fqcn, final ClassLoader loader, final Object externalContext,
-            final boolean currentContext, final List<URI> configLocations, final String name) {
+    public LoggerContext getContext(final String fqcn, final @Nullable ClassLoader loader, final @Nullable Object externalContext,
+            final boolean currentContext, final @Nullable List<URI> configLocations, final @Nullable String name) {
         final LoggerContext ctx = selector
                 .getContext(fqcn, loader, currentContext, null/*this probably needs to change*/);
         if (externalContext != null && ctx.getExternalContext() == null) {
@@ -339,7 +340,7 @@ public class Log4jContextFactory implements LoggerContextFactory, ShutdownCallba
      * @since 3.0
      */
     @Override
-    public boolean hasContext(String fqcn, ClassLoader loader, boolean currentContext) {
+    public boolean hasContext(String fqcn, @Nullable ClassLoader loader, boolean currentContext) {
         return selector.hasContext(fqcn, loader, currentContext);
     }
 
@@ -379,7 +380,7 @@ public class Log4jContextFactory implements LoggerContextFactory, ShutdownCallba
     }
 
     @Override
-    public Cancellable addShutdownCallback(final Runnable callback) {
+    public @Nullable Cancellable addShutdownCallback(final Runnable callback) {
         return isShutdownHookEnabled() ? shutdownCallbackRegistry.addShutdownCallback(callback) : null;
     }
 

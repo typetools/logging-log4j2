@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.script;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.config.Node;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.core.config.plugins.PluginAttribute;
@@ -37,11 +38,11 @@ public class Script extends AbstractScript {
     }
 
     @PluginFactory
-    public static Script createScript(
+    public static @Nullable Script createScript(
             // @formatter:off
             @PluginAttribute("name") final String name,
-            @PluginAttribute(ATTR_LANGUAGE) String language,
-            @PluginValue(ATTR_SCRIPT_TEXT) final String scriptText) {
+            @PluginAttribute(ATTR_LANGUAGE) @Nullable String language,
+            @PluginValue(ATTR_SCRIPT_TEXT) final @Nullable String scriptText) {
             // @formatter:on
         if (language == null) {
             LOGGER.error("No '{}' attribute provided for {} plugin '{}'", ATTR_LANGUAGE, PLUGIN_NAME, name);
@@ -57,6 +58,7 @@ public class Script extends AbstractScript {
 
     @Override
     public String toString() {
+        // TODO: getName() should never return null.
         return getName() != null ? getName() : super.toString();
     }
 }

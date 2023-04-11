@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.jmx;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.management.ManagementFactory;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +64,7 @@ public final class Server {
     private static final String PROPERTY_ASYNC_NOTIF = "log4j2.jmx.notify.async";
     private static final String THREAD_NAME_PREFIX = "jmx.notif";
     private static final StatusLogger LOGGER = StatusLogger.getLogger();
-    static final Executor executor = isJmxDisabled() ? null : createExecutor();
+    static final @Nullable Executor executor = isJmxDisabled() ? null : createExecutor();
 
     private Server() {
     }
@@ -75,7 +76,7 @@ public final class Server {
      * web app is restarted.
      * @see <a href="https://issues.apache.org/jira/browse/LOG4J2-938">LOG4J2-938</a>
      */
-    private static ExecutorService createExecutor() {
+    private static @Nullable ExecutorService createExecutor() {
         final boolean defaultAsync = !Constants.IS_WEB_APP;
         final boolean async = PropertiesUtil.getProperties().getBooleanProperty(PROPERTY_ASYNC_NOTIF, defaultAsync);
         return async ? Executors.newFixedThreadPool(1, Log4jThreadFactory.createDaemonThreadFactory(THREAD_NAME_PREFIX))
@@ -207,7 +208,7 @@ public final class Server {
      *
      * @param mbs the MBean server to unregister from.
      */
-	public static void unregisterMBeans(final MBeanServer mbs) {
+	public static void unregisterMBeans(final @Nullable MBeanServer mbs) {
 		if (mbs != null) {
 			unregisterStatusLogger(CONTEXT_NAME_ALL, mbs);
 			unregisterContextSelector(CONTEXT_NAME_ALL, mbs);
@@ -225,7 +226,7 @@ public final class Server {
      *
      * @return the {@code ContextSelector} of the current {@code Log4jContextFactory}
      */
-    private static ContextSelector getContextSelector() {
+    private static @Nullable ContextSelector getContextSelector() {
         final LoggerContextFactory factory = LogManager.getFactory();
         if (factory instanceof Log4jContextFactory) {
             final ContextSelector selector = ((Log4jContextFactory) factory).getSelector();

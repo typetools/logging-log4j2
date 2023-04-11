@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
@@ -49,7 +50,7 @@ public final class DatePatternConverter extends LogEventPatternConverter impleme
 
         abstract void formatToBuffer(final Instant instant, StringBuilder destination);
 
-        public String toPattern() {
+        public @Nullable String toPattern() {
             return null;
         }
 
@@ -192,7 +193,7 @@ public final class DatePatternConverter extends LogEventPatternConverter impleme
      *
      * @param options options, may be null.
      */
-    private DatePatternConverter(final String[] options) {
+    private DatePatternConverter(final String @Nullable [] options) {
         super("Date", "date");
         this.options = options == null ? null : Arrays.copyOf(options, options.length);
         this.formatter = createFormatter(options);
@@ -219,7 +220,7 @@ public final class DatePatternConverter extends LogEventPatternConverter impleme
      * @param options options, may be null.
      * @return instance of pattern converter.
      */
-    public static DatePatternConverter newInstance(final String[] options) {
+    public static DatePatternConverter newInstance(final String @Nullable [] options) {
         return new DatePatternConverter(options);
     }
 

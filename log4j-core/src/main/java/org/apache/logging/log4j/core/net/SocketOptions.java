@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.net;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.net.Socket;
 import java.net.SocketException;
 
@@ -43,37 +44,37 @@ public class SocketOptions implements Builder<SocketOptions>, Cloneable {
     }
 
     @PluginBuilderAttribute
-    private Boolean keepAlive;
+    private @Nullable Boolean keepAlive;
 
     @PluginBuilderAttribute
-    private Boolean oobInline;
+    private @Nullable Boolean oobInline;
 
     @PluginElement("PerformancePreferences")
-    private SocketPerformancePreferences performancePreferences;
+    private @Nullable SocketPerformancePreferences performancePreferences;
 
     @PluginBuilderAttribute
-    private Integer receiveBufferSize;
+    private @Nullable Integer receiveBufferSize;
 
     @PluginBuilderAttribute
-    private Boolean reuseAddress;
+    private @Nullable Boolean reuseAddress;
 
     @PluginBuilderAttribute
-    private Rfc1349TrafficClass rfc1349TrafficClass;
+    private @Nullable Rfc1349TrafficClass rfc1349TrafficClass;
 
     @PluginBuilderAttribute
     private Integer sendBufferSize;
 
     @PluginBuilderAttribute
-    private Integer soLinger;
+    private @Nullable Integer soLinger;
 
     @PluginBuilderAttribute
-    private Integer soTimeout;
+    private @Nullable Integer soTimeout;
 
     @PluginBuilderAttribute
-    private Boolean tcpNoDelay;
+    private @Nullable Boolean tcpNoDelay;
 
     @PluginBuilderAttribute
-    private Integer trafficClass;
+    private @Nullable Integer trafficClass;
 
     /**
      * Applies the values in this builder to the given socket.
@@ -126,7 +127,7 @@ public class SocketOptions implements Builder<SocketOptions>, Cloneable {
      * 
      * @return the value to apply to a {@link Socket}.
      */
-    public Integer getActualTrafficClass() {
+    public @Nullable Integer getActualTrafficClass() {
         if (trafficClass != null && rfc1349TrafficClass != null) {
             throw new IllegalStateException("You MUST not set both customTrafficClass and trafficClass.");
         }

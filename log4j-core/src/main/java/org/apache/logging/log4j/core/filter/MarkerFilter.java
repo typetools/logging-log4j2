@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.filter;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.core.Filter;
@@ -67,7 +69,7 @@ public final class MarkerFilter extends AbstractFilter {
         return filter(event.getMarker());
     }
 
-    private Result filter(final Marker marker) {
+    private Result filter(final @Nullable Marker marker) {
         return marker != null && marker.isInstanceOf(name) ? onMatch : onMismatch;
     }
 
@@ -154,8 +156,9 @@ public final class MarkerFilter extends AbstractFilter {
      */
     // TODO Consider refactoring to use AbstractFilter.AbstractFilterBuilder
     @PluginFactory
-    public static MarkerFilter createFilter(
-            @PluginAttribute(ATTR_MARKER) final String marker,
+    // returns null on erroneous call
+    public static @PolyNull MarkerFilter createFilter(
+            @PluginAttribute(ATTR_MARKER) final @PolyNull String marker,
             @PluginAttribute(AbstractFilterBuilder.ATTR_ON_MATCH) final Result match,
             @PluginAttribute(AbstractFilterBuilder.ATTR_ON_MISMATCH) final Result mismatch) {
 

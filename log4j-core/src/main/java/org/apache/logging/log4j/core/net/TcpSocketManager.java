@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.net;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
@@ -56,9 +57,9 @@ public class TcpSocketManager extends AbstractSocketManager {
 
     private final int reconnectionDelayMillis;
 
-    private Reconnector reconnector;
+    private @Nullable Reconnector reconnector;
 
-    private Socket socket;
+    private @Nullable Socket socket;
 
     private final SocketOptions socketOptions;
 
@@ -131,7 +132,7 @@ public class TcpSocketManager extends AbstractSocketManager {
      * @param bufferSize
      *            The buffer size.
      */
-    public TcpSocketManager(final String name, final OutputStream os, final Socket socket,
+    public TcpSocketManager(final String name, final OutputStream os, final @Nullable Socket socket,
             final InetAddress inetAddress, final String host, final int port, final int connectTimeoutMillis,
             final int reconnectionDelayMillis, final boolean immediateFail, final Layout<? extends Serializable> layout,
             final int bufferSize, final SocketOptions socketOptions) {
@@ -398,7 +399,7 @@ public class TcpSocketManager extends AbstractSocketManager {
         return createSocket(socketAddress, socketOptions, connectTimeoutMillis);
     }
 
-    protected static Socket createSocket(final InetSocketAddress socketAddress, final SocketOptions socketOptions,
+    protected static Socket createSocket(final InetSocketAddress socketAddress, final @Nullable SocketOptions socketOptions,
             final int connectTimeoutMillis) throws IOException {
         LOGGER.debug("Creating socket {}", socketAddress.toString());
         final Socket newSocket = new Socket();
@@ -463,7 +464,7 @@ public class TcpSocketManager extends AbstractSocketManager {
 
         @SuppressWarnings("resource")
         @Override
-        public M createManager(final String name, final T data) {
+        public @Nullable M createManager(final String name, final T data) {
             InetAddress inetAddress;
             OutputStream os;
             try {

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,7 @@ public final class Configurator {
 
     private static final Logger LOGGER = StatusLogger.getLogger();
 
-    private static Log4jContextFactory getFactory() {
+    private static @Nullable Log4jContextFactory getFactory() {
         final LoggerContextFactory factory = LogManager.getFactory();
         if (factory instanceof Log4jContextFactory) {
             return (Log4jContextFactory) factory;
@@ -62,7 +63,7 @@ public final class Configurator {
      * @param source The InputSource for the configuration.
      * @return The LoggerContext.
      */
-    public static LoggerContext initialize(final ClassLoader loader,
+    public static @Nullable LoggerContext initialize(final @Nullable ClassLoader loader,
                                            final ConfigurationSource source) {
         return initialize(loader, source, null);
     }
@@ -75,9 +76,9 @@ public final class Configurator {
      * @return The LoggerContext.
      */
 
-    public static LoggerContext initialize(final ClassLoader loader,
+    public static @Nullable LoggerContext initialize(final @Nullable ClassLoader loader,
                                            final ConfigurationSource source,
-                                           final Object externalContext)
+                                           final @Nullable Object externalContext)
     {
 
         try {
@@ -97,7 +98,7 @@ public final class Configurator {
      * @param configLocation The configuration for the logging context.
      * @return The LoggerContext or null if an error occurred (check the status logger).
      */
-    public static LoggerContext initialize(final String name, final ClassLoader loader, final String configLocation) {
+    public static @Nullable LoggerContext initialize(final String name, final @Nullable ClassLoader loader, final String configLocation) {
         return initialize(name, loader, configLocation, null);
 
     }
@@ -110,8 +111,8 @@ public final class Configurator {
      * @param externalContext The external context to be attached to the LoggerContext
      * @return The LoggerContext or null if an error occurred (check the status logger).
      */
-    public static LoggerContext initialize(final String name, final ClassLoader loader, final String configLocation,
-            final Object externalContext) {
+    public static @Nullable LoggerContext initialize(final String name, final @Nullable ClassLoader loader, final String configLocation,
+            final @Nullable Object externalContext) {
         if (Strings.isBlank(configLocation)) {
             return initialize(name, loader, (URI) null, externalContext);
         }
@@ -126,7 +127,7 @@ public final class Configurator {
      * @param configLocation The configuration for the logging context.
      * @return The LoggerContext.
      */
-    public static LoggerContext initialize(final String name, final ClassLoader loader, final URI configLocation) {
+    public static LoggerContext initialize(final String name, final @Nullable ClassLoader loader, final URI configLocation) {
         return initialize(name, loader, configLocation, null);
     }
 
@@ -138,8 +139,8 @@ public final class Configurator {
      * @param externalContext The external context to be attached to the LoggerContext
      * @return The LoggerContext.
      */
-    public static LoggerContext initialize(final String name, final ClassLoader loader, final URI configLocation,
-                                           final Object externalContext) {
+    public static @Nullable LoggerContext initialize(final String name, final @Nullable ClassLoader loader, final @Nullable URI configLocation,
+                                           final @Nullable Object externalContext) {
 
         try {
             final Log4jContextFactory factory = getFactory();
@@ -160,7 +161,7 @@ public final class Configurator {
      * @param entry The external context entry to be attached to the LoggerContext
      * @return The LoggerContext.
      */
-    public static LoggerContext initialize(final String name, final ClassLoader loader, final URI configLocation,
+    public static @Nullable LoggerContext initialize(final String name, final @Nullable ClassLoader loader, final @Nullable URI configLocation,
             final Map.Entry<String, Object> entry) {
 
         try {
@@ -174,8 +175,8 @@ public final class Configurator {
         return null;
     }
 
-    public static LoggerContext initialize(final String name, final ClassLoader loader, final List<URI> configLocations,
-            final Object externalContext) {
+    public static @Nullable LoggerContext initialize(final String name, final @Nullable ClassLoader loader, final @Nullable List<URI> configLocations,
+            final @Nullable Object externalContext) {
         try {
             final Log4jContextFactory factory = getFactory();
             return factory == null ?
@@ -194,7 +195,7 @@ public final class Configurator {
      * @param configLocation The configuration for the logging context.
      * @return The LoggerContext or null if an error occurred (check the status logger).
      */
-    public static LoggerContext initialize(final String name, final String configLocation) {
+    public static @Nullable LoggerContext initialize(final String name, final String configLocation) {
         return initialize(name, null, configLocation);
     }
 
@@ -213,7 +214,7 @@ public final class Configurator {
      * @param configuration The Configuration.
      * @return The LoggerContext.
      */
-    public static LoggerContext initialize(final ClassLoader loader, final Configuration configuration) {
+    public static @Nullable LoggerContext initialize(final @Nullable ClassLoader loader, final Configuration configuration) {
         return initialize(loader, configuration, null);
     }
 
@@ -224,7 +225,7 @@ public final class Configurator {
      * @param externalContext - The external context to be attached to the LoggerContext.
      * @return The LoggerContext.
      */
-    public static LoggerContext initialize(final ClassLoader loader, final Configuration configuration, final Object externalContext) {
+    public static @Nullable LoggerContext initialize(final @Nullable ClassLoader loader, final Configuration configuration, final Object externalContext) {
         try {
             final Log4jContextFactory factory = getFactory();
             return factory == null ? null :
@@ -447,7 +448,7 @@ public final class Configurator {
      * @param ctx
      *            the logger context to shut down, may be null.
      */
-    public static void shutdown(final LoggerContext ctx) {
+    public static void shutdown(final @Nullable LoggerContext ctx) {
         if (ctx != null) {
             ctx.stop();
         }
@@ -473,7 +474,7 @@ public final class Configurator {
      *
      * @since 2.7
      */
-    public static boolean shutdown(final LoggerContext ctx, final long timeout, final TimeUnit timeUnit) {
+    public static boolean shutdown(final @Nullable LoggerContext ctx, final long timeout, final TimeUnit timeUnit) {
         if (ctx != null) {
             return ctx.stop(timeout, timeUnit);
         }

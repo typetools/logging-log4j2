@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.jmx;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Objects;
 
 import javax.management.ObjectName;
@@ -84,7 +85,7 @@ public class AppenderAdmin implements AppenderAdminMBean {
     }
 
     @Override
-    public String getFilter() {
+    public @Nullable String getFilter() {
         if (appender instanceof AbstractFilterable) {
             return String.valueOf(((AbstractFilterable) appender).getFilter());
         }

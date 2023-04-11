@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.List;
 
 import org.apache.logging.log4j.core.LogEvent;
@@ -47,7 +48,7 @@ public final class MaxLengthConverter extends LogEventPatternConverter {
      * @param options pattern options, an array of two elements: pattern, max length (defaults to 100 on invalid value).
      * @return instance of class.
      */
-    public static MaxLengthConverter newInstance(final Configuration config, final String[] options) {
+    public static @Nullable MaxLengthConverter newInstance(final Configuration config, final String[] options) {
         if (options.length != 2) {
             LOGGER.error("Incorrect number of options on maxLength: expected 2 received {}: {}", options.length,
                 options);

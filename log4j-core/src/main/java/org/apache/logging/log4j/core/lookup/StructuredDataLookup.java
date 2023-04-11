@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.lookup;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.message.StructuredDataMessage;
@@ -42,7 +43,7 @@ public class StructuredDataLookup implements StrLookup {
      * @return {@code null}
      */
     @Override
-    public String lookup(final String key) {
+    public @Nullable String lookup(final @Nullable String key) {
         return null;
     }
 
@@ -53,7 +54,7 @@ public class StructuredDataLookup implements StrLookup {
      * @return The value associated with the key.
      */
     @Override
-    public String lookup(final LogEvent event, final String key) {
+    public String lookup(final @Nullable LogEvent event, final @Nullable String key) {
         if (event == null || !(event.getMessage() instanceof StructuredDataMessage)) {
             return null;
         }

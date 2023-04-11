@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.lookup;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 
@@ -32,7 +33,7 @@ public class EventLookup extends AbstractLookup {
      * @return The value of the specified log event field.
      */
     @Override
-    public String lookup(final LogEvent event, final String key) {
+    public @Nullable String lookup(final @Nullable LogEvent event, final String key) {
         if (event == null) {
             return null;
         }

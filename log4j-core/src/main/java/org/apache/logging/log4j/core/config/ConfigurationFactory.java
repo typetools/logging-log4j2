@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -131,7 +132,7 @@ public abstract class ConfigurationFactory extends ConfigurationBuilderFactory {
 
     private static final String OVERRIDE_PARAM = "override";
 
-    private static volatile List<ConfigurationFactory> factories;
+    private static volatile @Nullable List<ConfigurationFactory> factories;
 
     private static ConfigurationFactory configFactory = new Factory();
 
@@ -278,7 +279,7 @@ public abstract class ConfigurationFactory extends ConfigurationBuilderFactory {
         return true;
     }
 
-    public abstract Configuration getConfiguration(final LoggerContext loggerContext, ConfigurationSource source);
+    public abstract @Nullable Configuration getConfiguration(final LoggerContext loggerContext, ConfigurationSource source);
 
     /**
      * Returns the Configuration.
@@ -287,7 +288,7 @@ public abstract class ConfigurationFactory extends ConfigurationBuilderFactory {
      * @param configLocation The configuration location.
      * @return The Configuration.
      */
-    public Configuration getConfiguration(final LoggerContext loggerContext, final String name, final URI configLocation) {
+    public @Nullable Configuration getConfiguration(final LoggerContext loggerContext, final String name, final @Nullable URI configLocation) {
         if (!isActive()) {
             return null;
         }
@@ -310,7 +311,7 @@ public abstract class ConfigurationFactory extends ConfigurationBuilderFactory {
      *
      * @return The Configuration.
      */
-    public Configuration getConfiguration(final LoggerContext loggerContext, final String name, final URI configLocation, final ClassLoader loader) {
+    public @Nullable Configuration getConfiguration(final LoggerContext loggerContext, final String name, final URI configLocation, final @Nullable ClassLoader loader) {
         if (!isActive()) {
             return null;
         }
@@ -330,7 +331,7 @@ public abstract class ConfigurationFactory extends ConfigurationBuilderFactory {
         return getConfiguration(loggerContext, name, configLocation);
     }
 
-    static boolean isClassLoaderUri(final URI uri) {
+    static boolean isClassLoaderUri(final @Nullable URI uri) {
         if (uri == null) {
             return false;
         }
@@ -367,7 +368,7 @@ public abstract class ConfigurationFactory extends ConfigurationBuilderFactory {
          * @return The Configuration.
          */
         @Override
-        public Configuration getConfiguration(final LoggerContext loggerContext, final String name, final URI configLocation) {
+        public @Nullable Configuration getConfiguration(final LoggerContext loggerContext, final String name, final @Nullable URI configLocation) {
 
             if (configLocation == null) {
                 final String configLocationStr = this.substitutor.replace(PropertiesUtil.getProperties()
@@ -470,11 +471,11 @@ public abstract class ConfigurationFactory extends ConfigurationBuilderFactory {
             return new DefaultConfiguration();
         }
 
-        private Configuration getConfiguration(final LoggerContext loggerContext, final String configLocationStr) {
+        private @Nullable Configuration getConfiguration(final LoggerContext loggerContext, final String configLocationStr) {
             return getConfiguration(null, loggerContext, configLocationStr);
         }
 
-        private Configuration getConfiguration(String requiredVersion, final LoggerContext loggerContext,
+        private @Nullable Configuration getConfiguration(@Nullable String requiredVersion, final LoggerContext loggerContext,
                 final String configLocationStr) {
             ConfigurationSource source = null;
             try {
@@ -508,7 +509,7 @@ public abstract class ConfigurationFactory extends ConfigurationBuilderFactory {
             return null;
         }
 
-        private Configuration getConfiguration(final LoggerContext loggerContext, final boolean isTest, final String name) {
+        private @Nullable Configuration getConfiguration(final LoggerContext loggerContext, final boolean isTest, final String name) {
             final boolean named = Strings.isNotEmpty(name);
             final ClassLoader loader = LoaderUtil.getThreadContextClassLoader();
             for (final ConfigurationFactory factory : getFactories()) {
@@ -538,12 +539,12 @@ public abstract class ConfigurationFactory extends ConfigurationBuilderFactory {
         }
 
         @Override
-        public String[] getSupportedTypes() {
+        public String @Nullable [] getSupportedTypes() {
             return null;
         }
 
         @Override
-        public Configuration getConfiguration(final LoggerContext loggerContext, final ConfigurationSource source) {
+        public @Nullable Configuration getConfiguration(final LoggerContext loggerContext, final @Nullable ConfigurationSource source) {
             if (source != null) {
                 final String config = source.getLocation();
                 for (final ConfigurationFactory factory : getFactories()) {

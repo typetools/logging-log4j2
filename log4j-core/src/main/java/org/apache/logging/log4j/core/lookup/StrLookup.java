@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.lookup;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LogEvent;
 
 /**
@@ -69,7 +70,7 @@ public interface StrLookup {
      * @param key  the key to be looked up, may be null
      * @return the matching value, null if no match
      */
-    String lookup(String key);
+    @Nullable String lookup(@Nullable String key);
 
     /**
      * Looks up a String key to a String value possibly using the current LogEvent.
@@ -98,13 +99,13 @@ public interface StrLookup {
      * @param key  the key to be looked up, may be null
      * @return the matching value, null if no match
      */
-    String lookup(LogEvent event, String key);
+    String lookup(@Nullable LogEvent event, @Nullable String key);
 
     /**
      * Same as {@link #lookup(String)}, but provides additional metadata describing the result.
      * Returns null if the key cannot be evaluated, otherwise a {@link LookupResult} wrapping the non-null string value.
      */
-    default LookupResult evaluate(String key) {
+    default @Nullable LookupResult evaluate(String key) {
         String value = lookup(key);
         return value == null
                 ? null
@@ -115,7 +116,7 @@ public interface StrLookup {
      * Same as {@link #lookup(LogEvent, String)}, but provides additional metadata describing the result.
      * Returns null if the key cannot be evaluated, otherwise a {@link LookupResult} wrapping the non-null string value.
      */
-    default LookupResult evaluate(LogEvent event, String key) {
+    default @Nullable LookupResult evaluate(@Nullable LogEvent event, String key) {
         String value = lookup(event, key);
         return value == null
                 ? null

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.jackson;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.util.Strings;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -37,20 +38,20 @@ final class MapEntry {
 
     @JsonProperty
     @JacksonXmlProperty(isAttribute = true)
-    private String key;
+    private @Nullable String key;
 
     @JsonProperty
     @JacksonXmlProperty(isAttribute = true)
-    private String value;
+    private @Nullable String value;
 
     @JsonCreator
-    public MapEntry(@JsonProperty("key") final String key, @JsonProperty("value") final String value) {
+    public MapEntry(@JsonProperty("key") final @Nullable String key, @JsonProperty("value") final @Nullable String value) {
         this.setKey(key);
         this.setValue(value);
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(final @Nullable Object obj) {
         if (this == obj) {
             return true;
         }
@@ -78,11 +79,11 @@ final class MapEntry {
         return true;
     }
 
-    public String getKey() {
+    public @Nullable String getKey() {
         return this.key;
     }
 
-    public String getValue() {
+    public @Nullable String getValue() {
         return this.value;
     }
 

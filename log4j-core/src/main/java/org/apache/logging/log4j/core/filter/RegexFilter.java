@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.filter;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.PolyNull;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -57,7 +59,7 @@ public final class RegexFilter extends AbstractFilter {
 
     @Override
     public Result filter(final Logger logger, final Level level, final Marker marker, final String msg,
-            final Object... params) {
+            final Object @Nullable ... params) {
         if (useRawMessage || params == null || params.length == 0) {
             return filter(msg);
         }
@@ -65,7 +67,7 @@ public final class RegexFilter extends AbstractFilter {
     }
 
     @Override
-    public Result filter(final Logger logger, final Level level, final Marker marker, final Object msg,
+    public Result filter(final Logger logger, final Level level, final Marker marker, final @Nullable Object msg,
             final Throwable t) {
         if (msg == null) {
             return onMismatch;
@@ -74,7 +76,7 @@ public final class RegexFilter extends AbstractFilter {
     }
 
     @Override
-    public Result filter(final Logger logger, final Level level, final Marker marker, final Message msg,
+    public Result filter(final Logger logger, final Level level, final Marker marker, final @Nullable Message msg,
             final Throwable t) {
         if (msg == null) {
             return onMismatch;
@@ -89,7 +91,7 @@ public final class RegexFilter extends AbstractFilter {
         return filter(text);
     }
 
-    private Result filter(final String msg) {
+    private Result filter(final @Nullable String msg) {
         if (msg == null) {
             return onMismatch;
         }
@@ -124,9 +126,9 @@ public final class RegexFilter extends AbstractFilter {
      */
     // TODO Consider refactoring to use AbstractFilter.AbstractFilterBuilder
     @PluginFactory
-    public static RegexFilter createFilter(
+    public static @PolyNull RegexFilter createFilter(
             //@formatter:off
-            @PluginAttribute("regex") final String regex,
+            @PluginAttribute("regex") final @PolyNull String regex,
             @PluginElement("PatternFlags") final String[] patternFlags,
             @PluginAttribute("useRawMsg") final Boolean useRawMsg,
             @PluginAttribute("onMatch") final Result match,
@@ -140,7 +142,7 @@ public final class RegexFilter extends AbstractFilter {
         return new RegexFilter(useRawMsg, Pattern.compile(regex, toPatternFlags(patternFlags)), match, mismatch);
     }
 
-    private static int toPatternFlags(final String[] patternFlags) throws IllegalArgumentException,
+    private static int toPatternFlags(final String @Nullable [] patternFlags) throws IllegalArgumentException,
             IllegalAccessException {
         if (patternFlags == null || patternFlags.length == 0) {
             return DEFAULT_PATTERN_FLAGS;

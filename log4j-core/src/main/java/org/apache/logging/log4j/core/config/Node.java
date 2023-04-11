@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,13 +37,14 @@ public class Node {
      */
     public static final String CATEGORY = "Core";
 
-    private Node parent;
-    private final String name;
+    private @Nullable Node parent;
+    private final @Nullable String name;
     private String value;
-    private final PluginType<?> type;
+    private final @Nullable PluginType<?> type;
     private final Map<String, String> attributes = new HashMap<>();
     private final List<Node> children = new ArrayList<>();
-    private Object object;
+    // toString checks for null
+    private @Nullable Object object;
 
 
     /**
@@ -101,11 +103,11 @@ public class Node {
         this.value = value;
     }
 
-    public Node getParent() {
+    public @Nullable Node getParent() {
         return parent;
     }
 
-    public String getName() {
+    public @Nullable String getName() {
         return name;
     }
 
@@ -118,7 +120,7 @@ public class Node {
     }
 
     @SuppressWarnings("unchecked")
-    public <T> T getObject() {
+    public <T> @Nullable T getObject() {
         return (T) object;
     }
 
@@ -130,7 +132,7 @@ public class Node {
      * @return this node's object.
      * @since 2.1
      */
-    public <T> T getObject(final Class<T> clazz) {
+    public <T> @Nullable T getObject(final Class<T> clazz) {
         return clazz.cast(object);
     }
 
@@ -145,7 +147,7 @@ public class Node {
         return clazz.isInstance(object);
     }
 
-    public PluginType<?> getType() {
+    public @Nullable PluginType<?> getType() {
         return type;
     }
 

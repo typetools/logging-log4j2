@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.selector;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.ref.WeakReference;
 import java.net.URI;
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class ClassLoaderContextSelector implements ContextSelector, LoggerContex
             new ConcurrentHashMap<>();
 
     @Override
-    public void shutdown(final String fqcn, final ClassLoader loader, final boolean currentContext,
+    public void shutdown(final String fqcn, final @Nullable ClassLoader loader, final boolean currentContext,
                          final boolean allContexts) {
         LoggerContext ctx = null;
         if (currentContext) {
@@ -84,7 +85,7 @@ public class ClassLoaderContextSelector implements ContextSelector, LoggerContex
     }
 
     @Override
-    public boolean hasContext(final String fqcn, final ClassLoader loader, final boolean currentContext) {
+    public boolean hasContext(final String fqcn, final @Nullable ClassLoader loader, final boolean currentContext) {
         LoggerContext ctx;
         if (currentContext) {
             ctx = ContextAnchor.THREAD_CONTEXT.get();
@@ -101,7 +102,7 @@ public class ClassLoaderContextSelector implements ContextSelector, LoggerContex
         return ctx != null && ctx.isStarted();
     }
 
-    private LoggerContext findContext(ClassLoader loaderOrNull) {
+    private @Nullable LoggerContext findContext(@Nullable ClassLoader loaderOrNull) {
         final ClassLoader loader = loaderOrNull != null ? loaderOrNull : ClassLoader.getSystemClassLoader();
         final String name = toContextMapKey(loader);
         AtomicReference<WeakReference<LoggerContext>> ref = CONTEXT_MAP.get(name);
@@ -119,13 +120,13 @@ public class ClassLoaderContextSelector implements ContextSelector, LoggerContex
 
     @Override
     public LoggerContext getContext(final String fqcn, final ClassLoader loader, final boolean currentContext,
-            final URI configLocation) {
+            final @Nullable URI configLocation) {
         return getContext(fqcn, loader, null, currentContext, configLocation);
     }
 
     @Override
-    public LoggerContext getContext(final String fqcn, final ClassLoader loader, final Map.Entry<String, Object> entry,
-            final boolean currentContext, final URI configLocation) {
+    public LoggerContext getContext(final String fqcn, final @Nullable ClassLoader loader, final Map.@Nullable Entry<String, Object> entry,
+            final boolean currentContext, final @Nullable URI configLocation) {
         if (currentContext) {
             final LoggerContext ctx = ContextAnchor.THREAD_CONTEXT.get();
             if (ctx != null) {
@@ -176,8 +177,8 @@ public class ClassLoaderContextSelector implements ContextSelector, LoggerContex
         return Collections.unmodifiableList(list);
     }
 
-    private LoggerContext locateContext(final ClassLoader loaderOrNull, final Map.Entry<String, Object> entry,
-            final URI configLocation) {
+    private LoggerContext locateContext(final @Nullable ClassLoader loaderOrNull, final Map.@Nullable Entry<String, Object> entry,
+            final @Nullable URI configLocation) {
         // LOG4J2-477: class loader may be null
         final ClassLoader loader = loaderOrNull != null ? loaderOrNull : ClassLoader.getSystemClassLoader();
         final String name = toContextMapKey(loader);
@@ -250,7 +251,7 @@ public class ClassLoaderContextSelector implements ContextSelector, LoggerContex
         return ctx;
     }
 
-    protected LoggerContext createContext(final String name, final URI configLocation) {
+    protected LoggerContext createContext(final String name, final @Nullable URI configLocation) {
         return new LoggerContext(name, null, configLocation);
     }
 

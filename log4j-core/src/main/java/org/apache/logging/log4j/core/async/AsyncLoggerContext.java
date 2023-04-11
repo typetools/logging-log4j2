@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.async;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.net.URI;
 import java.util.concurrent.TimeUnit;
 
@@ -39,17 +40,17 @@ public class AsyncLoggerContext extends LoggerContext {
         loggerDisruptor = new AsyncLoggerDisruptor(name, () -> getConfiguration().getAsyncWaitStrategyFactory());
     }
 
-    public AsyncLoggerContext(final String name, final Object externalContext) {
+    public AsyncLoggerContext(final String name, final @Nullable Object externalContext) {
         super(name, externalContext);
         loggerDisruptor = new AsyncLoggerDisruptor(name, () -> getConfiguration().getAsyncWaitStrategyFactory());
     }
 
-    public AsyncLoggerContext(final String name, final Object externalContext, final URI configLocn) {
+    public AsyncLoggerContext(final String name, final @Nullable Object externalContext, final URI configLocn) {
         super(name, externalContext, configLocn);
         loggerDisruptor = new AsyncLoggerDisruptor(name, () -> getConfiguration().getAsyncWaitStrategyFactory());
     }
 
-    public AsyncLoggerContext(final String name, final Object externalContext, final String configLocn) {
+    public AsyncLoggerContext(final String name, final @Nullable Object externalContext, final String configLocn) {
         super(name, externalContext, configLocn);
         loggerDisruptor = new AsyncLoggerDisruptor(name, () -> getConfiguration().getAsyncWaitStrategyFactory());
     }

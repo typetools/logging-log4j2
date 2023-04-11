@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.async;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Objects;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
@@ -51,7 +52,7 @@ class AsyncLoggerDisruptor extends AbstractLifeCycle {
 
     private final Object queueFullEnqueueLock = new Object();
 
-    private volatile Disruptor<RingBufferLogEvent> disruptor;
+    private volatile @Nullable Disruptor<RingBufferLogEvent> disruptor;
     private String contextName;
     private final Supplier<AsyncWaitStrategyFactory> waitStrategyFactorySupplier;
 
@@ -216,7 +217,7 @@ class AsyncLoggerDisruptor extends AbstractLifeCycle {
         /**
          * Returns {@code true} if the specified disruptor is null.
          */
-    private boolean hasLog4jBeenShutDown(final Disruptor<RingBufferLogEvent> aDisruptor) {
+    private boolean hasLog4jBeenShutDown(final @Nullable Disruptor<RingBufferLogEvent> aDisruptor) {
         if (aDisruptor == null) { // LOG4J2-639
             LOGGER.warn("Ignoring log event after log4j was shut down");
             return true;
@@ -312,7 +313,7 @@ class AsyncLoggerDisruptor extends AbstractLifeCycle {
     }
 
     private void logWarningOnNpeFromDisruptorPublish(
-            final Level level, final String fqcn, final Message msg, final Throwable thrown) {
+            final Level level, final String fqcn, final Message msg, final @Nullable Throwable thrown) {
         LOGGER.warn("[{}] Ignoring log event after log4j was shut down: {} [{}] {}{}", contextName,
                 level, fqcn, msg.getFormattedMessage(), thrown == null ? "" : Throwables.toStringList(thrown));
     }

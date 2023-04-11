@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.script;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.Node;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
@@ -50,9 +51,9 @@ public class ScriptRef extends AbstractScript {
     }
 
     @PluginFactory
-    public static ScriptRef createReference(
+    public static @Nullable ScriptRef createReference(
             // @formatter:off
-            @PluginAttribute("ref") final String name,
+            @PluginAttribute("ref") final @Nullable String name,
             @PluginConfiguration final Configuration configuration) {
             // @formatter:on
         if (name == null) {

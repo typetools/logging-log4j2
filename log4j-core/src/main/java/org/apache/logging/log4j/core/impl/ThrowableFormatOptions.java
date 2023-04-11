@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.impl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -71,12 +72,12 @@ public final class ThrowableFormatOptions {
      */
     private final String separator;
 
-    private final String suffix;
+    private final @Nullable String suffix;
 
     /**
      * The list of packages to filter.
      */
-    private final List<String> ignorePackages;
+    private final @Nullable List<String> ignorePackages;
 
     public static final String CLASS_NAME = "short.className";
     public static final String METHOD_NAME = "short.methodName";
@@ -98,8 +99,8 @@ public final class ThrowableFormatOptions {
      *            The ANSI renderer
      * @param suffix
      */
-    protected ThrowableFormatOptions(final int lines, final String separator, final List<String> ignorePackages,
-            final TextRenderer textRenderer, final String suffix) {
+    protected ThrowableFormatOptions(final int lines, final @Nullable String separator, final @Nullable List<String> ignorePackages,
+            final @Nullable TextRenderer textRenderer, final @Nullable String suffix) {
         this.lines = lines;
         this.separator = separator == null ? Strings.LINE_SEPARATOR : separator;
         this.ignorePackages = ignorePackages;
@@ -226,7 +227,7 @@ public final class ThrowableFormatOptions {
      *            The array of options.
      * @return A new initialized instance.
      */
-    public static ThrowableFormatOptions newInstance(String[] options) {
+    public static ThrowableFormatOptions newInstance(String @Nullable [] options) {
         if (options == null || options.length == 0) {
             return DEFAULT;
         }

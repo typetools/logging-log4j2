@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -119,15 +120,15 @@ public abstract class AbstractConfiguration extends AbstractFilterable implement
     /**
      * The Script manager.
      */
-    protected ScriptManager scriptManager;
+    protected @Nullable ScriptManager scriptManager;
 
     /**
      * The Advertiser which exposes appender configurations to external systems.
      */
     private Advertiser advertiser = new DefaultAdvertiser();
-    private Node advertiserNode;
+    private @Nullable Node advertiserNode;
     private Object advertisement;
-    private String name;
+    private @Nullable String name; // JsonConfiguration tests against null
     private ConcurrentMap<String, Appender> appenders = new ConcurrentHashMap<>();
     private ConcurrentMap<String, LoggerConfig> loggerConfigs = new ConcurrentHashMap<>();
     private List<CustomLevelConfig> customLevels = Collections.emptyList();
@@ -140,7 +141,7 @@ public abstract class AbstractConfiguration extends AbstractFilterable implement
     private final ConfigurationSource configurationSource;
     private final ConfigurationScheduler configurationScheduler = new ConfigurationScheduler();
     private final WatchManager watchManager = new WatchManager(configurationScheduler);
-    private AsyncLoggerConfigDisruptor asyncLoggerConfigDisruptor;
+    private @Nullable AsyncLoggerConfigDisruptor asyncLoggerConfigDisruptor;
     private AsyncWaitStrategyFactory asyncWaitStrategyFactory;
     private NanoClock nanoClock = new DummyNanoClock();
     private final WeakReference<LoggerContext> loggerContext;
@@ -148,7 +149,7 @@ public abstract class AbstractConfiguration extends AbstractFilterable implement
     /**
      * Constructor.
      */
-    protected AbstractConfiguration(final LoggerContext loggerContext, final ConfigurationSource configurationSource) {
+    protected AbstractConfiguration(final @Nullable LoggerContext loggerContext, final ConfigurationSource configurationSource) {
         this.loggerContext = new WeakReference<>(loggerContext);
         tempLookup.setLoggerContext(loggerContext);
         // The loggerContext is null for the NullConfiguration class.
@@ -260,7 +261,7 @@ public abstract class AbstractConfiguration extends AbstractFilterable implement
         LOGGER.debug("Configuration {} initialized", this);
     }
 
-    protected void initializeWatchers(Reconfigurable reconfigurable, ConfigurationSource configSource,
+    protected void initializeWatchers(Reconfigurable reconfigurable, @Nullable ConfigurationSource configSource,
         int monitorIntervalSeconds) {
         if (configSource != null && (configSource.getFile() != null || configSource.getURL() != null)) {
             if (monitorIntervalSeconds > 0) {
@@ -437,6 +438,7 @@ public abstract class AbstractConfiguration extends AbstractFilterable implement
         }
         configurationScheduler.stop(timeout, timeUnit);
 
+        // TODO: I don't think this should be triggered
         if (advertiser != null && advertisement != null) {
             advertiser.unadvertise(advertisement);
         }
@@ -479,8 +481,8 @@ public abstract class AbstractConfiguration extends AbstractFilterable implement
         }
     }
 
-    protected void createAdvertiser(final String advertiserString, final ConfigurationSource configSource,
-            final byte[] buffer, final String contentType) {
+    protected void createAdvertiser(final @Nullable String advertiserString, final ConfigurationSource configSource,
+            final byte @Nullable [] buffer, final String contentType) {
         if (advertiserString != null) {
             final Node node = new Node(null, advertiserString, null);
             final Map<String, String> attributes = node.getAttributes();
@@ -512,7 +514,7 @@ public abstract class AbstractConfiguration extends AbstractFilterable implement
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T> T getComponent(final String componentName) {
+    public <T> @Nullable T getComponent(final String componentName) {
         return (T) componentMap.get(componentName);
     }
 
@@ -767,7 +769,7 @@ public abstract class AbstractConfiguration extends AbstractFilterable implement
      * @return the name of the configuration.
      */
     @Override
-    public String getName() {
+    public @Nullable String getName() {
         return name;
     }
 
@@ -799,7 +801,7 @@ public abstract class AbstractConfiguration extends AbstractFilterable implement
      */
     @Override
     @SuppressWarnings("unchecked")
-    public <T extends Appender> T getAppender(final String appenderName) {
+    public <T extends Appender> @Nullable T getAppender(final @Nullable String appenderName) {
         return appenderName != null ? (T) appenders.get(appenderName) : null;
     }
 
@@ -819,7 +821,7 @@ public abstract class AbstractConfiguration extends AbstractFilterable implement
      * @param appender The Appender to add.
      */
     @Override
-    public void addAppender(final Appender appender) {
+    public void addAppender(final @Nullable Appender appender) {
         if (appender != null) {
             appenders.putIfAbsent(appender.getName(), appender);
         }
@@ -866,8 +868,8 @@ public abstract class AbstractConfiguration extends AbstractFilterable implement
      * @param appender The Appender.
      */
     @Override
-    public synchronized void addLoggerAppender(final org.apache.logging.log4j.core.Logger logger,
-            final Appender appender) {
+    public synchronized void addLoggerAppender(final org.apache.logging.log4j.core.@Nullable Logger logger,
+            final @Nullable Appender appender) {
         if (appender == null || logger == null) {
             return;
         }
@@ -942,7 +944,7 @@ public abstract class AbstractConfiguration extends AbstractFilterable implement
      *
      * @param appenderName the name of the appender to remove.
      */
-    public synchronized void removeAppender(final String appenderName) {
+    public synchronized void removeAppender(final @Nullable String appenderName) {
         for (final LoggerConfig logger : loggerConfigs.values()) {
             logger.removeAppender(appenderName);
         }
@@ -971,7 +973,7 @@ public abstract class AbstractConfiguration extends AbstractFilterable implement
      * @return The located LoggerConfig.
      */
     @Override
-    public LoggerConfig getLoggerConfig(final String loggerName) {
+    public @Nullable LoggerConfig getLoggerConfig(final String loggerName) {
         LoggerConfig loggerConfig = loggerConfigs.get(loggerName);
         if (loggerConfig != null) {
             return loggerConfig;
@@ -987,7 +989,8 @@ public abstract class AbstractConfiguration extends AbstractFilterable implement
     }
 
     @Override
-    public LoggerContext getLoggerContext() {
+    // PluginLoggerContextVisitor.visit() tests against null
+    public @Nullable LoggerContext getLoggerContext() {
         return loggerContext.get();
     }
 
@@ -1017,7 +1020,7 @@ public abstract class AbstractConfiguration extends AbstractFilterable implement
      * @param loggerName The Logger name.
      * @return The LoggerConfig or null if no match was found.
      */
-    public LoggerConfig getLogger(final String loggerName) {
+    public @Nullable LoggerConfig getLogger(final String loggerName) {
         return loggerConfigs.get(loggerName);
     }
 
@@ -1046,7 +1049,7 @@ public abstract class AbstractConfiguration extends AbstractFilterable implement
     }
 
     @Override
-    public void createConfiguration(final Node node, final LogEvent event) {
+    public void createConfiguration(final Node node, final @Nullable LogEvent event) {
         final PluginType<?> type = node.getType();
         if (type != null && type.isDeferChildren()) {
             node.setObject(createPluginObject(type, node, event));
@@ -1071,7 +1074,7 @@ public abstract class AbstractConfiguration extends AbstractFilterable implement
      * @param node The Node.
      * @return The created object or null;
      */
-    public Object createPluginObject(final PluginType<?> type, final Node node) {
+    public @Nullable Object createPluginObject(final PluginType<?> type, final Node node) {
         if (this.getState().equals(State.INITIALIZING)) {
             return createPluginObject(type, node, null);
         } else {
@@ -1116,7 +1119,7 @@ public abstract class AbstractConfiguration extends AbstractFilterable implement
      * @see org.apache.logging.log4j.core.config.plugins.visitors.PluginVisitor
      * @see org.apache.logging.log4j.core.config.plugins.convert.TypeConverter
      */
-    private Object createPluginObject(final PluginType<?> type, final Node node, final LogEvent event) {
+    private @Nullable Object createPluginObject(final PluginType<?> type, final Node node, final @Nullable LogEvent event) {
         final Class<?> clazz = type.getPluginClass();
 
         if (Map.class.isAssignableFrom(clazz)) {

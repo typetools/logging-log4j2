@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -89,11 +90,11 @@ public final class XmlLayout extends AbstractJacksonLayout {
                 false, false, false, null);
     }
 
-    private XmlLayout(final Configuration config, final boolean locationInfo, final boolean properties,
-                      final boolean complete, final boolean compact, final String endOfLine, final Charset charset,
+    private XmlLayout(final @Nullable Configuration config, final boolean locationInfo, final boolean properties,
+                      final boolean complete, final boolean compact, final @Nullable String endOfLine, final Charset charset,
                       final boolean includeStacktrace, final boolean stacktraceAsString,
                       final boolean includeNullDelimiter, final boolean includeTimeMillis,
-                      final KeyValuePair[] additionalFields) {
+                      final KeyValuePair @Nullable [] additionalFields) {
         super(config, new JacksonFactory.XML(includeStacktrace, stacktraceAsString).newWriter(
             locationInfo, properties, compact, includeTimeMillis),
             charset, compact, complete, false, endOfLine, null, null, includeNullDelimiter,
@@ -110,7 +111,7 @@ public final class XmlLayout extends AbstractJacksonLayout {
      * @return a byte array containing the header.
      */
     @Override
-    public byte[] getHeader() {
+    public byte @Nullable [] getHeader() {
         if (!complete) {
             return null;
         }
@@ -133,7 +134,7 @@ public final class XmlLayout extends AbstractJacksonLayout {
      * @return a byte array containing the footer, closing the XML root element.
      */
     @Override
-    public byte[] getFooter() {
+    public byte @Nullable [] getFooter() {
         if (!complete) {
             return null;
         }
@@ -186,7 +187,7 @@ public final class XmlLayout extends AbstractJacksonLayout {
             final boolean properties,
             final boolean complete,
             final boolean compact,
-            final Charset charset,
+            final @Nullable Charset charset,
             final boolean includeStacktrace) {
         return new XmlLayout(null, locationInfo, properties, complete, compact, null, charset, includeStacktrace, false,
                 false, false, null);

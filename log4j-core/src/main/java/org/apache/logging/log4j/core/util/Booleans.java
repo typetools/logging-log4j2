@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  * Boolean helpers.
  */
@@ -33,7 +35,7 @@ public final class Booleans {
      * @param defaultValue The default value to use if {@code s} is neither {@code "true"} nor {@code "false"}
      * @return the {@code boolean} value represented by the argument, or {@code defaultValue}.
      */
-    public static boolean parseBoolean(final String s, final boolean defaultValue) {
+    public static boolean parseBoolean(final @Nullable String s, final boolean defaultValue) {
         return "true".equalsIgnoreCase(s) || (defaultValue && !"false".equalsIgnoreCase(s));
     }
 

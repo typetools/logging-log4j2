@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.builder.impl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.StringReader;
@@ -79,17 +80,17 @@ public class DefaultConfigurationBuilder<T extends BuiltConfiguration> implement
     private Component customLevels;
     private Component scripts;
     private final Class<T> clazz;
-    private ConfigurationSource source;
+    private @Nullable ConfigurationSource source;
     private int monitorInterval;
-    private Level level;
-    private String verbosity;
-    private String destination;
-    private String packages;
-    private String shutdownFlag;
+    private @Nullable Level level;
+    private @Nullable String verbosity;
+    private @Nullable String destination;
+    private @Nullable String packages;
+    private @Nullable String shutdownFlag;
     private long shutdownTimeoutMillis;
-    private String advertiser;
+    private @Nullable String advertiser;
     private LoggerContext loggerContext;
-    private String name;
+    private @Nullable String name;
 
     public static void formatXml(final Source source, final Result result)
         throws TransformerConfigurationException, TransformerFactoryConfigurationError, TransformerException {

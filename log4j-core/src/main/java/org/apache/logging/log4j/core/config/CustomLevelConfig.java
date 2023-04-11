@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Objects;
 
 import org.apache.logging.log4j.Level;
@@ -88,7 +89,7 @@ public final class CustomLevelConfig {
     }
 
     @Override
-    public boolean equals(final Object object) {
+    public boolean equals(final @Nullable Object object) {
         if (this == object) {
             return true;
         }

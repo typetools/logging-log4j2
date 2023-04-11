@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.plugins.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -102,7 +103,7 @@ public class ResolverUtil {
      * The ClassLoader to use when looking for classes. If null then the ClassLoader returned by
      * Thread.currentThread().getContextClassLoader() will be used.
      */
-    private ClassLoader classloader;
+    private @Nullable ClassLoader classloader;
 
     /**
      * Provides access to the classes discovered so far. If no calls have been made to any of the {@code find()}
@@ -153,7 +154,7 @@ public class ResolverUtil {
      * @param packageNames
      *        one or more package names to scan (including subpackages) for classes
      */
-    public void find(final Test test, final String... packageNames) {
+    public void find(final Test test, final String @Nullable ... packageNames) {
         if (packageNames == null) {
             return;
         }
@@ -302,7 +303,7 @@ public class ResolverUtil {
      * @param location
      *        a File object representing a directory
      */
-    private void loadImplementationsInDirectory(final Test test, final String parent, final File location) {
+    private void loadImplementationsInDirectory(final Test test, final @Nullable String parent, final File location) {
         final File[] files = location.listFiles();
         if (files == null) {
             return;
@@ -391,7 +392,7 @@ public class ResolverUtil {
      * @param jarStream
      * @param source
      */
-    private void close(final JarInputStream jarStream, final Object source) {
+    private void close(final @Nullable JarInputStream jarStream, final Object source) {
         if (jarStream != null) {
             try {
                 jarStream.close();

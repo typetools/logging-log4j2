@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.List;
 import java.util.Map;
 
@@ -54,7 +55,7 @@ public interface Configuration extends Filterable {
      *
      * @return the name of the configuration.
      */
-    String getName();
+    @Nullable String getName();  // PluginConfigurationVisitor.visit() tests against null
 
     /**
      * Locates the appropriate LoggerConfig for a Logger name. This will remove tokens from the package name as
@@ -72,7 +73,7 @@ public interface Configuration extends Filterable {
      * @param name The name of the Appender.
      * @return the Appender with the specified name or null if the Appender cannot be located.
      */
-    <T extends Appender> T getAppender(String name);
+    <T extends Appender> @Nullable T getAppender(String name);
 
     /**
      * Returns a Map containing all the Appenders and their name.
@@ -116,7 +117,7 @@ public interface Configuration extends Filterable {
 
     void removeListener(ConfigurationListener listener);
 
-    StrSubstitutor getStrSubstitutor();
+    @Nullable StrSubstitutor getStrSubstitutor();
 
     default StrSubstitutor getConfigurationStrSubstitutor() {
         StrSubstitutor defaultSubstitutor = getStrSubstitutor();

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.File;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
@@ -87,7 +88,7 @@ public final class NetUtils {
      *
      * @return the MAC address of the local network interface or {@code null} if no MAC address could be determined.
      */
-    public static byte[] getMacAddress() {
+    public static byte @Nullable [] getMacAddress() {
         byte[] mac = null;
         try {
             final InetAddress localHost = InetAddress.getLocalHost();
@@ -126,7 +127,7 @@ public final class NetUtils {
      * Returns the mac address, if it is available, as a string with each byte separated by a ":" character.
      * @return the mac address String or null.
      */
-    public static String getMacAddressString() {
+    public static @Nullable String getMacAddressString() {
         final byte[] macAddr = getMacAddress();
         if (!ArrayUtils.isEmpty(macAddr)) {
             StringBuilder sb = new StringBuilder(String.format("%02x", macAddr[0]));
@@ -139,7 +140,7 @@ public final class NetUtils {
         return null;
     }
 
-    private static boolean isUpAndNotLoopback(final NetworkInterface ni) throws SocketException {
+    private static boolean isUpAndNotLoopback(final @Nullable NetworkInterface ni) throws SocketException {
         return ni != null && !ni.isLoopback() && ni.isUp();
     }
 

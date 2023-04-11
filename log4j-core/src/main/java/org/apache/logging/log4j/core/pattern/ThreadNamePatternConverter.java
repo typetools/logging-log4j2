@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.util.PerformanceSensitive;
@@ -47,7 +48,7 @@ public final class ThreadNamePatternConverter extends LogEventPatternConverter {
      * @return instance of ThreadPatternConverter.
      */
     public static ThreadNamePatternConverter newInstance(
-        final String[] options) {
+        final String @Nullable [] options) {
         return INSTANCE;
     }
 

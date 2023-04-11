@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.net.ssl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -30,8 +31,8 @@ public class StoreConfiguration<T> {
     static final String JKS = "JKS";
     protected static final StatusLogger LOGGER = StatusLogger.getLogger();
 
-    private String location;
-    private PasswordProvider passwordProvider;
+    private @Nullable String location;
+    private @Nullable PasswordProvider passwordProvider;
 
     public StoreConfiguration(final String location, final PasswordProvider passwordProvider) {
         this.location = location;
@@ -50,7 +51,7 @@ public class StoreConfiguration<T> {
      * @deprecated Use {@link #StoreConfiguration(String, PasswordProvider)}
      */
     @Deprecated
-    public StoreConfiguration(final String location, final String password) {
+    public StoreConfiguration(final String location, final @Nullable String password) {
         this(location, new MemoryPasswordProvider(password == null ? null : password.toCharArray()));
     }
 
@@ -79,7 +80,7 @@ public class StoreConfiguration<T> {
         return String.valueOf(this.passwordProvider.getPassword());
     }
 
-    public char[] getPasswordAsCharArray() {
+    public char @Nullable [] getPasswordAsCharArray() {
         return this.passwordProvider.getPassword();
     }
 
@@ -99,7 +100,7 @@ public class StoreConfiguration<T> {
     /**
      * @throws StoreConfigurationException May be thrown by subclasses
      */
-    protected T load() throws StoreConfigurationException {
+    protected @Nullable T load() throws StoreConfigurationException {
         return null;
     }
 
@@ -113,7 +114,7 @@ public class StoreConfiguration<T> {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(final @Nullable Object obj) {
         if (this == obj) {
             return true;
         }

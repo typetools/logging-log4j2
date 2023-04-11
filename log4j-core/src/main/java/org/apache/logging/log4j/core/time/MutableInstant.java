@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.time;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.util.Clock;
 import org.apache.logging.log4j.util.PerformanceSensitive;
 
@@ -184,7 +185,7 @@ public class MutableInstant implements Instant, Serializable, TemporalAccessor {
     }
 
     @Override
-    public <R> R query(final TemporalQuery<R> query) {
+    public <R> @Nullable R query(final TemporalQuery<R> query) {
         if (query == TemporalQueries.precision()) {
             return (R) NANOS;
         }
@@ -201,7 +202,7 @@ public class MutableInstant implements Instant, Serializable, TemporalAccessor {
     }
 
     @Override
-    public boolean equals(final Object object) {
+    public boolean equals(final @Nullable Object object) {
         if (object == this) {
             return true;
         }

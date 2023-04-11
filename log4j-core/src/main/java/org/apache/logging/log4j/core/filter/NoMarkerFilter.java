@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.filter;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.core.Filter;
@@ -131,7 +132,7 @@ public final class NoMarkerFilter extends AbstractFilter {
         return filter(marker);
     }
 
-    private Result filter(final Marker marker) {
+    private Result filter(final @Nullable Marker marker) {
         return null == marker ? onMatch : onMismatch;
     }
 

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.Charset;
@@ -89,7 +90,7 @@ abstract class AbstractJacksonLayout extends AbstractStringLayout {
         @PluginElement("AdditionalField")
         private KeyValuePair[] additionalFields;
 
-        protected String toStringOrNull(final byte[] header) {
+        protected String toStringOrNull(final byte @Nullable [] header) {
             return header == null ? null : new String(header, Charset.defaultCharset());
         }
 
@@ -242,7 +243,7 @@ abstract class AbstractJacksonLayout extends AbstractStringLayout {
     }
 
     protected AbstractJacksonLayout(final Configuration config, final ObjectWriter objectWriter, final Charset charset,
-            final boolean compact, final boolean complete, final boolean eventEol, final String endOfLine, final Serializer headerSerializer,
+            final boolean compact, final boolean complete, final boolean eventEol, final @Nullable String endOfLine, final Serializer headerSerializer,
             final Serializer footerSerializer, final boolean includeNullDelimiter,
             final KeyValuePair[] additionalFields) {
         super(config, charset, headerSerializer, footerSerializer);
@@ -254,11 +255,11 @@ abstract class AbstractJacksonLayout extends AbstractStringLayout {
         this.additionalFields = prepareAdditionalFields(config, additionalFields);
     }
 
-    protected static boolean valueNeedsLookup(final String value) {
+    protected static boolean valueNeedsLookup(final @Nullable String value) {
         return value != null && value.contains("${");
     }
 
-    private static ResolvableKeyValuePair[] prepareAdditionalFields(final Configuration config, final KeyValuePair[] additionalFields) {
+    private static ResolvableKeyValuePair[] prepareAdditionalFields(final @Nullable Configuration config, final KeyValuePair @Nullable [] additionalFields) {
         if (additionalFields == null || additionalFields.length == 0) {
             // No fields set
             return ResolvableKeyValuePair.EMPTY_ARRAY;

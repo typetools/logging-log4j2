@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.filter;
 
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -72,10 +74,10 @@ public class MutableThreadContextMapFilter extends AbstractFilter {
     private final LastModifiedSource source;
     private final AuthorizationProvider authorizationProvider;
     private final List<FilterConfigUpdateListener> listeners = new ArrayList<>();
-    private ScheduledFuture<?> future = null;
+    private @MonotonicNonNull ScheduledFuture<?> future = null;
 
-    private MutableThreadContextMapFilter(final Filter filter, final LastModifiedSource source,
-            final long pollInterval, final AuthorizationProvider authorizationProvider,
+    private MutableThreadContextMapFilter(final Filter filter, final @Nullable LastModifiedSource source,
+            final long pollInterval, final @Nullable AuthorizationProvider authorizationProvider,
             final Result onMatch, final Result onMismatch, final Configuration configuration) {
         super(onMatch, onMismatch);
         this.filter = filter;

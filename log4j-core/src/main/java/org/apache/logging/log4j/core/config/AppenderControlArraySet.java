@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -65,7 +66,7 @@ public class AppenderControlArraySet {
      * @param name The name of the AppenderControl to remove
      * @return the removed AppenderControl or {@code null}
      */
-    public AppenderControl remove(final String name) {
+    public @Nullable AppenderControl remove(final String name) {
         boolean success;
         do {
             success = true;

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -107,7 +108,7 @@ public final class YamlLayout extends AbstractJacksonLayout {
      * @return a byte array containing the header, opening the YAML array.
      */
     @Override
-    public byte[] getHeader() {
+    public byte @Nullable [] getHeader() {
         if (!this.complete) {
             return null;
         }
@@ -126,7 +127,7 @@ public final class YamlLayout extends AbstractJacksonLayout {
      * @return a byte array containing the footer, closing the YAML array.
      */
     @Override
-    public byte[] getFooter() {
+    public byte @Nullable [] getFooter() {
         if (!this.complete) {
             return null;
         }
@@ -181,9 +182,9 @@ public final class YamlLayout extends AbstractJacksonLayout {
             final Configuration config,
             final boolean locationInfo,
             final boolean properties,
-            final String headerPattern,
-            final String footerPattern,
-            final Charset charset,
+            final @Nullable String headerPattern,
+            final @Nullable String footerPattern,
+            final @Nullable Charset charset,
             final boolean includeStacktrace) {
         return new YamlLayout(config, locationInfo, properties, false, false, true, null, headerPattern, footerPattern,
                 charset, includeStacktrace, false, false, false, null);

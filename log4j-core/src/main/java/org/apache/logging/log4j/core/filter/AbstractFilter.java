@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.filter;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.core.AbstractLifeCycle;
@@ -106,7 +107,7 @@ public abstract class AbstractFilter extends AbstractLifeCycle implements Filter
      * @param onMatch The result to return when a match occurs.
      * @param onMismatch The result to return when a match dos not occur.
      */
-    protected AbstractFilter(final Result onMatch, final Result onMismatch) {
+    protected AbstractFilter(final @Nullable Result onMatch, final @Nullable Result onMismatch) {
         this.onMatch = onMatch == null ? Result.NEUTRAL : onMatch;
         this.onMismatch = onMismatch == null ? Result.DENY : onMismatch;
     }
@@ -153,7 +154,7 @@ public abstract class AbstractFilter extends AbstractLifeCycle implements Filter
      */
     @Override
     public Result filter(final Logger logger, final Level level, final Marker marker, final Message msg,
-                         final Throwable t) {
+                         final @Nullable Throwable t) {
         return Result.NEUTRAL;
     }
 
@@ -168,7 +169,7 @@ public abstract class AbstractFilter extends AbstractLifeCycle implements Filter
      */
     @Override
     public Result filter(final Logger logger, final Level level, final Marker marker, final Object msg,
-                         final Throwable t) {
+                         final @Nullable Throwable t) {
         return Result.NEUTRAL;
     }
 
@@ -183,7 +184,7 @@ public abstract class AbstractFilter extends AbstractLifeCycle implements Filter
      */
     @Override
     public Result filter(final Logger logger, final Level level, final Marker marker, final String msg,
-                         final Object... params) {
+                         final Object @Nullable ... params) {
         return Result.NEUTRAL;
     }
 
@@ -423,6 +424,7 @@ public abstract class AbstractFilter extends AbstractLifeCycle implements Filter
     protected int hashCodeImpl() {
         final int prime = 31;
         int result = super.hashCodeImpl();
+        // The null checks are unnecessary
         result = prime * result + ((onMatch == null) ? 0 : onMatch.hashCode());
         result = prime * result + ((onMismatch == null) ? 0 : onMismatch.hashCode());
         return result;

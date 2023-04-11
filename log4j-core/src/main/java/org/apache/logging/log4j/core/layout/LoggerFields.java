@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -72,8 +73,8 @@ public final class LoggerFields {
     @PluginFactory
     public static LoggerFields createLoggerFields(
         @PluginElement("LoggerFields") final KeyValuePair[] keyValuePairs,
-        @PluginAttribute("sdId") final String sdId,
-        @PluginAttribute("enterpriseId") final String enterpriseId,
+        @PluginAttribute("sdId") final @Nullable String sdId,
+        @PluginAttribute("enterpriseId") final @Nullable String enterpriseId,
         @PluginAttribute(value = "discardIfAllFieldsAreEmpty") final boolean discardIfAllFieldsAreEmpty) {
         final Map<String, String> map = new HashMap<>();
 
@@ -84,7 +85,7 @@ public final class LoggerFields {
         return new LoggerFields(map, sdId, enterpriseId, discardIfAllFieldsAreEmpty);
     }
 
-    public StructuredDataId getSdId() {
+    public @Nullable StructuredDataId getSdId() {
         if (enterpriseId == null || sdId == null) {
             return null;
         }

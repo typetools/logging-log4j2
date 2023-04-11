@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -48,7 +49,7 @@ public class MessagePatternConverter extends LogEventPatternConverter {
         super("Message", "message");
     }
 
-    private static TextRenderer loadMessageRenderer(final String[] options) {
+    private static @Nullable TextRenderer loadMessageRenderer(final String @Nullable [] options) {
         if (options != null) {
             for (final String option : options) {
                 switch (option.toUpperCase(Locale.ROOT)) {
@@ -76,7 +77,7 @@ public class MessagePatternConverter extends LogEventPatternConverter {
      *            options, may be null.
      * @return instance of pattern converter.
      */
-    public static MessagePatternConverter newInstance(final Configuration config, final String[] options) {
+    public static MessagePatternConverter newInstance(final Configuration config, final String @Nullable [] options) {
         String[] formats = withoutLookupOptions(options);
         TextRenderer textRenderer = loadMessageRenderer(formats);
         MessagePatternConverter result = formats == null || formats.length == 0
@@ -88,7 +89,7 @@ public class MessagePatternConverter extends LogEventPatternConverter {
         return result;
     }
 
-    private static String[] withoutLookupOptions(final String[] options) {
+    private static String @Nullable [] withoutLookupOptions(final String @Nullable [] options) {
         if (options == null || options.length == 0) {
             return options;
         }

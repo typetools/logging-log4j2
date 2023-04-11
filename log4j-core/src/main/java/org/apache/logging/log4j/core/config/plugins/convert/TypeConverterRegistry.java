@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.plugins.convert;
 
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
@@ -40,7 +41,7 @@ import org.apache.logging.log4j.status.StatusLogger;
 public class TypeConverterRegistry {
 
     private static final Logger LOGGER = StatusLogger.getLogger();
-    private static volatile TypeConverterRegistry INSTANCE;
+    private static volatile @MonotonicNonNull TypeConverterRegistry INSTANCE;
     private static final Object INSTANCE_LOCK = new Object();
 
     private final ConcurrentMap<Type, TypeConverter<?>> registry = new ConcurrentHashMap<>();

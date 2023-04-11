@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.message.MapMessage;
@@ -38,7 +39,7 @@ public final class MapPatternConverter extends LogEventPatternConverter {
     /**
      * Name of property to output.
      */
-    private final String key;
+    private final @Nullable String key;
 
     /**
      * Format to use when no key is provided.
@@ -53,7 +54,7 @@ public final class MapPatternConverter extends LogEventPatternConverter {
      *
      * @param options options, may be null.
      */
-    private MapPatternConverter(final String[] options, String... format) {
+    private MapPatternConverter(final String @Nullable [] options, String... format) {
         super(options != null && options.length > 0 ? "MAP{" + options[0] + '}' : "MAP", "map");
         key = options != null && options.length > 0 ? options[0] : null;
         this.format = format;
@@ -65,7 +66,7 @@ public final class MapPatternConverter extends LogEventPatternConverter {
      * @param options options, may be null or first element contains name of property to format.
      * @return instance of {@link MapPatternConverter}.
      */
-    public static MapPatternConverter newInstance(final String[] options) {
+    public static MapPatternConverter newInstance(final String @Nullable [] options) {
         return new MapPatternConverter(options, JAVA_UNQUOTED);
     }
 
@@ -77,7 +78,7 @@ public final class MapPatternConverter extends LogEventPatternConverter {
      * @return instance of {@link MapPatternConverter}.
      * @since 2.11.2
      */
-    public static MapPatternConverter newInstance(final String[] options, final MapFormat format) {
+    public static MapPatternConverter newInstance(final String @Nullable [] options, final MapFormat format) {
         return new MapPatternConverter(options, Objects.toString(format, JAVA_UNQUOTED));
     }
 

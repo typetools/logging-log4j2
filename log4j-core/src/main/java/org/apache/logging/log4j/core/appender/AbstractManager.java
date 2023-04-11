@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -90,9 +91,9 @@ public abstract class AbstractManager implements AutoCloseable {
 
     private final String name;
 
-    private final LoggerContext loggerContext;
+    private final @Nullable LoggerContext loggerContext;
 
-    protected AbstractManager(final LoggerContext loggerContext, final String name) {
+    protected AbstractManager(final @Nullable LoggerContext loggerContext, final String name) {
         this.loggerContext = loggerContext;
         this.name = name;
         LOGGER.debug("Starting {} {}", this.getClass().getSimpleName(), name);

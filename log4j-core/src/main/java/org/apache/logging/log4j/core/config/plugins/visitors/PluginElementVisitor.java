@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.plugins.visitors;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,7 +38,7 @@ public class PluginElementVisitor extends AbstractPluginVisitor<PluginElement> {
     }
 
     @Override
-    public Object visit(final Configuration configuration, final Node node, final LogEvent event,
+    public @Nullable Object visit(final Configuration configuration, final Node node, final LogEvent event,
                         final StringBuilder log) {
         final String name = this.annotation.value();
         if (this.conversionType.isArray()) {
@@ -94,7 +95,7 @@ public class PluginElementVisitor extends AbstractPluginVisitor<PluginElement> {
         return namedNode.getObject();
     }
 
-    private Node findNamedNode(final String name, final Iterable<Node> children) {
+    private @Nullable Node findNamedNode(final String name, final Iterable<Node> children) {
         for (final Node child : children) {
             final PluginType<?> childType = child.getType();
             boolean elementNameMatch = childType != null && name.equalsIgnoreCase(childType.getElementName());

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.json;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -132,7 +133,7 @@ public class JsonConfiguration extends AbstractConfiguration implements Reconfig
     }
 
     @Override
-    public Configuration reconfigure() {
+    public @Nullable Configuration reconfigure() {
         try {
             final ConfigurationSource source = getConfigurationSource().resetInputStream();
             if (source == null) {

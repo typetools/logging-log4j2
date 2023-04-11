@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.builder.impl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.builder.api.AppenderRefComponentBuilder;
 import org.apache.logging.log4j.core.config.builder.api.FilterComponentBuilder;
@@ -34,7 +35,7 @@ class DefaultLoggerComponentBuilder extends DefaultComponentAndConfigurationBuil
      * @param level
      */
     public DefaultLoggerComponentBuilder(final DefaultConfigurationBuilder<? extends Configuration> builder, final String name,
-            final String level) {
+            final @Nullable String level) {
         super(builder, name, "Logger");
         if (level != null) {
             addAttribute("level", level);
@@ -49,7 +50,7 @@ class DefaultLoggerComponentBuilder extends DefaultComponentAndConfigurationBuil
      * @param includeLocation
      */
     public DefaultLoggerComponentBuilder(final DefaultConfigurationBuilder<? extends Configuration> builder, final String name,
-            final String level, final boolean includeLocation) {
+            final @Nullable String level, final boolean includeLocation) {
         super(builder, name, "Logger");
         if (level != null) {
             addAttribute("level", level);
@@ -65,7 +66,7 @@ class DefaultLoggerComponentBuilder extends DefaultComponentAndConfigurationBuil
      * @param type
      */
     public DefaultLoggerComponentBuilder(final DefaultConfigurationBuilder<? extends Configuration> builder, final String name,
-            final String level, final String type) {
+            final @Nullable String level, final String type) {
         super(builder, name, type);
         if (level != null) {
             addAttribute("level", level);
@@ -81,7 +82,7 @@ class DefaultLoggerComponentBuilder extends DefaultComponentAndConfigurationBuil
      * @param includeLocation
      */
     public DefaultLoggerComponentBuilder(final DefaultConfigurationBuilder<? extends Configuration> builder, final String name,
-            final String level, final String type, final boolean includeLocation) {
+            final @Nullable String level, final String type, final boolean includeLocation) {
         super(builder, name, type);
         if (level != null) {
             addAttribute("level", level);

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.selector;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +39,7 @@ public interface ContextSelector {
      * @param allContexts if true all LoggerContexts that can be located will be shutdown.
      * @since 2.13.0
      */
-    default void shutdown(final String fqcn, final ClassLoader loader, final boolean currentContext,
+    default void shutdown(final String fqcn, final @Nullable ClassLoader loader, final boolean currentContext,
                           final boolean allContexts) {
         if (hasContext(fqcn, loader, currentContext)) {
             getContext(fqcn, loader, currentContext).stop(DEFAULT_STOP_TIMEOUT, TimeUnit.MILLISECONDS);
@@ -54,7 +55,7 @@ public interface ContextSelector {
      * @return true if a LoggerContext has been installed, false otherwise.
      * @since 2.13.0
      */
-    default boolean hasContext(String fqcn, ClassLoader loader, boolean currentContext) {
+    default boolean hasContext(String fqcn, @Nullable ClassLoader loader, boolean currentContext) {
         return false;
     }
 
@@ -66,7 +67,7 @@ public interface ContextSelector {
      * for the caller if a more appropriate Context can be determined.
      * @return The LoggerContext.
      */
-    LoggerContext getContext(String fqcn, ClassLoader loader, boolean currentContext);
+    LoggerContext getContext(String fqcn, @Nullable ClassLoader loader, boolean currentContext);
 
     /**
      * Returns the LoggerContext.
@@ -77,7 +78,7 @@ public interface ContextSelector {
      * for the caller if a more appropriate Context can be determined.
      * @return The LoggerContext.
      */
-    default LoggerContext getContext(String fqcn, ClassLoader loader, Map.Entry<String, Object> entry, boolean currentContext) {
+    default LoggerContext getContext(String fqcn, @Nullable ClassLoader loader, Map.Entry<String, Object> entry, boolean currentContext) {
         LoggerContext lc = getContext(fqcn, loader, currentContext);
         if (lc != null) {
             lc.putObject(entry.getKey(), entry.getValue());
@@ -94,7 +95,7 @@ public interface ContextSelector {
      * @param configLocation The location of the configuration for the LoggerContext.
      * @return The LoggerContext.
      */
-    LoggerContext getContext(String fqcn, ClassLoader loader, boolean currentContext, URI configLocation);
+    LoggerContext getContext(String fqcn, @Nullable ClassLoader loader, boolean currentContext, @Nullable URI configLocation);
 
     /**
      * Returns the LoggerContext.
@@ -105,8 +106,8 @@ public interface ContextSelector {
      * @param configLocation The location of the configuration for the LoggerContext.
      * @return The LoggerContext.
      */
-    default LoggerContext getContext(String fqcn, ClassLoader loader, Map.Entry<String, Object> entry,
-            boolean currentContext, URI configLocation) {
+    default LoggerContext getContext(String fqcn, @Nullable ClassLoader loader, Map.Entry<String, Object> entry,
+            boolean currentContext, @Nullable URI configLocation) {
         LoggerContext lc = getContext(fqcn, loader, currentContext, configLocation);
         if (lc != null) {
             lc.putObject(entry.getKey(), entry.getValue());

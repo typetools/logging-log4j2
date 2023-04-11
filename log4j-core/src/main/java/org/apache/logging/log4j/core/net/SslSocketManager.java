@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.net;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
@@ -142,7 +143,7 @@ public class SslSocketManager extends TcpSocketManager {
         return newSocket;
     }
 
-    private static SSLSocketFactory createSslSocketFactory(final SslConfiguration sslConf) {
+    private static SSLSocketFactory createSslSocketFactory(final @Nullable SslConfiguration sslConf) {
         SSLSocketFactory socketFactory;
 
         if (sslConf != null) {
@@ -181,7 +182,7 @@ public class SslSocketManager extends TcpSocketManager {
         }
     }
 
-    static Socket createSocket(final InetSocketAddress socketAddress, final int connectTimeoutMillis,
+    static Socket createSocket(final @Nullable InetSocketAddress socketAddress, final int connectTimeoutMillis,
             final SslConfiguration sslConfiguration, final SocketOptions socketOptions) throws IOException {
         final SSLSocketFactory socketFactory = createSslSocketFactory(sslConfiguration);
         final SSLSocket socket = (SSLSocket) socketFactory.createSocket();

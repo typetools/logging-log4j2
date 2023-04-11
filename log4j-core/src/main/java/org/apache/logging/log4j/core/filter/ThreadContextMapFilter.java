@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.filter;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -52,8 +53,8 @@ import org.apache.logging.log4j.util.StringMap;
 @PerformanceSensitive("allocation")
 public class ThreadContextMapFilter extends MapFilter {
     private final ContextDataInjector injector = ContextDataInjectorFactory.createInjector();
-    private final String key;
-    private final String value;
+    private final @Nullable String key;
+    private final @Nullable String value;
 
     private final boolean useMap;
 
@@ -203,9 +204,9 @@ public class ThreadContextMapFilter extends MapFilter {
 
     // TODO Consider refactoring to use AbstractFilter.AbstractFilterBuilder
     @PluginFactory
-    public static ThreadContextMapFilter createFilter(
-            @PluginElement("Pairs") final KeyValuePair[] pairs,
-            @PluginAttribute("operator") final String oper,
+    public static @Nullable ThreadContextMapFilter createFilter(
+            @PluginElement("Pairs") final KeyValuePair @Nullable [] pairs,
+            @PluginAttribute("operator") final @Nullable String oper,
             @PluginAttribute("onMatch") final Result match,
             @PluginAttribute("onMismatch") final Result mismatch) {
         if (pairs == null || pairs.length == 0) {

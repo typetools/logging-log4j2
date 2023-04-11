@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.net;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -46,7 +47,7 @@ public class MulticastDnsAdvertiser implements Advertiser {
     private static final int MAX_LENGTH = 255;
     private static final int DEFAULT_PORT = 4555;
 
-    private static Object jmDNS = initializeJmDns();
+    private static @Nullable Object jmDNS = initializeJmDns();
     private static Class<?> jmDNSClass;
     private static Class<?> serviceInfoClass;
 
@@ -67,7 +68,7 @@ public class MulticastDnsAdvertiser implements Advertiser {
      * @return the object which can be used to unadvertise, or null if advertisement was unsuccessful
      */
     @Override
-    public Object advertise(final Map<String, String> properties) {
+    public @Nullable Object advertise(final Map<String, String> properties) {
         // default to tcp if "protocol" was not set
         final Map<String, String> truncatedProperties = new HashMap<>();
         for (final Map.Entry<String, String> entry : properties.entrySet()) {
@@ -133,7 +134,7 @@ public class MulticastDnsAdvertiser implements Advertiser {
         }
     }
 
-    private static Object createJmDnsVersion1() {
+    private static @Nullable Object createJmDnsVersion1() {
         try {
             return jmDNSClass.getConstructor().newInstance();
         } catch (final InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
@@ -142,7 +143,7 @@ public class MulticastDnsAdvertiser implements Advertiser {
         return null;
     }
 
-    private static Object createJmDnsVersion3() {
+    private static @Nullable Object createJmDnsVersion3() {
         try {
             final Method jmDNSCreateMethod = jmDNSClass.getMethod("create");
             return jmDNSCreateMethod.invoke(null, (Object[]) null);
@@ -154,7 +155,7 @@ public class MulticastDnsAdvertiser implements Advertiser {
         return null;
     }
 
-    private static Object buildServiceInfoVersion1(final String zone, final int port, final String name,
+    private static @Nullable Object buildServiceInfoVersion1(final String zone, final int port, final String name,
             final Map<String, String> properties) {
         // version 1 uses a hashtable
         @SuppressWarnings("UseOfObsoleteCollectionType")
@@ -170,7 +171,7 @@ public class MulticastDnsAdvertiser implements Advertiser {
         return null;
     }
 
-    private static Object buildServiceInfoVersion3(final String zone, final int port, final String name,
+    private static @Nullable Object buildServiceInfoVersion3(final String zone, final int port, final String name,
             final Map<String, String> properties) {
         try {
             return serviceInfoClass
@@ -185,7 +186,7 @@ public class MulticastDnsAdvertiser implements Advertiser {
         return null;
     }
 
-    private static Object initializeJmDns() {
+    private static @Nullable Object initializeJmDns() {
         try {
             jmDNSClass = LoaderUtil.loadClass("javax.jmdns.JmDNS");
             serviceInfoClass = LoaderUtil.loadClass("javax.jmdns.ServiceInfo");

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.impl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.reflect.Constructor;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -64,7 +65,7 @@ public class ContextDataFactory {
         EMPTY_STRING_MAP.freeze();
     }
 
-    private static Class<? extends StringMap> createCachedClass(final String className) {
+    private static @Nullable Class<? extends StringMap> createCachedClass(final @Nullable String className) {
         if (className == null) {
             return null;
         }
@@ -75,7 +76,7 @@ public class ContextDataFactory {
         }
     }
 
-    private static Constructor<?> createDefaultConstructor(final Class<? extends StringMap> cachedClass){
+    private static @Nullable Constructor<?> createDefaultConstructor(final @Nullable Class<? extends StringMap> cachedClass){
         if (cachedClass == null) {
             return null;
         }
@@ -86,7 +87,7 @@ public class ContextDataFactory {
         }
     }
 
-    private static Constructor<?> createInitialCapacityConstructor(final Class<? extends StringMap> cachedClass){
+    private static @Nullable Constructor<?> createInitialCapacityConstructor(final @Nullable Class<? extends StringMap> cachedClass){
         if (cachedClass == null) {
             return null;
         }

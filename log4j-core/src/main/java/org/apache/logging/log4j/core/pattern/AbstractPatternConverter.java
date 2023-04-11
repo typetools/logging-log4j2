@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.status.StatusLogger;
 
@@ -79,7 +80,7 @@ public abstract class AbstractPatternConverter implements PatternConverter {
      * @return the name of the conversion pattern
      */
     @Override
-    public String getStyleClass(final Object e) {
+    public String getStyleClass(final @Nullable Object e) {
         return style;
     }
 }

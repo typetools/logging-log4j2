@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.plugins.validation;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -56,7 +57,7 @@ public final class ConstraintValidators {
         return validators;
     }
 
-    private static <A extends Annotation> ConstraintValidator<A> getValidator(final A annotation,
+    private static <A extends Annotation> @Nullable ConstraintValidator<A> getValidator(final A annotation,
                                                                               final Class<? extends A> type) {
         final Constraint constraint = type.getAnnotation(Constraint.class);
         final Class<? extends ConstraintValidator<?>> validatorClass = constraint.value();

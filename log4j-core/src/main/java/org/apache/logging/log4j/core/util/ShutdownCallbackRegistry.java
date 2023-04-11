@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 
@@ -56,5 +57,5 @@ public interface ShutdownCallbackRegistry {
      * cannot be added.
      * @since 2.1
      */
-    Cancellable addShutdownCallback(Runnable callback);
+    @Nullable Cancellable addShutdownCallback(Runnable callback);
 }

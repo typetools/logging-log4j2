@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.builder.impl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.builder.api.ScriptComponentBuilder;
 
@@ -26,7 +27,7 @@ class DefaultScriptComponentBuilder extends DefaultComponentAndConfigurationBuil
         implements ScriptComponentBuilder {
 
     public DefaultScriptComponentBuilder(final DefaultConfigurationBuilder<? extends Configuration> builder,
-                                         final String name, final String language, final String text) {
+                                         final String name, final @Nullable String language, final @Nullable String text) {
         super(builder, name, "Script");
         if (language != null) {
             addAttribute("language", language);

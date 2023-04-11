@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.net;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.DatagramPacket;
@@ -42,14 +43,14 @@ public class DatagramOutputStream extends OutputStream {
     private static final int SHIFT_2 = 16;
     private static final int SHIFT_3 = 24;
 
-    private DatagramSocket datagramSocket;
-    private final InetAddress inetAddress;
+    private @Nullable DatagramSocket datagramSocket;
+    private final @Nullable InetAddress inetAddress;
     private final int port;
 
-    private byte[] data;
+    private byte @Nullable [] data;
 
-    private final byte[] header;
-    private final byte[] footer;
+    private final byte @Nullable [] header;
+    private final byte @Nullable [] footer;
 
     /**
      * The Constructor.

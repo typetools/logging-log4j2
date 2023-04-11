@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.net;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Properties;
@@ -42,7 +43,7 @@ public class JndiManager extends AbstractManager {
     private static final String PREFIX = "log4j2.enableJndi";
     private static final String JAVA_SCHEME = "java";
 
-    private final InitialContext context;
+    private final @Nullable InitialContext context;
 
     private static boolean isJndiEnabled(final String subKey) {
         return PropertiesUtil.getProperties().getBooleanProperty(PREFIX + subKey, false);
@@ -140,7 +141,7 @@ public class JndiManager extends AbstractManager {
             final String urlPkgPrefixes,
             final String securityPrincipal,
             final String securityCredentials,
-            final Properties additionalProperties) {
+            final @Nullable Properties additionalProperties) {
         final Properties properties = createProperties(initialContextFactoryName, providerURL, urlPkgPrefixes,
                 securityPrincipal, securityCredentials, additionalProperties);
         return getManager(createManagerName(), FACTORY, properties);
@@ -181,9 +182,9 @@ public class JndiManager extends AbstractManager {
      * @return the Properties for the provided parameters.
      * @since 2.9
      */
-    public static Properties createProperties(final String initialContextFactoryName, final String providerURL,
-            final String urlPkgPrefixes, final String securityPrincipal, final String securityCredentials,
-            final Properties additionalProperties) {
+    public static @Nullable Properties createProperties(final @Nullable String initialContextFactoryName, final @Nullable String providerURL,
+            final @Nullable String urlPkgPrefixes, final @Nullable String securityPrincipal, final @Nullable String securityCredentials,
+            final @Nullable Properties additionalProperties) {
         if (initialContextFactoryName == null) {
             return null;
         }
@@ -227,7 +228,7 @@ public class JndiManager extends AbstractManager {
      * @throws  NamingException if a naming exception is encountered
      */
     @SuppressWarnings("unchecked")
-    public <T> T lookup(final String name) throws NamingException {
+    public <T> @Nullable T lookup(final String name) throws NamingException {
         if (context == null) {
             return null;
         }
@@ -246,7 +247,7 @@ public class JndiManager extends AbstractManager {
     private static class JndiManagerFactory implements ManagerFactory<JndiManager, Properties> {
 
         @Override
-        public JndiManager createManager(final String name, final Properties data) {
+        public @Nullable JndiManager createManager(final String name, final Properties data) {
             if (!isJndiEnabled()) {
                 throw new IllegalStateException(String.format("JNDI must be enabled by setting one of the %s* properties to true", PREFIX));
             }

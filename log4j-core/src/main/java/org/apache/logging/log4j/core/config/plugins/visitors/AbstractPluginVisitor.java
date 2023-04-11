@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.config.plugins.visitors;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Member;
 import java.util.Map;
@@ -115,9 +116,9 @@ public abstract class AbstractPluginVisitor<A extends Annotation> implements Plu
      * @param aliases    optional aliases of the key name to look up.
      * @return the value corresponding to the given key or {@code null} if nonexistent.
      */
-    protected static String removeAttributeValue(final Map<String, String> attributes,
+    protected static @Nullable String removeAttributeValue(final Map<String, String> attributes,
                                                  final String name,
-                                                 final String... aliases) {
+                                                 final String @Nullable ... aliases) {
         for (final Map.Entry<String, String> entry : attributes.entrySet()) {
             final String key = entry.getKey();
             final String value = entry.getValue();
@@ -144,7 +145,7 @@ public abstract class AbstractPluginVisitor<A extends Annotation> implements Plu
      * @param defaultValue the fallback value to use in case of no value or an error.
      * @return the converted value whether that be based on the given value or the default value.
      */
-    protected Object convert(final String value, final Object defaultValue) {
+    protected Object convert(final String value, final @Nullable Object defaultValue) {
         if (defaultValue instanceof String) {
             return TypeConverters.convert(value, this.conversionType, Strings.trimToNull((String) defaultValue));
         }

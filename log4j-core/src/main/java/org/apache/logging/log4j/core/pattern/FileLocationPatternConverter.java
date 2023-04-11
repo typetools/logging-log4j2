@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 
@@ -45,7 +46,7 @@ public final class FileLocationPatternConverter extends LogEventPatternConverter
      * @param options options, may be null.
      * @return instance of pattern converter.
      */
-    public static FileLocationPatternConverter newInstance(final String[] options) {
+    public static FileLocationPatternConverter newInstance(final String @Nullable [] options) {
         return INSTANCE;
     }
 

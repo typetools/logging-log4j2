@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.jmx;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -72,7 +73,7 @@ public class StatusLoggerAdmin extends NotificationBroadcasterSupport implements
      *
      * @param ctxName
      */
-    private void removeListeners(final String ctxName) {
+    private void removeListeners(final @Nullable String ctxName) {
         final StatusLogger logger = StatusLogger.getLogger();
         final Iterable<StatusListener> listeners = logger.getListeners();
         // Remove any StatusLoggerAdmin listeners already registered for this context

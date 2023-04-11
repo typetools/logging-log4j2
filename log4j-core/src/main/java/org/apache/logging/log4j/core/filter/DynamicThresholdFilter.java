@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.filter;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -63,7 +64,7 @@ public final class DynamicThresholdFilter extends AbstractFilter {
     public static DynamicThresholdFilter createFilter(
             @PluginAttribute("key") final String key,
             @PluginElement("Pairs") final KeyValuePair[] pairs,
-            @PluginAttribute("defaultThreshold") final Level defaultThreshold,
+            @PluginAttribute("defaultThreshold") final @Nullable Level defaultThreshold,
             @PluginAttribute("onMatch") final Result onMatch,
             @PluginAttribute("onMismatch") final Result onMismatch) {
         final Map<String, Level> map = new HashMap<>();
@@ -89,12 +90,14 @@ public final class DynamicThresholdFilter extends AbstractFilter {
                 map.size());
         Objects.requireNonNull(key, "key cannot be null");
         this.key = key;
+        Objects.requireNonNull(levelMap, "levelMap cannot be null");
         this.levelMap = pairs;
+        Objects.requireNonNull(defaultLevel, "defaultLevel cannot be null");
         this.defaultThreshold = defaultLevel;
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(final @Nullable Object obj) {
         if (this == obj) {
             return true;
         }
@@ -238,6 +241,7 @@ public final class DynamicThresholdFilter extends AbstractFilter {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCodeImpl();
+        // All 3 tests against null are unnecessary.
         result = prime * result + ((defaultThreshold == null) ? 0 : defaultThreshold.hashCode());
         result = prime * result + ((key == null) ? 0 : key.hashCode());
         result = prime * result + ((levelMap == null) ? 0 : levelMap.hashCode());

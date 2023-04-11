@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.util.Strings;
 
 import java.nio.charset.Charset;
@@ -30,7 +31,7 @@ public final class NameUtil {
 
     private NameUtil() {}
 
-    public static String getSubName(final String name) {
+    public static @Nullable String getSubName(final String name) {
         if (Strings.isEmpty(name)) {
             return null;
         }

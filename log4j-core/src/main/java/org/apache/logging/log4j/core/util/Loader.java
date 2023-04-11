@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.PolyNull;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
@@ -57,8 +59,9 @@ public final class Loader {
     }
 
     // TODO: this method could use some explanation
-    public static ClassLoader getClassLoader(final Class<?> class1, final Class<?> class2) {
+    public static ClassLoader getClassLoader(final Class<?> class1, final @Nullable Class<?> class2) {
         final ClassLoader threadContextClassLoader = getThreadContextClassLoader();
+        // class1 ought never be null
         final ClassLoader loader1 = class1 == null ? null : class1.getClassLoader();
         final ClassLoader loader2 = class2 == null ? null : class2.getClassLoader();
 
@@ -88,7 +91,7 @@ public final class Loader {
      * @param defaultLoader The default ClassLoader.
      * @return A URL to the resource.
      */
-    public static URL getResource(final String resource, final ClassLoader defaultLoader) {
+    public static URL getResource(final String resource, final @Nullable ClassLoader defaultLoader) {
         try {
             ClassLoader classLoader = getThreadContextClassLoader();
             if (classLoader != null) {
@@ -203,7 +206,7 @@ public final class Loader {
      * @param loader2 the ClassLoader to check for parenthood.
      * @return {@code true} if the first ClassLoader is a strict descendant of the second ClassLoader.
      */
-    private static boolean isChild(final ClassLoader loader1, final ClassLoader loader2) {
+    private static boolean isChild(final @Nullable ClassLoader loader1, final @Nullable ClassLoader loader2) {
         if (loader1 != null && loader2 != null) {
             ClassLoader parent = loader1.getParent();
             while (parent != null && parent != loader2) {
@@ -236,7 +239,7 @@ public final class Loader {
      * @return The class, or null if loader is null.
      * @throws ClassNotFoundException if the class could not be found.
      */
-    public static Class<?> loadClass(final String className, final ClassLoader loader)
+    public static @PolyNull Class<?> loadClass(final String className, final @PolyNull ClassLoader loader)
             throws ClassNotFoundException {
         return loader != null ? loader.loadClass(className) : null;
     }
@@ -328,7 +331,7 @@ public final class Loader {
      * @throws InvocationTargetException if there was an exception whilst constructing the class
      * @throws ClassCastException        if the constructed object isn't type compatible with {@code T}
      */
-    public static <T> T newCheckedInstanceOfProperty(final String propertyName, final Class<T> clazz)
+    public static <T> @Nullable T newCheckedInstanceOfProperty(final String propertyName, final Class<T> clazz)
         throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException,
         IllegalAccessException {
         final String className = PropertiesUtil.getProperties().getStringProperty(propertyName);

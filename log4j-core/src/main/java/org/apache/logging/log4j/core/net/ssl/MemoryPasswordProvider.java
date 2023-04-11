@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.net.ssl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Arrays;
 
 /**
@@ -28,9 +29,9 @@ import java.util.Arrays;
  * </p>
  */
 class MemoryPasswordProvider implements PasswordProvider {
-    private final char[] password;
+    private final char @Nullable [] password;
 
-    public MemoryPasswordProvider(final char[] chars) {
+    public MemoryPasswordProvider(final char @Nullable [] chars) {
         if (chars != null) {
             password = chars.clone();
         } else {
@@ -39,7 +40,7 @@ class MemoryPasswordProvider implements PasswordProvider {
     }
 
     @Override
-    public char[] getPassword() {
+    public char @Nullable [] getPassword() {
         if (password == null) {
             return null;
         }

@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.ref.Reference;
 import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
@@ -91,10 +92,10 @@ public class DefaultShutdownCallbackRegistry implements ShutdownCallbackRegistry
     }
 
     private static class RegisteredCancellable implements Cancellable {
-        private Runnable callback;
+        private @Nullable Runnable callback;
         private Collection<Reference<Cancellable>> registered;
 
-        RegisteredCancellable(final Runnable callback, final Collection<Reference<Cancellable>> registered) {
+        RegisteredCancellable(final @Nullable Runnable callback, final Collection<Reference<Cancellable>> registered) {
             this.callback = callback;
             this.registered = registered;
         }

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.filter;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -116,7 +117,7 @@ public final class StructuredDataFilter extends MapFilter {
         return result;
     }
 
-    private StringBuilder appendOrNull(final String value, final StringBuilder sb) {
+    private StringBuilder appendOrNull(final @Nullable String value, final StringBuilder sb) {
         if (value == null) {
             return null;
         }
@@ -124,7 +125,7 @@ public final class StructuredDataFilter extends MapFilter {
         return sb;
     }
 
-    private boolean listContainsValue(final List<String> candidates, final StringBuilder toMatch) {
+    private boolean listContainsValue(final List<String> candidates, final @Nullable StringBuilder toMatch) {
         if (toMatch == null) {
             for (int i = 0; i < candidates.size(); i++) {
                 final String candidate = candidates.get(i);
@@ -156,9 +157,9 @@ public final class StructuredDataFilter extends MapFilter {
      */
     // TODO Consider refactoring to use AbstractFilter.AbstractFilterBuilder
     @PluginFactory
-    public static StructuredDataFilter createFilter(
-            @PluginElement("Pairs") final KeyValuePair[] pairs,
-            @PluginAttribute("operator") final String oper,
+    public static @Nullable StructuredDataFilter createFilter(
+            @PluginElement("Pairs") final KeyValuePair @Nullable [] pairs,
+            @PluginAttribute("operator") final @Nullable String oper,
             @PluginAttribute("onMatch") final Result match,
             @PluginAttribute("onMismatch") final Result mismatch) {
         if (pairs == null || pairs.length == 0) {

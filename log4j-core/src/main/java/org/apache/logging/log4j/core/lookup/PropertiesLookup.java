@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.lookup;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.Property;
 
@@ -38,7 +39,7 @@ public final class PropertiesLookup implements StrLookup {
     /** Configuration properties. */
     private final Map<String, ConfigurationPropertyResult> configurationProperties;
 
-    public PropertiesLookup(final Property[] configProperties, final Map<String, String> contextProperties) {
+    public PropertiesLookup(final Property @Nullable [] configProperties, final @Nullable Map<String, String> contextProperties) {
         this.contextProperties = contextProperties == null
                 ? Collections.emptyMap()
                 : contextProperties;
@@ -71,13 +72,13 @@ public final class PropertiesLookup implements StrLookup {
      * @return the matching value, null if no match
      */
     @Override
-    public String lookup(final String key) {
+    public @Nullable String lookup(final @Nullable String key) {
         LookupResult result = evaluate(key);
         return result == null ? null : result.value();
     }
 
     @Override
-    public LookupResult evaluate(String key) {
+    public @Nullable LookupResult evaluate(@Nullable String key) {
         if (key == null) {
             return null;
         }

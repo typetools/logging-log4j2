@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.impl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.message.Message;
 import org.apache.logging.log4j.util.StringBuilderFormattable;
 
@@ -63,7 +64,7 @@ public final class MementoMessage implements Message, StringBuilderFormattable {
      * @return null
      */
     @Override
-    public Throwable getThrowable() {
+    public @Nullable Throwable getThrowable() {
         return null;
     }
 

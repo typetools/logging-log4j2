@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import java.util.concurrent.locks.LockSupport;
 
 /**
@@ -23,7 +24,7 @@ import java.util.concurrent.locks.LockSupport;
  * the cost of some accuracy.
  */
 public final class CoarseCachedClock implements Clock {
-    private static volatile CoarseCachedClock instance;
+    private static volatile @MonotonicNonNull CoarseCachedClock instance;
     private static final Object INSTANCE_LOCK = new Object();
     // ignore IDE complaints; volatile long is fine
     private volatile long millis = System.currentTimeMillis();

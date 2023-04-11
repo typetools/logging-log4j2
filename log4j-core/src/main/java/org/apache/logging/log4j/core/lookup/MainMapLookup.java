@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.lookup;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Map;
 
 import org.apache.logging.log4j.core.LogEvent;
@@ -75,7 +76,7 @@ public class MainMapLookup extends MapLookup {
      * @param args
      *        An application's {@code public static main(String[])} arguments.
      */
-    public static void setMainArguments(final String... args) {
+    public static void setMainArguments(final String @Nullable ... args) {
         if (args == null) {
             return;
         }

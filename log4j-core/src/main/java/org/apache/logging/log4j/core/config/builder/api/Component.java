@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.builder.api;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,18 +31,18 @@ public class Component {
 
     private final Map<String, String> attributes = new LinkedHashMap<>();
     private final List<Component> components = new ArrayList<>();
-    private final String pluginType;
-    private final String value;
+    private final @Nullable String pluginType;
+    private final @Nullable String value;
 
     public Component(final String pluginType) {
         this(pluginType, null, null);
     }
 
-    public Component(final String pluginType, final String name) {
+    public Component(final String pluginType, final @Nullable String name) {
         this(pluginType, name, null);
     }
 
-    public Component(final String pluginType, final String name, final String value) {
+    public Component(final String pluginType, final @Nullable String name, final @Nullable String value) {
         this.pluginType = pluginType;
         this.value = value;
         if (name != null && name.length() > 0) {
@@ -71,11 +72,11 @@ public class Component {
         return components;
     }
 
-    public String getPluginType() {
+    public @Nullable String getPluginType() {
         return pluginType;
     }
 
-    public String getValue() {
+    public @Nullable String getValue() {
         return value;
     }
  }

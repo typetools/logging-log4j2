@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.config.plugins.visitors;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Map;
 
 import org.apache.logging.log4j.core.LogEvent;
@@ -39,7 +40,7 @@ public class PluginBuilderAttributeVisitor extends AbstractPluginVisitor<PluginB
     }
 
     @Override
-    public Object visit(final Configuration configuration, final Node node, final LogEvent event,
+    public @Nullable Object visit(final Configuration configuration, final Node node, final LogEvent event,
                         final StringBuilder log) {
         final String overridden = this.annotation.value();
         final String name = overridden.isEmpty() ? this.member.getName() : overridden;

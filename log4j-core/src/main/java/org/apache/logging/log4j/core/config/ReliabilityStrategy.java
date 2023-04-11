@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.core.LogEvent;
@@ -40,8 +41,8 @@ public interface ReliabilityStrategy {
      * @param data The Message.
      * @param t A Throwable or null.
      */
-    void log(Supplier<LoggerConfig> reconfigured, String loggerName, String fqcn, Marker marker, Level level,
-            Message data, Throwable t);
+    void log(Supplier<LoggerConfig> reconfigured, String loggerName, String fqcn, @Nullable Marker marker, Level level,
+            Message data, @Nullable Throwable t);
 
     /**
      * Logs an event.

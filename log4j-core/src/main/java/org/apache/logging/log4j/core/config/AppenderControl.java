@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Objects;
 
 import org.apache.logging.log4j.Level;
@@ -39,7 +40,7 @@ public class AppenderControl extends AbstractFilterable {
 
     private final ThreadLocal<AppenderControl> recursive = new ThreadLocal<>();
     private final Appender appender;
-    private final Level level;
+    private final @Nullable Level level;
     private final int intLevel;
     private final String appenderName;
 
@@ -50,7 +51,7 @@ public class AppenderControl extends AbstractFilterable {
      * @param level the Level to filter on.
      * @param filter the Filter(s) to apply.
      */
-    public AppenderControl(final Appender appender, final Level level, final Filter filter) {
+    public AppenderControl(final Appender appender, final @Nullable Level level, final @Nullable Filter filter) {
         super(filter);
         this.appender = Objects.requireNonNull(appender, "appender");
         this.appenderName = appender.getName();
@@ -179,7 +180,7 @@ public class AppenderControl extends AbstractFilterable {
     // two AppenderControl objects are considered equal if and only
     // if they have the same appender name.
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(final @Nullable Object obj) {
         if (obj == this) {
             return true;
         }

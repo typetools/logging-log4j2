@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.lookup;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.management.ManagementFactory;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +56,7 @@ public class JmxRuntimeInputArgumentsLookup extends MapLookup {
     }
 
     @Override
-    public String lookup(final String key) {
+    public @Nullable String lookup(final @Nullable String key) {
         if (key == null) {
             return null;
         }

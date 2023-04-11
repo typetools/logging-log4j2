@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.script;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -60,13 +61,13 @@ public class ScriptFile extends AbstractScript {
     }
 
     @PluginFactory
-    public static ScriptFile createScript(
+    public static @Nullable ScriptFile createScript(
             // @formatter:off
-            @PluginAttribute("name") String name,
-            @PluginAttribute("language") String language,
-            @PluginAttribute("path") final String filePathOrUri,
-            @PluginAttribute("isWatched") final Boolean isWatched,
-            @PluginAttribute("charset") final Charset charset) {
+            @PluginAttribute("name") @Nullable String name,
+            @PluginAttribute("language") @Nullable String language,
+            @PluginAttribute("path") final @Nullable String filePathOrUri,
+            @PluginAttribute("isWatched") final @Nullable Boolean isWatched,
+            @PluginAttribute("charset") final @Nullable Charset charset) {
             // @formatter:on
         if (filePathOrUri == null) {
             LOGGER.error("No script path provided for ScriptFile");

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.List;
 
 import org.apache.logging.log4j.core.config.Configuration;
@@ -41,7 +42,7 @@ public final class EqualsIgnoreCaseReplacementConverter extends EqualsBaseReplac
      *            pattern options, an array of three elements: pattern, testString, and substitution.
      * @return instance of class.
      */
-    public static EqualsIgnoreCaseReplacementConverter newInstance(final Configuration config, final String[] options) {
+    public static @Nullable EqualsIgnoreCaseReplacementConverter newInstance(final Configuration config, final String[] options) {
         if (options.length != 3) {
             LOGGER.error("Incorrect number of options on equalsIgnoreCase. Expected 3 received " + options.length);
             return null;

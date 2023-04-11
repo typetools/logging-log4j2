@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.lookup;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.HashMap;
@@ -58,11 +59,11 @@ public class Interpolator extends AbstractConfigurationAwareLookup implements Lo
 
     private final Map<String, StrLookup> strLookupMap = new HashMap<>();
 
-    private final StrLookup defaultLookup;
+    private final @Nullable StrLookup defaultLookup;
 
     protected WeakReference<LoggerContext> loggerContext;
 
-    public Interpolator(final StrLookup defaultLookup) {
+    public Interpolator(final @Nullable StrLookup defaultLookup) {
         this(defaultLookup, null);
     }
 
@@ -73,7 +74,7 @@ public class Interpolator extends AbstractConfigurationAwareLookup implements Lo
      * @param pluginPackages a list of packages to scan for Lookup plugins
      * @since 2.1
      */
-    public Interpolator(final StrLookup defaultLookup, final List<String> pluginPackages) {
+    public Interpolator(final @Nullable StrLookup defaultLookup, final @Nullable List<String> pluginPackages) {
         this.defaultLookup = defaultLookup == null ? new PropertiesLookup(new HashMap<String, String>()) : defaultLookup;
         final PluginManager manager = new PluginManager(CATEGORY);
         manager.collectPlugins(pluginPackages);
@@ -158,7 +159,7 @@ public class Interpolator extends AbstractConfigurationAwareLookup implements Lo
      * resolved
      */
     @Override
-    public String lookup(final LogEvent event, String var) {
+    public @Nullable String lookup(final @Nullable LogEvent event, String var) {
         LookupResult result = evaluate(event, var);
         return result == null ? null : result.value();
     }
@@ -177,7 +178,7 @@ public class Interpolator extends AbstractConfigurationAwareLookup implements Lo
      * resolved
      */
     @Override
-    public LookupResult evaluate(final LogEvent event, String var) {
+    public @Nullable LookupResult evaluate(final @Nullable LogEvent event, @Nullable String var) {
         if (var == null) {
             return null;
         }
@@ -210,7 +211,7 @@ public class Interpolator extends AbstractConfigurationAwareLookup implements Lo
     }
 
     @Override
-    public void setLoggerContext(LoggerContext loggerContext) {
+    public void setLoggerContext(@Nullable LoggerContext loggerContext) {
         if (loggerContext == null) {
             return;
         }

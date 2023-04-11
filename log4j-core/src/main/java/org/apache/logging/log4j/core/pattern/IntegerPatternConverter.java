@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Date;
 
 import org.apache.logging.log4j.core.config.plugins.Plugin;
@@ -47,7 +48,7 @@ public final class IntegerPatternConverter extends AbstractPatternConverter impl
      * @param options options, may be null.
      * @return instance of pattern converter.
      */
-    public static IntegerPatternConverter newInstance(final String[] options) {
+    public static IntegerPatternConverter newInstance(final String @Nullable [] options) {
         return INSTANCE;
     }
 

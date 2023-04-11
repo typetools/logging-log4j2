@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util.datetime;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.util.Calendar;
@@ -60,7 +61,7 @@ public interface DateParser {
      * @return A <code>Date</code> parsed from the string. In case of error, returns null.
      * @throws NullPointerException if text or pos is null.
      */
-    Date parse(String source, ParsePosition pos);
+    @Nullable Date parse(String source, ParsePosition pos);
 
     /**
      * Parses a formatted date string according to the format.  Updates the Calendar with parsed fields.

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.util.OptionConverter;
@@ -33,7 +34,7 @@ public final class LiteralPatternConverter extends LogEventPatternConverter impl
      */
     private final String literal;
 
-    private final Configuration config;
+    private final @Nullable Configuration config;
 
     private final boolean substitute;
 
@@ -45,14 +46,14 @@ public final class LiteralPatternConverter extends LogEventPatternConverter impl
      * @param convertBackslashes if {@code true}, backslash characters are treated as escape characters and character
      *            sequences like "\" followed by "t" (backslash+t) are converted to special characters like '\t' (tab).
      */
-    public LiteralPatternConverter(final Configuration config, final String literal, final boolean convertBackslashes) {
+    public LiteralPatternConverter(final @Nullable Configuration config, final String literal, final boolean convertBackslashes) {
         super("Literal", "literal");
         this.literal = convertBackslashes ? OptionConverter.convertSpecialChars(literal) : literal; // LOG4J2-829
         this.config = config;
         substitute = config != null && containsSubstitutionSequence(literal);
     }
 
-    static boolean containsSubstitutionSequence(final String literal) {
+    static boolean containsSubstitutionSequence(final @Nullable String literal) {
         return literal != null && literal.contains("${");
     }
 

@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import java.util.List;
 
 import org.apache.logging.log4j.core.config.Configuration;
@@ -27,14 +29,15 @@ import org.apache.logging.log4j.core.config.Reconfigurable;
  */
 public abstract class AbstractWatcher implements Watcher {
 
-    private final Reconfigurable reconfigurable;
-    private final List<ConfigurationListener> configurationListeners;
-    private final Log4jThreadFactory threadFactory;
-    private final Configuration configuration;
-    private Source source;
+    private final @Nullable Reconfigurable reconfigurable;
+    private final @Nullable List<ConfigurationListener> configurationListeners;
+    private final @Nullable Log4jThreadFactory threadFactory;
+    private final @Nullable Configuration configuration;
+    private @Nullable Source source;
 
-    public AbstractWatcher(final Configuration configuration, final Reconfigurable reconfigurable,
-            final List<ConfigurationListener> configurationListeners) {
+    // WrappedFileWatcher passes null for all 3 formal parameters
+    public AbstractWatcher(final @Nullable Configuration configuration, final @Nullable Reconfigurable reconfigurable,
+            final @Nullable List<ConfigurationListener> configurationListeners) {
         this.configuration = configuration;
         this.reconfigurable = reconfigurable;
         this.configurationListeners = configurationListeners;
@@ -66,12 +69,12 @@ public abstract class AbstractWatcher implements Watcher {
     public abstract boolean isModified();
 
     @Override
-    public void watching(Source source) {
+    public void watching(@Nullable Source source) {
         this.source = source;
     }
 
     @Override
-    public Source getSource() {
+    public @Nullable Source getSource() {
         return source;
     }
 

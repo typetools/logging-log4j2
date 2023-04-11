@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.Filter;
@@ -35,8 +36,8 @@ public final class AppenderRef {
     private static final Logger LOGGER = StatusLogger.getLogger();
 
     private final String ref;
-    private final Level level;
-    private final Filter filter;
+    private final @Nullable Level level;
+    private final @Nullable Filter filter;
 
     private AppenderRef(final String ref, final Level level, final Filter filter) {
         this.ref = ref;
@@ -48,11 +49,11 @@ public final class AppenderRef {
         return ref;
     }
 
-    public Level getLevel() {
+    public @Nullable Level getLevel() {
         return level;
     }
 
-    public Filter getFilter() {
+    public @Nullable Filter getFilter() {
         return filter;
     }
 
@@ -69,10 +70,11 @@ public final class AppenderRef {
      * @return The name of the Appender.
      */
     @PluginFactory
+    @SuppressWarnings("nullness:return") // returns null only to signal an error
     public static AppenderRef createAppenderRef(
             @PluginAttribute("ref") final String ref,
-            @PluginAttribute("level") final Level level,
-            @PluginElement("Filter") final Filter filter) {
+            @PluginAttribute("level") final @Nullable Level level,
+            @PluginElement("Filter") final @Nullable Filter filter) {
 
         if (ref == null) {
             LOGGER.error("Appender references must contain a reference");

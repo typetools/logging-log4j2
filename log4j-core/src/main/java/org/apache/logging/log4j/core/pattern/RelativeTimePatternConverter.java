@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.management.ManagementFactory;
 
 import org.apache.logging.log4j.core.LogEvent;
@@ -44,7 +45,7 @@ public class RelativeTimePatternConverter extends LogEventPatternConverter {
      * @param options options, currently ignored, may be null.
      * @return instance of RelativeTimePatternConverter.
      */
-    public static RelativeTimePatternConverter newInstance(final String[] options) {
+    public static RelativeTimePatternConverter newInstance(final String @Nullable [] options) {
         return new RelativeTimePatternConverter();
     }
 

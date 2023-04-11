@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -116,7 +117,7 @@ public final class SyslogLayout extends AbstractStringLayout {
 
     private final Facility facility;
     private final boolean includeNewLine;
-    private final String escapeNewLine;
+    private final @Nullable String escapeNewLine;
 
     /**
      * Date format used if header = true.
@@ -128,7 +129,7 @@ public final class SyslogLayout extends AbstractStringLayout {
      */
     private final String localHostname = NetUtils.getLocalHostname();
 
-    protected SyslogLayout(final Facility facility, final boolean includeNL, final String escapeNL, final Charset charset) {
+    protected SyslogLayout(final Facility facility, final boolean includeNL, final @Nullable String escapeNL, final Charset charset) {
         super(charset);
         this.facility = facility;
         this.includeNewLine = includeNL;

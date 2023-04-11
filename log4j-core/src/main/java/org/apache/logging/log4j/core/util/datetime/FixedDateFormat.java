@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.util.datetime;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.time.Instant;
 
 import java.util.Arrays;
@@ -156,18 +157,18 @@ public class FixedDateFormat {
         private static final char SECOND_FRACTION_PATTERN = 'n';
 
         private final String pattern;
-        private final String datePattern;
+        private final @Nullable String datePattern;
         private final int escapeCount;
         private final char timeSeparatorChar;
         private final int timeSeparatorLength;
         private final char millisSeparatorChar;
         private final int millisSeparatorLength;
         private final int secondFractionDigits;
-        private final FixedTimeZoneFormat fixedTimeZoneFormat;
+        private final @Nullable FixedTimeZoneFormat fixedTimeZoneFormat;
 
-        FixedFormat(final String pattern, final String datePattern, final int escapeCount, final char timeSeparator,
+        FixedFormat(final String pattern, final @Nullable String datePattern, final int escapeCount, final char timeSeparator,
                     final int timeSepLength, final char millisSeparator, final int millisSepLength,
-                    final int secondFractionDigits, final FixedTimeZoneFormat timeZoneFormat) {
+                    final int secondFractionDigits, final @Nullable FixedTimeZoneFormat timeZoneFormat) {
             this.timeSeparatorChar = timeSeparator;
             this.timeSeparatorLength = timeSepLength;
             this.millisSeparatorChar = millisSeparator;
@@ -193,7 +194,7 @@ public class FixedDateFormat {
          *
          * @return the date part of the pattern
          */
-        public String getDatePattern() {
+        public @Nullable String getDatePattern() {
             return datePattern;
         }
 
@@ -203,7 +204,7 @@ public class FixedDateFormat {
          * @param nameOrPattern the name or pattern to find a FixedFormat for
          * @return the FixedFormat with the name or pattern matching the specified string
          */
-        public static FixedFormat lookup(final String nameOrPattern) {
+        public static @Nullable FixedFormat lookup(final String nameOrPattern) {
             for (final FixedFormat type : FixedFormat.values()) {
                 if (type.name().equals(nameOrPattern) || type.getPattern().equals(nameOrPattern)) {
                     return type;
@@ -212,7 +213,7 @@ public class FixedDateFormat {
             return null;
         }
 
-        static FixedFormat lookupIgnoringNanos(final String pattern) {
+        static @Nullable FixedFormat lookupIgnoringNanos(final String pattern) {
             final int[] nanoRange = nanoRange(pattern);
             final int nanoStart = nanoRange[0];
             final int nanoEnd = nanoRange[1];
@@ -273,7 +274,7 @@ public class FixedDateFormat {
          *
          * @return the {@code FastDateFormat} object for formatting the date part of the pattern or {@code null}
          */
-        public FastDateFormat getFastDateFormat() {
+        public @Nullable FastDateFormat getFastDateFormat() {
             return getFastDateFormat(null);
         }
 
@@ -284,7 +285,7 @@ public class FixedDateFormat {
          * @param tz the time zone to use
          * @return the {@code FastDateFormat} object for formatting the date part of the pattern or {@code null}
          */
-        public FastDateFormat getFastDateFormat(final TimeZone tz) {
+        public @Nullable FastDateFormat getFastDateFormat(final @Nullable TimeZone tz) {
             return getDatePattern() == null ? null : FastDateFormat.getInstance(getDatePattern(), tz);
         }
 
@@ -300,7 +301,7 @@ public class FixedDateFormat {
          * Returns the optional time zone format.
          * @return the optional time zone format, may be null.
          */
-        public FixedTimeZoneFormat getFixedTimeZoneFormat() {
+        public @Nullable FixedTimeZoneFormat getFixedTimeZoneFormat() {
             return fixedTimeZoneFormat;
         }
     }
@@ -391,12 +392,12 @@ public class FixedDateFormat {
     private final TimeZone timeZone;
     private final int length;
     private final int secondFractionDigits;
-    private final FastDateFormat fastDateFormat; // may be null
+    private final @Nullable FastDateFormat fastDateFormat; // may be null
     private final char timeSeparatorChar;
     private final char millisSeparatorChar;
     private final int timeSeparatorLength;
     private final int millisSeparatorLength;
-    private final FixedTimeZoneFormat fixedTimeZoneFormat;
+    private final @Nullable FixedTimeZoneFormat fixedTimeZoneFormat;
 
     private volatile long midnightToday;
     private volatile long midnightTomorrow;
@@ -408,7 +409,7 @@ public class FixedDateFormat {
     // The Java memory model guarantees that because of the above,
     // changes to cachedDate in one thread are visible to other threads.
     // See http://g.oswego.edu/dl/jmm/cookbook.html
-    private char[] cachedDate; // may be null
+    private char @Nullable [] cachedDate; // may be null
     private int dateLength;
 
     /**
@@ -446,7 +447,7 @@ public class FixedDateFormat {
         this.fastDateFormat = fixedFormat.getFastDateFormat(tz);
     }
 
-    public static FixedDateFormat createIfSupported(final String... options) {
+    public static @Nullable FixedDateFormat createIfSupported(final String @Nullable ... options) {
         if (options == null || options.length == 0 || options[0] == null) {
             return new FixedDateFormat(FixedFormat.DEFAULT, TimeZone.getDefault());
         }
@@ -491,7 +492,7 @@ public class FixedDateFormat {
      * @param tz the time zone to use
      * @return a new {@code FixedDateFormat} object
      */
-    public static FixedDateFormat create(final FixedFormat format, final TimeZone tz) {
+    public static FixedDateFormat create(final FixedFormat format, final @Nullable TimeZone tz) {
         return new FixedDateFormat(format, tz != null ? tz : TimeZone.getDefault());
     }
 

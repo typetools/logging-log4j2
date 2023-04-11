@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public enum ExtensionLanguageMapping {
         return this.language;
     }
 
-    public static ExtensionLanguageMapping getByExtension(final String extension) {
+    public static @Nullable ExtensionLanguageMapping getByExtension(final String extension) {
         for (final ExtensionLanguageMapping mapping : values()) {
             if (mapping.extension.equals(extension)) {
                 return mapping;

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.filter;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -230,9 +231,9 @@ public class MapFilter extends AbstractFilter {
 
     // TODO Consider refactoring to use AbstractFilter.AbstractFilterBuilder
     @PluginFactory
-    public static MapFilter createFilter(
-            @PluginElement("Pairs") final KeyValuePair[] pairs,
-            @PluginAttribute("operator") final String oper,
+    public static @Nullable MapFilter createFilter(
+            @PluginElement("Pairs") final KeyValuePair @Nullable [] pairs,
+            @PluginAttribute("operator") final @Nullable String oper,
             @PluginAttribute("onMatch") final Result match,
             @PluginAttribute("onMismatch") final Result mismatch) {
         if (pairs == null || pairs.length == 0) {

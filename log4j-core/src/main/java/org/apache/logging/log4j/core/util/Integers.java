@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.util.Strings;
 
 /**
@@ -39,7 +40,7 @@ public final class Integers {
      * @return the integer value represented by the argument in decimal.
      * @throws NumberFormatException if the string does not contain a parsable integer.
      */
-    public static int parseInt(final String s, final int defaultValue) {
+    public static int parseInt(final @Nullable String s, final int defaultValue) {
         return Strings.isEmpty(s) ? defaultValue : Integer.parseInt(s.trim());
     }
 
@@ -50,7 +51,7 @@ public final class Integers {
      * @return the integer value represented by the argument in decimal.
      * @throws NumberFormatException if the string does not contain a parsable integer.
      */
-    public static int parseInt(final String s) {
+    public static int parseInt(final @Nullable String s) {
         return parseInt(s, 0);
     }
 

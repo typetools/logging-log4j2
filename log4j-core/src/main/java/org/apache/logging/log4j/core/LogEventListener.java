@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.EventListener;
 
 import org.apache.logging.log4j.status.StatusLogger;
@@ -33,7 +34,7 @@ public class LogEventListener implements EventListener {
         context = LoggerContext.getContext(false);
     }
 
-    public void log(final LogEvent event) {
+    public void log(final @Nullable LogEvent event) {
         if (event == null) {
             return;
         }

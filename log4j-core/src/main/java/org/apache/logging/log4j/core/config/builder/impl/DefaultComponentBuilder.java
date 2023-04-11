@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.builder.impl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -40,19 +41,19 @@ class DefaultComponentBuilder<T extends ComponentBuilder<T>, CB extends Configur
     private final String type;
     private final Map<String, String> attributes = new LinkedHashMap<>();
     private final List<Component> components = new ArrayList<>();
-    private final String name;
-    private final String value;
+    private final @Nullable String name;
+    private final @Nullable String value;
 
     public DefaultComponentBuilder(final CB builder, final String type) {
         this(builder, null, type, null);
     }
 
-    public DefaultComponentBuilder(final CB builder, final String name, final String type) {
+    public DefaultComponentBuilder(final CB builder, final @Nullable String name, final String type) {
         this(builder, name, type, null);
     }
 
-    public DefaultComponentBuilder(final CB builder, final String name, final String type,
-            final String value) {
+    public DefaultComponentBuilder(final CB builder, final @Nullable String name, final String type,
+            final @Nullable String value) {
         this.type = type;
         this.builder = builder;
         this.name = name;

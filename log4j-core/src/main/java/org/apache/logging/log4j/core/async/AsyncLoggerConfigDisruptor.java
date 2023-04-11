@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.async;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
@@ -71,8 +72,8 @@ public class AsyncLoggerConfigDisruptor extends AbstractLifeCycle implements Asy
             event = mutableLogEvent;
         }
 
-        private AsyncLoggerConfig loggerConfig;
-        private LogEvent event;
+        private @Nullable AsyncLoggerConfig loggerConfig;
+        private @Nullable LogEvent event;
 
         /**
          * Release references held by ring buffer to allow objects to be garbage-collected.
@@ -161,17 +162,17 @@ public class AsyncLoggerConfigDisruptor extends AbstractLifeCycle implements Asy
     private AsyncQueueFullPolicy asyncQueueFullPolicy;
     private Boolean mutable = Boolean.FALSE;
 
-    private volatile Disruptor<Log4jEventWrapper> disruptor;
+    private volatile @Nullable Disruptor<Log4jEventWrapper> disruptor;
     private long backgroundThreadId; // LOG4J2-471
     private EventFactory<Log4jEventWrapper> factory;
     private EventTranslatorTwoArg<Log4jEventWrapper, LogEvent, AsyncLoggerConfig> translator;
     private volatile boolean alreadyLoggedWarning;
-    private final AsyncWaitStrategyFactory asyncWaitStrategyFactory;
+    private final @Nullable AsyncWaitStrategyFactory asyncWaitStrategyFactory;
     private WaitStrategy waitStrategy;
 
     private final Object queueFullEnqueueLock = new Object();
 
-    public AsyncLoggerConfigDisruptor(AsyncWaitStrategyFactory asyncWaitStrategyFactory) {
+    public AsyncLoggerConfigDisruptor(@Nullable AsyncWaitStrategyFactory asyncWaitStrategyFactory) {
         this.asyncWaitStrategyFactory = asyncWaitStrategyFactory; // may be null
     }
 
@@ -304,7 +305,7 @@ public class AsyncLoggerConfigDisruptor extends AbstractLifeCycle implements Asy
     /**
      * Returns {@code true} if the specified disruptor is null.
      */
-    private boolean hasLog4jBeenShutDown(final Disruptor<Log4jEventWrapper> aDisruptor) {
+    private boolean hasLog4jBeenShutDown(final @Nullable Disruptor<Log4jEventWrapper> aDisruptor) {
         if (aDisruptor == null) { // LOG4J2-639
             LOGGER.warn("Ignoring log event after log4j was shut down");
             return true;

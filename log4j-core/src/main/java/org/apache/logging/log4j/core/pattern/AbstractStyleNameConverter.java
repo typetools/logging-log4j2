@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -77,7 +78,7 @@ public abstract class AbstractStyleNameConverter extends LogEventPatternConverte
          *            throwable will be formatted.
          * @return new instance of class or null
          */
-        public static Black newInstance(final Configuration config, final String[] options) {
+        public static @Nullable Black newInstance(final Configuration config, final String @Nullable [] options) {
             return newInstance(Black.class, NAME, config, options);
         }
     }
@@ -110,7 +111,7 @@ public abstract class AbstractStyleNameConverter extends LogEventPatternConverte
          *                throwable will be formatted.
          * @return new instance of class or null
          */
-        public static Blue newInstance(final Configuration config, final String[] options) {
+        public static @Nullable Blue newInstance(final Configuration config, final String @Nullable [] options) {
             return newInstance(Blue.class, NAME, config, options);
         }
     }
@@ -143,7 +144,7 @@ public abstract class AbstractStyleNameConverter extends LogEventPatternConverte
          *                throwable will be formatted.
          * @return new instance of class or null
          */
-        public static Cyan newInstance(final Configuration config, final String[] options) {
+        public static @Nullable Cyan newInstance(final Configuration config, final String @Nullable [] options) {
             return newInstance(Cyan.class, NAME, config, options);
         }
     }
@@ -176,7 +177,7 @@ public abstract class AbstractStyleNameConverter extends LogEventPatternConverte
          *                throwable will be formatted.
          * @return new instance of class or null
          */
-        public static Green newInstance(final Configuration config, final String[] options) {
+        public static @Nullable Green newInstance(final Configuration config, final String @Nullable [] options) {
             return newInstance(Green.class, NAME, config, options);
         }
     }
@@ -209,7 +210,7 @@ public abstract class AbstractStyleNameConverter extends LogEventPatternConverte
          *                throwable will be formatted.
          * @return new instance of class or null
          */
-        public static Magenta newInstance(final Configuration config, final String[] options) {
+        public static @Nullable Magenta newInstance(final Configuration config, final String @Nullable [] options) {
             return newInstance(Magenta.class, NAME, config, options);
         }
     }
@@ -242,7 +243,7 @@ public abstract class AbstractStyleNameConverter extends LogEventPatternConverte
          *                throwable will be formatted.
          * @return new instance of class or null
          */
-        public static Red newInstance(final Configuration config, final String[] options) {
+        public static @Nullable Red newInstance(final Configuration config, final String @Nullable [] options) {
             return newInstance(Red.class, NAME, config, options);
         }
     }
@@ -275,7 +276,7 @@ public abstract class AbstractStyleNameConverter extends LogEventPatternConverte
          *                throwable will be formatted.
          * @return new instance of class or null
          */
-        public static White newInstance(final Configuration config, final String[] options) {
+        public static @Nullable White newInstance(final Configuration config, final String @Nullable [] options) {
             return newInstance(White.class, NAME, config, options);
         }
     }
@@ -308,7 +309,7 @@ public abstract class AbstractStyleNameConverter extends LogEventPatternConverte
          *                throwable will be formatted.
          * @return new instance of class or null
          */
-        public static Yellow newInstance(final Configuration config, final String[] options) {
+        public static @Nullable Yellow newInstance(final Configuration config, final String @Nullable [] options) {
             return newInstance(Yellow.class, NAME, config, options);
         }
     }
@@ -321,9 +322,9 @@ public abstract class AbstractStyleNameConverter extends LogEventPatternConverte
      *                throwable will be formatted.
      * @return new instance of class or null
      */
-    protected static <T extends AbstractStyleNameConverter> T newInstance(final Class<T> asnConverterClass,
+    protected static <T extends AbstractStyleNameConverter> @Nullable T newInstance(final Class<T> asnConverterClass,
                                                                           final String name, final Configuration config,
-                                                                          final String[] options) {
+                                                                          final String @Nullable [] options) {
         final List<PatternFormatter> formatters = toPatternFormatterList(config, options);
         if (formatters == null) {
             return null;
@@ -345,7 +346,7 @@ public abstract class AbstractStyleNameConverter extends LogEventPatternConverte
      * @param options pattern options.
      * @return a list of PatternFormatter from the given configuration and options or null if no pattern is supplied.
      */
-    private static List<PatternFormatter> toPatternFormatterList(final Configuration config, final String[] options) {
+    private static @Nullable List<PatternFormatter> toPatternFormatterList(final Configuration config, final String @Nullable [] options) {
         if (options.length == 0 || options[0] == null) {
             LOGGER.error("No pattern supplied on style for config=" + config);
             return null;

@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.appender.rolling.action;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -180,7 +181,7 @@ public class Duration implements Serializable, Comparable<Duration> {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(final @Nullable Object obj) {
         if (obj == this) {
             return true;
         }

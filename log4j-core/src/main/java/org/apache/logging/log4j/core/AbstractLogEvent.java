@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Collections;
 import java.util.Map;
 
@@ -37,7 +38,7 @@ public abstract class AbstractLogEvent implements LogEvent {
 
     private static final long serialVersionUID = 1L;
 
-    private volatile MutableInstant instant;
+    private volatile @Nullable MutableInstant instant;
 
     /**
      * Subclasses should implement this method to provide an immutable version.
@@ -48,7 +49,7 @@ public abstract class AbstractLogEvent implements LogEvent {
     }
 
     @Override
-    public ReadOnlyStringMap getContextData() {
+    public @Nullable ReadOnlyStringMap getContextData() {
         return null;
     }
 
@@ -66,32 +67,32 @@ public abstract class AbstractLogEvent implements LogEvent {
     }
 
     @Override
-    public Level getLevel() {
+    public @Nullable Level getLevel() {
         return null;
     }
 
     @Override
-    public String getLoggerFqcn() {
+    public @Nullable String getLoggerFqcn() {
         return null;
     }
 
     @Override
-    public String getLoggerName() {
+    public @Nullable String getLoggerName() {
         return null;
     }
 
     @Override
-    public Marker getMarker() {
+    public @Nullable Marker getMarker() {
         return null;
     }
 
     @Override
-    public Message getMessage() {
+    public @Nullable Message getMessage() {
         return null;
     }
 
     @Override
-    public StackTraceElement getSource() {
+    public @Nullable StackTraceElement getSource() {
         return null;
     }
 
@@ -101,7 +102,7 @@ public abstract class AbstractLogEvent implements LogEvent {
     }
 
     @Override
-    public String getThreadName() {
+    public @Nullable String getThreadName() {
         return null;
     }
 
@@ -111,12 +112,12 @@ public abstract class AbstractLogEvent implements LogEvent {
     }
 
     @Override
-    public Throwable getThrown() {
+    public @Nullable Throwable getThrown() {
         return null;
     }
 
     @Override
-    public ThrowableProxy getThrownProxy() {
+    public @Nullable ThrowableProxy getThrownProxy() {
         return null;
     }
 

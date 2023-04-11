@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.List;
 
 import org.apache.logging.log4j.core.LogEvent;
@@ -27,7 +28,7 @@ import org.apache.logging.log4j.util.PerformanceSensitive;
 @PerformanceSensitive("allocation")
 public abstract class EqualsBaseReplacementConverter extends LogEventPatternConverter {
     private final List<PatternFormatter> formatters;
-    private final List<PatternFormatter> substitutionFormatters;
+    private final @Nullable List<PatternFormatter> substitutionFormatters;
     private final String substitution;
     private final String testString;
 

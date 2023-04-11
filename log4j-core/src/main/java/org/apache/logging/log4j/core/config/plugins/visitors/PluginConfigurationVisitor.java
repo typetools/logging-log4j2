@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.config.plugins.visitors;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.Node;
@@ -31,7 +32,7 @@ public class PluginConfigurationVisitor extends AbstractPluginVisitor<PluginConf
     }
 
     @Override
-    public Object visit(final Configuration configuration, final Node node, final LogEvent event,
+    public @Nullable Object visit(final Configuration configuration, final Node node, final LogEvent event,
                         final StringBuilder log) {
         if (this.conversionType.isInstance(configuration)) {
             log.append("Configuration");

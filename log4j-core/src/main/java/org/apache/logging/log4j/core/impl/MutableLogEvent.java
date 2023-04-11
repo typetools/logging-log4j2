@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.impl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.util.Arrays;
@@ -57,20 +58,20 @@ public class MutableLogEvent implements LogEvent, ReusableMessage, ParameterVisi
     private short parameterCount;
     private boolean includeLocation;
     private boolean endOfBatch = false;
-    private Level level;
+    private @Nullable Level level;
     private String threadName;
-    private String loggerName;
-    private Message message;
-    private String messageFormat;
-    private StringBuilder messageText;
-    private Object[] parameters;
-    private Throwable thrown;
-    private ThrowableProxy thrownProxy;
-    private StringMap contextData = ContextDataFactory.createContextData();
-    private Marker marker;
-    private String loggerFqcn;
-    StackTraceElement source;
-    private ThreadContext.ContextStack contextStack;
+    private @Nullable String loggerName;
+    private @Nullable Message message;
+    private @Nullable String messageFormat;
+    private @Nullable StringBuilder messageText;
+    private Object @Nullable [] parameters;
+    private @Nullable Throwable thrown;
+    private @Nullable ThrowableProxy thrownProxy;
+    private @Nullable StringMap contextData = ContextDataFactory.createContextData();
+    private @Nullable Marker marker;
+    private @Nullable String loggerFqcn;
+    @Nullable StackTraceElement source;
+    private ThreadContext.@Nullable ContextStack contextStack;
     transient boolean reserved = false;
 
     public MutableLogEvent() {
@@ -78,7 +79,7 @@ public class MutableLogEvent implements LogEvent, ReusableMessage, ParameterVisi
         this(null, null);
     }
 
-    public MutableLogEvent(final StringBuilder msgText, final Object[] replacementParameters) {
+    public MutableLogEvent(final @Nullable StringBuilder msgText, final Object @Nullable [] replacementParameters) {
         this.messageText = msgText;
         this.parameters = replacementParameters;
     }
@@ -349,7 +350,7 @@ public class MutableLogEvent implements LogEvent, ReusableMessage, ParameterVisi
      * @return The ThrowableProxy associated with the event.
      */
     @Override
-    public ThrowableProxy getThrownProxy() {
+    public @Nullable ThrowableProxy getThrownProxy() {
         if (thrownProxy == null && thrown != null) {
             thrownProxy = new ThrowableProxy(thrown);
         }
@@ -366,7 +367,7 @@ public class MutableLogEvent implements LogEvent, ReusableMessage, ParameterVisi
      * @return the StackTraceElement for the caller.
      */
     @Override
-    public StackTraceElement getSource() {
+    public @Nullable StackTraceElement getSource() {
         if (source != null) {
             return source;
         }
@@ -488,10 +489,12 @@ public class MutableLogEvent implements LogEvent, ReusableMessage, ParameterVisi
                 .setContextStack(contextStack) //
                 .setEndOfBatch(endOfBatch) //
                 .setIncludeLocation(includeLocation) //
+                // TODO: clear() sets this to null
                 .setLevel(getLevel()) // ensure non-null
                 .setLoggerFqcn(loggerFqcn) //
                 .setLoggerName(loggerName) //
                 .setMarker(marker) //
+                // TODO: clear() sets this to null
                 .setMessage(memento()) // ensure non-null & immutable
                 .setNanoTime(nanoTime) //
                 .setSource(source) //

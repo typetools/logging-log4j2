@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import javax.naming.Context;
 import javax.naming.NamingException;
 
@@ -37,7 +38,7 @@ public final class JndiCloser {
      * @throws NamingException if a problem occurred closing the specified JNDI Context
      * @see Context#close()
      */
-    public static void close(final Context context) throws NamingException {
+    public static void close(final @Nullable Context context) throws NamingException {
         if (context != null) {
             context.close();
         }
@@ -50,7 +51,7 @@ public final class JndiCloser {
      * @return Whether closing succeeded
      * @see Context#close()
      */
-    public static boolean closeSilently(final Context context) {
+    public static boolean closeSilently(final @Nullable Context context) {
         try {
             close(context);
             return true;

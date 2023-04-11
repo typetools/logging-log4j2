@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.builder.impl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -42,7 +43,7 @@ import org.apache.logging.log4j.core.util.Patterns;
 public class BuiltConfiguration extends AbstractConfiguration {
     private static final String[] VERBOSE_CLASSES = new String[] { ResolverUtil.class.getName() };
     private final StatusConfiguration statusConfig;
-    protected Component rootComponent;
+    protected @Nullable Component rootComponent;
     private Component loggersComponent;
     private Component appendersComponent;
     private Component filtersComponent;

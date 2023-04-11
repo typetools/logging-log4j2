@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -38,7 +39,7 @@ public final class LoggersPlugin {
      * @return A Loggers object.
      */
     @PluginFactory
-    public static Loggers createLoggers(@PluginElement("Loggers") final LoggerConfig[] loggers) {
+    public static Loggers createLoggers(@PluginElement("Loggers") final @Nullable LoggerConfig[] loggers) {
         final ConcurrentMap<String, LoggerConfig> loggerMap = new ConcurrentHashMap<>();
         LoggerConfig root = null;
 

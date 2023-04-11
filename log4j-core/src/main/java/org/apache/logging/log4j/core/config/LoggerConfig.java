@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -69,20 +71,20 @@ import org.apache.logging.log4j.util.Strings;
 public class LoggerConfig extends AbstractFilterable implements LocationAware {
 
     public static final String ROOT = "root";
-    private static LogEventFactory LOG_EVENT_FACTORY = null;
+    private static LogEventFactory LOG_EVENT_FACTORY;
 
     private List<AppenderRef> appenderRefs = new ArrayList<>();
     private final AppenderControlArraySet appenders = new AppenderControlArraySet();
     private final String name;
     private LogEventFactory logEventFactory;
-    private Level level;
+    private @Nullable Level level;
     private boolean additive = true;
     private boolean includeLocation = true;
-    private LoggerConfig parent;
-    private Map<Property, Boolean> propertiesMap;
-    private final List<Property> properties;
+    private @Nullable LoggerConfig parent;
+    private @MonotonicNonNull Map<Property, Boolean> propertiesMap;
+    private final @Nullable List<Property> properties;
     private final boolean propertiesRequireLookup;
-    private final Configuration config;
+    private final @Nullable Configuration config;
     private final ReliabilityStrategy reliabilityStrategy;
 
     static {
@@ -119,7 +121,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
             implements org.apache.logging.log4j.core.util.Builder<LoggerConfig> {
 
         @PluginBuilderAttribute
-        private Boolean additivity;
+        private @Nullable Boolean additivity;
         @PluginBuilderAttribute
         private Level level;
         @PluginBuilderAttribute
@@ -337,7 +339,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
      * @param level The Level to use.
      * @param filter A Filter for the Appender reference.
      */
-    public void addAppender(final Appender appender, final Level level, final Filter filter) {
+    public void addAppender(final Appender appender, final @Nullable Level level, final @Nullable Filter filter) {
         appenders.add(new AppenderControl(appender, level, filter));
     }
 
@@ -347,7 +349,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
      * @param name The name of the Appender.
      */
     public void removeAppender(final String name) {
-        AppenderControl removed = null;
+        AppenderControl removed;
         while ((removed = appenders.remove(name)) != null) {
             cleanupFilter(removed);
         }
@@ -413,7 +415,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
      * Allows callers to determine the Level assigned to this LoggerConfig.
      * @return the Level associated with this LoggerConfig or null if none is set.
      */
-    public Level getExplicitLevel() {
+    public @Nullable Level getExplicitLevel() {
         return level;
     }
 
@@ -477,7 +479,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
      */
     // LOG4J2-157
     @Deprecated
-    public Map<Property, Boolean> getProperties() {
+    public @Nullable Map<Property, Boolean> getProperties() {
         if (properties == null) {
             return null;
         }
@@ -503,7 +505,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
      * @see StrSubstitutor
      * @since 2.7
      */
-    public List<Property> getPropertyList() {
+    public @Nullable List<Property> getPropertyList() {
         return properties;
     }
 
@@ -522,8 +524,8 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
      * @param t A Throwable or null.
      */
     @PerformanceSensitive("allocation")
-    public void log(final String loggerName, final String fqcn, final Marker marker, final Level level,
-            final Message data, final Throwable t) {
+    public void log(final String loggerName, final String fqcn, final @Nullable Marker marker, final Level level,
+            final Message data, final @Nullable Throwable t) {
         final List<Property> props = getProperties(loggerName, fqcn, marker, level, data, t);
         final LogEvent logEvent = logEventFactory.createEvent(
                 loggerName, marker, fqcn, location(fqcn), level, data, props, t);
@@ -535,7 +537,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
         }
     }
 
-    private StackTraceElement location(String fqcn) {
+    private @Nullable StackTraceElement location(String fqcn) {
         return requiresLocation() ?
                 StackLocatorUtil.calcLocation(fqcn) : null;
     }
@@ -552,8 +554,8 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
      * @param t A Throwable or null.
      */
     @PerformanceSensitive("allocation")
-    public void log(final String loggerName, final String fqcn, final StackTraceElement location, final Marker marker,
-        final Level level, final Message data, final Throwable t) {
+    public void log(final String loggerName, final String fqcn, final StackTraceElement location, final @Nullable Marker marker,
+        final Level level, final Message data, final @Nullable Throwable t) {
         final List<Property> props = getProperties(loggerName, fqcn, marker, level, data, t);
         final LogEvent logEvent = logEventFactory.createEvent(loggerName, marker, fqcn, location, level, data, props, t);
         try {
@@ -619,7 +621,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
      * @param predicate predicate for which LoggerConfig instances to append to.
      *                  A null value is equivalent to a true predicate.
      */
-    protected void log(final LogEvent event, final LoggerConfigPredicate predicate) {
+    protected void log(final LogEvent event, final @Nullable LoggerConfigPredicate predicate) {
         if (!isFiltered(event)) {
             processLogEvent(event, predicate);
         }
@@ -704,6 +706,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
      * @deprecated Deprecated in 2.7; use {@link #createLogger(boolean, Level, String, String, AppenderRef[], Property[], Configuration, Filter)}
      */
     @Deprecated
+    @SuppressWarnings("nullness:return")  // returns null if argument is wrongly null
     public static LoggerConfig createLogger(final String additivity,
             // @formatter:off
             final Level level,
@@ -761,13 +764,13 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
 
     /**
      */
-    protected static boolean includeLocation(final String includeLocationConfigValue) {
+    protected static boolean includeLocation(final @Nullable String includeLocationConfigValue) {
         return includeLocation(includeLocationConfigValue, null);
     }
 
     // Note: for asynchronous loggers, includeLocation default is FALSE,
     // for synchronous loggers, includeLocation default is TRUE.
-    protected static boolean includeLocation(final String includeLocationConfigValue, final Configuration configuration) {
+    protected static boolean includeLocation(final @Nullable String includeLocationConfigValue, final @Nullable Configuration configuration) {
         if (includeLocationConfigValue == null) {
             LoggerContext context = null;
             if (configuration != null) {
@@ -913,7 +916,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
         public static LoggerConfig createLogger(
                 // @formatter:off
                 @PluginAttribute("additivity") final String additivity,
-                @PluginAttribute("level") final Level level,
+                @PluginAttribute("level") final @Nullable Level level,
                 @PluginAttribute("includeLocation") final String includeLocation,
                 @PluginElement("AppenderRef") final AppenderRef[] refs,
                 @PluginElement("Properties") final Property[] properties,
@@ -928,7 +931,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
         }
     }
 
-    protected static LevelAndRefs getLevelAndRefs(Level level, AppenderRef[] refs, String levelAndRefs,
+    protected static LevelAndRefs getLevelAndRefs(@Nullable Level level, AppenderRef @Nullable [] refs, @Nullable String levelAndRefs,
             Configuration config) {
         LevelAndRefs result = new LevelAndRefs();
         if (levelAndRefs != null) {

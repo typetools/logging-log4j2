@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -104,12 +105,12 @@ public abstract class AbstractLayout<T extends Serializable> implements Layout<T
     /**
      * The footer to add when the stream is closed. May be null.
      */
-    protected final byte[] footer;
+    protected final byte @Nullable [] footer;
 
     /**
      * The header to include when the stream is opened. May be null.
      */
-    protected final byte[] header;
+    protected final byte @Nullable [] header;
 
     /**
      * Constructs a layout with an optional header and footer.
@@ -121,7 +122,7 @@ public abstract class AbstractLayout<T extends Serializable> implements Layout<T
      * @deprecated Use {@link #AbstractLayout(Configuration, byte[], byte[])}
      */
     @Deprecated
-    public AbstractLayout(final byte[] header, final byte[] footer) {
+    public AbstractLayout(final byte @Nullable [] header, final byte @Nullable [] footer) {
         this(null, header, footer);
     }
 
@@ -135,7 +136,7 @@ public abstract class AbstractLayout<T extends Serializable> implements Layout<T
      * @param footer
      *            The footer to add when the stream is closed. May be null.
      */
-    public AbstractLayout(final Configuration configuration, final byte[] header, final byte[] footer) {
+    public AbstractLayout(final @Nullable Configuration configuration, final byte @Nullable [] header, final byte @Nullable [] footer) {
         this.configuration = configuration;
         this.header = header;
         this.footer = footer;

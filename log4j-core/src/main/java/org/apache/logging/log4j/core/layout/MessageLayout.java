@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.Configuration;
@@ -44,7 +45,7 @@ public class MessageLayout extends AbstractLayout<Message> {
     }
 
     @Override
-    public byte[] toByteArray(final LogEvent event) {
+    public byte @Nullable [] toByteArray(final LogEvent event) {
         return null;
     }
 
@@ -54,7 +55,7 @@ public class MessageLayout extends AbstractLayout<Message> {
     }
 
     @Override
-    public String getContentType() {
+    public @Nullable String getContentType() {
         return null;
     }
 

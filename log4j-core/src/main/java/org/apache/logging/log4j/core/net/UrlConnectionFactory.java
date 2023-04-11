@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.net;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.JarURLConnection;
@@ -57,7 +58,7 @@ public class UrlConnectionFactory {
 
     @SuppressWarnings("unchecked")
     public static <T extends URLConnection> T createConnection(final URL url, final long lastModifiedMillis,
-            final SslConfiguration sslConfiguration, final AuthorizationProvider authorizationProvider)
+            final @Nullable SslConfiguration sslConfiguration, final @Nullable AuthorizationProvider authorizationProvider)
         throws IOException {
         final PropertiesUtil props = PropertiesUtil.getProperties();
         final List<String> allowed = Arrays.asList(Strings.splitList(props

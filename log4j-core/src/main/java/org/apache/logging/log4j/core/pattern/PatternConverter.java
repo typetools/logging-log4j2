@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  * Interface that all PatternConverters must implement.
  */
@@ -49,5 +51,5 @@ public interface PatternConverter {
      * @param e null values are accepted
      * @return the name of the conversion pattern
      */
-    String getStyleClass(Object e);
+    String getStyleClass(@Nullable Object e);
 }

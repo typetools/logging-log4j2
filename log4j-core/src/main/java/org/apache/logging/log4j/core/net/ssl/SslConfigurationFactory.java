@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.net.ssl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.status.StatusLogger;
 import org.apache.logging.log4j.util.PropertiesUtil;
@@ -43,7 +44,7 @@ public class SslConfigurationFactory {
     private static final String keyStoreKeyManagerFactoryAlgorithm = "log4j2.keyStoreKeyManagerFactoryAlgorithm";
     private static final String verifyHostName = "log4j2.sslVerifyHostName";
 
-    static SslConfiguration createSslConfiguration(PropertiesUtil props) {
+    static @Nullable SslConfiguration createSslConfiguration(PropertiesUtil props) {
         KeyStoreConfiguration keyStoreConfiguration = null;
         TrustStoreConfiguration trustStoreConfiguration = null;
         String location = props.getStringProperty(trustStorelocation);
@@ -82,7 +83,7 @@ public class SslConfigurationFactory {
         return null;
     }
 
-    private static char[] getPassword(final String password, final String keyStoreType) {
+    private static char @Nullable [] getPassword(final @Nullable String password, final String keyStoreType) {
         // Note from Tomcat's SSLUtiBase#getStore:
         //
         // JKS key stores treat null and "" interchangeably.

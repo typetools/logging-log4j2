@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 
 /**
@@ -64,14 +65,14 @@ public interface Appender extends LifeCycle {
      *
      * @return name, may be null.
      */
-    String getName();
+    @Nullable String getName();
 
     /**
      * Returns the Layout used by this Appender if applicable.
      *
      * @return the Layout for this Appender or {@code null} if none is configured.
      */
-    Layout<? extends Serializable> getLayout();
+    @Nullable Layout<? extends Serializable> getLayout();
 
     /**
      * Some Appenders need to propagate exceptions back to the application. When {@code ignoreExceptions} is

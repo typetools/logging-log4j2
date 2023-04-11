@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.io.Writer;
 
@@ -62,7 +63,7 @@ public class StringBuilderWriter extends Writer implements Serializable {
      *
      * @param builder The String builder. May be null.
      */
-    public StringBuilderWriter(final StringBuilder builder) {
+    public StringBuilderWriter(final @Nullable StringBuilder builder) {
         this.builder = builder != null ? builder : new StringBuilder();
     }
 
@@ -127,7 +128,7 @@ public class StringBuilderWriter extends Writer implements Serializable {
      * @param value The value to write
      */
     @Override
-    public void write(final String value) {
+    public void write(final @Nullable String value) {
         if (value != null) {
             builder.append(value);
         }
@@ -141,7 +142,7 @@ public class StringBuilderWriter extends Writer implements Serializable {
      * @param length The number of characters to write
      */
     @Override
-    public void write(final char[] value, final int offset, final int length) {
+    public void write(final char @Nullable [] value, final int offset, final int length) {
         if (value != null) {
             builder.append(value, offset, length);
         }

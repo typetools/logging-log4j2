@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
@@ -46,9 +47,9 @@ public class AbstractLifeCycle implements LifeCycle2 {
         return LOGGER;
     }
 
-    private volatile LifeCycle.State state = LifeCycle.State.INITIALIZED;
+    private volatile LifeCycle.@Nullable State state = LifeCycle.State.INITIALIZED;
 
-    protected boolean equalsImpl(final Object obj) {
+    protected boolean equalsImpl(final @Nullable Object obj) {
         if (this == obj) {
             return true;
         }
@@ -73,7 +74,7 @@ public class AbstractLifeCycle implements LifeCycle2 {
     protected int hashCodeImpl() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((state == null) ? 0 : state.hashCode());
+        result = prime * result + state.hashCode();
         return result;
     }
 
@@ -136,7 +137,7 @@ public class AbstractLifeCycle implements LifeCycle2 {
         stop(DEFAULT_STOP_TIMEOUT, DEFAULT_STOP_TIMEUNIT);
     }
 
-    protected boolean stop(final Future<?> future) {
+    protected boolean stop(final @Nullable Future<?> future) {
         boolean stopped = true;
         if (future != null) {
             if (future.isCancelled() || future.isDone()) {

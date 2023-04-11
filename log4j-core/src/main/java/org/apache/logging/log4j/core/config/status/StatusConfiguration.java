@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.config.status;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -106,7 +107,7 @@ public class StatusConfiguration {
         return this;
     }
 
-    private PrintStream parseStreamName(final String name) throws URISyntaxException, FileNotFoundException {
+    private PrintStream parseStreamName(final @Nullable String name) throws URISyntaxException, FileNotFoundException {
         if (name == null || name.equalsIgnoreCase("out")) {
             return DEFAULT_STREAM;
         }
@@ -130,6 +131,7 @@ public class StatusConfiguration {
      * @return {@code this}
      * @see Level
      */
+    @SuppressWarnings("nullness:argument")  // misuse of Level.toLevel in order to issue an error message
     public StatusConfiguration withStatus(final String status) {
         this.status = Level.toLevel(status, null);
         if (this.status == null) {

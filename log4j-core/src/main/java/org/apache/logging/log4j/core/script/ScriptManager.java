@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.script;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.File;
 import java.nio.file.Path;
 import java.security.AccessController;
@@ -188,7 +189,7 @@ public class ScriptManager implements FileWatcher {
 
     }
 
-    public Object execute(final String name, final Bindings bindings) {
+    public @Nullable Object execute(final String name, final Bindings bindings) {
         final ScriptRunner scriptRunner = scriptRunners.get(name);
         if (scriptRunner == null) {
             logger.warn("No script named {} could be found", name);
@@ -210,7 +211,7 @@ public class ScriptManager implements FileWatcher {
 
     private class MainScriptRunner extends AbstractScriptRunner {
         private final AbstractScript script;
-        private final CompiledScript compiledScript;
+        private final @Nullable CompiledScript compiledScript;
         private final ScriptEngine scriptEngine;
 
         public MainScriptRunner(final ScriptEngine scriptEngine, final AbstractScript script) {
@@ -241,7 +242,7 @@ public class ScriptManager implements FileWatcher {
         }
 
         @Override
-        public Object execute(final Bindings bindings) {
+        public @Nullable Object execute(final Bindings bindings) {
             if (compiledScript != null) {
                 try {
                     return compiledScript.eval(bindings);

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.plugins.validation.validators;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.plugins.validation.ConstraintValidator;
 import org.apache.logging.log4j.core.config.plugins.validation.constraints.ValidHost;
@@ -42,7 +43,7 @@ public class ValidHostValidator implements ConstraintValidator<ValidHost> {
     }
 
     @Override
-    public boolean isValid(final String name, final Object value) {
+    public boolean isValid(final String name, final @Nullable Object value) {
         if (value == null) {
             LOGGER.error(annotation.message());
             return false;

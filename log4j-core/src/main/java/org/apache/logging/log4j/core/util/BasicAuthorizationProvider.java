@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.net.URLConnection;
 import java.util.Properties;
 
@@ -39,7 +40,7 @@ public class BasicAuthorizationProvider implements AuthorizationProvider {
 
     private static Logger LOGGER = StatusLogger.getLogger();
 
-    private String authString = null;
+    private @Nullable String authString = null;
 
     public BasicAuthorizationProvider(PropertiesUtil props) {
         String userName = props.getStringProperty(PREFIXES,AUTH_USER_NAME,

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.logging.log4j.core.LogEvent;
@@ -51,7 +52,7 @@ public final class SequenceNumberPatternConverter extends LogEventPatternConvert
      * @param options options, currently ignored, may be null.
      * @return instance of SequencePatternConverter.
      */
-    public static SequenceNumberPatternConverter newInstance(final String[] options) {
+    public static SequenceNumberPatternConverter newInstance(final String @Nullable [] options) {
         return INSTANCE;
     }
 

@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.filter;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.DelayQueue;
@@ -262,7 +263,7 @@ public final class BurstFilter extends AbstractFilter {
         }
 
         @Override
-        public boolean equals(final Object o) {
+        public boolean equals(final @Nullable Object o) {
             if (this == o) {
                 return true;
             }

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.filter;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
@@ -51,7 +52,7 @@ public abstract class AbstractFilterable extends AbstractLifeCycle implements Fi
             return (B) this;
         }
 
-        public Filter getFilter() {
+        public @Nullable Filter getFilter() {
             return filter;
         }
 
@@ -86,7 +87,7 @@ public abstract class AbstractFilterable extends AbstractLifeCycle implements Fi
     /**
      * May be null.
      */
-    private volatile Filter filter;
+    private volatile @Nullable Filter filter;
 
     @PluginElement("Properties")
     private final Property[] propertyArray;
@@ -95,14 +96,14 @@ public abstract class AbstractFilterable extends AbstractLifeCycle implements Fi
         this(null, Property.EMPTY_ARRAY);
     }
 
-    protected AbstractFilterable(final Filter filter) {
+    protected AbstractFilterable(final @Nullable Filter filter) {
         this(filter, Property.EMPTY_ARRAY);
     }
 
     /**
      * @since 2.11.2
      */
-    protected AbstractFilterable(final Filter filter, final Property[] propertyArray) {
+    protected AbstractFilterable(final @Nullable Filter filter, final Property @Nullable [] propertyArray) {
         this.filter = filter;
         this.propertyArray = propertyArray == null ? Property.EMPTY_ARRAY : propertyArray;
     }
@@ -112,7 +113,7 @@ public abstract class AbstractFilterable extends AbstractLifeCycle implements Fi
      * @param filter The Filter to add.
      */
     @Override
-    public synchronized void addFilter(final Filter filter) {
+    public synchronized void addFilter(final @Nullable Filter filter) {
         if (filter == null) {
             return;
         }
@@ -131,7 +132,7 @@ public abstract class AbstractFilterable extends AbstractLifeCycle implements Fi
      * @return the Filter or null.
      */
     @Override
-    public Filter getFilter() {
+    public @Nullable Filter getFilter() {
         return filter;
     }
 
@@ -159,7 +160,7 @@ public abstract class AbstractFilterable extends AbstractLifeCycle implements Fi
      * @param filter The Filter to remove.
      */
     @Override
-    public synchronized void removeFilter(final Filter filter) {
+    public synchronized void removeFilter(final @Nullable Filter filter) {
         if (this.filter == null || filter == null) {
             return;
         }

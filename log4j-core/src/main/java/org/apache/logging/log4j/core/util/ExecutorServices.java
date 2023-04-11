@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -44,7 +45,7 @@ public class ExecutorServices {
      * @return {@code true} if the given executor terminated and {@code false} if the timeout elapsed before
      *         termination.
      */
-    public static boolean shutdown(final ExecutorService executorService, final long timeout, final TimeUnit timeUnit, final String source) {
+    public static boolean shutdown(final @Nullable ExecutorService executorService, final long timeout, final @Nullable TimeUnit timeUnit, final String source) {
         if (executorService == null || executorService.isTerminated()) {
             return true;
         }

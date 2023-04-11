@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Objects;
 
 import org.apache.logging.log4j.Logger;
@@ -43,10 +44,10 @@ public final class Property {
 
     private final String name;
     private final String rawValue;
-    private final String value;
+    private final @Nullable String value;
     private final boolean valueNeedsLookup;
 
-    private Property(final String name, final String rawValue, final String value) {
+    private Property(final String name, final String rawValue, final @Nullable String value) {
         this.name = name;
         this.rawValue = rawValue;
         this.value = value;
@@ -138,7 +139,7 @@ public final class Property {
     public static Property createProperty(
             @PluginAttribute("name") final String name,
             @PluginValue(value = "value", substitute = false) final String rawValue,
-            @PluginConfiguration final Configuration configuration) {
+            @PluginConfiguration final @Nullable Configuration configuration) {
         return createProperty(
                 name,
                 rawValue,

@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.util.Map;
 
@@ -107,14 +108,14 @@ public interface LogEvent extends Serializable {
      *
      * @return logger name, may be {@code null}.
      */
-    String getLoggerName();
+    @Nullable String getLoggerName();
 
     /**
      * Gets the Marker associated with the event.
      *
      * @return Marker or {@code null} if no Marker was defined on this LogEvent
      */
-    Marker getMarker();
+    @Nullable Marker getMarker();
 
     /**
      * Gets the message associated with the event.
@@ -150,7 +151,7 @@ public interface LogEvent extends Serializable {
      *
      * @return source of logging request, may be null.
      */
-    StackTraceElement getSource();
+    @Nullable StackTraceElement getSource();
 
     /**
      * Gets the thread name.
@@ -158,7 +159,7 @@ public interface LogEvent extends Serializable {
      * @return thread name, may be null.
      * TODO guess this could go into a thread context object too. (RG) Why?
      */
-    String getThreadName();
+    @Nullable String getThreadName();
 
     /**
      * Gets the thread ID.
@@ -183,14 +184,14 @@ public interface LogEvent extends Serializable {
      *
      * @return throwable, may be null.
      */
-    Throwable getThrown();
+    @Nullable Throwable getThrown();
 
     /**
      * Gets throwable proxy associated with logging request.
      *
      * @return throwable, may be null.
      */
-    ThrowableProxy getThrownProxy();
+    @Nullable ThrowableProxy getThrownProxy();
 
     /**
      * Returns {@code true} if this event is the last one in a batch, {@code false} otherwise. Used by asynchronous

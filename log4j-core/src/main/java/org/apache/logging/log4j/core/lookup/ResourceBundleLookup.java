@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.lookup;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -47,7 +48,7 @@ public class ResourceBundleLookup extends AbstractLookup {
      * @return The value associated with the key.
      */
     @Override
-    public String lookup(final LogEvent event, final String key) {
+    public @Nullable String lookup(final LogEvent event, final @Nullable String key) {
         if (key == null) {
             return null;
         }

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.osgi;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.ref.WeakReference;
 import java.net.URI;
 import java.util.Objects;
@@ -78,7 +79,7 @@ public class BundleContextSelector extends ClassLoaderContextSelector {
             }
         }
     }
-    private LoggerContext getLoggerContext(final Bundle bundle) {
+    private @Nullable LoggerContext getLoggerContext(final Bundle bundle) {
         final String name = Objects.requireNonNull(bundle, "No Bundle provided").getSymbolicName();
         final AtomicReference<WeakReference<LoggerContext>> ref = CONTEXT_MAP.get(name);
         if (ref != null && ref.get() != null) {

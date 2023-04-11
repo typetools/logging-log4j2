@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.lookup;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
@@ -39,7 +40,7 @@ public class SystemPropertiesLookup extends AbstractLookup {
      * @return The value associated with the key.
      */
     @Override
-    public String lookup(final LogEvent event, final String key) {
+    public @Nullable String lookup(final LogEvent event, final @Nullable String key) {
         try {
             return System.getProperty(key);
         } catch (final Exception ex) {

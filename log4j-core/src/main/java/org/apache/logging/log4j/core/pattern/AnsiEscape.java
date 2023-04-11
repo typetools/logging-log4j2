@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Locale;
@@ -419,7 +420,7 @@ public enum AnsiEscape {
      *            do not escape these keys, leave the values as is in the map
      * @return a new map
      */
-    public static Map<String, String> createMap(final String[] values, final String[] dontEscapeKeys) {
+    public static Map<String, String> createMap(final String[] values, final String @Nullable [] dontEscapeKeys) {
         final String[] sortedIgnoreKeys = dontEscapeKeys != null ? dontEscapeKeys.clone() : Strings.EMPTY_ARRAY;
         Arrays.sort(sortedIgnoreKeys);
         final Map<String, String> map = new HashMap<>();
@@ -442,7 +443,7 @@ public enum AnsiEscape {
      *            {@linkplain AnsiEscape} names.
      * @return An ANSI escape sequence.
      */
-    public static String createSequence(final String... names) {
+    public static String createSequence(final String @Nullable ... names) {
         if (names == null) {
             return getDefaultStyle();
         }

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import static org.apache.logging.log4j.core.util.ShutdownCallbackRegistry.SHUTDOWN_HOOK_MARKER;
 
 import java.beans.PropertyChangeEvent;
@@ -105,7 +106,7 @@ public class LoggerContext extends AbstractLifeCycle
      * @param name The context name.
      * @param externalContext The external context.
      */
-    public LoggerContext(final String name, final Object externalContext) {
+    public LoggerContext(final String name, final @Nullable Object externalContext) {
         this(name, externalContext, (URI) null);
     }
 
@@ -116,7 +117,7 @@ public class LoggerContext extends AbstractLifeCycle
      * @param externalContext The external context.
      * @param configLocn The location of the configuration as a URI.
      */
-    public LoggerContext(final String name, final Object externalContext, final URI configLocn) {
+    public LoggerContext(final String name, final @Nullable Object externalContext, final URI configLocn) {
         this.contextName = name;
         if (externalContext == null) {
             externalMap.remove(EXTERNAL_CONTEXT_KEY);
@@ -134,7 +135,7 @@ public class LoggerContext extends AbstractLifeCycle
      * @param externalContext The external context.
      * @param configLocn The configuration location.
      */
-    public LoggerContext(final String name, final Object externalContext, final String configLocn) {
+    public LoggerContext(final String name, final @Nullable Object externalContext, final String configLocn) {
         this.contextName = name;
         if (externalContext == null) {
             externalMap.remove(EXTERNAL_CONTEXT_KEY);
@@ -455,7 +456,7 @@ public class LoggerContext extends AbstractLifeCycle
      *
      * @param context The external context.
      */
-    public void setExternalContext(final Object context) {
+    public void setExternalContext(final @Nullable Object context) {
         if (context != null) {
             this.externalMap.put(EXTERNAL_CONTEXT_KEY, context);
         } else {

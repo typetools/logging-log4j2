@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -82,7 +83,7 @@ public final class PatternLayout extends AbstractStringLayout {
      * Conversion pattern.
      */
     private final String conversionPattern;
-    private final PatternSelector patternSelector;
+    private final @Nullable PatternSelector patternSelector;
     private final Serializer eventSerializer;
 
     /**
@@ -245,7 +246,7 @@ public final class PatternLayout extends AbstractStringLayout {
      * @param config The Configuration or {@code null}.
      * @return The PatternParser.
      */
-    public static PatternParser createPatternParser(final Configuration config) {
+    public static PatternParser createPatternParser(final @Nullable Configuration config) {
         if (config == null) {
             return new PatternParser(config, KEY, LogEventPatternConverter.class);
         }
@@ -454,16 +455,16 @@ public final class PatternLayout extends AbstractStringLayout {
     public static class SerializerBuilder implements org.apache.logging.log4j.core.util.Builder<Serializer> {
 
         private Configuration configuration;
-        private RegexReplacement replace;
-        private String pattern;
+        private @Nullable RegexReplacement replace;
+        private @Nullable String pattern;
         private String defaultPattern;
-        private PatternSelector patternSelector;
+        private @Nullable PatternSelector patternSelector;
         private boolean alwaysWriteExceptions;
         private boolean disableAnsi;
         private boolean noConsoleNoAnsi;
 
         @Override
-        public Serializer build() {
+        public @Nullable Serializer build() {
             if (Strings.isEmpty(pattern) && Strings.isEmpty(defaultPattern)) {
                 return null;
             }
@@ -537,9 +538,9 @@ public final class PatternLayout extends AbstractStringLayout {
     private static final class PatternSelectorSerializer implements Serializer, LocationAware {
 
         private final PatternSelector patternSelector;
-        private final RegexReplacement replace;
+        private final @Nullable RegexReplacement replace;
 
-        private PatternSelectorSerializer(final PatternSelector patternSelector, final RegexReplacement replace) {
+        private PatternSelectorSerializer(final PatternSelector patternSelector, final @Nullable RegexReplacement replace) {
             this.patternSelector = patternSelector;
             this.replace = replace;
         }
@@ -706,7 +707,7 @@ public final class PatternLayout extends AbstractStringLayout {
          * @param charset
          *        The character set. The platform default is used if not specified.
          */
-        public Builder withCharset(final Charset charset) {
+        public Builder withCharset(final @Nullable Charset charset) {
             // LOG4J2-783 if null, use platform default by default
             if (charset != null) {
                 this.charset = charset;

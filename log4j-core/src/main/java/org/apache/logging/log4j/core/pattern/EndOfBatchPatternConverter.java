@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.util.PerformanceSensitive;
@@ -49,7 +50,7 @@ public final class EndOfBatchPatternConverter extends LogEventPatternConverter {
      * @return instance of EndOfBatchPatternConverter.
      */
     public static EndOfBatchPatternConverter newInstance(
-        final String[] options) {
+        final String @Nullable [] options) {
         return INSTANCE;
     }
 

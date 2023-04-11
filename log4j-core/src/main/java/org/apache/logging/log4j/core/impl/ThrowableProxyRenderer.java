@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.impl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.pattern.TextRenderer;
 import org.apache.logging.log4j.util.Strings;
 
@@ -58,7 +59,7 @@ class ThrowableProxyRenderer {
     }
 
     private static void formatThrowableProxy(final StringBuilder sb, final String prefix, final String causeLabel,
-                                             final ThrowableProxy throwableProxy, final List<String> ignorePackages,
+                                             final @Nullable ThrowableProxy throwableProxy, final List<String> ignorePackages,
                                              final TextRenderer textRenderer, final String suffix, final String lineSeparator) {
         if (throwableProxy == null) {
             return;
@@ -74,7 +75,7 @@ class ThrowableProxyRenderer {
         formatCause(sb, prefix, throwableProxy.getCauseProxy(), ignorePackages, textRenderer, suffix, lineSeparator);
     }
 
-    private static void formatSuppressed(final StringBuilder sb, final String prefix, final ThrowableProxy[] suppressedProxies,
+    private static void formatSuppressed(final StringBuilder sb, final String prefix, final ThrowableProxy @Nullable [] suppressedProxies,
                                          final List<String> ignorePackages, final TextRenderer textRenderer, final String suffix, final String lineSeparator) {
         if (suppressedProxies == null) {
             return;
@@ -86,7 +87,7 @@ class ThrowableProxyRenderer {
 
     private static void formatElements(final StringBuilder sb, final String prefix, final int commonCount,
                                        final StackTraceElement[] causedTrace, final ExtendedStackTraceElement[] extStackTrace,
-                                       final List<String> ignorePackages, final TextRenderer textRenderer, final String suffix, final String lineSeparator) {
+                                       final @Nullable List<String> ignorePackages, final TextRenderer textRenderer, final String suffix, final String lineSeparator) {
         if (ignorePackages == null || ignorePackages.isEmpty()) {
             for (final ExtendedStackTraceElement element : extStackTrace) {
                 formatEntry(element, sb, prefix, textRenderer, suffix, lineSeparator);
@@ -148,7 +149,7 @@ class ThrowableProxyRenderer {
         textRenderer.render(lineSeparator, sb, "Text");
     }
 
-    private static boolean ignoreElement(final StackTraceElement element, final List<String> ignorePackages) {
+    private static boolean ignoreElement(final StackTraceElement element, final @Nullable List<String> ignorePackages) {
         if (ignorePackages != null) {
             final String className = element.getClassName();
             for (final String pkg : ignorePackages) {

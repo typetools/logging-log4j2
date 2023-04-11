@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.async;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import com.lmax.disruptor.ExceptionHandler;
 import com.lmax.disruptor.WaitStrategy;
 import org.apache.logging.log4j.Logger;
@@ -53,7 +54,7 @@ final class DisruptorUtil {
     }
 
     static WaitStrategy createWaitStrategy(final String propertyName,
-                                           final AsyncWaitStrategyFactory asyncWaitStrategyFactory) {
+                                           final @Nullable AsyncWaitStrategyFactory asyncWaitStrategyFactory) {
 
         if (asyncWaitStrategyFactory == null) {
             LOGGER.debug("No AsyncWaitStrategyFactory was configured in the configuration, using default factory...");

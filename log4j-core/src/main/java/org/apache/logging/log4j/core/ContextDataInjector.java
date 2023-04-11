@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.List;
 
 import org.apache.logging.log4j.core.config.Property;
@@ -91,7 +92,7 @@ public interface ContextDataInjector {
      *          context data. The returned value may be the specified parameter or a different object.
      * @see ThreadContextDataInjector#copyProperties(List, StringMap)
      */
-    StringMap injectContextData(final List<Property> properties, final StringMap reusable);
+    StringMap injectContextData(final @Nullable List<Property> properties, final StringMap reusable);
 
     /**
      * Returns a {@code ReadOnlyStringMap} object reflecting the current state of the context. Configuration properties

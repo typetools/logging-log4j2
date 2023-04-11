@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.impl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -102,7 +103,7 @@ public class ThreadContextDataInjector {
          * @return a {@code StringMap} combining configuration properties with thread context data
          */
         @Override
-        public StringMap injectContextData(final List<Property> props, final StringMap contextData) {
+        public StringMap injectContextData(final @Nullable List<Property> props, final StringMap contextData) {
 
             final Map<String, String> copy;
 
@@ -179,7 +180,7 @@ public class ThreadContextDataInjector {
          * @return a {@code StringMap} combining configuration properties with thread context data
          */
         @Override
-        public StringMap injectContextData(final List<Property> props, final StringMap reusable) {
+        public StringMap injectContextData(final @Nullable List<Property> props, final StringMap reusable) {
             // When the ThreadContext is garbage-free, we must copy its key-value pairs into the specified reusable
             // StringMap. We cannot return the ThreadContext's internal data structure because it may be modified later
             // and such modifications should not be reflected in the log event.
@@ -220,7 +221,7 @@ public class ThreadContextDataInjector {
          * @return a {@code StringMap} combining configuration properties with thread context data
          */
         @Override
-        public StringMap injectContextData(final List<Property> props, final StringMap ignore) {
+        public StringMap injectContextData(final @Nullable List<Property> props, final StringMap ignore) {
             // If there are no configuration properties we want to just return the ThreadContext's StringMap:
             // it is a copy-on-write data structure so we are sure ThreadContext changes will not affect our copy.
             if (providers.size() == 1 && (props == null || props.isEmpty())) {
@@ -257,7 +258,7 @@ public class ThreadContextDataInjector {
      * @param properties list of configuration properties, may be {@code null}
      * @param result the {@code StringMap} object to add the key-values to. Must be non-{@code null}.
      */
-    public static void copyProperties(final List<Property> properties, final StringMap result) {
+    public static void copyProperties(final @Nullable List<Property> properties, final StringMap result) {
         if (properties != null) {
             for (int i = 0; i < properties.size(); i++) {
                 final Property prop = properties.get(i);

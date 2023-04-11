@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.filter;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import javax.script.SimpleBindings;
 
 import org.apache.logging.log4j.Level;
@@ -129,8 +130,8 @@ public final class ScriptFilter extends AbstractFilter {
      */
     // TODO Consider refactoring to use AbstractFilter.AbstractFilterBuilder
     @PluginFactory
-    public static ScriptFilter createFilter(
-            @PluginElement("Script") final AbstractScript script,
+    public static @Nullable ScriptFilter createFilter(
+            @PluginElement("Script") final @Nullable AbstractScript script,
             @PluginAttribute("onMatch") final Result match,
             @PluginAttribute("onMismatch") final Result mismatch,
             @PluginConfiguration final Configuration configuration) {

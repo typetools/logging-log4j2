@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.core.config.plugins.PluginConfiguration;
@@ -45,7 +46,7 @@ public final class PropertiesPlugin {
      * @return An Interpolator that includes the configuration properties.
      */
     @PluginFactory
-    public static StrLookup configureSubstitutor(@PluginElement("Properties") final Property[] properties,
+    public static StrLookup configureSubstitutor(@PluginElement("Properties") final Property @Nullable [] properties,
                                                  @PluginConfiguration final Configuration config) {
         // For backwards compatibility, we unescape all escaped lookups when properties are parsed.
         // This matches previous behavior for escaped components which were meant to be executed later on.
@@ -86,22 +87,22 @@ public final class PropertiesPlugin {
         INSTANCE;
 
         @Override
-        public String lookup(String key) {
+        public @Nullable String lookup(String key) {
             return null;
         }
 
         @Override
-        public String lookup(LogEvent event, String key) {
+        public @Nullable String lookup(LogEvent event, String key) {
             return null;
         }
 
         @Override
-        public LookupResult evaluate(String key) {
+        public @Nullable LookupResult evaluate(String key) {
             return null;
         }
 
         @Override
-        public LookupResult evaluate(LogEvent event, String key) {
+        public @Nullable LookupResult evaluate(LogEvent event, String key) {
             return null;
         }
     }

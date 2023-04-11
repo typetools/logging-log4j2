@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.net;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.InetAddress;
@@ -109,7 +110,7 @@ public class DatagramSocketManager extends AbstractSocketManager {
     private static class DatagramSocketManagerFactory implements ManagerFactory<DatagramSocketManager, FactoryData> {
 
         @Override
-        public DatagramSocketManager createManager(final String name, final FactoryData data) {
+        public @Nullable DatagramSocketManager createManager(final String name, final FactoryData data) {
             InetAddress inetAddress;
             try {
                 inetAddress = InetAddress.getByName(data.host);

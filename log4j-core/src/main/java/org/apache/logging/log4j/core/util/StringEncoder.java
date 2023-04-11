@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.PolyNull;
 import java.nio.charset.Charset;
 
 /**
@@ -35,7 +36,7 @@ public final class StringEncoder {
      * @param charset if null, use the default charset.
      * @return a byte[]
      */
-    public static byte[] toBytes(final String str, final Charset charset) {
+    public static byte @PolyNull [] toBytes(final @PolyNull String str, final Charset charset) {
         if (str != null) {
             return str.getBytes(charset != null ? charset : Charset.defaultCharset());
         }

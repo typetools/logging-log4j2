@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
@@ -40,7 +41,7 @@ public final class RootThrowablePatternConverter extends ThrowablePatternConvert
      * @param config
      * @param options options, may be null.
      */
-    private RootThrowablePatternConverter(final Configuration config, final String[] options) {
+    private RootThrowablePatternConverter(final Configuration config, final String @Nullable [] options) {
         super("RootThrowable", "throwable", options, config);
     }
 
@@ -52,7 +53,7 @@ public final class RootThrowablePatternConverter extends ThrowablePatternConvert
      *                only the first line of the throwable will be formatted.
      * @return instance of class.
      */
-    public static RootThrowablePatternConverter newInstance(final Configuration config, final String[] options) {
+    public static RootThrowablePatternConverter newInstance(final Configuration config, final String @Nullable [] options) {
         return new RootThrowablePatternConverter(config, options);
     }
 

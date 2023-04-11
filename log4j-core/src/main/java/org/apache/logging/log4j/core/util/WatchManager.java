@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.File;
 import java.lang.invoke.MethodHandles;
 import java.util.Date;
@@ -224,7 +225,7 @@ public class WatchManager extends AbstractLifeCycle {
      * @param file the file for the monitor to reset.
      * @since 2.11.0
      */
-    public void reset(final File file) {
+    public void reset(final @Nullable File file) {
         if (file == null) {
             return;
         }
@@ -243,7 +244,7 @@ public class WatchManager extends AbstractLifeCycle {
      * @param source the Source for the monitor to reset.
      * @since 2.12.0
      */
-    public void reset(final Source source) {
+    public void reset(final @Nullable Source source) {
         if (source == null) {
             return;
         }

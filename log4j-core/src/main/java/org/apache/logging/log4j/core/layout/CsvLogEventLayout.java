@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
@@ -70,7 +71,7 @@ public class CsvLogEventLayout extends AbstractCsvLayout {
         return new CsvLogEventLayout(config, charset, csvFormat, header, footer);
     }
 
-    protected CsvLogEventLayout(final Configuration config, final Charset charset, final CSVFormat csvFormat, final String header, final String footer) {
+    protected CsvLogEventLayout(final @Nullable Configuration config, final Charset charset, final CSVFormat csvFormat, final String header, final String footer) {
         super(config, charset, csvFormat, header, footer);
     }
 

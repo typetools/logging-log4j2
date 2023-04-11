@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -112,14 +113,14 @@ public final class Rfc5424Layout extends AbstractStringLayout {
     private final String mdcId;
     private final StructuredDataId mdcSdId;
     private final String localHostName;
-    private final String appName;
-    private final String messageId;
-    private final String configName;
+    private final @Nullable String appName;
+    private final @Nullable String messageId;
+    private final @Nullable String configName;
     private final String mdcPrefix;
     private final String eventPrefix;
-    private final List<String> mdcExcludes;
-    private final List<String> mdcIncludes;
-    private final List<String> mdcRequired;
+    private final @Nullable List<String> mdcExcludes;
+    private final @Nullable List<String> mdcIncludes;
+    private final @Nullable List<String> mdcRequired;
     private final ListChecker listChecker;
     private final boolean includeNewLine;
     private final String escapeNewLine;
@@ -128,15 +129,15 @@ public final class Rfc5424Layout extends AbstractStringLayout {
     private long lastTimestamp = -1;
     private String timestamppStr;
 
-    private final List<PatternFormatter> exceptionFormatters;
-    private final Map<String, FieldFormatter> fieldFormatters;
+    private final @Nullable List<PatternFormatter> exceptionFormatters;
+    private final @Nullable Map<String, FieldFormatter> fieldFormatters;
     private final String procId;
 
-    private Rfc5424Layout(final Configuration config, final Facility facility, final String id, final String ein,
-              final boolean includeMDC, final boolean includeNL, final String escapeNL, final String mdcId,
-              final String mdcPrefix, final String eventPrefix, final String appName, final String messageId,
-              final String excludes, final String includes, final String required, final Charset charset,
-              final String exceptionPattern, final boolean useTLSMessageFormat, final LoggerFields[] loggerFields) {
+    private Rfc5424Layout(final @Nullable Configuration config, final Facility facility, final @Nullable String id, final String ein,
+              final boolean includeMDC, final boolean includeNL, final @Nullable String escapeNL, final @Nullable String mdcId,
+              final String mdcPrefix, final String eventPrefix, final @Nullable String appName, final String messageId,
+              final @Nullable String excludes, final @Nullable String includes, final @Nullable String required, final Charset charset,
+              final @Nullable String exceptionPattern, final boolean useTLSMessageFormat, final LoggerFields[] loggerFields) {
         super(charset);
         final PatternParser exceptionParser = createPatternParser(config, ThrowablePatternConverter.class);
         exceptionFormatters = exceptionPattern == null ? null : exceptionParser.parse(exceptionPattern);
@@ -204,7 +205,7 @@ public final class Rfc5424Layout extends AbstractStringLayout {
         this.procId = ProcessIdUtil.getProcessId();
     }
 
-    private Map<String, FieldFormatter> createFieldFormatters(final LoggerFields[] loggerFields,
+    private @Nullable Map<String, FieldFormatter> createFieldFormatters(final LoggerFields @Nullable [] loggerFields,
             final Configuration config) {
         final Map<String, FieldFormatter> sdIdMap = new HashMap<>(loggerFields == null ? 0 : loggerFields.length);
         if (loggerFields != null) {
@@ -235,8 +236,8 @@ public final class Rfc5424Layout extends AbstractStringLayout {
      * @param filterClass Filter the returned plugins after calling the plugin manager.
      * @return The PatternParser.
      */
-    private static PatternParser createPatternParser(final Configuration config,
-            final Class<? extends PatternConverter> filterClass) {
+    private static PatternParser createPatternParser(final @Nullable Configuration config,
+            final @Nullable Class<? extends PatternConverter> filterClass) {
         if (config == null) {
             return new PatternParser(config, PatternLayout.KEY, LogEventPatternConverter.class, filterClass);
         }
@@ -432,7 +433,7 @@ public final class Rfc5424Layout extends AbstractStringLayout {
         }
     }
 
-    private String escapeNewlines(final String text, final String replacement) {
+    private String escapeNewlines(final String text, final @Nullable String replacement) {
         if (null == replacement) {
             return text;
         }
@@ -512,8 +513,9 @@ public final class Rfc5424Layout extends AbstractStringLayout {
         buf.append(Integer.toString(val));
     }
 
-    private void formatStructuredElement(final String id, final StructuredDataElement data,
+    private void formatStructuredElement(final @Nullable String id, final StructuredDataElement data,
             final StringBuilder sb, final ListChecker checker) {
+        // TODO: defaultId should never be null (and it is used elsewhere without being chacked against null)
         if ((id == null && defaultId == null) || data.discard()) {
             return;
         }
@@ -528,7 +530,7 @@ public final class Rfc5424Layout extends AbstractStringLayout {
         sb.append(']');
     }
 
-    private String getId(final StructuredDataId id) {
+    private String getId(final @Nullable StructuredDataId id) {
         final StringBuilder sb = new StringBuilder();
         if (id == null || id.getName() == null) {
             sb.append(defaultId);
@@ -554,7 +556,7 @@ public final class Rfc5424Layout extends AbstractStringLayout {
         }
     }
 
-    private void appendMap(final String prefix, final Map<String, String> map, final StringBuilder sb,
+    private void appendMap(final @Nullable String prefix, final Map<String, String> map, final StringBuilder sb,
             final ListChecker checker) {
         final SortedMap<String, String> sorted = new TreeMap<>(map);
         for (final Map.Entry<String, String> entry : sorted.entrySet()) {
@@ -640,8 +642,8 @@ public final class Rfc5424Layout extends AbstractStringLayout {
             @PluginAttribute("newLineEscape") final String escapeNL,
             @PluginAttribute("appName") final String appName,
             @PluginAttribute("messageId") final String msgId,
-            @PluginAttribute("mdcExcludes") final String excludes,
-            @PluginAttribute("mdcIncludes") String includes,
+            @PluginAttribute("mdcExcludes") final @Nullable String excludes,
+            @PluginAttribute("mdcIncludes") @Nullable String includes,
             @PluginAttribute("mdcRequired") final String required,
             @PluginAttribute("exceptionPattern") final String exceptionPattern,
             // RFC 5425
@@ -775,7 +777,7 @@ public final class Rfc5424Layout extends AbstractStringLayout {
             return this;
         }
 
-        public Rfc5424Layout build() {
+        public @Nullable Rfc5424Layout build() {
             if (includes != null && excludes != null) {
                 LOGGER.error("mdcIncludes and mdcExcludes are mutually exclusive. Includes wil be ignored");
                 includes = null;

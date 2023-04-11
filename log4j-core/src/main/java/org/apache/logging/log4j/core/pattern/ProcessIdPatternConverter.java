@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.util.ProcessIdUtil;
@@ -54,7 +55,7 @@ public final class ProcessIdPatternConverter extends LogEventPatternConverter {
      * @param options options, currently ignored, may be null.
      * @return instance of ProcessIdPatternConverter.
      */
-    public static ProcessIdPatternConverter newInstance(final String[] options) {
+    public static ProcessIdPatternConverter newInstance(final String @Nullable [] options) {
         return new ProcessIdPatternConverter(options);
     }
 

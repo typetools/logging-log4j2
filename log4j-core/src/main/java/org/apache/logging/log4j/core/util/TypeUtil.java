@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.reflect.Field;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
@@ -51,7 +52,7 @@ public final class TypeUtil {
      * @return all declared fields for the given class (including superclasses).
      * @see Class#getDeclaredFields()
      */
-    public static List<Field> getAllDeclaredFields(Class<?> cls) {
+    public static List<Field> getAllDeclaredFields(@Nullable Class<?> cls) {
         final List<Field> fields = new ArrayList<>();
         while (cls != null) {
             Collections.addAll(fields, cls.getDeclaredFields());
@@ -209,12 +210,12 @@ public final class TypeUtil {
         return upperBounds.length == 0 ? new Type[]{Object.class} : upperBounds;
     }
 
-    private static Type[] getEffectiveLowerBounds(final WildcardType type) {
+    private static @Nullable Type[] getEffectiveLowerBounds(final WildcardType type) {
         final Type[] lowerBounds = type.getLowerBounds();
         return lowerBounds.length == 0 ? new Type[]{null} : lowerBounds;
     }
 
-    private static boolean isBoundAssignable(final Type lhs, final Type rhs) {
+    private static boolean isBoundAssignable(final @Nullable Type lhs, final @Nullable Type rhs) {
         return (rhs == null) || ((lhs != null) && isAssignable(lhs, rhs));
     }
 }

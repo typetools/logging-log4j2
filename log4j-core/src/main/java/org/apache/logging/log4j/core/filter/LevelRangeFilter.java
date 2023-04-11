@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.filter;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.core.Filter;
@@ -59,10 +60,10 @@ public final class LevelRangeFilter extends AbstractFilter {
     @PluginFactory
     public static LevelRangeFilter createFilter(
             // @formatter:off
-            @PluginAttribute("minLevel") final Level minLevel,
-            @PluginAttribute("maxLevel") final Level maxLevel,
-            @PluginAttribute("onMatch") final Result match,
-            @PluginAttribute("onMismatch") final Result mismatch) {
+            @PluginAttribute("minLevel") final @Nullable Level minLevel,
+            @PluginAttribute("maxLevel") final @Nullable Level maxLevel,
+            @PluginAttribute("onMatch") final @Nullable Result match,
+            @PluginAttribute("onMismatch") final @Nullable Result mismatch) {
             // @formatter:on
         final Level actualMinLevel = minLevel == null ? Level.ERROR : minLevel;
         final Level actualMaxLevel = maxLevel == null ? Level.ERROR : maxLevel;

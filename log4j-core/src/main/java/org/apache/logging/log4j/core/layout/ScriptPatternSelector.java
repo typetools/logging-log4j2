@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,13 +53,13 @@ public class ScriptPatternSelector implements PatternSelector, LocationAware {
     public static class Builder implements org.apache.logging.log4j.core.util.Builder<ScriptPatternSelector> {
 
         @PluginElement("Script")
-        private AbstractScript script;
+        private @Nullable AbstractScript script;
 
         @PluginElement("PatternMatch")
-        private PatternMatch[] properties;
+        private PatternMatch @Nullable [] properties;
 
         @PluginBuilderAttribute("defaultPattern")
-        private String defaultPattern;
+        private @Nullable String defaultPattern;
 
         @PluginBuilderAttribute("alwaysWriteExceptions")
         private boolean alwaysWriteExceptions = true;
@@ -77,7 +78,7 @@ public class ScriptPatternSelector implements PatternSelector, LocationAware {
         }
 
         @Override
-        public ScriptPatternSelector build() {
+        public @Nullable ScriptPatternSelector build() {
             if (script == null) {
                 LOGGER.error("A Script, ScriptFile or ScriptRef element must be provided for this ScriptFilter");
                 return null;

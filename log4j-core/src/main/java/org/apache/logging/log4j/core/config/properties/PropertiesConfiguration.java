@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.properties;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 
 import org.apache.logging.log4j.core.LoggerContext;
@@ -37,7 +38,7 @@ public class PropertiesConfiguration extends BuiltConfiguration implements Recon
     }
 
     @Override
-    public Configuration reconfigure() {
+    public @Nullable Configuration reconfigure() {
         try {
             final ConfigurationSource source = getConfigurationSource().resetInputStream();
             if (source == null) {

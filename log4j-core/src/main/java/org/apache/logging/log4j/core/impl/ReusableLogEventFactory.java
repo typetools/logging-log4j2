@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.impl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.List;
 
 import org.apache.logging.log4j.Level;
@@ -75,7 +76,7 @@ public class ReusableLogEventFactory implements LogEventFactory, LocationAwareLo
      */
     @Override
     public LogEvent createEvent(final String loggerName, final Marker marker, final String fqcn,
-                                final StackTraceElement location, final Level level, final Message message,
+                                final @Nullable StackTraceElement location, final @Nullable Level level, final Message message,
                                 final List<Property> properties, final Throwable t) {
         MutableLogEvent result = getOrCreateMutableLogEvent();
         result.reserved = true;
@@ -105,7 +106,7 @@ public class ReusableLogEventFactory implements LogEventFactory, LocationAwareLo
         return result == null || result.reserved ? createInstance(result) : result;
     }
 
-    private static MutableLogEvent createInstance(MutableLogEvent existing) {
+    private static MutableLogEvent createInstance(@Nullable MutableLogEvent existing) {
         MutableLogEvent result = new MutableLogEvent();
 
         // usually no need to re-initialize thread-specific fields since the event is stored in a ThreadLocal

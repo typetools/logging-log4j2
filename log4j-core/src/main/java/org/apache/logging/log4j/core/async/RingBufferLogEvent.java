@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.async;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
@@ -62,6 +63,7 @@ public class RingBufferLogEvent implements LogEvent, ReusableMessage, CharSequen
         }
     }
 
+    // TOOD: clear() sets many of these fields to null
     private boolean populated;
     private int threadPriority;
     private long threadId;
@@ -70,15 +72,15 @@ public class RingBufferLogEvent implements LogEvent, ReusableMessage, CharSequen
     private short parameterCount;
     private boolean includeLocation;
     private boolean endOfBatch = false;
-    private Level level;
+    private @Nullable Level level;
     private String threadName;
     private String loggerName;
-    private Message message;
+    private @Nullable Message message;
     private String messageFormat;
-    private StringBuilder messageText;
-    private Object[] parameters;
-    private transient Throwable thrown;
-    private ThrowableProxy thrownProxy;
+    private @Nullable StringBuilder messageText;
+    private Object @Nullable [] parameters;
+    private transient @Nullable Throwable thrown;
+    private @Nullable ThrowableProxy thrownProxy;
     private StringMap contextData = ContextDataFactory.createContextData();
     private Marker marker;
     private String fqcn;

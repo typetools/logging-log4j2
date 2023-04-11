@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.selector;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -134,7 +135,7 @@ public class JndiContextSelector implements NamedContextSelector {
 
     @Override
     public LoggerContext getContext(final String fqcn, final ClassLoader loader, final boolean currentContext,
-                                    final URI configLocation) {
+                                    final @Nullable URI configLocation) {
 
         final LoggerContext lc = ContextAnchor.THREAD_CONTEXT.get();
         if (lc != null) {
@@ -152,7 +153,7 @@ public class JndiContextSelector implements NamedContextSelector {
         return loggingContextName == null ? CONTEXT : locateContext(loggingContextName, null, configLocation);
     }
 
-    private String getContextName() {
+    private @Nullable String getContextName() {
         String loggingContextName = null;
 
         try (final JndiManager jndiManager = JndiManager.getDefaultManager()) {
@@ -164,7 +165,7 @@ public class JndiContextSelector implements NamedContextSelector {
     }
 
     @Override
-    public LoggerContext locateContext(final String name, final Object externalContext, final URI configLocation) {
+    public @Nullable LoggerContext locateContext(final @Nullable String name, final Object externalContext, final URI configLocation) {
         if (name == null) {
             LOGGER.error("A context name is required to locate a LoggerContext");
             return null;

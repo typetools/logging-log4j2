@@ -17,6 +17,8 @@
 
 package org.apache.logging.log4j.core.config.plugins.util;
 
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
@@ -48,7 +50,7 @@ public class PluginRegistry {
 
     private static final Logger LOGGER = StatusLogger.getLogger();
 
-    private static volatile PluginRegistry INSTANCE;
+    private static volatile @MonotonicNonNull PluginRegistry INSTANCE;
     private static final Object INSTANCE_LOCK = new Object();
 
     /**
@@ -288,7 +290,7 @@ public class PluginRegistry {
      */
     public static class PluginTest implements ResolverUtil.Test {
         @Override
-        public boolean matches(final Class<?> type) {
+        public boolean matches(final @Nullable Class<?> type) {
             return type != null && type.isAnnotationPresent(Plugin.class);
         }
 

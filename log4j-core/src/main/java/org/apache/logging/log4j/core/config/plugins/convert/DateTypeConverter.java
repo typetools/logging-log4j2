@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.plugins.convert;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
@@ -55,7 +56,7 @@ public final class DateTypeConverter {
      * @return new instance of D or null if there was an error
      */
     @SuppressWarnings("unchecked")
-    public static <D extends Date> D fromMillis(final long millis, final Class<D> type) {
+    public static <D extends Date> @Nullable D fromMillis(final long millis, final Class<D> type) {
         try {
             return (D) CONSTRUCTORS.get(type).invoke(millis);
         } catch (final Throwable ignored) {

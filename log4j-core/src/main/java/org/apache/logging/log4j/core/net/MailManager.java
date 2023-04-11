@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.net;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.LoggerContext;
@@ -36,9 +37,9 @@ public abstract class MailManager extends AbstractManager {
      *
      * @return smtp manager name
      */
-    static String createManagerName(final String to, final String cc, final String bcc, final String from,
-            final String replyTo, final String subject, final String smtpProtocol, final String smtpHost,
-            final int smtpPort, final String smtpUsername, final boolean smtpDebug, final String filterName) {
+    static String createManagerName(final @Nullable String to, final @Nullable String cc, final @Nullable String bcc, final @Nullable String from,
+            final @Nullable String replyTo, final @Nullable String subject, final String smtpProtocol, final String smtpHost,
+            final int smtpPort, final @Nullable String smtpUsername, final boolean smtpDebug, final String filterName) {
 
         final StringBuilder sb = new StringBuilder();
 
@@ -190,7 +191,7 @@ public abstract class MailManager extends AbstractManager {
         }
     }
 
-    public MailManager(LoggerContext loggerContext, String name) {
+    public MailManager(@Nullable LoggerContext loggerContext, String name) {
         super(loggerContext, name);
     }
 

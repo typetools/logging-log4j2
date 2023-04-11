@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util.datetime;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.text.DateFormat;
 import java.text.FieldPosition;
 import java.text.ParseException;
@@ -397,7 +398,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @param centuryStart The start of the 100 year period to use as the "default century" for 2 digit year parsing.  If centuryStart is null, defaults to now - 80 years
      * @throws NullPointerException if pattern, timeZone, or locale is null.
      */
-    protected FastDateFormat(final String pattern, final TimeZone timeZone, final Locale locale, final Date centuryStart) {
+    protected FastDateFormat(final String pattern, final TimeZone timeZone, final Locale locale, final @Nullable Date centuryStart) {
         printer= new FastDatePrinter(pattern, timeZone, locale);
         parser= new FastDateParser(pattern, timeZone, locale, centuryStart);
     }
@@ -588,7 +589,7 @@ public class FastDateFormat extends Format implements DateParser, DatePrinter {
      * @return {@code true} if equal
      */
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(final @Nullable Object obj) {
         if (obj instanceof FastDateFormat == false) {
             return false;
         }

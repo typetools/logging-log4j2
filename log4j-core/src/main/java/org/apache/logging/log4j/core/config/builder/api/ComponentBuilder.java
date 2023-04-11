@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.builder.api;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.util.Builder;
@@ -86,7 +87,7 @@ public interface ComponentBuilder<T extends ComponentBuilder<T>> extends Builder
      * Returns the name of the component, if any.
      * @return The components name or null if it doesn't have one.
      */
-    String getName();
+    @Nullable String getName();
 
     /**
      * Retrieves the ConfigurationBuilder.

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.plugins.convert;
 
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -30,8 +31,8 @@ import org.apache.logging.log4j.util.LoaderUtil;
 public class Base64Converter {
 
     private static final Logger LOGGER = StatusLogger.getLogger();
-    private static Method method = null;
-    private static Object decoder = null;
+    private static @MonotonicNonNull Method method = null;
+    private static @MonotonicNonNull Object decoder = null;
 
     static {
         try {

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.async;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -236,7 +237,8 @@ public class AsyncLoggerConfig extends LoggerConfig {
      * @deprecated use {@link #createLogger(boolean, Level, String, String, AppenderRef[], Property[], Configuration, Filter)}
      */
     @Deprecated
-    public static LoggerConfig createLogger(
+    // @Nullable return type because of "return null" when contract is broken. :-(
+    public static @Nullable LoggerConfig createLogger(
             final String additivity,
             final String levelName,
             final String loggerName,
@@ -356,7 +358,7 @@ public class AsyncLoggerConfig extends LoggerConfig {
         @Deprecated
         public static LoggerConfig createLogger(
                 @PluginAttribute("additivity") final String additivity,
-                @PluginAttribute("level") final Level level,
+                @PluginAttribute("level") final @Nullable Level level,
                 @PluginAttribute("includeLocation") final String includeLocation,
                 @PluginElement("AppenderRef") final AppenderRef[] refs,
                 @PluginElement("Properties") final Property[] properties,

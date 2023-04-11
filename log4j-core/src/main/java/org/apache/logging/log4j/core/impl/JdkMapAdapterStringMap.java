@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.impl;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -46,7 +47,7 @@ public class JdkMapAdapterStringMap implements StringMap {
 
     private final Map<String, String> map;
     private boolean immutable = false;
-    private transient String[] sortedKeys;
+    private transient String @Nullable [] sortedKeys;  // set to null by many methods
 
     public JdkMapAdapterStringMap() {
         this(new HashMap<String, String>());
@@ -144,7 +145,7 @@ public class JdkMapAdapterStringMap implements StringMap {
     private static TriConsumer<String, String, Map<String, String>> PUT_ALL = (key, value, stringStringMap) -> stringStringMap.put(key, value);
 
     @Override
-    public void putValue(final String key, final Object value) {
+    public void putValue(final String key, final @Nullable Object value) {
         assertNotFrozen();
         map.put(key, value == null ? null : String.valueOf(value));
         sortedKeys = null;
@@ -176,7 +177,7 @@ public class JdkMapAdapterStringMap implements StringMap {
     }
 
     @Override
-    public boolean equals(final Object object) {
+    public boolean equals(final @Nullable Object object) {
         if (object == this) {
             return true;
         }

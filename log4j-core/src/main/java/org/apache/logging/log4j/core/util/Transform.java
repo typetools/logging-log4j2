@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.util.Strings;
 
 
@@ -42,7 +43,7 @@ public final class Transform {
      * @param input The text to be converted.
      * @return The input string with the special characters replaced.
      */
-    public static String escapeHtmlTags(final String input) {
+    public static String escapeHtmlTags(final @Nullable String input) {
         // Check if the string is null, zero length or devoid of special characters
         // if so, return what was sent in.
 
@@ -95,7 +96,7 @@ public final class Transform {
      *            section are the responsibility of the calling method.
      * @param str The String that is inserted into an existing CDATA Section within buf.
      */
-    public static void appendEscapingCData(final StringBuilder buf, final String str) {
+    public static void appendEscapingCData(final StringBuilder buf, final @Nullable String str) {
         if (str != null) {
             int end = str.indexOf(CDATA_END);
             if (end < 0) {
@@ -124,7 +125,7 @@ public final class Transform {
      * @param input The text to be converted.
      * @return The input string with the special characters replaced.
      */
-    public static String escapeJsonControlCharacters(final String input) {
+    public static String escapeJsonControlCharacters(final @Nullable String input) {
         // Check if the string is null, zero length or devoid of special characters
         // if so, return what was sent in.
 

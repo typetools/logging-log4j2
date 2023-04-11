@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.plugins.convert;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.util.EnglishEnums;
 
 /**
@@ -32,7 +33,7 @@ public class EnumConverter<E extends Enum<E>> implements TypeConverter<E> {
     }
 
     @Override
-    public E convert(final String s) {
+    public @Nullable E convert(final String s) {
         return EnglishEnums.valueOf(clazz, s);
     }
 }

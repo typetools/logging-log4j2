@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.net;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -58,7 +59,7 @@ public class SmtpManager extends MailManager {
 
     private final CyclicBuffer<LogEvent> buffer;
 
-    private volatile MimeMessage message;
+    private volatile @Nullable MimeMessage message;
 
     private final FactoryData data;
 
@@ -290,7 +291,7 @@ public class SmtpManager extends MailManager {
             return new SmtpManager(name, session, null, data);
         }
 
-        private Authenticator buildAuthenticator(final String username, final String password) {
+        private @Nullable Authenticator buildAuthenticator(final @Nullable String username, final @Nullable String password) {
             if (null != password && null != username) {
                 return new Authenticator() {
                     private final PasswordAuthentication passwordAuthentication =

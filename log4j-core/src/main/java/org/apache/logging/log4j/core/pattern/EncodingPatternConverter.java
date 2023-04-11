@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.pattern;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import static org.apache.logging.log4j.util.Chars.CR;
 import static org.apache.logging.log4j.util.Chars.LF;
 
@@ -38,7 +39,7 @@ import org.apache.logging.log4j.util.StringBuilders;
 @PerformanceSensitive("allocation")
 public final class EncodingPatternConverter extends LogEventPatternConverter {
 
-    private final List<PatternFormatter> formatters;
+    private final @Nullable List<PatternFormatter> formatters;
     private final EscapeFormat escapeFormat;
 
     /**
@@ -47,7 +48,7 @@ public final class EncodingPatternConverter extends LogEventPatternConverter {
      * @param formatters   the PatternFormatters to generate the text to manipulate.
      * @param escapeFormat the escape format strategy to use for encoding output of formatters
      */
-    private EncodingPatternConverter(final List<PatternFormatter> formatters,
+    private EncodingPatternConverter(final @Nullable List<PatternFormatter> formatters,
                                      final EscapeFormat escapeFormat) {
         super("encode", "encode");
         this.formatters = formatters;
@@ -68,7 +69,7 @@ public final class EncodingPatternConverter extends LogEventPatternConverter {
      * @param options first option is the nested pattern format; second option is the escape format (optional)
      * @return instance of pattern converter.
      */
-    public static EncodingPatternConverter newInstance(final Configuration config, final String[] options) {
+    public static @Nullable EncodingPatternConverter newInstance(final Configuration config, final String[] options) {
         if (options.length > 2 || options.length == 0) {
             LOGGER.error("Incorrect number of options on escape. Expected 1 or 2, but received {}",
                 options.length);
@@ -130,7 +131,7 @@ public final class EncodingPatternConverter extends LogEventPatternConverter {
                 }
             }
 
-            private String escapeChar(char c) {
+            private @Nullable String escapeChar(char c) {
                 switch (c) {
                     case CR:
                         return "\\r";

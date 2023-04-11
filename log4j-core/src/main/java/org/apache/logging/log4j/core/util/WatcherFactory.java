@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -39,7 +41,7 @@ public class WatcherFactory {
     private static Logger LOGGER = StatusLogger.getLogger();
     private static PluginManager pluginManager = new PluginManager(Watcher.CATEGORY);
 
-    private static volatile WatcherFactory factory;
+    private static volatile @MonotonicNonNull WatcherFactory factory;
 
     private final Map<String, PluginType<?>> plugins;
 
@@ -60,7 +62,7 @@ public class WatcherFactory {
     }
 
     @SuppressWarnings("unchecked")
-    public Watcher newWatcher(Source source, final Configuration configuration, final Reconfigurable reconfigurable,
+    public @Nullable Watcher newWatcher(Source source, final Configuration configuration, final Reconfigurable reconfigurable,
         final List<ConfigurationListener> configurationListeners, long lastModifiedMillis) {
         if (source.getFile() != null) {
             return new ConfigurationFileWatcher(configuration, reconfigurable, configurationListeners,

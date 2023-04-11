@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.jmx;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.ByteArrayInputStream;
@@ -208,7 +209,7 @@ public class LoggerContextAdmin extends NotificationBroadcasterSupport implement
     }
 
     @Override
-    public String getConfigName() {
+    public @Nullable String getConfigName() {
         return getConfig().getName();
     }
 
