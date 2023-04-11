@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.db;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Date;
 import java.util.Locale;
 

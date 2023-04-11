@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rewrite;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;

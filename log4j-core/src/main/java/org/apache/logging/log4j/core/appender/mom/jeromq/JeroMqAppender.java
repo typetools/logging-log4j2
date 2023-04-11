@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.mom.jeromq;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

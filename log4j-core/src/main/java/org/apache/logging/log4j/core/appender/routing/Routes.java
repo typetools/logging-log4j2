@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.routing;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import static org.apache.logging.log4j.core.appender.routing.RoutingAppender.STATIC_VARIABLES_KEY;
 
 import java.util.Objects;

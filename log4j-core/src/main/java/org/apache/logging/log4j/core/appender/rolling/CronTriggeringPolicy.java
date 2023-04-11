@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rolling;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Objects;

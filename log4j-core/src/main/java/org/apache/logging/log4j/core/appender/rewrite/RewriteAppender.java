@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rewrite;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 

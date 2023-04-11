@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.arbiters;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.config.Node;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.core.config.plugins.PluginBuilderAttribute;

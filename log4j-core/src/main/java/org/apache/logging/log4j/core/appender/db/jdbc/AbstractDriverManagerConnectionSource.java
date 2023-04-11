@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.db.jdbc;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

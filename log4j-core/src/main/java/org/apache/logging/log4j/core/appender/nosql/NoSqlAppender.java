@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.nosql;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 
 import org.apache.logging.log4j.core.Appender;

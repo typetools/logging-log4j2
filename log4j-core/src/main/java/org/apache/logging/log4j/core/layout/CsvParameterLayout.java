@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.nio.charset.Charset;
 

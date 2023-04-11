@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rolling.action;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
