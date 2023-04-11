@@ -63,7 +63,7 @@ public class RingBufferLogEvent implements LogEvent, ReusableMessage, CharSequen
         }
     }
 
-    // TOOD: clear() sets many of these fields to null
+    // clear() sets many of these fields to null
     private boolean populated;
     private int threadPriority;
     private long threadId;
@@ -74,20 +74,20 @@ public class RingBufferLogEvent implements LogEvent, ReusableMessage, CharSequen
     private boolean endOfBatch = false;
     private @Nullable Level level;
     private String threadName;
-    private String loggerName;
+    private @Nullable String loggerName;
     private @Nullable Message message;
-    private String messageFormat;
+    private @Nullable String messageFormat;
     private @Nullable StringBuilder messageText;
     private Object @Nullable [] parameters;
     private transient @Nullable Throwable thrown;
     private @Nullable ThrowableProxy thrownProxy;
-    private StringMap contextData = ContextDataFactory.createContextData();
-    private Marker marker;
-    private String fqcn;
-    private StackTraceElement location;
-    private ContextStack contextStack;
+    private @Nullable StringMap contextData = ContextDataFactory.createContextData();
+    private @Nullable Marker marker;
+    private @Nullable String fqcn;
+    private @Nullable StackTraceElement location;
+    private @Nullable ContextStack contextStack;
 
-    private transient AsyncLogger asyncLogger;
+    private transient @Nullable AsyncLogger asyncLogger;
 
     public void setValues(final AsyncLogger anAsyncLogger, final String aLoggerName, final Marker aMarker,
                           final String theFqcn, final Level aLevel, final Message msg, final Throwable aThrowable,
