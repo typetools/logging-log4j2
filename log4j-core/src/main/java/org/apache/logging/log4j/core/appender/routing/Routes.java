@@ -95,11 +95,11 @@ public final class Routes {
             return configuration;
         }
 
-        public String getPattern() {
+        public @Nullable String getPattern() {
             return pattern;
         }
 
-        public AbstractScript getPatternScript() {
+        public @Nullable AbstractScript getPatternScript() {
             return patternScript;
         }
 

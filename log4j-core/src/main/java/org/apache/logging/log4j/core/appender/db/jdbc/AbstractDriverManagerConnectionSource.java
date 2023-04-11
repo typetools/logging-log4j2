@@ -72,19 +72,19 @@ public class AbstractDriverManagerConnectionSource extends AbstractConnectionSou
             return connectionString;
         }
 
-        public String getDriverClassName() {
+        public @Nullable String getDriverClassName() {
             return driverClassName;
         }
 
-        public char[] getPassword() {
+        public char @Nullable [] getPassword() {
             return password;
         }
 
-        public Property[] getProperties() {
+        public Property @Nullable [] getProperties() {
             return properties;
         }
 
-        public char[] getUserName() {
+        public char @Nullable [] getUserName() {
             return userName;
         }
 

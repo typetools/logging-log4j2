@@ -73,7 +73,7 @@ public class SyslogAppender extends SocketAppender {
         private @Nullable String eventPrefix;
 
         @PluginBuilderAttribute(value = "newLine")
-        private @Nullable boolean newLine;
+        private boolean newLine;
 
         @PluginBuilderAttribute("newLineEscape")
         private @Nullable String escapeNL;
@@ -160,7 +160,7 @@ public class SyslogAppender extends SocketAppender {
             return facility;
         }
 
-        public String getId() {
+        public @Nullable String getId() {
             return id;
         }
 
@@ -172,15 +172,15 @@ public class SyslogAppender extends SocketAppender {
             return includeMdc;
         }
 
-        public String getMdcId() {
+        public @Nullable String getMdcId() {
             return mdcId;
         }
 
-        public String getMdcPrefix() {
+        public @Nullable String getMdcPrefix() {
             return mdcPrefix;
         }
 
-        public String getEventPrefix() {
+        public @Nullable String getEventPrefix() {
             return eventPrefix;
         }
 
@@ -188,31 +188,31 @@ public class SyslogAppender extends SocketAppender {
             return newLine;
         }
 
-        public String getEscapeNL() {
+        public @Nullable String getEscapeNL() {
             return escapeNL;
         }
 
-        public String getAppName() {
+        public @Nullable String getAppName() {
             return appName;
         }
 
-        public String getMsgId() {
+        public @Nullable String getMsgId() {
             return msgId;
         }
 
-        public String getExcludes() {
+        public @Nullable String getExcludes() {
             return excludes;
         }
 
-        public String getIncludes() {
+        public @Nullable String getIncludes() {
             return includes;
         }
 
-        public String getRequired() {
+        public @Nullable String getRequired() {
             return required;
         }
 
-        public String getFormat() {
+        public @Nullable String getFormat() {
             return format;
         }
 
@@ -220,11 +220,11 @@ public class SyslogAppender extends SocketAppender {
             return charsetName;
         }
 
-        public String getExceptionPattern() {
+        public @Nullable String getExceptionPattern() {
             return exceptionPattern;
         }
 
-        public LoggerFields[] getLoggerFields() {
+        public LoggerFields @Nullable [] getLoggerFields() {
             return loggerFields;
         }
 

@@ -123,7 +123,7 @@ public class SocketAppender extends AbstractOutputStreamAppender<AbstractSocketM
             return protocol;
         }
 
-        public SslConfiguration getSslConfiguration() {
+        public @Nullable SslConfiguration getSslConfiguration() {
             return sslConfiguration;
         }
 
@@ -234,7 +234,7 @@ public class SocketAppender extends AbstractOutputStreamAppender<AbstractSocketM
             return reconnectDelayMillis;
         }
 
-        public SocketOptions getSocketOptions() {
+        public @Nullable SocketOptions getSocketOptions() {
             return socketOptions;
         }
 

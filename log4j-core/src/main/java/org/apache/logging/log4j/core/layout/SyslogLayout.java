@@ -84,7 +84,7 @@ public final class SyslogLayout extends AbstractStringLayout {
             return includeNewLine;
         }
 
-        public String getEscapeNL() {
+        public @Nullable String getEscapeNL() {
             return escapeNL;
         }
 

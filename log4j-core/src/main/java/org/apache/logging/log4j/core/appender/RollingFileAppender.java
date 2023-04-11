@@ -147,11 +147,11 @@ public final class RollingFileAppender extends AbstractOutputStreamAppender<Roll
                     advertise ? getConfiguration().getAdvertiser() : null, getPropertyArray());
         }
 
-        public String getAdvertiseUri() {
+        public @Nullable String getAdvertiseUri() {
             return advertiseUri;
         }
 
-        public String getFileName() {
+        public @Nullable String getFileName() {
             return fileName;
         }
 
@@ -171,15 +171,15 @@ public final class RollingFileAppender extends AbstractOutputStreamAppender<Roll
             return locking;
         }
 
-        public String getFilePermissions() {
+        public @Nullable String getFilePermissions() {
             return filePermissions;
         }
 
-        public String getFileOwner() {
+        public @Nullable String getFileOwner() {
             return fileOwner;
         }
 
-        public String getFileGroup() {
+        public @Nullable String getFileGroup() {
             return fileGroup;
         }
 
@@ -221,7 +221,7 @@ public final class RollingFileAppender extends AbstractOutputStreamAppender<Roll
             return policy;
         }
 
-        public RolloverStrategy getStrategy() {
+        public @Nullable RolloverStrategy getStrategy() {
             return strategy;
         }
 

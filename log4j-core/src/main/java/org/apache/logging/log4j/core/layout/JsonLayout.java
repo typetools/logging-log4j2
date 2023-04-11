@@ -123,7 +123,7 @@ public final class JsonLayout extends AbstractJacksonLayout {
         }
 
         @Override
-        public KeyValuePair[] getAdditionalFields() {
+        public KeyValuePair @Nullable [] getAdditionalFields() {
             return additionalFields;
         }
 

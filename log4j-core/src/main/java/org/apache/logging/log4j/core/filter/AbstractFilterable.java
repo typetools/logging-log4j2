@@ -56,7 +56,7 @@ public abstract class AbstractFilterable extends AbstractLifeCycle implements Fi
             return filter;
         }
 
-        public Property[] getPropertyArray() {
+        public Property @Nullable [] getPropertyArray() {
             return propertyArray;
         }
 
@@ -222,7 +222,7 @@ public abstract class AbstractFilterable extends AbstractLifeCycle implements Fi
         return stopped;
     }
 
-    public Property[] getPropertyArray() {
+    public Property @Nullable [] getPropertyArray() {
         return propertyArray;
     }
 

@@ -149,7 +149,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
             return asBuilder();
         }
 
-        public Level getLevel() {
+        public @Nullable Level getLevel() {
             return level;
         }
 
@@ -158,7 +158,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
             return asBuilder();
         }
 
-        public String getLevelAndRefs() {
+        public @Nullable String getLevelAndRefs() {
             return levelAndRefs;
         }
 
@@ -176,7 +176,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
             return asBuilder();
         }
 
-        public String getIncludeLocation() {
+        public @Nullable String getIncludeLocation() {
             return includeLocation;
         }
 
@@ -185,7 +185,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
             return asBuilder();
         }
 
-        public AppenderRef[] getRefs() {
+        public AppenderRef @Nullable [] getRefs() {
             return refs;
         }
 
@@ -194,7 +194,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
             return asBuilder();
         }
 
-        public Property[] getProperties() {
+        public Property @Nullable [] getProperties() {
             return properties;
         }
 
@@ -212,7 +212,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
             return asBuilder();
         }
 
-        public Filter getFilter() {
+        public @Nullable Filter getFilter() {
             return filter;
         }
 
@@ -835,7 +835,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
                 return asBuilder();
             }
 
-            public Level getLevel() {
+            public @Nullable Level getLevel() {
                 return level;
             }
 
@@ -844,7 +844,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
                 return asBuilder();
             }
 
-            public String getLevelAndRefs() {
+            public @Nullable String getLevelAndRefs() {
                 return levelAndRefs;
             }
 
@@ -853,7 +853,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
                 return asBuilder();
             }
 
-            public String getIncludeLocation() {
+            public @Nullable String getIncludeLocation() {
                 return includeLocation;
             }
 
@@ -862,7 +862,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
                 return asBuilder();
             }
 
-            public AppenderRef[] getRefs() {
+            public AppenderRef @Nullable [] getRefs() {
                 return refs;
             }
 
@@ -871,7 +871,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
                 return asBuilder();
             }
 
-            public Property[] getProperties() {
+            public Property @Nullable [] getProperties() {
                 return properties;
             }
 
@@ -889,7 +889,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
                 return asBuilder();
             }
 
-            public Filter getFilter() {
+            public @Nullable Filter getFilter() {
                 return filter;
             }
 

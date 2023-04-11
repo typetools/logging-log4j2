@@ -96,11 +96,11 @@ public final class HttpAppender extends AbstractAppender {
             return readTimeoutMillis;
         }
 
-        public Property[] getHeaders() {
+        public Property @Nullable [] getHeaders() {
             return headers;
         }
 
-        public SslConfiguration getSslConfiguration() {
+        public @Nullable SslConfiguration getSslConfiguration() {
             return sslConfiguration;
         }
 

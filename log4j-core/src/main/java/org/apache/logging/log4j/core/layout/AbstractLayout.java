@@ -62,11 +62,11 @@ public abstract class AbstractLayout<T extends Serializable> implements Layout<T
             return configuration;
         }
 
-        public byte[] getFooter() {
+        public byte @Nullable [] getFooter() {
             return footer;
         }
 
-        public byte[] getHeader() {
+        public byte @Nullable [] getHeader() {
             return header;
         }
 

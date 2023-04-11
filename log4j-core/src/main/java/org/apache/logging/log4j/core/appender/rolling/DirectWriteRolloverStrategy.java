@@ -101,7 +101,7 @@ public class DirectWriteRolloverStrategy extends AbstractRolloverStrategy implem
                     customActions, stopCustomActionsOnError, tempCompressedFilePattern);
         }
 
-        public String getMaxFiles() {
+        public @Nullable String getMaxFiles() {
             return maxFiles;
         }
 
@@ -116,7 +116,7 @@ public class DirectWriteRolloverStrategy extends AbstractRolloverStrategy implem
             return this;
         }
 
-        public String getCompressionLevelStr() {
+        public @Nullable String getCompressionLevelStr() {
             return compressionLevelStr;
         }
 
@@ -131,7 +131,7 @@ public class DirectWriteRolloverStrategy extends AbstractRolloverStrategy implem
             return this;
         }
 
-        public Action[] getCustomActions() {
+        public Action @Nullable [] getCustomActions() {
             return customActions;
         }
 
@@ -161,7 +161,7 @@ public class DirectWriteRolloverStrategy extends AbstractRolloverStrategy implem
             return this;
         }
 
-        public String getTempCompressedFilePattern() {
+        public @Nullable String getTempCompressedFilePattern() {
             return tempCompressedFilePattern;
         }
 

@@ -38,7 +38,7 @@ public final class ScriptsPlugin {
      * @return The array of AbstractScripts.
      */
     @PluginFactory
-    public static AbstractScript[] createScripts(@PluginElement("Scripts") final AbstractScript @Nullable [] scripts) {
+    public static AbstractScript @Nullable [] createScripts(@PluginElement("Scripts") final AbstractScript @Nullable [] scripts) {
 
         return scripts;
     }

@@ -58,15 +58,15 @@ public abstract class AbstractStringLayout extends AbstractLayout<String> implem
         @PluginElement("headerSerializer")
         private @Nullable Serializer headerSerializer;
 
-        public Charset getCharset() {
+        public @Nullable Charset getCharset() {
             return charset;
         }
 
-        public Serializer getFooterSerializer() {
+        public @Nullable Serializer getFooterSerializer() {
             return footerSerializer;
         }
 
-        public Serializer getHeaderSerializer() {
+        public @Nullable Serializer getHeaderSerializer() {
             return headerSerializer;
         }
 

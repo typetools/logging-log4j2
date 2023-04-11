@@ -172,7 +172,7 @@ public class SocketOptions implements Builder<SocketOptions>, Cloneable {
      * 
      * @return the value to apply to a {@link Socket}.
      */
-    public Integer getSendBufferSize() {
+    public @Nullable Integer getSendBufferSize() {
         return sendBufferSize;
     }
 

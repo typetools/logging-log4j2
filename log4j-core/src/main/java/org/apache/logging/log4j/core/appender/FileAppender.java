@@ -108,7 +108,7 @@ public final class FileAppender extends AbstractOutputStreamAppender<FileManager
                     getPropertyArray());
         }
 
-        public String getAdvertiseUri() {
+        public @Nullable String getAdvertiseUri() {
             return advertiseUri;
         }
 
@@ -132,15 +132,15 @@ public final class FileAppender extends AbstractOutputStreamAppender<FileManager
             return locking;
         }
 
-        public String getFilePermissions() {
+        public @Nullable String getFilePermissions() {
             return filePermissions;
         }
 
-        public String getFileOwner() {
+        public @Nullable String getFileOwner() {
             return fileOwner;
         }
 
-        public String getFileGroup() {
+        public @Nullable String getFileGroup() {
             return fileGroup;
         }
 

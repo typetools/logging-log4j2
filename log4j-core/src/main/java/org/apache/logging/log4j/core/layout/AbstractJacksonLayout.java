@@ -98,7 +98,7 @@ abstract class AbstractJacksonLayout extends AbstractStringLayout {
             return eventEol;
         }
 
-        public String getEndOfLine() {
+        public @Nullable String getEndOfLine() {
             return endOfLine;
         }
 
@@ -136,7 +136,7 @@ abstract class AbstractJacksonLayout extends AbstractStringLayout {
             return includeTimeMillis;
         }
 
-        public KeyValuePair[] getAdditionalFields() {
+        public KeyValuePair @Nullable [] getAdditionalFields() {
             return additionalFields;
         }
 

@@ -150,7 +150,7 @@ public class DefaultRolloverStrategy extends AbstractRolloverStrategy {
                     customActions, stopCustomActionsOnError, tempCompressedFilePattern);
         }
 
-        public String getMax() {
+        public @Nullable String getMax() {
             return max;
         }
 
@@ -165,7 +165,7 @@ public class DefaultRolloverStrategy extends AbstractRolloverStrategy {
             return this;
         }
 
-        public String getMin() {
+        public @Nullable String getMin() {
             return min;
         }
 
@@ -180,7 +180,7 @@ public class DefaultRolloverStrategy extends AbstractRolloverStrategy {
             return this;
         }
 
-        public String getFileIndex() {
+        public @Nullable String getFileIndex() {
             return fileIndex;
         }
 
@@ -196,7 +196,7 @@ public class DefaultRolloverStrategy extends AbstractRolloverStrategy {
             return this;
         }
 
-        public String getCompressionLevelStr() {
+        public @Nullable String getCompressionLevelStr() {
             return compressionLevelStr;
         }
 
@@ -211,7 +211,7 @@ public class DefaultRolloverStrategy extends AbstractRolloverStrategy {
             return this;
         }
 
-        public Action[] getCustomActions() {
+        public Action @Nullable [] getCustomActions() {
             return customActions;
         }
 
@@ -241,7 +241,7 @@ public class DefaultRolloverStrategy extends AbstractRolloverStrategy {
             return this;
         }
 
-        public String getTempCompressedFilePattern() {
+        public @Nullable String getTempCompressedFilePattern() {
             return tempCompressedFilePattern;
         }
 

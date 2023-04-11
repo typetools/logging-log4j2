@@ -234,7 +234,7 @@ public final class GelfLayout extends AbstractStringLayout {
             return checker;
         }
 
-        public String getHost() {
+        public @Nullable String getHost() {
             return host;
         }
 
@@ -260,7 +260,7 @@ public final class GelfLayout extends AbstractStringLayout {
             return includeNewLineDelimiter;
         }
 
-        public KeyValuePair[] getAdditionalFields() {
+        public KeyValuePair @Nullable [] getAdditionalFields() {
             return additionalFields;
         }
 

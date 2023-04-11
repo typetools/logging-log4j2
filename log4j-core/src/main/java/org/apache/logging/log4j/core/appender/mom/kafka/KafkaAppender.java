@@ -93,7 +93,7 @@ public final class KafkaAppender extends AbstractAppender {
             return intRetryCount;
         }
 
-        public String getTopic() {
+        public @Nullable String getTopic() {
             return topic;
         }
 

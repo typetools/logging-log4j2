@@ -101,19 +101,19 @@ public final class RoutingAppender extends AbstractAppender {
                     getConfiguration(), purgePolicy, defaultRouteScript, getPropertyArray());
         }
 
-        public Routes getRoutes() {
+        public @Nullable Routes getRoutes() {
             return routes;
         }
 
-        public AbstractScript getDefaultRouteScript() {
+        public @Nullable AbstractScript getDefaultRouteScript() {
             return defaultRouteScript;
         }
 
-        public RewritePolicy getRewritePolicy() {
+        public @Nullable RewritePolicy getRewritePolicy() {
             return rewritePolicy;
         }
 
-        public PurgePolicy getPurgePolicy() {
+        public @Nullable PurgePolicy getPurgePolicy() {
             return purgePolicy;
         }
 
