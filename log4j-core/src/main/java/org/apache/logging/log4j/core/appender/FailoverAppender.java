@@ -63,7 +63,7 @@ public final class FailoverAppender extends AbstractAppender {
 
     private volatile long nextCheckNanos;
 
-    private FailoverAppender(final String name, final Filter filter, final String primary, final String[] failovers,
+    private FailoverAppender(final String name, final @Nullable Filter filter, final String primary, final String[] failovers,
             final int intervalMillis, final Configuration config, final boolean ignoreExceptions,
             final Property[] properties) {
         super(name, filter, null, ignoreExceptions, properties);

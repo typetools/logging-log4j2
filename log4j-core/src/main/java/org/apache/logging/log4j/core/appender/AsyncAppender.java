@@ -69,14 +69,14 @@ public final class AsyncAppender extends AbstractAppender {
     private final long shutdownTimeout;
     private final Configuration config;
     private final AppenderRef[] appenderRefs;
-    private final String errorRef;
+    private final @Nullable String errorRef;
     private final boolean includeLocation;
     private AppenderControl errorAppender;
     private AsyncAppenderEventDispatcher dispatcher;
     private AsyncQueueFullPolicy asyncQueueFullPolicy;
 
     private AsyncAppender(final String name, final Filter filter, final AppenderRef[] appenderRefs,
-            final String errorRef, final int queueSize, final boolean blocking, final boolean ignoreExceptions,
+            final @Nullable String errorRef, final int queueSize, final boolean blocking, final boolean ignoreExceptions,
             final long shutdownTimeout, final Configuration config, final boolean includeLocation,
             final BlockingQueueFactory<LogEvent> blockingQueueFactory, final Property[] properties) {
         super(name, filter, null, ignoreExceptions, properties);

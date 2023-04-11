@@ -273,7 +273,7 @@ public class PosixViewAttributeAction extends AbstractPathAction {
      * @return File POSIX permissions
      * @see PosixFileAttributeView
      */
-    public Set<PosixFilePermission> getFilePermissions() {
+    public @Nullable Set<PosixFilePermission> getFilePermissions() {
         return filePermissions;
     }
 
@@ -283,7 +283,7 @@ public class PosixViewAttributeAction extends AbstractPathAction {
      * @return File owner
      * @see FileOwnerAttributeView
      */
-    public String getFileOwner() {
+    public @Nullable String getFileOwner() {
         return fileOwner;
     }
 
@@ -293,7 +293,7 @@ public class PosixViewAttributeAction extends AbstractPathAction {
      * @return File group
      * @see PosixFileAttributeView
      */
-    public String getFileGroup() {
+    public @Nullable String getFileGroup() {
         return fileGroup;
     }
 

@@ -67,7 +67,7 @@ public abstract class AbstractAppender extends AbstractFilterable implements App
             return configuration;
         }
 
-        public Layout<? extends Serializable> getLayout() {
+        public @Nullable Layout<? extends Serializable> getLayout() {
             return layout;
         }
 
@@ -158,7 +158,7 @@ public abstract class AbstractAppender extends AbstractFilterable implements App
         }
     }
 
-    public static int parseInt(final String s, final int defaultValue) {
+    public static int parseInt(final @Nullable String s, final int defaultValue) {
         try {
             return Integers.parseInt(s, defaultValue);
         } catch (final NumberFormatException e) {

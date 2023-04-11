@@ -70,7 +70,7 @@ public abstract class AbstractFileAppender<M extends OutputStreamManager> extend
         @PluginBuilderAttribute
         private @Nullable String fileGroup;
 
-        public String getAdvertiseUri() {
+        public @Nullable String getAdvertiseUri() {
             return advertiseUri;
         }
 
@@ -94,15 +94,15 @@ public abstract class AbstractFileAppender<M extends OutputStreamManager> extend
             return locking;
         }
 
-        public String getFilePermissions() {
+        public @Nullable String getFilePermissions() {
             return filePermissions;
         }
 
-        public String getFileOwner() {
+        public @Nullable String getFileOwner() {
             return fileOwner;
         }
 
-        public String getFileGroup() {
+        public @Nullable String getFileGroup() {
             return fileGroup;
         }
 
