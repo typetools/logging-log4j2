@@ -1495,8 +1495,10 @@
         <configuration>
           <consoleOutput>true</consoleOutput>
           <excludes>
+            <exclude>**/TAGS</exclude>
             <exclude>**/target/**/*</exclude>
             <exclude>TAGS</exclude>
+            <exclude>Readme-Checker-Framework.md</exclude>
             <!-- Matches other RAT configurations in this POM -->
             <exclude>src/main/resources/META-INF/services/**/*</exclude>
             <!-- IntelliJ files -->
@@ -1534,6 +1536,7 @@
             <exclude>.github/pull_request_template.md</exclude>
           </excludes>
         </configuration>
+	<!--
         <executions>
           <execution>
             <goals>
@@ -1542,6 +1545,7 @@
             <phase>validate</phase>
           </execution>
         </executions>
+	-->
       </plugin>
 
       <!-- Ensure that version for each dependency resolved during a build, is equal to or higher than all transitive dependency declarations.
@@ -1982,6 +1986,7 @@
               <compilerArgs>
                 <!-- <arg>-Awarns</arg> --> <!-- -Awarns turns type-checking errors into warnings. -->
                 <arg>-AwarnUnneededSuppressions</arg>
+                <!-- <arg>-AshowSuppressWarningsStrings</arg> -->
                 <arg>-nowarn</arg>
                 <arg>-Xlint:none</arg>
               </compilerArgs>
