@@ -17,6 +17,8 @@
 
 package customplugin;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import java.util.Collections;
 import java.util.Map;
 
@@ -33,7 +35,7 @@ public class FixedStringLayout extends AbstractStringLayout {
 
     @PluginFactory
     public static FixedStringLayout createLayout(
-            @PluginAttribute("fixedString") final String fixedString) {
+            @PluginAttribute("fixedString") final @Nullable String fixedString) {
         return new FixedStringLayout(fixedString);
     }
 

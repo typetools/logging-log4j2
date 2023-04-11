@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.appender.mom;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
@@ -53,19 +54,19 @@ public class JmsAppender extends AbstractAppender {
         public static final int DEFAULT_RECONNECT_INTERVAL_MILLIS = 5000;
 
         @PluginBuilderAttribute
-        private String factoryName;
+        private @Nullable String factoryName;
 
         @PluginBuilderAttribute
-        private String providerUrl;
+        private @Nullable String providerUrl;
 
         @PluginBuilderAttribute
-        private String urlPkgPrefixes;
+        private @Nullable String urlPkgPrefixes;
 
         @PluginBuilderAttribute
-        private String securityPrincipalName;
+        private @Nullable String securityPrincipalName;
 
         @PluginBuilderAttribute(sensitive = true)
-        private String securityCredentials;
+        private @Nullable String securityCredentials;
 
         @PluginBuilderAttribute
         @Required(message = "A javax.jms.ConnectionFactory JNDI name must be specified")
@@ -77,10 +78,10 @@ public class JmsAppender extends AbstractAppender {
         private String destinationBindingName;
 
         @PluginBuilderAttribute
-        private String userName;
+        private @Nullable String userName;
 
         @PluginBuilderAttribute(sensitive = true)
-        private char[] password;
+        private char @Nullable [] password;
 
         @PluginBuilderAttribute
         private long reconnectIntervalMillis = DEFAULT_RECONNECT_INTERVAL_MILLIS;

@@ -62,7 +62,7 @@ public class SocketOptions implements Builder<SocketOptions>, Cloneable {
     private @Nullable Rfc1349TrafficClass rfc1349TrafficClass;
 
     @PluginBuilderAttribute
-    private Integer sendBufferSize;
+    private @Nullable Integer sendBufferSize;
 
     @PluginBuilderAttribute
     private @Nullable Integer soLinger;

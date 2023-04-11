@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.db.jdbc;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
 import java.sql.Connection;
@@ -70,8 +71,8 @@ public final class FactoryMethodConnectionSource extends AbstractConnectionSourc
      */
     @PluginFactory
     public static FactoryMethodConnectionSource createConnectionSource(
-            @PluginAttribute("class") final String className,
-            @PluginAttribute("method") final String methodName) {
+            @PluginAttribute("class") final @Nullable String className,
+            @PluginAttribute("method") final @Nullable String methodName) {
         if (Strings.isEmpty(className) || Strings.isEmpty(methodName)) {
             LOGGER.error("No class name or method name specified for the connection factory method.");
             return null;

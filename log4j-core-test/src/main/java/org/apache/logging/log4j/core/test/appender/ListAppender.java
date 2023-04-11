@@ -247,10 +247,10 @@ public class ListAppender extends AbstractAppender {
         private boolean raw;
 
         @PluginElement("Layout")
-        private Layout<? extends Serializable> layout;
+        private @Nullable Layout<? extends Serializable> layout;
 
         @PluginElement("Filter")
-        private Filter filter;
+        private @Nullable Filter filter;
 
         public Builder setName(final String name) {
             this.name = name;

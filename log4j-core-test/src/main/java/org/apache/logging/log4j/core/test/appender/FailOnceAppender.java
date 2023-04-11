@@ -74,7 +74,7 @@ public class FailOnceAppender extends AbstractAppender {
     @PluginFactory
     public static FailOnceAppender createAppender(
         @PluginAttribute("name") @Required(message = "A name for the Appender must be specified") final String name,
-        @PluginAttribute("throwableClassName") final String throwableClassName) {
+        @PluginAttribute("throwableClassName") final @Nullable String throwableClassName) {
         final Supplier<Throwable> throwableSupplier = createThrowableSupplier(name, throwableClassName);
         return new FailOnceAppender(name, throwableSupplier);
     }

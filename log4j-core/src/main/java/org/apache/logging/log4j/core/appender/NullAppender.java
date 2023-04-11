@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.Core;
 import org.apache.logging.log4j.core.LogEvent;
@@ -35,7 +36,7 @@ public class NullAppender extends AbstractAppender {
 
 	@PluginFactory
 	public static NullAppender createAppender(
-			@PluginAttribute(value = "name", defaultString = "null") final String name) {
+			@PluginAttribute(value = "name", defaultString = "null") final @Nullable String name) {
 		return new NullAppender(name);
 	}
 

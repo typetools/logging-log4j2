@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.db.jdbc;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.Core;
 import org.apache.logging.log4j.core.appender.db.ColumnMapping;
@@ -47,10 +48,10 @@ public final class ColumnConfig {
         private String name;
 
         @PluginBuilderAttribute
-        private String pattern;
+        private @Nullable String pattern;
 
         @PluginBuilderAttribute
-        private String literal;
+        private @Nullable String literal;
 
         @PluginBuilderAttribute
         private boolean isEventTimestamp;

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rewrite;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -51,8 +52,8 @@ public class LoggerNameLevelRewritePolicy implements RewritePolicy {
     @PluginFactory
     public static LoggerNameLevelRewritePolicy createPolicy(
             // @formatter:off
-            @PluginAttribute("logger") final String loggerNamePrefix,
-            @PluginElement("KeyValuePair") final KeyValuePair[] levelPairs) {
+            @PluginAttribute("logger") final @Nullable String loggerNamePrefix,
+            @PluginElement("KeyValuePair") final KeyValuePair @Nullable [] levelPairs) {
             // @formatter:on
         final Map<Level, Level> newMap = new HashMap<>(levelPairs.length);
         for (final KeyValuePair keyValuePair : levelPairs) {

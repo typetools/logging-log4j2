@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.db.jdbc;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Objects;
@@ -64,7 +65,7 @@ public final class DataSourceConnectionSource extends AbstractConnectionSource {
      * @return the created connection source.
      */
     @PluginFactory
-    public static DataSourceConnectionSource createConnectionSource(@PluginAttribute("jndiName") final String jndiName) {
+    public static DataSourceConnectionSource createConnectionSource(@PluginAttribute("jndiName") final @Nullable String jndiName) {
         if (!JndiManager.isJndiJdbcEnabled()) {
             LOGGER.error("JNDI must be enabled by setting log4j2.enableJndiJdbc=true");
             return null;

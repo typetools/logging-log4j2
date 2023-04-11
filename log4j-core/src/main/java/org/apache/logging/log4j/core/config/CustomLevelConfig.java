@@ -55,7 +55,7 @@ public final class CustomLevelConfig {
      */
     @PluginFactory
     public static CustomLevelConfig createLevel(// @formatter:off
-            @PluginAttribute("name") final String levelName,
+            @PluginAttribute("name") final @Nullable String levelName,
             @PluginAttribute("intLevel") final int intLevel) {
         // @formatter:on
 

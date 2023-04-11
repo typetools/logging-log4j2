@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rewrite;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -99,12 +100,12 @@ public final class RewriteAppender extends AbstractAppender {
      */
     @PluginFactory
     public static RewriteAppender createAppender(
-            @PluginAttribute("name") final String name,
-            @PluginAttribute("ignoreExceptions") final String ignore,
-            @PluginElement("AppenderRef") final AppenderRef[] appenderRefs,
+            @PluginAttribute("name") final @Nullable String name,
+            @PluginAttribute("ignoreExceptions") final @Nullable String ignore,
+            @PluginElement("AppenderRef") final AppenderRef @Nullable [] appenderRefs,
             @PluginConfiguration final Configuration config,
-            @PluginElement("RewritePolicy") final RewritePolicy rewritePolicy,
-            @PluginElement("Filter") final Filter filter) {
+            @PluginElement("RewritePolicy") final @Nullable RewritePolicy rewritePolicy,
+            @PluginElement("Filter") final @Nullable Filter filter) {
 
         final boolean ignoreExceptions = Booleans.parseBoolean(ignore, true);
         if (name == null) {

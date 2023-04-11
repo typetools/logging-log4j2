@@ -249,8 +249,8 @@ public final class TimeFilter extends AbstractFilter {
     // TODO Consider refactoring to use AbstractFilter.AbstractFilterBuilder
     @PluginFactory
     public static TimeFilter createFilter(
-            @PluginAttribute("start") final String start,
-            @PluginAttribute("end") final String end,
+            @PluginAttribute("start") final @Nullable String start,
+            @PluginAttribute("end") final @Nullable String end,
             @PluginAttribute("timezone") final @Nullable String tz,
             @PluginAttribute("onMatch") final @Nullable Result match,
             @PluginAttribute("onMismatch") final @Nullable Result mismatch) {

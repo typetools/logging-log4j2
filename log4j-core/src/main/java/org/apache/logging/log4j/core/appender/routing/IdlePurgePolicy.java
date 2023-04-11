@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.routing;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -130,9 +131,9 @@ public class IdlePurgePolicy extends AbstractLifeCycle implements PurgePolicy, R
      */
     @PluginFactory
     public static PurgePolicy createPurgePolicy(
-        @PluginAttribute("timeToLive") final String timeToLive,
-        @PluginAttribute("checkInterval") final String checkInterval,
-        @PluginAttribute("timeUnit") final String timeUnit,
+        @PluginAttribute("timeToLive") final @Nullable String timeToLive,
+        @PluginAttribute("checkInterval") final @Nullable String checkInterval,
+        @PluginAttribute("timeUnit") final @Nullable String timeUnit,
         @PluginConfiguration final Configuration configuration) {
 
         if (timeToLive == null) {

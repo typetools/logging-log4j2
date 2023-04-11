@@ -72,7 +72,7 @@ public final class AppenderRef {
     @PluginFactory
     @SuppressWarnings("nullness:return") // returns null only to signal an error
     public static AppenderRef createAppenderRef(
-            @PluginAttribute("ref") final String ref,
+            @PluginAttribute("ref") final @Nullable String ref,
             @PluginAttribute("level") final @Nullable Level level,
             @PluginElement("Filter") final @Nullable Filter filter) {
 

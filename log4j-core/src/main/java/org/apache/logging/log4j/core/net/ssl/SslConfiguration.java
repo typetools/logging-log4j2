@@ -232,9 +232,9 @@ public class SslConfiguration {
     @PluginFactory
     public static SslConfiguration createSSLConfiguration(
             // @formatter:off
-            @PluginAttribute("protocol") final String protocol,
-            @PluginElement("KeyStore") final KeyStoreConfiguration keyStoreConfig,
-            @PluginElement("TrustStore") final TrustStoreConfiguration trustStoreConfig) {
+            @PluginAttribute("protocol") final @Nullable String protocol,
+            @PluginElement("KeyStore") final @Nullable KeyStoreConfiguration keyStoreConfig,
+            @PluginElement("TrustStore") final @Nullable TrustStoreConfiguration trustStoreConfig) {
             // @formatter:on
         return new SslConfiguration(protocol, keyStoreConfig, trustStoreConfig, false);
     }
@@ -251,9 +251,9 @@ public class SslConfiguration {
      */
     public static SslConfiguration createSSLConfiguration(
         // @formatter:off
-        @PluginAttribute("protocol") final String protocol,
-        @PluginElement("KeyStore") final KeyStoreConfiguration keyStoreConfig,
-        @PluginElement("TrustStore") final TrustStoreConfiguration trustStoreConfig,
+        @PluginAttribute("protocol") final @Nullable String protocol,
+        @PluginElement("KeyStore") final @Nullable KeyStoreConfiguration keyStoreConfig,
+        @PluginElement("TrustStore") final @Nullable TrustStoreConfiguration trustStoreConfig,
         @PluginAttribute("verifyHostName") final boolean verifyHostName) {
         // @formatter:on
         return new SslConfiguration(protocol, keyStoreConfig, trustStoreConfig, verifyHostName);

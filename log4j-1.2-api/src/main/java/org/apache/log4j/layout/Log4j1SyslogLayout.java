@@ -75,7 +75,7 @@ public final class Log4j1SyslogLayout  extends AbstractStringLayout {
         private boolean header;
 
         @PluginElement("Layout")
-        private Layout<? extends Serializable> messageLayout;
+        private @Nullable Layout<? extends Serializable> messageLayout;
 
         @Override
         public Log4j1SyslogLayout build() {

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.Objects;
@@ -53,7 +54,7 @@ public abstract class AbstractAppender extends AbstractFilterable implements App
         private boolean ignoreExceptions = true;
 
         @PluginElement("Layout")
-        private Layout<? extends Serializable> layout;
+        private @Nullable Layout<? extends Serializable> layout;
 
         @PluginBuilderAttribute
         @Required(message = "No appender name provided")

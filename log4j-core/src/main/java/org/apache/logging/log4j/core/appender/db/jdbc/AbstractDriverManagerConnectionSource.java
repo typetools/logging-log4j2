@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.db.jdbc;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -51,16 +52,16 @@ public class AbstractDriverManagerConnectionSource extends AbstractConnectionSou
         protected String connectionString;
 
         @PluginBuilderAttribute
-        protected String driverClassName;
+        protected @Nullable String driverClassName;
 
         @PluginBuilderAttribute
-        protected char[] password;
+        protected char @Nullable [] password;
 
         @PluginElement("Properties")
-        protected Property[] properties;
+        protected Property @Nullable [] properties;
 
         @PluginBuilderAttribute
-        protected char[] userName;
+        protected char @Nullable [] userName;
 
         @SuppressWarnings("unchecked")
         protected B asBuilder() {

@@ -234,8 +234,8 @@ public class MapFilter extends AbstractFilter {
     public static @Nullable MapFilter createFilter(
             @PluginElement("Pairs") final KeyValuePair @Nullable [] pairs,
             @PluginAttribute("operator") final @Nullable String oper,
-            @PluginAttribute("onMatch") final Result match,
-            @PluginAttribute("onMismatch") final Result mismatch) {
+            @PluginAttribute("onMatch") final @Nullable Result match,
+            @PluginAttribute("onMismatch") final @Nullable Result mismatch) {
         if (pairs == null || pairs.length == 0) {
             LOGGER.error("keys and values must be specified for the MapFilter");
             return null;

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.Core;
 import org.apache.logging.log4j.core.Filter;
@@ -283,7 +284,7 @@ public final class AsyncAppender extends AbstractAppender {
 
         @PluginBuilderAttribute
         @PluginAliases("error-ref")
-        private String errorRef;
+        private @Nullable String errorRef;
 
         @PluginBuilderAttribute
         private boolean blocking = true;

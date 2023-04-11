@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rolling;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
@@ -77,7 +78,7 @@ public final class CompositeTriggeringPolicy extends AbstractTriggeringPolicy {
      */
     @PluginFactory
     public static CompositeTriggeringPolicy createPolicy(
-                                                @PluginElement("Policies") final TriggeringPolicy... triggeringPolicy) {
+                                                @PluginElement("Policies") final TriggeringPolicy @Nullable ... triggeringPolicy) {
         return new CompositeTriggeringPolicy(triggeringPolicy);
     }
 

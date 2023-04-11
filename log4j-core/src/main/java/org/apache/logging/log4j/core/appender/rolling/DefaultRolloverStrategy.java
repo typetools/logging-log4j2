@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rolling;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -89,25 +90,25 @@ public class DefaultRolloverStrategy extends AbstractRolloverStrategy {
      */
     public static class Builder implements org.apache.logging.log4j.core.util.Builder<DefaultRolloverStrategy> {
         @PluginBuilderAttribute("max")
-        private String max;
+        private @Nullable String max;
 
         @PluginBuilderAttribute("min")
-        private String min;
+        private @Nullable String min;
 
         @PluginBuilderAttribute("fileIndex")
-        private String fileIndex;
+        private @Nullable String fileIndex;
 
         @PluginBuilderAttribute("compressionLevel")
-        private String compressionLevelStr;
+        private @Nullable String compressionLevelStr;
 
         @PluginElement("Actions")
-        private Action[] customActions;
+        private Action @Nullable [] customActions;
 
         @PluginBuilderAttribute(value = "stopCustomActionsOnError")
         private boolean stopCustomActionsOnError = true;
 
         @PluginBuilderAttribute(value = "tempCompressedFilePattern")
-        private String tempCompressedFilePattern;
+        private @Nullable String tempCompressedFilePattern;
 
         @PluginConfiguration
         private Configuration config;
@@ -294,11 +295,11 @@ public class DefaultRolloverStrategy extends AbstractRolloverStrategy {
     @Deprecated
     public static DefaultRolloverStrategy createStrategy(
             // @formatter:off
-            @PluginAttribute("max") final String max,
-            @PluginAttribute("min") final String min,
-            @PluginAttribute("fileIndex") final String fileIndex,
-            @PluginAttribute("compressionLevel") final String compressionLevelStr,
-            @PluginElement("Actions") final Action[] customActions,
+            @PluginAttribute("max") final @Nullable String max,
+            @PluginAttribute("min") final @Nullable String min,
+            @PluginAttribute("fileIndex") final @Nullable String fileIndex,
+            @PluginAttribute("compressionLevel") final @Nullable String compressionLevelStr,
+            @PluginElement("Actions") final Action @Nullable [] customActions,
             @PluginAttribute(value = "stopCustomActionsOnError", defaultBoolean = true)
                     final boolean stopCustomActionsOnError,
             @PluginConfiguration final Configuration config) {

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rewrite;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -127,8 +128,8 @@ public final class MapRewritePolicy implements RewritePolicy {
      */
     @PluginFactory
     public static MapRewritePolicy createPolicy(
-            @PluginAttribute("mode") final String mode,
-            @PluginElement("KeyValuePair") final KeyValuePair[] pairs) {
+            @PluginAttribute("mode") final @Nullable String mode,
+            @PluginElement("KeyValuePair") final KeyValuePair @Nullable [] pairs) {
         Mode op = mode == null ? op = Mode.Add : Mode.valueOf(mode);
         if (pairs == null || pairs.length == 0) {
             LOGGER.error("keys and values must be specified for the MapRewritePolicy");

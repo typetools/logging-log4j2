@@ -631,24 +631,24 @@ public final class Rfc5424Layout extends AbstractStringLayout {
     public static Rfc5424Layout createLayout(
             // @formatter:off
             @PluginAttribute(value = "facility", defaultString = "LOCAL0") final Facility facility,
-            @PluginAttribute("id") final String id,
+            @PluginAttribute("id") final @Nullable String id,
             @PluginAttribute(value = "enterpriseNumber", defaultInt = DEFAULT_ENTERPRISE_NUMBER)
             final int enterpriseNumber,
             @PluginAttribute(value = "includeMDC", defaultBoolean = true) final boolean includeMDC,
             @PluginAttribute(value = "mdcId", defaultString = DEFAULT_MDCID) final String mdcId,
-            @PluginAttribute("mdcPrefix") final String mdcPrefix,
-            @PluginAttribute("eventPrefix") final String eventPrefix,
+            @PluginAttribute("mdcPrefix") final @Nullable String mdcPrefix,
+            @PluginAttribute("eventPrefix") final @Nullable String eventPrefix,
             @PluginAttribute(value = "newLine") final boolean newLine,
-            @PluginAttribute("newLineEscape") final String escapeNL,
-            @PluginAttribute("appName") final String appName,
-            @PluginAttribute("messageId") final String msgId,
+            @PluginAttribute("newLineEscape") final @Nullable String escapeNL,
+            @PluginAttribute("appName") final @Nullable String appName,
+            @PluginAttribute("messageId") final @Nullable String msgId,
             @PluginAttribute("mdcExcludes") final @Nullable String excludes,
             @PluginAttribute("mdcIncludes") @Nullable String includes,
-            @PluginAttribute("mdcRequired") final String required,
-            @PluginAttribute("exceptionPattern") final String exceptionPattern,
+            @PluginAttribute("mdcRequired") final @Nullable String required,
+            @PluginAttribute("exceptionPattern") final @Nullable String exceptionPattern,
             // RFC 5425
             @PluginAttribute(value = "useTlsMessageFormat") final boolean useTlsMessageFormat,
-            @PluginElement("LoggerFields") final LoggerFields[] loggerFields,
+            @PluginElement("LoggerFields") final LoggerFields @Nullable [] loggerFields,
             @PluginConfiguration final Configuration config) {
         // @formatter:on
         if (includes != null && excludes != null) {

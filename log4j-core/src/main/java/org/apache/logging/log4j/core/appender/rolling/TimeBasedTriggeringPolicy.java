@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rolling;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
@@ -147,8 +148,8 @@ public final class TimeBasedTriggeringPolicy extends AbstractTriggeringPolicy {
      */
     @Deprecated
     public static TimeBasedTriggeringPolicy createPolicy(
-            @PluginAttribute("interval") final String interval,
-            @PluginAttribute("modulate") final String modulate) {
+            @PluginAttribute("interval") final @Nullable String interval,
+            @PluginAttribute("modulate") final @Nullable String modulate) {
         return newBuilder()
                 .withInterval(Integers.parseInt(interval, 1))
                 .withModulate(Boolean.parseBoolean(modulate))

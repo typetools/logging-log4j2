@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rolling.action;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.FileVisitor;
@@ -100,18 +101,18 @@ public class PosixViewAttributeAction extends AbstractPathAction {
         private int maxDepth = 1;
 
         @PluginElement("PathConditions")
-        private PathCondition[] pathConditions;
+        private PathCondition @Nullable [] pathConditions;
 
         @PluginBuilderAttribute(value = "filePermissions")
-        private String filePermissionsString;
+        private @Nullable String filePermissionsString;
 
         private Set<PosixFilePermission> filePermissions;
 
         @PluginBuilderAttribute
-        private String fileOwner;
+        private @Nullable String fileOwner;
 
         @PluginBuilderAttribute
-        private String fileGroup;
+        private @Nullable String fileGroup;
 
         @Override
         public PosixViewAttributeAction build() {

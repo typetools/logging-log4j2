@@ -150,8 +150,8 @@ public class ReconfigurationDeadlockTest {
         public static TestAppender createAppender(
                 @PluginAttribute("name") @Required(message = "A name for the Appender must be specified") final String name,
                 @PluginAttribute("ignoreExceptions") final boolean ignore,
-                @PluginElement("Layout") final Layout<?> layout,
-                @PluginElement("Filter") final Filter filter) {
+                @PluginElement("Layout") final @Nullable Layout<?> layout,
+                @PluginElement("Filter") final @Nullable Filter filter) {
             return new TestAppender(name, filter, layout, ignore);
         }
 

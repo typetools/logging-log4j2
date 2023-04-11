@@ -357,7 +357,7 @@ public final class HtmlLayout extends AbstractStringLayout {
             @PluginAttribute(value = "title", defaultString = DEFAULT_TITLE) final String title,
             @PluginAttribute("contentType") @Nullable String contentType,
             @PluginAttribute(value = "charset", defaultString = "UTF-8") final Charset charset,
-            @PluginAttribute("fontSize") String fontSize,
+            @PluginAttribute("fontSize") @Nullable String fontSize,
             @PluginAttribute(value = "fontName", defaultString = DEFAULT_FONT_FAMILY) final String font) {
         final FontSize fs = FontSize.getFontSize(fontSize);
         fontSize = fs.getFontSize();

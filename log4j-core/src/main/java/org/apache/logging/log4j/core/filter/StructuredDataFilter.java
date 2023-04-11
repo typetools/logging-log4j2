@@ -160,8 +160,8 @@ public final class StructuredDataFilter extends MapFilter {
     public static @Nullable StructuredDataFilter createFilter(
             @PluginElement("Pairs") final KeyValuePair @Nullable [] pairs,
             @PluginAttribute("operator") final @Nullable String oper,
-            @PluginAttribute("onMatch") final Result match,
-            @PluginAttribute("onMismatch") final Result mismatch) {
+            @PluginAttribute("onMatch") final @Nullable Result match,
+            @PluginAttribute("onMismatch") final @Nullable Result mismatch) {
         if (pairs == null || pairs.length == 0) {
             LOGGER.error("keys and values must be specified for the StructuredDataFilter");
             return null;

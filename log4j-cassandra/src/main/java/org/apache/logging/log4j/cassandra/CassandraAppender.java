@@ -84,10 +84,10 @@ public class CassandraAppender extends AbstractDatabaseAppender<CassandraManager
         private String table;
 
         @PluginBuilderAttribute
-        private String username;
+        private @Nullable String username;
 
         @PluginBuilderAttribute(sensitive = true)
-        private String password;
+        private @Nullable String password;
 
         /**
          * Override the default TimestampGenerator with one based on the configured {@link Clock}.

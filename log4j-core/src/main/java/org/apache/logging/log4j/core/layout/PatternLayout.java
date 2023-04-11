@@ -292,15 +292,15 @@ public final class PatternLayout extends AbstractStringLayout {
     @Deprecated
     public static PatternLayout createLayout(
             @PluginAttribute(value = "pattern", defaultString = DEFAULT_CONVERSION_PATTERN) final String pattern,
-            @PluginElement("PatternSelector") final PatternSelector patternSelector,
+            @PluginElement("PatternSelector") final @Nullable PatternSelector patternSelector,
             @PluginConfiguration final Configuration config,
-            @PluginElement("Replace") final RegexReplacement replace,
+            @PluginElement("Replace") final @Nullable RegexReplacement replace,
             // LOG4J2-783 use platform default by default, so do not specify defaultString for charset
-            @PluginAttribute(value = "charset") final Charset charset,
+            @PluginAttribute(value = "charset") final @Nullable Charset charset,
             @PluginAttribute(value = "alwaysWriteExceptions", defaultBoolean = true) final boolean alwaysWriteExceptions,
             @PluginAttribute(value = "noConsoleNoAnsi") final boolean noConsoleNoAnsi,
-            @PluginAttribute("header") final String headerPattern,
-            @PluginAttribute("footer") final String footerPattern) {
+            @PluginAttribute("header") final @Nullable String headerPattern,
+            @PluginAttribute("footer") final @Nullable String footerPattern) {
         return newBuilder()
             .withPattern(pattern)
             .withPatternSelector(patternSelector)
@@ -630,13 +630,13 @@ public final class PatternLayout extends AbstractStringLayout {
         private String pattern = PatternLayout.DEFAULT_CONVERSION_PATTERN;
 
         @PluginElement("PatternSelector")
-        private PatternSelector patternSelector;
+        private @Nullable PatternSelector patternSelector;
 
         @PluginConfiguration
         private Configuration configuration;
 
         @PluginElement("Replace")
-        private RegexReplacement regexReplacement;
+        private @Nullable RegexReplacement regexReplacement;
 
         // LOG4J2-783 use platform default by default
         @PluginBuilderAttribute
@@ -652,10 +652,10 @@ public final class PatternLayout extends AbstractStringLayout {
         private boolean noConsoleNoAnsi;
 
         @PluginBuilderAttribute
-        private String header;
+        private @Nullable String header;
 
         @PluginBuilderAttribute
-        private String footer;
+        private @Nullable String footer;
 
         private Builder() {
         }

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rolling;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.Core;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
@@ -92,7 +93,7 @@ public class SizeBasedTriggeringPolicy extends AbstractTriggeringPolicy {
      * @return A SizeBasedTriggeringPolicy.
      */
     @PluginFactory
-    public static SizeBasedTriggeringPolicy createPolicy(@PluginAttribute("size") final String size) {
+    public static SizeBasedTriggeringPolicy createPolicy(@PluginAttribute("size") final @Nullable String size) {
 
         final long maxSize = size == null ? MAX_FILE_SIZE : FileSize.parse(size, MAX_FILE_SIZE);
         return new SizeBasedTriggeringPolicy(maxSize);

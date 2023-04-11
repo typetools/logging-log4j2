@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.routing;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import static org.apache.logging.log4j.core.appender.routing.RoutingAppender.STATIC_VARIABLES_KEY;
 
 import java.util.Objects;
@@ -52,10 +53,10 @@ public final class Routes {
         private Configuration configuration;
 
         @PluginAttribute("pattern")
-        private String pattern;
+        private @Nullable String pattern;
 
         @PluginElement("Script")
-        private AbstractScript patternScript;
+        private @Nullable AbstractScript patternScript;
 
         @PluginElement("Routes")
         @Required

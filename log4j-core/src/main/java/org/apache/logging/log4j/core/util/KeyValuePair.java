@@ -80,10 +80,10 @@ public final class KeyValuePair {
     public static class Builder implements org.apache.logging.log4j.core.util.Builder<KeyValuePair> {
 
         @PluginBuilderAttribute
-        private String key;
+        private @Nullable String key;
 
         @PluginBuilderAttribute
-        private String value;
+        private @Nullable String value;
 
         public Builder setKey(final String aKey) {
             this.key = aKey;

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.Core;
 import org.apache.logging.log4j.core.config.AppenderRef;
@@ -44,7 +45,7 @@ public final class FailoversPlugin {
      * @return The appender references.
      */
     @PluginFactory
-    public static String[] createFailovers(@PluginElement("AppenderRef") final AppenderRef... refs) {
+    public static String[] createFailovers(@PluginElement("AppenderRef") final AppenderRef @Nullable ... refs) {
 
         if (refs == null) {
             LOGGER.error("failovers must contain an appender reference");

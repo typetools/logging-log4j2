@@ -159,8 +159,8 @@ public final class MarkerFilter extends AbstractFilter {
     // returns null on erroneous call
     public static @PolyNull MarkerFilter createFilter(
             @PluginAttribute(ATTR_MARKER) final @PolyNull String marker,
-            @PluginAttribute(AbstractFilterBuilder.ATTR_ON_MATCH) final Result match,
-            @PluginAttribute(AbstractFilterBuilder.ATTR_ON_MISMATCH) final Result mismatch) {
+            @PluginAttribute(AbstractFilterBuilder.ATTR_ON_MATCH) final @Nullable Result match,
+            @PluginAttribute(AbstractFilterBuilder.ATTR_ON_MISMATCH) final @Nullable Result mismatch) {
 
         if (marker == null) {
             LOGGER.error("A marker must be provided for MarkerFilter");

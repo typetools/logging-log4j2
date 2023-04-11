@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,34 +61,34 @@ public final class RollingRandomAccessFileAppender extends AbstractOutputStreamA
         }
 
         @PluginBuilderAttribute("fileName")
-        private String fileName;
+        private @Nullable String fileName;
 
         @PluginBuilderAttribute("filePattern")
-        private String filePattern;
+        private @Nullable String filePattern;
 
         @PluginBuilderAttribute("append")
         private boolean append = true;
 
         @PluginElement("Policy")
-        private TriggeringPolicy policy;
+        private @Nullable TriggeringPolicy policy;
 
         @PluginElement("Strategy")
-        private RolloverStrategy strategy;
+        private @Nullable RolloverStrategy strategy;
 
         @PluginBuilderAttribute("advertise")
         private boolean advertise;
 
         @PluginBuilderAttribute("advertiseURI")
-        private String advertiseURI;
+        private @Nullable String advertiseURI;
 
         @PluginBuilderAttribute
-        private String filePermissions;
+        private @Nullable String filePermissions;
 
         @PluginBuilderAttribute
-        private String fileOwner;
+        private @Nullable String fileOwner;
 
         @PluginBuilderAttribute
-        private String fileGroup;
+        private @Nullable String fileGroup;
 
         @Override
         public RollingRandomAccessFileAppender build() {

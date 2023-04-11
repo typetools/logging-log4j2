@@ -40,7 +40,7 @@ public class Script extends AbstractScript {
     @PluginFactory
     public static @Nullable Script createScript(
             // @formatter:off
-            @PluginAttribute("name") final String name,
+            @PluginAttribute("name") final @Nullable String name,
             @PluginAttribute(ATTR_LANGUAGE) @Nullable String language,
             @PluginValue(ATTR_SCRIPT_TEXT) final @Nullable String scriptText) {
             // @formatter:on

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.mom.kafka;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
@@ -57,10 +58,10 @@ public final class KafkaAppender extends AbstractAppender {
         private int retryCount;
 
         @PluginAttribute("topic")
-        private String topic;
+        private @Nullable String topic;
 
         @PluginAttribute("key")
-        private String key;
+        private @Nullable String key;
 
         @PluginAttribute(value = "syncSend", defaultBoolean = true)
         private boolean syncSend;

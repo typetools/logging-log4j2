@@ -61,7 +61,7 @@ abstract class AbstractJacksonLayout extends AbstractStringLayout {
         private boolean eventEol;
 
         @PluginBuilderAttribute
-        private String endOfLine;
+        private @Nullable String endOfLine;
 
         @PluginBuilderAttribute
         private boolean compact;
@@ -88,7 +88,7 @@ abstract class AbstractJacksonLayout extends AbstractStringLayout {
         private boolean includeTimeMillis = false;
 
         @PluginElement("AdditionalField")
-        private KeyValuePair[] additionalFields;
+        private KeyValuePair @Nullable [] additionalFields;
 
         protected String toStringOrNull(final byte @Nullable [] header) {
             return header == null ? null : new String(header, Charset.defaultCharset());

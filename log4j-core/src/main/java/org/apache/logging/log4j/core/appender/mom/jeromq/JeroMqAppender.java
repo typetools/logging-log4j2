@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.mom.jeromq;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,16 +84,16 @@ public final class JeroMqAppender extends AbstractAppender {
     public static JeroMqAppender createAppender(
             // @formatter:off
             @Required(message = "No name provided for JeroMqAppender") @PluginAttribute("name") final String name,
-            @PluginElement("Layout") Layout<?> layout,
-            @PluginElement("Filter") final Filter filter,
-            @PluginElement("Properties") final Property[] properties,
+            @PluginElement("Layout") @Nullable Layout<?> layout,
+            @PluginElement("Filter") final @Nullable Filter filter,
+            @PluginElement("Properties") final Property @Nullable [] properties,
             // Super attributes
             @PluginAttribute("ignoreExceptions") final boolean ignoreExceptions,
             // ZMQ attributes; defaults picked from zmq.Options.
             @PluginAttribute(value = "affinity", defaultLong = 0) final long affinity,
             @PluginAttribute(value = "backlog", defaultLong = DEFAULT_BACKLOG) final long backlog,
             @PluginAttribute(value = "delayAttachOnConnect") final boolean delayAttachOnConnect,
-            @PluginAttribute(value = "identity") final byte[] identity,
+            @PluginAttribute(value = "identity") final byte @Nullable [] identity,
             @PluginAttribute(value = "ipv4Only", defaultBoolean = true) final boolean ipv4Only,
             @PluginAttribute(value = "linger", defaultLong = -1) final long linger,
             @PluginAttribute(value = "maxMsgSize", defaultLong = -1) final long maxMsgSize,

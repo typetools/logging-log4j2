@@ -79,10 +79,10 @@ public final class PatternMatch {
         private static final long serialVersionUID = 1L;
 
         @PluginBuilderAttribute
-        private String key;
+        private @Nullable String key;
 
         @PluginBuilderAttribute
-        private String pattern;
+        private @Nullable String pattern;
 
         public Builder setKey(final String key) {
             this.key = key;

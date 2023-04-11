@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -96,11 +97,11 @@ public class SocketAppender extends AbstractOutputStreamAppender<AbstractSocketM
         private int reconnectDelayMillis;
 
         @PluginElement("SocketOptions")
-        private SocketOptions socketOptions;
+        private @Nullable SocketOptions socketOptions;
 
         @PluginElement("SslConfiguration")
         @PluginAliases({ "SslConfig" })
-        private SslConfiguration sslConfiguration;
+        private @Nullable SslConfiguration sslConfiguration;
 
         public boolean getAdvertise() {
             return advertise;

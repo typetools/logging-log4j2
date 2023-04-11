@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rolling.action;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Objects;
@@ -67,7 +68,7 @@ public final class IfNot implements PathCondition {
      */
     @PluginFactory
     public static IfNot createNotCondition(
-            @PluginElement("PathConditions") final PathCondition condition) {
+            @PluginElement("PathConditions") final @Nullable PathCondition condition) {
         return new IfNot(condition);
     }
 

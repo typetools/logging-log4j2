@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -182,14 +183,14 @@ public final class FailoverAppender extends AbstractAppender {
      */
     @PluginFactory
     public static FailoverAppender createAppender(
-            @PluginAttribute("name") final String name,
-            @PluginAttribute("primary") final String primary,
-            @PluginElement("Failovers") final String[] failovers,
+            @PluginAttribute("name") final @Nullable String name,
+            @PluginAttribute("primary") final @Nullable String primary,
+            @PluginElement("Failovers") final String @Nullable [] failovers,
             @PluginAliases("retryInterval") // deprecated
-            @PluginAttribute("retryIntervalSeconds") final String retryIntervalSeconds,
+            @PluginAttribute("retryIntervalSeconds") final @Nullable String retryIntervalSeconds,
             @PluginConfiguration final Configuration config,
-            @PluginElement("Filter") final Filter filter,
-            @PluginAttribute("ignoreExceptions") final String ignore) {
+            @PluginElement("Filter") final @Nullable Filter filter,
+            @PluginAttribute("ignoreExceptions") final @Nullable String ignore) {
         if (name == null) {
             LOGGER.error("A name for the Appender must be specified");
             return null;

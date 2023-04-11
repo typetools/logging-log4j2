@@ -201,7 +201,7 @@ public class MutableThreadContextMapFilter extends AbstractFilter {
     public static class Builder extends AbstractFilterBuilder<Builder>
             implements org.apache.logging.log4j.core.util.Builder<MutableThreadContextMapFilter> {
         @PluginBuilderAttribute
-        private String configLocation;
+        private @Nullable String configLocation;
 
         @PluginBuilderAttribute
         private long pollInterval;

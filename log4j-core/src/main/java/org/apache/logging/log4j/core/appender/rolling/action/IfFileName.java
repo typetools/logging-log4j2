@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rolling.action;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -134,9 +135,9 @@ public final class IfFileName implements PathCondition {
     @PluginFactory
     public static IfFileName createNameCondition(
             // @formatter:off
-            @PluginAttribute("glob") final String glob,
-            @PluginAttribute("regex") final String regex,
-            @PluginElement("PathConditions") final PathCondition... nestedConditions) {
+            @PluginAttribute("glob") final @Nullable String glob,
+            @PluginAttribute("regex") final @Nullable String regex,
+            @PluginElement("PathConditions") final PathCondition @Nullable ... nestedConditions) {
             // @formatter:on
         return new IfFileName(glob, regex, nestedConditions);
     }

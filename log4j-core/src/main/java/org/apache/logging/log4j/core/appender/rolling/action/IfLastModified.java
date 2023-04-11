@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rolling.action;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
@@ -99,8 +100,8 @@ public final class IfLastModified implements PathCondition {
     @PluginFactory
     public static IfLastModified createAgeCondition(
             // @formatter:off
-            @PluginAttribute("age") final Duration age,
-            @PluginElement("PathConditions") final PathCondition... nestedConditions) {
+            @PluginAttribute("age") final @Nullable Duration age,
+            @PluginElement("PathConditions") final PathCondition @Nullable ... nestedConditions) {
             // @formatter:on
         return new IfLastModified(age, nestedConditions);
     }

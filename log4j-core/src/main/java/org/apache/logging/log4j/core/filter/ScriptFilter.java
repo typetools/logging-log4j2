@@ -132,8 +132,8 @@ public final class ScriptFilter extends AbstractFilter {
     @PluginFactory
     public static @Nullable ScriptFilter createFilter(
             @PluginElement("Script") final @Nullable AbstractScript script,
-            @PluginAttribute("onMatch") final Result match,
-            @PluginAttribute("onMismatch") final Result mismatch,
+            @PluginAttribute("onMatch") final @Nullable Result match,
+            @PluginAttribute("onMismatch") final @Nullable Result mismatch,
             @PluginConfiguration final Configuration configuration) {
 
         if (script == null) {

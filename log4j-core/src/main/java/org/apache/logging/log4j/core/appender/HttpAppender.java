@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.Objects;
@@ -62,10 +63,10 @@ public final class HttpAppender extends AbstractAppender {
         private int readTimeoutMillis = 0;
 
         @PluginElement("Headers")
-        private Property[] headers;
+        private Property @Nullable [] headers;
 
         @PluginElement("SslConfiguration")
-        private SslConfiguration sslConfiguration;
+        private @Nullable SslConfiguration sslConfiguration;
 
         @PluginBuilderAttribute
         private boolean verifyHostname = true;

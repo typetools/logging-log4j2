@@ -56,19 +56,19 @@ public class PoolableConnectionFactoryConfig {
 
         // TODO
         @PluginElement("ConnectionInitSqls")
-        private String[] connectionInitSqls;
+        private String @Nullable [] connectionInitSqls;
 
         @PluginBuilderAttribute
-        private Boolean defaultAutoCommit;
+        private @Nullable Boolean defaultAutoCommit;
 
         @PluginBuilderAttribute
-        private String defaultCatalog;
+        private @Nullable String defaultCatalog;
 
         @PluginBuilderAttribute
         private Integer defaultQueryTimeoutSeconds = DEFAULT.getDefaultQueryTimeout();
 
         @PluginBuilderAttribute
-        private Boolean defaultReadOnly;
+        private @Nullable Boolean defaultReadOnly;
 
         @PluginBuilderAttribute
         private int defaultTransactionIsolation = UNKNOWN_TRANSACTION_ISOLATION;
@@ -97,7 +97,7 @@ public class PoolableConnectionFactoryConfig {
         private boolean rollbackOnReturn = DEFAULT.isRollbackOnReturn();
 
         @PluginBuilderAttribute
-        private String validationQuery;
+        private @Nullable String validationQuery;
 
         @PluginBuilderAttribute
         private int validationQueryTimeoutSeconds = -1;

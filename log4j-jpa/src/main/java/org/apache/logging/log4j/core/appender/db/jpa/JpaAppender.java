@@ -72,12 +72,12 @@ public final class JpaAppender extends AbstractDatabaseAppender<JpaDatabaseManag
      */
     @PluginFactory
     public static JpaAppender createAppender(
-            @PluginAttribute("name") final String name,
-            @PluginAttribute("ignoreExceptions") final String ignore,
-            @PluginElement("Filter") final Filter filter,
-            @PluginAttribute("bufferSize") final String bufferSize,
-            @PluginAttribute("entityClassName") final String entityClassName,
-            @PluginAttribute("persistenceUnitName") final String persistenceUnitName) {
+            @PluginAttribute("name") final @Nullable String name,
+            @PluginAttribute("ignoreExceptions") final @Nullable String ignore,
+            @PluginElement("Filter") final @Nullable Filter filter,
+            @PluginAttribute("bufferSize") final @Nullable String bufferSize,
+            @PluginAttribute("entityClassName") final @Nullable String entityClassName,
+            @PluginAttribute("persistenceUnitName") final @Nullable String persistenceUnitName) {
         if (Strings.isEmpty(entityClassName) || Strings.isEmpty(persistenceUnitName)) {
             LOGGER.error("Attributes entityClassName and persistenceUnitName are required for JPA Appender.");
             return null;

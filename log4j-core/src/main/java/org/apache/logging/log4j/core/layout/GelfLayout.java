@@ -121,10 +121,10 @@ public final class GelfLayout extends AbstractStringLayout {
         implements org.apache.logging.log4j.core.util.Builder<GelfLayout> {
 
         @PluginBuilderAttribute
-        private String host;
+        private @Nullable String host;
 
         @PluginElement("AdditionalField")
-        private KeyValuePair[] additionalFields;
+        private KeyValuePair @Nullable [] additionalFields;
 
         @PluginBuilderAttribute
         private CompressionType compressionType = CompressionType.GZIP;
@@ -145,16 +145,16 @@ public final class GelfLayout extends AbstractStringLayout {
         private boolean includeNewLineDelimiter;
 
         @PluginBuilderAttribute
-        private String threadContextIncludes;
+        private @Nullable String threadContextIncludes;
 
         @PluginBuilderAttribute
-        private String threadContextExcludes;
+        private @Nullable String threadContextExcludes;
 
         @PluginBuilderAttribute
-        private String mapMessageIncludes;
+        private @Nullable String mapMessageIncludes;
 
         @PluginBuilderAttribute
-        private String mapMessageExcludes;
+        private @Nullable String mapMessageExcludes;
 
         @PluginBuilderAttribute
         private boolean includeMapMessage = true;
@@ -513,8 +513,8 @@ public final class GelfLayout extends AbstractStringLayout {
     @Deprecated
     public static GelfLayout createLayout(
             //@formatter:off
-            @PluginAttribute("host") final String host,
-            @PluginElement("AdditionalField") final KeyValuePair[] additionalFields,
+            @PluginAttribute("host") final @Nullable String host,
+            @PluginElement("AdditionalField") final KeyValuePair @Nullable [] additionalFields,
             @PluginAttribute(value = "compressionType",
                 defaultString = "GZIP") final CompressionType compressionType,
             @PluginAttribute(value = "compressionThreshold",

@@ -185,32 +185,32 @@ public final class FlumeAppender extends AbstractAppender implements FlumeEventF
      * @return A Flume Avro Appender.
      */
     @PluginFactory
-    public static FlumeAppender createAppender(@PluginElement("Agents") final Agent[] agents,
-                                               @PluginElement("Properties") final Property[] properties,
-                                               @PluginAttribute("hosts") final String hosts,
-                                               @PluginAttribute("embedded") final String embedded,
-                                               @PluginAttribute("type") final String type,
-                                               @PluginAttribute("dataDir") final String dataDir,
+    public static FlumeAppender createAppender(@PluginElement("Agents") final Agent @Nullable [] agents,
+                                               @PluginElement("Properties") final Property @Nullable [] properties,
+                                               @PluginAttribute("hosts") final @Nullable String hosts,
+                                               @PluginAttribute("embedded") final @Nullable String embedded,
+                                               @PluginAttribute("type") final @Nullable String type,
+                                               @PluginAttribute("dataDir") final @Nullable String dataDir,
                                                @PluginAliases("connectTimeout")
-                                               @PluginAttribute("connectTimeoutMillis") final String connectionTimeoutMillis,
+                                               @PluginAttribute("connectTimeoutMillis") final @Nullable String connectionTimeoutMillis,
                                                @PluginAliases("requestTimeout")
-                                               @PluginAttribute("requestTimeoutMillis") final String requestTimeoutMillis,
-                                               @PluginAttribute("agentRetries") final String agentRetries,
+                                               @PluginAttribute("requestTimeoutMillis") final @Nullable String requestTimeoutMillis,
+                                               @PluginAttribute("agentRetries") final @Nullable String agentRetries,
                                                @PluginAliases("maxDelay") // deprecated
-                                               @PluginAttribute("maxDelayMillis") final String maxDelayMillis,
-                                               @PluginAttribute("name") final String name,
-                                               @PluginAttribute("ignoreExceptions") final String ignore,
-                                               @PluginAttribute("mdcExcludes") final String excludes,
-                                               @PluginAttribute("mdcIncludes") final String includes,
-                                               @PluginAttribute("mdcRequired") final String required,
-                                               @PluginAttribute("mdcPrefix") final String mdcPrefix,
-                                               @PluginAttribute("eventPrefix") final String eventPrefix,
-                                               @PluginAttribute("compress") final String compressBody,
-                                               @PluginAttribute("batchSize") final String batchSize,
-                                               @PluginAttribute("lockTimeoutRetries") final String lockTimeoutRetries,
-                                               @PluginElement("FlumeEventFactory") final FlumeEventFactory factory,
-                                               @PluginElement("Layout") Layout<? extends Serializable> layout,
-                                               @PluginElement("Filter") final Filter filter) {
+                                               @PluginAttribute("maxDelayMillis") final @Nullable String maxDelayMillis,
+                                               @PluginAttribute("name") final @Nullable String name,
+                                               @PluginAttribute("ignoreExceptions") final @Nullable String ignore,
+                                               @PluginAttribute("mdcExcludes") final @Nullable String excludes,
+                                               @PluginAttribute("mdcIncludes") final @Nullable String includes,
+                                               @PluginAttribute("mdcRequired") final @Nullable String required,
+                                               @PluginAttribute("mdcPrefix") final @Nullable String mdcPrefix,
+                                               @PluginAttribute("eventPrefix") final @Nullable String eventPrefix,
+                                               @PluginAttribute("compress") final @Nullable String compressBody,
+                                               @PluginAttribute("batchSize") final @Nullable String batchSize,
+                                               @PluginAttribute("lockTimeoutRetries") final @Nullable String lockTimeoutRetries,
+                                               @PluginElement("FlumeEventFactory") final @Nullable FlumeEventFactory factory,
+                                               @PluginElement("Layout") @Nullable Layout<? extends Serializable> layout,
+                                               @PluginElement("Filter") final @Nullable Filter filter) {
 
         final boolean embed = embedded != null ? Boolean.parseBoolean(embedded) :
             (agents == null || agents.length == 0 || hosts == null || hosts.isEmpty()) && properties != null && properties.length > 0;

@@ -62,11 +62,11 @@ public final class DynamicThresholdFilter extends AbstractFilter {
     // TODO Consider refactoring to use AbstractFilter.AbstractFilterBuilder
     @PluginFactory
     public static DynamicThresholdFilter createFilter(
-            @PluginAttribute("key") final String key,
-            @PluginElement("Pairs") final KeyValuePair[] pairs,
+            @PluginAttribute("key") final @Nullable String key,
+            @PluginElement("Pairs") final KeyValuePair @Nullable [] pairs,
             @PluginAttribute("defaultThreshold") final @Nullable Level defaultThreshold,
-            @PluginAttribute("onMatch") final Result onMatch,
-            @PluginAttribute("onMismatch") final Result onMismatch) {
+            @PluginAttribute("onMatch") final @Nullable Result onMatch,
+            @PluginAttribute("onMismatch") final @Nullable Result onMismatch) {
         final Map<String, Level> map = new HashMap<>();
         for (final KeyValuePair pair : pairs) {
             map.put(pair.getKey(), Level.toLevel(pair.getValue()));

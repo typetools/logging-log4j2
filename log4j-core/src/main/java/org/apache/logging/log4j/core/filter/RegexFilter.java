@@ -129,10 +129,10 @@ public final class RegexFilter extends AbstractFilter {
     public static @PolyNull RegexFilter createFilter(
             //@formatter:off
             @PluginAttribute("regex") final @PolyNull String regex,
-            @PluginElement("PatternFlags") final String[] patternFlags,
-            @PluginAttribute("useRawMsg") final Boolean useRawMsg,
-            @PluginAttribute("onMatch") final Result match,
-            @PluginAttribute("onMismatch") final Result mismatch)
+            @PluginElement("PatternFlags") final String @Nullable [] patternFlags,
+            @PluginAttribute("useRawMsg") final @Nullable Boolean useRawMsg,
+            @PluginAttribute("onMatch") final @Nullable Result match,
+            @PluginAttribute("onMismatch") final @Nullable Result mismatch)
             //@formatter:on
             throws IllegalArgumentException, IllegalAccessException {
         if (regex == null) {

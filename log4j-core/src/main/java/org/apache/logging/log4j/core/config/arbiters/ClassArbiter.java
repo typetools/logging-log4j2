@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.arbiters;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.config.Node;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.core.config.plugins.PluginBuilderAttribute;
@@ -50,7 +51,7 @@ public class ClassArbiter implements Arbiter {
         public static final String ATTR_CLASS_NAME = "className";
 
         @PluginBuilderAttribute(ATTR_CLASS_NAME)
-        private String className;
+        private @Nullable String className;
 
 
         /**

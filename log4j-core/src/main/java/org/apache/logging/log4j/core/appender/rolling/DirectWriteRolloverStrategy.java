@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rolling;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -66,19 +67,19 @@ public class DirectWriteRolloverStrategy extends AbstractRolloverStrategy implem
      */
     public static class Builder implements org.apache.logging.log4j.core.util.Builder<DirectWriteRolloverStrategy> {
         @PluginBuilderAttribute("maxFiles")
-        private String maxFiles;
+        private @Nullable String maxFiles;
 
         @PluginBuilderAttribute("compressionLevel")
-        private String compressionLevelStr;
+        private @Nullable String compressionLevelStr;
 
         @PluginElement("Actions")
-        private Action[] customActions;
+        private Action @Nullable [] customActions;
 
         @PluginBuilderAttribute(value = "stopCustomActionsOnError")
         private boolean stopCustomActionsOnError = true;
 
         @PluginBuilderAttribute(value = "tempCompressedFilePattern")
-        private String tempCompressedFilePattern;
+        private @Nullable String tempCompressedFilePattern;
 
         @PluginConfiguration
         private Configuration config;
@@ -211,9 +212,9 @@ public class DirectWriteRolloverStrategy extends AbstractRolloverStrategy implem
     @PluginFactory
     public static DirectWriteRolloverStrategy createStrategy(
             // @formatter:off
-            @PluginAttribute("maxFiles") final String maxFiles,
-            @PluginAttribute("compressionLevel") final String compressionLevelStr,
-            @PluginElement("Actions") final Action[] customActions,
+            @PluginAttribute("maxFiles") final @Nullable String maxFiles,
+            @PluginAttribute("compressionLevel") final @Nullable String compressionLevelStr,
+            @PluginElement("Actions") final Action @Nullable [] customActions,
             @PluginAttribute(value = "stopCustomActionsOnError", defaultBoolean = true)
                     final boolean stopCustomActionsOnError,
             @PluginConfiguration final Configuration config) {

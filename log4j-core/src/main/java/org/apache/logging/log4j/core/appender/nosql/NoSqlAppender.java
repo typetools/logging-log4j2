@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.nosql;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 
 import org.apache.logging.log4j.core.Appender;
@@ -60,10 +61,10 @@ public final class NoSqlAppender extends AbstractDatabaseAppender<NoSqlDatabaseM
         private int bufferSize;
 
         @PluginElement("NoSqlProvider")
-        private NoSqlProvider<?> provider;
+        private @Nullable NoSqlProvider<?> provider;
 
         @PluginElement("AdditionalField")
-        private KeyValuePair[] additionalFields;
+        private KeyValuePair @Nullable [] additionalFields;
 
         @SuppressWarnings("resource")
         @Override

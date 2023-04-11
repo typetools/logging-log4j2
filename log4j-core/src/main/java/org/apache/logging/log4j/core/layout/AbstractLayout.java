@@ -48,10 +48,10 @@ public abstract class AbstractLayout<T extends Serializable> implements Layout<T
         private Configuration configuration;
 
         @PluginBuilderAttribute
-        private byte[] footer;
+        private byte @Nullable [] footer;
 
         @PluginBuilderAttribute
-        private byte[] header;
+        private byte @Nullable [] header;
 
         @SuppressWarnings("unchecked")
         public B asBuilder() {

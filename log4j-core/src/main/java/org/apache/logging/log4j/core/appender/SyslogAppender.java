@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -54,7 +55,7 @@ public class SyslogAppender extends SocketAppender {
         private Facility facility = Facility.LOCAL0;
 
         @PluginBuilderAttribute("id")
-        private String id;
+        private @Nullable String id;
 
         @PluginBuilderAttribute(value = "enterpriseNumber")
         private String enterpriseNumber = String.valueOf(Rfc5424Layout.DEFAULT_ENTERPRISE_NUMBER);
@@ -63,46 +64,46 @@ public class SyslogAppender extends SocketAppender {
         private boolean includeMdc = true;
 
         @PluginBuilderAttribute("mdcId")
-        private String mdcId;
+        private @Nullable String mdcId;
 
         @PluginBuilderAttribute("mdcPrefix")
-        private String mdcPrefix;
+        private @Nullable String mdcPrefix;
 
         @PluginBuilderAttribute("eventPrefix")
-        private String eventPrefix;
+        private @Nullable String eventPrefix;
 
         @PluginBuilderAttribute(value = "newLine")
-        private boolean newLine;
+        private @Nullable boolean newLine;
 
         @PluginBuilderAttribute("newLineEscape")
-        private String escapeNL;
+        private @Nullable String escapeNL;
 
         @PluginBuilderAttribute("appName")
-        private String appName;
+        private @Nullable String appName;
 
         @PluginBuilderAttribute("messageId")
-        private String msgId;
+        private @Nullable String msgId;
 
         @PluginBuilderAttribute("mdcExcludes")
-        private String excludes;
+        private @Nullable String excludes;
 
         @PluginBuilderAttribute("mdcIncludes")
-        private String includes;
+        private @Nullable String includes;
 
         @PluginBuilderAttribute("mdcRequired")
-        private String required;
+        private @Nullable String required;
 
         @PluginBuilderAttribute("format")
-        private String format;
+        private @Nullable String format;
 
         @PluginBuilderAttribute("charset")
         private Charset charsetName = StandardCharsets.UTF_8;
 
         @PluginBuilderAttribute("exceptionPattern")
-        private String exceptionPattern;
+        private @Nullable String exceptionPattern;
 
         @PluginElement("LoggerFields")
-        private LoggerFields[] loggerFields;
+        private LoggerFields @Nullable [] loggerFields;
 
         @SuppressWarnings({"resource"})
         @Override

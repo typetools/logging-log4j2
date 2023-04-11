@@ -50,13 +50,13 @@ public abstract class AbstractStringLayout extends AbstractLayout<String> implem
     public abstract static class Builder<B extends Builder<B>> extends AbstractLayout.Builder<B> {
 
         @PluginBuilderAttribute(value = "charset")
-        private Charset charset;
+        private @Nullable Charset charset;
 
         @PluginElement("footerSerializer")
-        private Serializer footerSerializer;
+        private @Nullable Serializer footerSerializer;
 
         @PluginElement("headerSerializer")
-        private Serializer headerSerializer;
+        private @Nullable Serializer headerSerializer;
 
         public Charset getCharset() {
             return charset;

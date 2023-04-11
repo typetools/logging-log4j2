@@ -72,7 +72,7 @@ public final class LoggerFields {
      */
     @PluginFactory
     public static LoggerFields createLoggerFields(
-        @PluginElement("LoggerFields") final KeyValuePair[] keyValuePairs,
+        @PluginElement("LoggerFields") final KeyValuePair @Nullable [] keyValuePairs,
         @PluginAttribute("sdId") final @Nullable String sdId,
         @PluginAttribute("enterpriseId") final @Nullable String enterpriseId,
         @PluginAttribute(value = "discardIfAllFieldsAreEmpty") final boolean discardIfAllFieldsAreEmpty) {

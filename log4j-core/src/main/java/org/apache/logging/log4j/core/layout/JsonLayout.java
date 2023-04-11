@@ -87,7 +87,7 @@ public final class JsonLayout extends AbstractJacksonLayout {
         private boolean objectMessageAsJsonObject;
 
         @PluginElement("AdditionalField")
-        private KeyValuePair[] additionalFields;
+        private KeyValuePair @Nullable [] additionalFields;
 
         public Builder() {
             setCharset(StandardCharsets.UTF_8);

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.routing;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.Core;
 import org.apache.logging.log4j.core.config.Node;
@@ -95,8 +96,8 @@ public final class Route {
      */
     @PluginFactory
     public static Route createRoute(
-            @PluginAttribute("ref") final String appenderRef,
-            @PluginAttribute("key") final String key,
+            @PluginAttribute("ref") final @Nullable String appenderRef,
+            @PluginAttribute("key") final @Nullable String key,
             @PluginNode final Node node) {
         if (node != null && node.hasChildren()) {
             if (appenderRef != null) {

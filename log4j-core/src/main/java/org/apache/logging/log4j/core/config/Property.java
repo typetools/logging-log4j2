@@ -137,7 +137,7 @@ public final class Property {
      */
     @PluginFactory
     public static Property createProperty(
-            @PluginAttribute("name") final String name,
+            @PluginAttribute("name") final @Nullable String name,
             @PluginValue(value = "value", substitute = false) final String rawValue,
             @PluginConfiguration final @Nullable Configuration configuration) {
         return createProperty(

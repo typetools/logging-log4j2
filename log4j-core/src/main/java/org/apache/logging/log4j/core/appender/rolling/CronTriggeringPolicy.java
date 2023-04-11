@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rolling;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.Objects;
@@ -119,8 +120,8 @@ public final class CronTriggeringPolicy extends AbstractTriggeringPolicy {
      */
     @PluginFactory
     public static CronTriggeringPolicy createPolicy(@PluginConfiguration final Configuration configuration,
-            @PluginAttribute("evaluateOnStartup") final String evaluateOnStartup,
-            @PluginAttribute("schedule") final String schedule) {
+            @PluginAttribute("evaluateOnStartup") final @Nullable String evaluateOnStartup,
+            @PluginAttribute("schedule") final @Nullable String schedule) {
         CronExpression cronExpression;
         final boolean checkOnStartup = Boolean.parseBoolean(evaluateOnStartup);
         if (schedule == null) {

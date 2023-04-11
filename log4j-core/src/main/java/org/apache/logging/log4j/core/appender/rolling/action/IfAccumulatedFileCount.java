@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rolling.action;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Arrays;
@@ -96,7 +97,7 @@ public final class IfAccumulatedFileCount implements PathCondition {
     public static IfAccumulatedFileCount createFileCountCondition(
             // @formatter:off
             @PluginAttribute(value = "exceeds", defaultInt = Integer.MAX_VALUE) final int threshold,
-            @PluginElement("PathConditions") final PathCondition... nestedConditions) {
+            @PluginElement("PathConditions") final PathCondition @Nullable ... nestedConditions) {
             // @formatter:on
 
         if (threshold == Integer.MAX_VALUE) {

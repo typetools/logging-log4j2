@@ -40,3 +40,4 @@ https://github.com/apache/logging-log4j2/compare/2.x...typetools:logging-log4j2:
 
 5. In addition, some nullness bugs have been fixed after we reported them:
 https://github.com/apache/logging-log4j2/pull/1422
+https://github.com/apache/logging-log4j2/pull/1423

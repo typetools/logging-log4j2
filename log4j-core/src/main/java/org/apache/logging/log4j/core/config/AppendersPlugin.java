@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -41,7 +42,7 @@ public final class AppendersPlugin {
      */
     @PluginFactory
     public static ConcurrentMap<String, Appender> createAppenders(
-                @PluginElement("Appenders") final Appender[] appenders) {
+                @PluginElement("Appenders") final Appender @Nullable [] appenders) {
 
         final ConcurrentMap<String, Appender> map =  new ConcurrentHashMap<>(appenders.length);
 

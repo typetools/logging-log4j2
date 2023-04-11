@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rewrite;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -102,7 +103,7 @@ public final class PropertiesRewritePolicy implements RewritePolicy {
      */
     @PluginFactory
     public static PropertiesRewritePolicy createPolicy(@PluginConfiguration final Configuration config,
-                                                @PluginElement("Properties") final Property[] props) {
+                                                @PluginElement("Properties") final Property @Nullable [] props) {
         if (props == null || props.length == 0) {
             LOGGER.error("Properties must be specified for the PropertiesRewritePolicy");
             return null;

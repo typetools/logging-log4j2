@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,19 +67,19 @@ public final class FileAppender extends AbstractOutputStreamAppender<FileManager
         private boolean advertise;
 
         @PluginBuilderAttribute
-        private String advertiseUri;
+        private @Nullable String advertiseUri;
 
         @PluginBuilderAttribute
         private boolean createOnDemand;
 
         @PluginBuilderAttribute
-        private String filePermissions;
+        private @Nullable String filePermissions;
 
         @PluginBuilderAttribute
-        private String fileOwner;
+        private @Nullable String fileOwner;
 
         @PluginBuilderAttribute
-        private String fileGroup;
+        private @Nullable String fileGroup;
 
         @Override
         public FileAppender build() {

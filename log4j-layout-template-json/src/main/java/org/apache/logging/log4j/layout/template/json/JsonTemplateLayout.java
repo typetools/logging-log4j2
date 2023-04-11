@@ -374,7 +374,7 @@ public class JsonTemplateLayout implements StringLayout {
                 JsonTemplateLayoutDefaults.getEventTemplateRootObjectKey();
 
         @PluginElement("EventTemplateAdditionalField")
-        private EventTemplateAdditionalField[] eventTemplateAdditionalFields;
+        private EventTemplateAdditionalField @Nullable [] eventTemplateAdditionalFields;
 
         @PluginBuilderAttribute
         private String stackTraceElementTemplate =
@@ -643,10 +643,10 @@ public class JsonTemplateLayout implements StringLayout {
                 implements org.apache.logging.log4j.core.util.Builder<EventTemplateAdditionalField> {
 
             @PluginBuilderAttribute
-            private String key;
+            private @Nullable String key;
 
             @PluginBuilderAttribute
-            private String value;
+            private @Nullable String value;
 
             @PluginBuilderAttribute
             private Format format = Format.STRING;

@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 
@@ -92,38 +93,38 @@ public final class SmtpAppender extends AbstractAppender {
     public static class Builder extends AbstractAppender.Builder<Builder>
             implements org.apache.logging.log4j.core.util.Builder<SmtpAppender> {
         @PluginBuilderAttribute
-        private String to;
+        private @Nullable String to;
 
         @PluginBuilderAttribute
-        private String cc;
+        private @Nullable String cc;
 
         @PluginBuilderAttribute
-        private String bcc;
+        private @Nullable String bcc;
 
         @PluginBuilderAttribute
-        private String from;
+        private @Nullable String from;
 
         @PluginBuilderAttribute
-        private String replyTo;
+        private @Nullable String replyTo;
 
         @PluginBuilderAttribute
-        private String subject;
+        private @Nullable String subject;
 
         @PluginBuilderAttribute
-        private String smtpProtocol = "smtp";
+        private @Nullable String smtpProtocol = "smtp";
 
         @PluginBuilderAttribute
-        private String smtpHost;
+        private @Nullable String smtpHost;
 
         @PluginBuilderAttribute
         @ValidPort
         private int smtpPort;
 
         @PluginBuilderAttribute
-        private String smtpUsername;
+        private @Nullable String smtpUsername;
 
         @PluginBuilderAttribute(sensitive = true)
-        private String smtpPassword;
+        private @Nullable String smtpPassword;
 
         @PluginBuilderAttribute
         private boolean smtpDebug;
@@ -132,7 +133,7 @@ public final class SmtpAppender extends AbstractAppender {
         private int bufferSize = DEFAULT_BUFFER_SIZE;
 
         @PluginElement("SSL")
-        private SslConfiguration sslConfiguration;
+        private @Nullable SslConfiguration sslConfiguration;
 
         /**
          * Comma-separated list of recipient email addresses.
@@ -313,22 +314,22 @@ public final class SmtpAppender extends AbstractAppender {
     public static SmtpAppender createAppender(
             @PluginConfiguration final Configuration config,
             @PluginAttribute("name") @Required final String name,
-            @PluginAttribute("to") final String to,
-            @PluginAttribute("cc") final String cc,
-            @PluginAttribute("bcc") final String bcc,
-            @PluginAttribute("from") final String from,
-            @PluginAttribute("replyTo") final String replyTo,
-            @PluginAttribute("subject") final String subject,
-            @PluginAttribute("smtpProtocol") final String smtpProtocol,
-            @PluginAttribute("smtpHost") final String smtpHost,
+            @PluginAttribute("to") final @Nullable String to,
+            @PluginAttribute("cc") final @Nullable String cc,
+            @PluginAttribute("bcc") final @Nullable String bcc,
+            @PluginAttribute("from") final @Nullable String from,
+            @PluginAttribute("replyTo") final @Nullable String replyTo,
+            @PluginAttribute("subject") final @Nullable String subject,
+            @PluginAttribute("smtpProtocol") final @Nullable String smtpProtocol,
+            @PluginAttribute("smtpHost") final @Nullable String smtpHost,
             @PluginAttribute(value = "smtpPort", defaultString = "0") @ValidPort final String smtpPortStr,
-            @PluginAttribute("smtpUsername") final String smtpUsername,
-            @PluginAttribute(value = "smtpPassword", sensitive = true) final String smtpPassword,
-            @PluginAttribute("smtpDebug") final String smtpDebug,
-            @PluginAttribute("bufferSize") final String bufferSizeStr,
-            @PluginElement("Layout") Layout<? extends Serializable> layout,
-            @PluginElement("Filter") Filter filter,
-            @PluginAttribute("ignoreExceptions") final String ignore) {
+            @PluginAttribute("smtpUsername") final @Nullable String smtpUsername,
+            @PluginAttribute(value = "smtpPassword", sensitive = true) final @Nullable String smtpPassword,
+            @PluginAttribute("smtpDebug") final @Nullable String smtpDebug,
+            @PluginAttribute("bufferSize") final @Nullable String bufferSizeStr,
+            @PluginElement("Layout") @Nullable Layout<? extends Serializable> layout,
+            @PluginElement("Filter") @Nullable Filter filter,
+            @PluginAttribute("ignoreExceptions") final @Nullable String ignore) {
         if (name == null) {
             LOGGER.error("No name provided for SmtpAppender");
             return null;

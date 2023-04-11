@@ -69,7 +69,7 @@ public final class SyslogLayout extends AbstractStringLayout {
         private boolean includeNewLine;
 
         @PluginBuilderAttribute("newLineEscape")
-        private String escapeNL;
+        private @Nullable String escapeNL;
 
         @Override
         public SyslogLayout build() {

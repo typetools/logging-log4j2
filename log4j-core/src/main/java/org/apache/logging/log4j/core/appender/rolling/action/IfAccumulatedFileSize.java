@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rolling.action;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Arrays;
@@ -97,8 +98,8 @@ public final class IfAccumulatedFileSize implements PathCondition {
     @PluginFactory
     public static IfAccumulatedFileSize createFileSizeCondition(
             // @formatter:off
-            @PluginAttribute("exceeds") final String size,
-            @PluginElement("PathConditions") final PathCondition... nestedConditions) {
+            @PluginAttribute("exceeds") final @Nullable String size,
+            @PluginElement("PathConditions") final PathCondition @Nullable ... nestedConditions) {
             // @formatter:on
 
         if (size == null) {

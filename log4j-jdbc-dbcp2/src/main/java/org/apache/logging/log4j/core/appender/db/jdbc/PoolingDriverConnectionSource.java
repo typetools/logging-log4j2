@@ -55,7 +55,7 @@ public final class PoolingDriverConnectionSource extends AbstractDriverManagerCo
         public static final String DEFAULT_POOL_NAME = "example";
 
         @PluginElement("PoolableConnectionFactoryConfig")
-        private PoolableConnectionFactoryConfig poolableConnectionFactoryConfig;
+        private @Nullable PoolableConnectionFactoryConfig poolableConnectionFactoryConfig;
 
         @PluginBuilderAttribute
         private String poolName = DEFAULT_POOL_NAME;

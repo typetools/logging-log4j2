@@ -98,16 +98,16 @@ public final class MongoDbProvider implements NoSqlProvider<MongoDbConnection> {
         private String databaseName;
 
         @PluginBuilderAttribute
-        private String factoryClassName;
+        private @Nullable String factoryClassName;
 
         @PluginBuilderAttribute
-        private String factoryMethodName;
+        private @Nullable String factoryMethodName;
 
         @PluginBuilderAttribute("capped")
         private boolean capped = false;
 
         @PluginBuilderAttribute(sensitive = true)
-        private String password;
+        private @Nullable String password;
 
         @PluginBuilderAttribute
         @ValidPort
@@ -118,13 +118,13 @@ public final class MongoDbProvider implements NoSqlProvider<MongoDbConnection> {
         private String server = "localhost";
 
         @PluginBuilderAttribute
-        private String userName;
+        private @Nullable String userName;
 
         @PluginBuilderAttribute
-        private String writeConcernConstant;
+        private @Nullable String writeConcernConstant;
 
         @PluginBuilderAttribute
-        private String writeConcernConstantClassName;
+        private @Nullable String writeConcernConstantClassName;
 
         @SuppressWarnings("resource")
         @Override

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.routing;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
@@ -63,16 +64,16 @@ public final class RoutingAppender extends AbstractAppender {
 
         // Does not work unless the element is called "Script", I wanted "DefaultRounteScript"...
         @PluginElement("Script")
-        private AbstractScript defaultRouteScript;
+        private @Nullable AbstractScript defaultRouteScript;
 
         @PluginElement("Routes")
-        private Routes routes;
+        private @Nullable Routes routes;
 
         @PluginElement("RewritePolicy")
-        private RewritePolicy rewritePolicy;
+        private @Nullable RewritePolicy rewritePolicy;
 
         @PluginElement("PurgePolicy")
-        private PurgePolicy purgePolicy;
+        private @Nullable PurgePolicy purgePolicy;
 
         @Override
         public RoutingAppender build() {

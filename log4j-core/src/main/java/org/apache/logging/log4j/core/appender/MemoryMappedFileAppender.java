@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,7 +54,7 @@ public final class MemoryMappedFileAppender extends AbstractOutputStreamAppender
             implements org.apache.logging.log4j.core.util.Builder<MemoryMappedFileAppender> {
 
         @PluginBuilderAttribute("fileName")
-        private String fileName;
+        private @Nullable String fileName;
 
         @PluginBuilderAttribute("append")
         private boolean append = true;
@@ -65,7 +66,7 @@ public final class MemoryMappedFileAppender extends AbstractOutputStreamAppender
         private boolean advertise;
 
         @PluginBuilderAttribute("advertiseURI")
-        private String advertiseURI;
+        private @Nullable String advertiseURI;
 
         @Override
         public MemoryMappedFileAppender build() {

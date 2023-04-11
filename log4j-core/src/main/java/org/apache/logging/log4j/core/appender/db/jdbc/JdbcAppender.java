@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.db.jdbc;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.util.Arrays;
@@ -71,10 +72,10 @@ public final class JdbcAppender extends AbstractDatabaseAppender<JdbcDatabaseMan
         private String tableName;
 
         @PluginElement("ColumnConfigs")
-        private ColumnConfig[] columnConfigs;
+        private ColumnConfig @Nullable [] columnConfigs;
 
         @PluginElement("ColumnMappings")
-        private ColumnMapping[] columnMappings;
+        private ColumnMapping @Nullable [] columnMappings;
 
         @PluginBuilderAttribute
         private boolean truncateStrings = true;

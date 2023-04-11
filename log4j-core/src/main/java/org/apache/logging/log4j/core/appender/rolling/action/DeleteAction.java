@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.appender.rolling.action;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.nio.file.FileVisitor;
 import java.nio.file.Files;
@@ -199,13 +200,13 @@ public class DeleteAction extends AbstractPathAction {
     @PluginFactory
     public static DeleteAction createDeleteAction(
             // @formatter:off
-            @PluginAttribute("basePath") final String basePath,
+            @PluginAttribute("basePath") final @Nullable String basePath,
             @PluginAttribute(value = "followLinks") final boolean followLinks,
             @PluginAttribute(value = "maxDepth", defaultInt = 1) final int maxDepth,
             @PluginAttribute(value = "testMode") final boolean testMode,
-            @PluginElement("PathSorter") final PathSorter sorterParameter,
-            @PluginElement("PathConditions") final PathCondition[] pathConditions,
-            @PluginElement("ScriptCondition") final ScriptCondition scriptCondition,
+            @PluginElement("PathSorter") final @Nullable PathSorter sorterParameter,
+            @PluginElement("PathConditions") final PathCondition @Nullable [] pathConditions,
+            @PluginElement("ScriptCondition") final @Nullable ScriptCondition scriptCondition,
             @PluginConfiguration final Configuration config) {
             // @formatter:on
         final PathSorter sorter = sorterParameter == null ? new PathSortByModificationTime(true) : sorterParameter;

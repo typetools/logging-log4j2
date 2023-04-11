@@ -69,7 +69,7 @@ public class SpringProfileArbiter implements Arbiter {
         public static final String ATTR_NAME = "name";
 
         @PluginBuilderAttribute(ATTR_NAME)
-        private String name;
+        private @Nullable String name;
 
         @PluginConfiguration
         private Configuration configuration;

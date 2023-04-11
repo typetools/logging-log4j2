@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config.arbiters;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.core.config.Node;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.core.config.plugins.PluginBuilderAttribute;
@@ -58,10 +59,10 @@ public class SystemPropertyArbiter implements Arbiter {
         public static final String ATTR_PROPERTY_VALUE = "propertyValue";
 
         @PluginBuilderAttribute(ATTR_PROPERTY_NAME)
-        private String propertyName;
+        private @Nullable String propertyName;
 
         @PluginBuilderAttribute(ATTR_PROPERTY_VALUE)
-        private String propertyValue;
+        private @Nullable String propertyValue;
         /**
          * Sets the Property Name.
          * @param propertyName the property name.

@@ -40,12 +40,12 @@ public abstract class AbstractFilterable extends AbstractLifeCycle implements Fi
     public abstract static class Builder<B extends Builder<B>> {
 
         @PluginElement("Filter")
-        private Filter filter;
+        private @Nullable Filter filter;
 
         // We are calling this attribute propertyArray because we use the more generic "properties" in several places
         // with different types: Array, Map and List.
         @PluginElement("Properties")
-        private Property[] propertyArray;
+        private Property @Nullable [] propertyArray;
 
         @SuppressWarnings("unchecked")
         public B asBuilder() {
@@ -90,7 +90,7 @@ public abstract class AbstractFilterable extends AbstractLifeCycle implements Fi
     private volatile @Nullable Filter filter;
 
     @PluginElement("Properties")
-    private final Property[] propertyArray;
+    private final Property @Nullable [] propertyArray;
 
     protected AbstractFilterable() {
         this(null, Property.EMPTY_ARRAY);

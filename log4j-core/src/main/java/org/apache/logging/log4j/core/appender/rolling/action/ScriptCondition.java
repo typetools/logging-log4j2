@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.appender.rolling.action;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
@@ -99,7 +100,7 @@ public class ScriptCondition {
      * @return A ScriptCondition.
      */
     @PluginFactory
-    public static ScriptCondition createCondition(@PluginElement("Script") final AbstractScript script,
+    public static ScriptCondition createCondition(@PluginElement("Script") final @Nullable AbstractScript script,
             @PluginConfiguration final Configuration configuration) {
 
         if (script == null) {

@@ -123,22 +123,22 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
         @PluginBuilderAttribute
         private @Nullable Boolean additivity;
         @PluginBuilderAttribute
-        private Level level;
+        private @Nullable Level level;
         @PluginBuilderAttribute
-        private String levelAndRefs;
+        private @Nullable String levelAndRefs;
         @PluginBuilderAttribute("name")
         @Required(message = "Loggers cannot be configured without a name")
         private String loggerName;
         @PluginBuilderAttribute
-        private String includeLocation;
+        private @Nullable String includeLocation;
         @PluginElement("AppenderRef")
-        private AppenderRef[] refs;
+        private AppenderRef @Nullable [] refs;
         @PluginElement("Properties")
-        private Property[] properties;
+        private Property @Nullable [] properties;
         @PluginConfiguration
         private Configuration config;
         @PluginElement("Filter")
-        private Filter filter;
+        private @Nullable Filter filter;
 
         public boolean isAdditivity() {
             return additivity == null || additivity;
@@ -710,7 +710,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
     public static LoggerConfig createLogger(final String additivity,
             // @formatter:off
             final Level level,
-            @PluginAttribute("name") final String loggerName,
+            @PluginAttribute("name") final @Nullable String loggerName,
             final String includeLocation,
             final AppenderRef[] refs,
             final Property[] properties,
@@ -748,13 +748,13 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
     public static LoggerConfig createLogger(
             // @formatter:off
             @PluginAttribute(value = "additivity", defaultBoolean = true) final boolean additivity,
-            @PluginAttribute("level") final Level level,
+            @PluginAttribute("level") final @Nullable Level level,
             @Required(message = "Loggers cannot be configured without a name") @PluginAttribute("name") final String loggerName,
-            @PluginAttribute("includeLocation") final String includeLocation,
-            @PluginElement("AppenderRef") final AppenderRef[] refs,
-            @PluginElement("Properties") final Property[] properties,
+            @PluginAttribute("includeLocation") final @Nullable String includeLocation,
+            @PluginElement("AppenderRef") final AppenderRef @Nullable [] refs,
+            @PluginElement("Properties") final Property @Nullable [] properties,
             @PluginConfiguration final Configuration config,
-            @PluginElement("Filter") final Filter filter
+            @PluginElement("Filter") final @Nullable Filter filter
             // @formatter:on
     ) {
         final String name = loggerName.equals(ROOT) ? Strings.EMPTY : loggerName;
@@ -812,19 +812,19 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
             @PluginBuilderAttribute
             private boolean additivity;
             @PluginBuilderAttribute
-            private Level level;
+            private @Nullable Level level;
             @PluginBuilderAttribute
-            private String levelAndRefs;
+            private @Nullable String levelAndRefs;
             @PluginBuilderAttribute
-            private String includeLocation;
+            private @Nullable String includeLocation;
             @PluginElement("AppenderRef")
-            private AppenderRef[] refs;
+            private AppenderRef @Nullable [] refs;
             @PluginElement("Properties")
-            private Property[] properties;
+            private Property @Nullable [] properties;
             @PluginConfiguration
             private Configuration config;
             @PluginElement("Filter")
-            private Filter filter;
+            private @Nullable Filter filter;
 
             public boolean isAdditivity() {
                 return additivity;
@@ -915,13 +915,13 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
         @Deprecated
         public static LoggerConfig createLogger(
                 // @formatter:off
-                @PluginAttribute("additivity") final String additivity,
+                @PluginAttribute("additivity") final @Nullable String additivity,
                 @PluginAttribute("level") final @Nullable Level level,
-                @PluginAttribute("includeLocation") final String includeLocation,
-                @PluginElement("AppenderRef") final AppenderRef[] refs,
-                @PluginElement("Properties") final Property[] properties,
+                @PluginAttribute("includeLocation") final @Nullable String includeLocation,
+                @PluginElement("AppenderRef") final AppenderRef @Nullable [] refs,
+                @PluginElement("Properties") final Property @Nullable [] properties,
                 @PluginConfiguration final Configuration config,
-                @PluginElement("Filter") final Filter filter) {
+                @PluginElement("Filter") final @Nullable Filter filter) {
                 // @formatter:on
             final List<AppenderRef> appenderRefs = Arrays.asList(refs);
             final Level actualLevel = level == null ? Level.ERROR : level;

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.db;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Date;
 import java.util.Locale;
 
@@ -57,23 +58,23 @@ public class ColumnMapping {
         private Configuration configuration;
 
         @PluginElement("Layout")
-        private StringLayout layout;
+        private @Nullable StringLayout layout;
 
         @PluginBuilderAttribute
-        private String literal;
+        private @Nullable String literal;
 
         @PluginBuilderAttribute
         @Required(message = "No column name provided")
         private String name;
 
         @PluginBuilderAttribute
-        private String parameter;
+        private @Nullable String parameter;
 
         @PluginBuilderAttribute
-        private String pattern;
+        private @Nullable String pattern;
 
         @PluginBuilderAttribute
-        private String source;
+        private @Nullable String source;
 
         @PluginBuilderAttribute
         @Required(message = "No conversion type provided")
