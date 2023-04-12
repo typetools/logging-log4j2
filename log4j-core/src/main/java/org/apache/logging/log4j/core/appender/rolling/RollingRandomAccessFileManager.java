@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.appender.rolling;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Deterministic;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -193,6 +195,7 @@ public class RollingRandomAccessFileManager extends RollingFileManager {
      *
      * @return the buffer size
      */
+    @Deterministic
     @Override
     public int getBufferSize() {
         return byteBuffer.capacity();

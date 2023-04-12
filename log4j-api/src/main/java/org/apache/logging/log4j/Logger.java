@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.message.EntryMessage;
 import org.apache.logging.log4j.message.FlowMessageFactory;
 import org.apache.logging.log4j.message.Message;

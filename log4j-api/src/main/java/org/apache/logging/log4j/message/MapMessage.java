@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.message;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.Map;

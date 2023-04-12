@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Deterministic;
 import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
@@ -49,6 +51,7 @@ public abstract class AbstractOutputStreamAppender<M extends OutputStreamManager
         @PluginBuilderAttribute
         private boolean immediateFlush = true;
 
+        @Deterministic
         public int getBufferSize() {
             return bufferSize;
         }
@@ -57,6 +60,7 @@ public abstract class AbstractOutputStreamAppender<M extends OutputStreamManager
             return bufferedIo;
         }
 
+        @Deterministic
         public boolean isImmediateFlush() {
             return immediateFlush;
         }

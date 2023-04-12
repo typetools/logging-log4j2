@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.simple;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.PrintStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

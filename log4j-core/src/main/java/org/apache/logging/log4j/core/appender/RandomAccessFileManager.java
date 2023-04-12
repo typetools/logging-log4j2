@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Deterministic;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -132,6 +134,7 @@ public class RandomAccessFileManager extends OutputStreamManager {
      * Returns the buffer capacity.
      * @return the buffer size
      */
+    @Deterministic
     public int getBufferSize() {
         return byteBuffer.capacity();
     }

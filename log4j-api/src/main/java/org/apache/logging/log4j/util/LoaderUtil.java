@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.reflect.InvocationTargetException;

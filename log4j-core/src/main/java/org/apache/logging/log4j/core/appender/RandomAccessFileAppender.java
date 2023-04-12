@@ -17,6 +17,7 @@
 package org.apache.logging.log4j.core.appender;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Deterministic;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -159,6 +160,7 @@ public final class RandomAccessFileAppender extends AbstractOutputStreamAppender
      * Returns the size of the file manager's buffer.
      * @return the buffer size
      */
+    @Deterministic
     public int getBufferSize() {
         return getManager().getBufferSize();
     }

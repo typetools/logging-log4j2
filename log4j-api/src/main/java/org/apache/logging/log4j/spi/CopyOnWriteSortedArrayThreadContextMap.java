@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.spi;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;

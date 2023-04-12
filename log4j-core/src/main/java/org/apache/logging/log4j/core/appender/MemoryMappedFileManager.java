@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.dataflow.qual.Deterministic;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -259,6 +260,7 @@ public class MemoryMappedFileManager extends OutputStreamManager {
      *
      * @return whether each write should be force-sync'ed
      */
+    @Deterministic
     public boolean isImmediateFlush() {
         return immediateFlush;
     }

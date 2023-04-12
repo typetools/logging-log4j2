@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.spi;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.Properties;

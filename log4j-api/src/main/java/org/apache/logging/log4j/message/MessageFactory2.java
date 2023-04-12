@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.message;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  * Creates messages. Implementations can provide different message format syntaxes.
  *

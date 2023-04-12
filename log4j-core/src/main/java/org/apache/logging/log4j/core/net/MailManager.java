@@ -17,6 +17,7 @@
 package org.apache.logging.log4j.core.net;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Deterministic;
 import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.LoggerContext;
@@ -174,6 +175,7 @@ public abstract class MailManager extends AbstractManager {
             return smtpDebug;
         }
 
+        @Deterministic
         public int getBufferSize() {
             return bufferSize;
         }

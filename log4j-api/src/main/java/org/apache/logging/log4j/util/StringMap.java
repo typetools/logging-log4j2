@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  * Exposes methods to add and remove key-value pairs to and from {@code ReadOnlyStringMap}.
  *

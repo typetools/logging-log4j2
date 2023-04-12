@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.appender.mom;
 
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.util.Properties;

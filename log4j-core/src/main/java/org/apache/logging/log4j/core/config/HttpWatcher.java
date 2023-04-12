@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;

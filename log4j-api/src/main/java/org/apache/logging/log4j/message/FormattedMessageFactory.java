@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.message;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  * Creates {@link FormattedMessage} instances for {@link MessageFactory2} methods (and {@link MessageFactory} by
  * extension.)

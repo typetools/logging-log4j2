@@ -17,6 +17,7 @@
 package org.apache.logging.log4j.core.appender;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.Objects;
@@ -75,6 +76,7 @@ public abstract class AbstractAppender extends AbstractFilterable implements App
             return name;
         }
 
+        @SideEffectFree
         public Layout<? extends Serializable> getOrCreateLayout() {
             if (layout == null) {
                 return PatternLayout.createDefaultLayout(configuration);
@@ -82,6 +84,7 @@ public abstract class AbstractAppender extends AbstractFilterable implements App
             return layout;
         }
 
+        @SideEffectFree
         public Layout<? extends Serializable> getOrCreateLayout(final Charset charset) {
             if (layout == null) {
                 return PatternLayout.newBuilder().withCharset(charset).withConfiguration(configuration).build();

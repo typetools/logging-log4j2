@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.message;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Map;
 
 import org.apache.logging.log4j.util.EnglishEnums;

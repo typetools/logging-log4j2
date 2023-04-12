@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.internal;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Arrays;
 
 import org.apache.logging.log4j.BridgeAware;

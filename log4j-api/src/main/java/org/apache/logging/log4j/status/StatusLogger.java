@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.status;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.ArrayList;

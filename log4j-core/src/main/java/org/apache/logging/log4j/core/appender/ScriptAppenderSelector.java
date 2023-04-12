@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.util.Objects;
 

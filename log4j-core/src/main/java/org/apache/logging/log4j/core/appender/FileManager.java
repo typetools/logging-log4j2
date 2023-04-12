@@ -17,6 +17,7 @@
 package org.apache.logging.log4j.core.appender;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Deterministic;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -316,6 +317,7 @@ public class FileManager extends OutputStreamManager {
      * number.
      * @return the buffer size, or a negative number if the output stream is not buffered
      */
+    @Deterministic
     public int getBufferSize() {
         return bufferSize;
     }

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.message;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import static org.apache.logging.log4j.util.Chars.LF;
 import static org.apache.logging.log4j.util.Chars.SPACE;
 
