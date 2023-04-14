@@ -142,8 +142,8 @@ public final class KafkaAppender extends AbstractAppender {
             "org.apache.kafka.clients" };
 
     @Deprecated
-    public static KafkaAppender createAppender(final Layout<? extends Serializable> layout, final Filter filter,
-            final String name, final boolean ignoreExceptions, final String topic, final Property[] properties,
+    public static KafkaAppender createAppender(final @Nullable Layout<? extends Serializable> layout, final @Nullable Filter filter,
+            final String name, final boolean ignoreExceptions, final String topic, final Property @Nullable [] properties,
             final Configuration configuration, final String key) {
 
         if (layout == null) {
@@ -179,8 +179,8 @@ public final class KafkaAppender extends AbstractAppender {
 
     private final KafkaManager manager;
 
-    private KafkaAppender(final String name, final Layout<? extends Serializable> layout, final Filter filter,
-            final boolean ignoreExceptions, final KafkaManager manager, final Property[] properties,
+    private KafkaAppender(final String name, final @Nullable Layout<? extends Serializable> layout, final @Nullable Filter filter,
+            final boolean ignoreExceptions, final KafkaManager manager, final Property @Nullable [] properties,
             final int retryCount) {
         super(name, filter, layout, ignoreExceptions, properties);
         this.manager = Objects.requireNonNull(manager, "manager");

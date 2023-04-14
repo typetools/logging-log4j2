@@ -75,10 +75,10 @@ public final class AsyncAppender extends AbstractAppender {
     private AsyncAppenderEventDispatcher dispatcher;
     private AsyncQueueFullPolicy asyncQueueFullPolicy;
 
-    private AsyncAppender(final String name, final Filter filter, final AppenderRef[] appenderRefs,
+    private AsyncAppender(final String name, final @Nullable Filter filter, final AppenderRef[] appenderRefs,
             final @Nullable String errorRef, final int queueSize, final boolean blocking, final boolean ignoreExceptions,
             final long shutdownTimeout, final Configuration config, final boolean includeLocation,
-            final BlockingQueueFactory<LogEvent> blockingQueueFactory, final Property[] properties) {
+            final BlockingQueueFactory<LogEvent> blockingQueueFactory, final Property @Nullable [] properties) {
         super(name, filter, null, ignoreExceptions, properties);
         this.queue = blockingQueueFactory.create(queueSize);
         this.queueSize = queueSize;
@@ -256,7 +256,7 @@ public final class AsyncAppender extends AbstractAppender {
     @Deprecated
     public static AsyncAppender createAppender(final AppenderRef[] appenderRefs, final String errorRef,
                                                final boolean blocking, final long shutdownTimeout, final int size,
-                                               final String name, final boolean includeLocation, final Filter filter,
+                                               final String name, final boolean includeLocation, final @Nullable Filter filter,
                                                final Configuration config, final boolean ignoreExceptions) {
         if (name == null) {
             LOGGER.error("No name provided for AsyncAppender");
@@ -415,7 +415,7 @@ public final class AsyncAppender extends AbstractAppender {
      *
      * @return the name of the appender that any errors are logged to or {@code null}
      */
-    public String getErrorRef() {
+    public @Nullable String getErrorRef() {
         return errorRef;
     }
 

@@ -250,7 +250,7 @@ public final class RollingFileAppender extends AbstractOutputStreamAppender<Roll
             return asBuilder();
         }
 
-        public B withFileGroup(final String fileGroup) {
+        public B withFileGroup(final @Nullable String fileGroup) {
             this.fileGroup = fileGroup;
             return asBuilder();
         }
@@ -264,10 +264,10 @@ public final class RollingFileAppender extends AbstractOutputStreamAppender<Roll
     private Object advertisement;
     private final Advertiser advertiser;
 
-    private RollingFileAppender(final String name, final Layout<? extends Serializable> layout, final Filter filter,
+    private RollingFileAppender(final String name, final Layout<? extends Serializable> layout, final @Nullable Filter filter,
             final RollingFileManager manager, final String fileName, final String filePattern,
             final boolean ignoreExceptions, final boolean immediateFlush, final Advertiser advertiser,
-            final Property[] properties) {
+            final Property @Nullable [] properties) {
         super(name, layout, filter, ignoreExceptions, immediateFlush, properties, manager);
         if (advertiser != null) {
             final Map<String, String> configuration = new HashMap<>(layout.getContentFormat());
@@ -362,7 +362,7 @@ public final class RollingFileAppender extends AbstractOutputStreamAppender<Roll
             final TriggeringPolicy policy,
             final RolloverStrategy strategy,
             final Layout<? extends Serializable> layout,
-            final Filter filter,
+            final @Nullable Filter filter,
             final String ignore,
             final String advertise,
             final String advertiseUri,

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.rolling;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -138,7 +139,7 @@ public class RollingFileManager extends FileManager {
             final boolean append, final boolean createOnDemand, final long size, final long initialTime,
             final TriggeringPolicy triggeringPolicy, final RolloverStrategy rolloverStrategy,
             final String advertiseURI, final Layout<? extends Serializable> layout,
-            final String filePermissions, final String fileOwner, final String fileGroup,
+            final String filePermissions, final String fileOwner, final @Nullable String fileGroup,
             final boolean writeHeader, final ByteBuffer buffer) {
         super(loggerContext, fileName != null ? fileName : pattern, os, append, false, createOnDemand,
 			advertiseURI, layout, filePermissions, fileOwner, fileGroup, writeHeader, buffer);
@@ -206,7 +207,7 @@ public class RollingFileManager extends FileManager {
             final boolean bufferedIO, final TriggeringPolicy policy, final RolloverStrategy strategy,
             final String advertiseURI, final Layout<? extends Serializable> layout, final int bufferSize,
             final boolean immediateFlush, final boolean createOnDemand,
-            final String filePermissions, final String fileOwner, final String fileGroup,
+            final String filePermissions, final String fileOwner, final @Nullable String fileGroup,
             final Configuration configuration) {
 
         if (strategy instanceof DirectWriteRolloverStrategy && fileName != null) {
@@ -618,7 +619,7 @@ public class RollingFileManager extends FileManager {
         private final Layout<? extends Serializable> layout;
         private final String filePermissions;
         private final String fileOwner;
-        private final String fileGroup;
+        private final @Nullable String fileGroup;
 
         /**
          * Creates the data for the factory.
@@ -638,7 +639,7 @@ public class RollingFileManager extends FileManager {
         public FactoryData(final String fileName, final String pattern, final boolean append, final boolean bufferedIO,
                 final TriggeringPolicy policy, final RolloverStrategy strategy, final String advertiseURI,
                 final Layout<? extends Serializable> layout, final int bufferSize, final boolean immediateFlush,
-                final boolean createOnDemand, final String filePermissions, final String fileOwner, final String fileGroup,
+                final boolean createOnDemand, final String filePermissions, final String fileOwner, final @Nullable String fileGroup,
                 final Configuration configuration) {
             super(configuration);
             this.fileName = fileName;

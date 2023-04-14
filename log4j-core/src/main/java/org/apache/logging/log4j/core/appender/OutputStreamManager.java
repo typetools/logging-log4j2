@@ -35,17 +35,17 @@ import org.apache.logging.log4j.core.util.Constants;
  * allow appenders to reconfigure without requiring a new stream.
  */
 public class OutputStreamManager extends AbstractManager implements ByteBufferDestination {
-    protected final Layout<?> layout;
+    protected final @Nullable Layout<?> layout;
     protected ByteBuffer byteBuffer;
     private volatile OutputStream outputStream;
     private boolean skipFooter;
 
-    protected OutputStreamManager(final OutputStream os, final String streamName, final Layout<?> layout,
+    protected OutputStreamManager(final OutputStream os, final String streamName, final @Nullable Layout<?> layout,
             final boolean writeHeader) {
         this(os, streamName, layout, writeHeader, Constants.ENCODER_BYTE_BUFFER_SIZE);
     }
 
-    protected OutputStreamManager(final OutputStream os, final String streamName, final Layout<?> layout,
+    protected OutputStreamManager(final OutputStream os, final String streamName, final @Nullable Layout<?> layout,
             final boolean writeHeader, final int bufferSize) {
         this(os, streamName, layout, writeHeader, ByteBuffer.wrap(new byte[bufferSize]));
     }
@@ -55,7 +55,7 @@ public class OutputStreamManager extends AbstractManager implements ByteBufferDe
      * @deprecated
      */
     @Deprecated
-    protected OutputStreamManager(final OutputStream os, final String streamName, final Layout<?> layout,
+    protected OutputStreamManager(final OutputStream os, final String streamName, final @Nullable Layout<?> layout,
             final boolean writeHeader, final ByteBuffer byteBuffer) {
         super(null, streamName);
         this.outputStream = os;
@@ -70,7 +70,7 @@ public class OutputStreamManager extends AbstractManager implements ByteBufferDe
      * @since 2.7
      */
     protected OutputStreamManager(final LoggerContext loggerContext, final OutputStream os, final String streamName,
-            final boolean createOnDemand, final Layout<? extends Serializable> layout, final boolean writeHeader,
+            final boolean createOnDemand, final @Nullable Layout<? extends Serializable> layout, final boolean writeHeader,
             final ByteBuffer byteBuffer) {
         super(loggerContext, streamName);
         if (createOnDemand && os != null) {

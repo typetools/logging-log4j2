@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.spi;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -223,7 +224,7 @@ public class DefaultThreadContextMap implements ThreadContextMap, ReadOnlyString
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(final @Nullable Object obj) {
         if (this == obj) {
             return true;
         }

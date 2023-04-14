@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.appender.mom;
 
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.util.Properties;
@@ -90,14 +91,15 @@ public class JmsAppender extends AbstractAppender {
         private boolean immediateFail;
 
         // Programmatic access only for now.
-        private JmsManager jmsManager;
+        private @MonotonicNonNull JmsManager jmsManager;
 
+        @SuppressWarnings("initialization.fields.uninitialized") // no support for @Required annotation yet
         private Builder() {
         }
 
         @SuppressWarnings("resource") // actualJmsManager and jndiManager are managed by the JmsAppender
         @Override
-        public JmsAppender build() {
+        public @Nullable JmsAppender build() {
             JmsManager actualJmsManager = jmsManager;
             JmsManagerConfiguration configuration = null;
             if (actualJmsManager == null) {
@@ -230,8 +232,8 @@ public class JmsAppender extends AbstractAppender {
      *
      * @throws JMSException not thrown as of 2.9 but retained in the signature for compatibility, will be removed in 3.0
      */
-    protected JmsAppender(final String name, final Filter filter, final Layout<? extends Serializable> layout,
-            final boolean ignoreExceptions, final Property[] properties, final JmsManager manager) throws JMSException {
+    protected JmsAppender(final String name, final @Nullable Filter filter, final @Nullable Layout<? extends Serializable> layout,
+            final boolean ignoreExceptions, final Property @Nullable [] properties, final JmsManager manager) throws JMSException {
         super(name, filter, layout, ignoreExceptions, properties);
         this.manager = manager;
     }
@@ -243,7 +245,7 @@ public class JmsAppender extends AbstractAppender {
      * @deprecated Use {@link #JmsAppender(String, Filter, Layout, boolean, Property[], JmsManager)}.
      */
     @Deprecated
-    protected JmsAppender(final String name, final Filter filter, final Layout<? extends Serializable> layout,
+    protected JmsAppender(final String name, final @Nullable Filter filter, final @Nullable Layout<? extends Serializable> layout,
             final boolean ignoreExceptions, final JmsManager manager) throws JMSException {
         super(name, filter, layout, ignoreExceptions, Property.EMPTY_ARRAY);
         this.manager = manager;

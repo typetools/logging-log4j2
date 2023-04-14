@@ -128,10 +128,10 @@ public final class MemoryMappedFileAppender extends AbstractOutputStreamAppender
     private Object advertisement;
     private final Advertiser advertiser;
 
-    private MemoryMappedFileAppender(final String name, final Layout<? extends Serializable> layout,
-            final Filter filter, final MemoryMappedFileManager manager, final String filename,
+    private MemoryMappedFileAppender(final String name, final @Nullable Layout<? extends Serializable> layout,
+            final @Nullable Filter filter, final MemoryMappedFileManager manager, final String filename,
             final boolean ignoreExceptions, final boolean immediateFlush, final Advertiser advertiser,
-            final Property[] properties) {
+            final Property @Nullable [] properties) {
         super(name, layout, filter, ignoreExceptions, immediateFlush, properties, manager);
         if (advertiser != null) {
             final Map<String, String> configuration = new HashMap<>(layout.getContentFormat());
@@ -203,8 +203,8 @@ public final class MemoryMappedFileAppender extends AbstractOutputStreamAppender
             final String immediateFlush, //
             final String regionLengthStr, //
             final String ignore, //
-            final Layout<? extends Serializable> layout, //
-            final Filter filter, //
+            final @Nullable Layout<? extends Serializable> layout, //
+            final @Nullable Filter filter, //
             final String advertise, //
             final String advertiseURI, //
             final Configuration config) {

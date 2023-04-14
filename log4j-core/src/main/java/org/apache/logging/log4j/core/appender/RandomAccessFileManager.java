@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Deterministic;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -46,7 +48,7 @@ public class RandomAccessFileManager extends OutputStreamManager {
 
     protected RandomAccessFileManager(final LoggerContext loggerContext, final RandomAccessFile file, final String fileName,
             final OutputStream os, final int bufferSize, final String advertiseURI,
-            final Layout<? extends Serializable> layout, final boolean writeHeader) {
+            final @Nullable Layout<? extends Serializable> layout, final boolean writeHeader) {
         super(loggerContext, os, fileName, false, layout, writeHeader, ByteBuffer.wrap(new byte[bufferSize]));
         this.randomAccessFile = file;
         this.advertiseURI = advertiseURI;
@@ -68,7 +70,7 @@ public class RandomAccessFileManager extends OutputStreamManager {
      */
 	public static RandomAccessFileManager getFileManager(final String fileName, final boolean append,
 			final boolean immediateFlush, final int bufferSize, final String advertiseURI,
-			final Layout<? extends Serializable> layout, final Configuration configuration) {
+			final @Nullable Layout<? extends Serializable> layout, final Configuration configuration) {
 		return narrow(RandomAccessFileManager.class, getManager(fileName,
 				new FactoryData(append, immediateFlush, bufferSize, advertiseURI, layout, configuration), FACTORY));
 	}
@@ -132,6 +134,7 @@ public class RandomAccessFileManager extends OutputStreamManager {
      * Returns the buffer capacity.
      * @return the buffer size
      */
+    @Deterministic
     public int getBufferSize() {
         return byteBuffer.capacity();
     }

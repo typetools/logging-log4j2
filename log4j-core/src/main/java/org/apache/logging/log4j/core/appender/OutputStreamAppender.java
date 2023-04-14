@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.OutputStream;
 import java.io.Serializable;
 
@@ -141,7 +142,7 @@ public final class OutputStreamAppender extends AbstractOutputStreamAppender<Out
      * @return The ConsoleAppender.
      */
     @PluginFactory
-    public static OutputStreamAppender createAppender(Layout<? extends Serializable> layout, final Filter filter,
+    public static OutputStreamAppender createAppender(Layout<? extends Serializable> layout, final @Nullable Filter filter,
             final OutputStream target, final String name, final boolean follow, final boolean ignore) {
         if (name == null) {
             LOGGER.error("No name provided for OutputStreamAppender");
@@ -167,8 +168,8 @@ public final class OutputStreamAppender extends AbstractOutputStreamAppender<Out
         return new Builder<B>().asBuilder();
     }
 
-    private OutputStreamAppender(final String name, final Layout<? extends Serializable> layout, final Filter filter,
-            final OutputStreamManager manager, final boolean ignoreExceptions, final Property[] properties) {
+    private OutputStreamAppender(final String name, final Layout<? extends Serializable> layout, final @Nullable Filter filter,
+            final OutputStreamManager manager, final boolean ignoreExceptions, final Property @Nullable [] properties) {
         super(name, layout, filter, ignoreExceptions, true, properties, manager);
     }
 

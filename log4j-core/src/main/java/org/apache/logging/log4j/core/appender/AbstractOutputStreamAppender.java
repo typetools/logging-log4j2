@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Deterministic;
 import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
@@ -49,6 +51,7 @@ public abstract class AbstractOutputStreamAppender<M extends OutputStreamManager
         @PluginBuilderAttribute
         private boolean immediateFlush = true;
 
+        @Deterministic
         public int getBufferSize() {
             return bufferSize;
         }
@@ -57,6 +60,7 @@ public abstract class AbstractOutputStreamAppender<M extends OutputStreamManager
             return bufferedIo;
         }
 
+        @Deterministic
         public boolean isImmediateFlush() {
             return immediateFlush;
         }
@@ -116,8 +120,8 @@ public abstract class AbstractOutputStreamAppender<M extends OutputStreamManager
      * @deprecated Use {@link #AbstractOutputStreamAppender(String, Layout, Filter, boolean, boolean, Property[], OutputStreamManager)}
      */
     @Deprecated
-    protected AbstractOutputStreamAppender(final String name, final Layout<? extends Serializable> layout,
-            final Filter filter, final boolean ignoreExceptions, final boolean immediateFlush, final M manager) {
+    protected AbstractOutputStreamAppender(final String name, final @Nullable Layout<? extends Serializable> layout,
+            final @Nullable Filter filter, final boolean ignoreExceptions, final boolean immediateFlush, final M manager) {
         super(name, filter, layout, ignoreExceptions, Property.EMPTY_ARRAY);
         this.manager = manager;
         this.immediateFlush = immediateFlush;
@@ -132,9 +136,9 @@ public abstract class AbstractOutputStreamAppender<M extends OutputStreamManager
      * @param properties optional properties
      * @param manager The OutputStreamManager.
      */
-    protected AbstractOutputStreamAppender(final String name, final Layout<? extends Serializable> layout,
-            final Filter filter, final boolean ignoreExceptions, final boolean immediateFlush,
-            final Property[] properties, final M manager) {
+    protected AbstractOutputStreamAppender(final String name, final @Nullable Layout<? extends Serializable> layout,
+            final @Nullable Filter filter, final boolean ignoreExceptions, final boolean immediateFlush,
+            final Property @Nullable [] properties, final M manager) {
         super(name, filter, layout, ignoreExceptions, properties);
         this.manager = manager;
         this.immediateFlush = immediateFlush;
@@ -211,6 +215,7 @@ public abstract class AbstractOutputStreamAppender<M extends OutputStreamManager
         }
     }
 
+    @SuppressWarnings("nullness")  // start() ensures that getLayout() returns true
     protected void directEncodeEvent(final LogEvent event) {
         getLayout().encode(event, manager);
         if (this.immediateFlush || event.isEndOfBatch()) {
@@ -218,6 +223,7 @@ public abstract class AbstractOutputStreamAppender<M extends OutputStreamManager
         }
     }
 
+    @SuppressWarnings("nullness")  // start() ensures that getLayout() returns true
     protected void writeByteArrayToManager(final LogEvent event) {
         final byte[] bytes = getLayout().toByteArray(event);
         if (bytes != null && bytes.length > 0) {

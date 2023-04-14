@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 
 /**
@@ -44,7 +45,7 @@ public interface Marker extends Serializable {
      * @since 2.4
      */
     @Override
-    boolean equals(Object obj);
+    boolean equals(@Nullable Object obj);
 
     /**
      * Returns the name of this Marker.

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.reflect.InvocationTargetException;
@@ -303,7 +304,7 @@ public final class LoaderUtil {
         }
 
         @Override
-        public boolean equals(final Object o) {
+        public boolean equals(final @Nullable Object o) {
             if (this == o) {
                 return true;
             }

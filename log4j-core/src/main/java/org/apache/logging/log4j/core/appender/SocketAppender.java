@@ -171,7 +171,7 @@ public class SocketAppender extends AbstractOutputStreamAppender<AbstractSocketM
             return asBuilder();
         }
 
-        public B setSslConfiguration(final SslConfiguration sslConfiguration) {
+        public B setSslConfiguration(final @Nullable SslConfiguration sslConfiguration) {
             this.sslConfiguration = sslConfiguration;
             return asBuilder();
         }
@@ -225,7 +225,7 @@ public class SocketAppender extends AbstractOutputStreamAppender<AbstractSocketM
         }
 
         @Deprecated
-        public B withSslConfiguration(final SslConfiguration sslConfiguration) {
+        public B withSslConfiguration(final @Nullable SslConfiguration sslConfiguration) {
             this.sslConfiguration = sslConfiguration;
             return asBuilder();
         }
@@ -290,9 +290,9 @@ public class SocketAppender extends AbstractOutputStreamAppender<AbstractSocketM
     private final @Nullable Object advertisement;
     private final Advertiser advertiser;
 
-    protected SocketAppender(final String name, final Layout<? extends Serializable> layout, final Filter filter,
+    protected SocketAppender(final String name, final Layout<? extends Serializable> layout, final @Nullable Filter filter,
             final AbstractSocketManager manager, final boolean ignoreExceptions, final boolean immediateFlush,
-            final Advertiser advertiser, final Property[] properties) {
+            final Advertiser advertiser, final Property @Nullable [] properties) {
         super(name, layout, filter, ignoreExceptions, immediateFlush, properties, manager);
         if (advertiser != null) {
             final Map<String, String> configuration = new HashMap<>(layout.getContentFormat());
@@ -310,7 +310,7 @@ public class SocketAppender extends AbstractOutputStreamAppender<AbstractSocketM
      * @deprecated {@link #SocketAppender(String, Layout, Filter, AbstractSocketManager, boolean, boolean, Advertiser, Property[])}.
      */
     @Deprecated
-    protected SocketAppender(final String name, final Layout<? extends Serializable> layout, final Filter filter,
+    protected SocketAppender(final String name, final Layout<? extends Serializable> layout, final @Nullable Filter filter,
             final AbstractSocketManager manager, final boolean ignoreExceptions, final boolean immediateFlush,
             final Advertiser advertiser) {
         this(name, layout, filter, manager, ignoreExceptions, immediateFlush, advertiser, Property.EMPTY_ARRAY);
@@ -377,7 +377,7 @@ public class SocketAppender extends AbstractOutputStreamAppender<AbstractSocketM
             final boolean immediateFlush,
             final boolean ignoreExceptions,
             final Layout<? extends Serializable> layout,
-            final Filter filter,
+            final @Nullable Filter filter,
             final boolean advertise,
             final Configuration configuration) {
             // @formatter:on
@@ -447,7 +447,7 @@ public class SocketAppender extends AbstractOutputStreamAppender<AbstractSocketM
             final String immediateFlush,
             final String ignore,
             final Layout<? extends Serializable> layout,
-            final Filter filter,
+            final @Nullable Filter filter,
             final String advertise,
             final Configuration config) {
             // @formatter:on

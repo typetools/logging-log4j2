@@ -1,4 +1,4 @@
-/*
+        /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements. See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -16,8 +16,11 @@
  */
 package org.apache.logging.log4j.core.util;
 
+import org.checkerframework.checker.initialization.qual.UnknownInitialization;
+import org.checkerframework.checker.nullness.qual.EnsuresNonNull;
 import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 
 /*
  * This file originated from the Quartz scheduler with no change in licensing.
@@ -239,13 +242,13 @@ public final class CronExpression {
 
     private final String cronExpression;
     private @MonotonicNonNull TimeZone timeZone = null;
-    protected transient @MonotonicNonNull TreeSet<Integer> seconds;
-    protected transient @MonotonicNonNull TreeSet<Integer> minutes;
-    protected transient @MonotonicNonNull TreeSet<Integer> hours;
-    protected transient @MonotonicNonNull TreeSet<Integer> daysOfMonth;
-    protected transient @MonotonicNonNull TreeSet<Integer> months;
-    protected transient @MonotonicNonNull TreeSet<Integer> daysOfWeek;
-    protected transient @MonotonicNonNull TreeSet<Integer> years;
+    protected transient TreeSet<Integer> seconds;
+    protected transient TreeSet<Integer> minutes;
+    protected transient TreeSet<Integer> hours;
+    protected transient TreeSet<Integer> daysOfMonth;
+    protected transient TreeSet<Integer> months;
+    protected transient TreeSet<Integer> daysOfWeek;
+    protected transient TreeSet<Integer> years;
 
     protected transient boolean lastdayOfWeek = false;
     protected transient int nthdayOfWeek = 0;
@@ -310,7 +313,7 @@ public final class CronExpression {
      *             date/time
      * @return the next valid date/time
      */
-    public Date getNextValidTimeAfter(final Date date) {
+    public @Nullable Date getNextValidTimeAfter(final Date date) {
         return getTimeAfter(date);
     }
 
@@ -415,7 +418,9 @@ public final class CronExpression {
     //
     ////////////////////////////////////////////////////////////////////////////
 
-    protected void buildExpression(final String expression) throws ParseException {
+    // This method is called by the constructor
+    @EnsuresNonNull({"seconds", "minutes", "hours", "daysOfMonth", "months", "daysOfWeek", "years"})
+    protected void buildExpression(@UnknownInitialization CronExpression this, final String expression) throws ParseException {
         expressionParsed = true;
 
         try {
@@ -501,7 +506,8 @@ public final class CronExpression {
         }
     }
 
-    protected int storeExpressionVals(final int pos, final String s, final int type)
+    // `type` is legal at all current call sites
+    protected int storeExpressionVals(@UnknownInitialization CronExpression this, final int pos, final String s, final int type)
             throws ParseException {
 
         int incr = 0;
@@ -597,6 +603,7 @@ public final class CronExpression {
                         i);
             }
             if (type == DAY_OF_WEEK && !lastdayOfMonth) {
+                @SuppressWarnings("nullness:dereference.of.nullable") // BUG: daysOfMonth
                 final int val = daysOfMonth.last();
                 if (val == NO_SPEC_INT) {
                     throw new ParseException(
@@ -699,6 +706,7 @@ public final class CronExpression {
         return i;
     }
 
+    // `type` is legal at all current call sites
     protected int checkNext(final int pos, final String s, final int val, final int type)
             throws ParseException {
 
@@ -833,6 +841,7 @@ public final class CronExpression {
         return cronExpression;
     }
 
+    @SuppressWarnings("nullness:argument")  // BUG: crash if called before buildExpression() is called
     public String getExpressionSummary() {
         final StringBuilder buf = new StringBuilder();
 
@@ -941,6 +950,7 @@ public final class CronExpression {
         return i;
     }
 
+    // `type` is legal at all current call sites
     protected void addToSet(final int val, final int end, int incr, final int type)
             throws ParseException {
 
@@ -1107,7 +1117,12 @@ public final class CronExpression {
         }
     }
 
-    @Nullable TreeSet<Integer> getSet(final int type) {
+    // `type` is legal at all current call sites, and at call sites the result
+    // of `getSet()` is frequently used without being checked, so I made this
+    // method not return null.  However, it could still return null if is is
+    // called before buildExpression() is.
+    @RequiresNonNull({"seconds", "minutes", "hours", "daysOfMonth", "months", "daysOfWeek", "years"})
+    TreeSet<Integer> getSet(@UnknownInitialization CronExpression this, final int type) {
         switch (type) {
             case SECOND:
                 return seconds;
@@ -1124,7 +1139,7 @@ public final class CronExpression {
             case YEAR:
                 return years;
             default:
-                return null;
+                throw new IllegalArgumentException("getSet(" + type + ")");
         }
     }
 
@@ -1178,6 +1193,7 @@ public final class CronExpression {
     //
     ////////////////////////////////////////////////////////////////////////////
 
+    @SuppressWarnings("nullness:dereference.of.nullable")  // BUG: NPE if called before buildExpression()
     public @Nullable Date getTimeAfter(Date afterTime) {
 
         // Computation is based on Gregorian year only.
@@ -1615,7 +1631,7 @@ public final class CronExpression {
         return prevFireTime;
     }
 
-    public Date getPrevFireTime(final Date targetDate) {
+    public @Nullable Date getPrevFireTime(final Date targetDate) {
         return getTimeBefore(targetDate);
     }
 

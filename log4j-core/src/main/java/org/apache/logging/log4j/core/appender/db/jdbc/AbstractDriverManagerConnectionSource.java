@@ -103,7 +103,7 @@ public class AbstractDriverManagerConnectionSource extends AbstractConnectionSou
             return asBuilder();
         }
 
-        public B setProperties(final Property[] properties) {
+        public B setProperties(final Property @Nullable [] properties) {
             this.properties = properties;
             return asBuilder();
         }
@@ -124,11 +124,11 @@ public class AbstractDriverManagerConnectionSource extends AbstractConnectionSou
     private final String connectionString;
     private final String driverClassName;
     private final char[] password;
-    private final Property[] properties;
+    private final Property @Nullable [] properties;
     private final char[] userName;
 
     public AbstractDriverManagerConnectionSource(final String driverClassName, final String connectionString,
-            final String actualConnectionString, final char[] userName, final char[] password, final Property[] properties) {
+            final String actualConnectionString, final char[] userName, final char[] password, final Property @Nullable [] properties) {
         this.driverClassName = driverClassName;
         this.connectionString = connectionString;
         this.actualConnectionString = actualConnectionString;
@@ -173,7 +173,7 @@ public class AbstractDriverManagerConnectionSource extends AbstractConnectionSou
         return password;
     }
 
-    public Property[] getProperties() {
+    public Property @Nullable [] getProperties() {
         return properties;
     }
 
@@ -206,7 +206,7 @@ public class AbstractDriverManagerConnectionSource extends AbstractConnectionSou
         }
     }
 
-    protected Properties toProperties(final Property[] properties) {
+    protected Properties toProperties(final Property @Nullable [] properties) {
         final Properties props = new Properties();
         for (final Property property : properties) {
             props.setProperty(property.getName(), property.getValue());

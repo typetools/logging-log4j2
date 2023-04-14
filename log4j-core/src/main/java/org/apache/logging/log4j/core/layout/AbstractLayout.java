@@ -75,12 +75,12 @@ public abstract class AbstractLayout<T extends Serializable> implements Layout<T
             return asBuilder();
         }
 
-        public B setFooter(final byte[] footer) {
+        public B setFooter(final byte @Nullable [] footer) {
             this.footer = footer;
             return asBuilder();
         }
 
-        public B setHeader(final byte[] header) {
+        public B setHeader(final byte @Nullable [] header) {
             this.header = header;
             return asBuilder();
         }
@@ -157,7 +157,7 @@ public abstract class AbstractLayout<T extends Serializable> implements Layout<T
      * @return A byte array containing the footer.
      */
     @Override
-    public byte[] getFooter() {
+    public byte @Nullable [] getFooter() {
         return footer;
     }
 
@@ -167,7 +167,7 @@ public abstract class AbstractLayout<T extends Serializable> implements Layout<T
      * @return A byte array containing the header.
      */
     @Override
-    public byte[] getHeader() {
+    public byte @Nullable [] getHeader() {
         return header;
     }
 

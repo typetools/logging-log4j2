@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.status;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -280,7 +281,7 @@ public final class StatusLogger extends AbstractLogger {
      */
     @Override
     public void logMessage(final String fqcn, final Level level, final Marker marker, final Message msg,
-            final Throwable t) {
+            final @Nullable Throwable t) {
         StackTraceElement element = null;
         if (fqcn != null) {
             element = getStackTraceElement(fqcn, Thread.currentThread().getStackTrace());
@@ -324,7 +325,7 @@ public final class StatusLogger extends AbstractLogger {
     }
 
     @Override
-    public boolean isEnabled(final Level level, final Marker marker, final String message, final Throwable t) {
+    public boolean isEnabled(final Level level, final Marker marker, final String message, final @Nullable Throwable t) {
         return isEnabled(level, marker);
     }
 
@@ -339,85 +340,85 @@ public final class StatusLogger extends AbstractLogger {
     }
 
     @Override
-    public boolean isEnabled(final Level level, final Marker marker, final String message, final Object p0) {
+    public boolean isEnabled(final Level level, final Marker marker, final String message, final @Nullable Object p0) {
         return isEnabled(level, marker);
     }
 
     @Override
-    public boolean isEnabled(final Level level, final Marker marker, final String message, final Object p0,
-            final Object p1) {
+    public boolean isEnabled(final Level level, final Marker marker, final String message, final @Nullable Object p0,
+            final @Nullable Object p1) {
         return isEnabled(level, marker);
     }
 
     @Override
-    public boolean isEnabled(final Level level, final Marker marker, final String message, final Object p0,
-            final Object p1, final Object p2) {
+    public boolean isEnabled(final Level level, final Marker marker, final String message, final @Nullable Object p0,
+            final @Nullable Object p1, final @Nullable Object p2) {
         return isEnabled(level, marker);
     }
 
     @Override
-    public boolean isEnabled(final Level level, final Marker marker, final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3) {
+    public boolean isEnabled(final Level level, final Marker marker, final String message, final @Nullable Object p0,
+            final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3) {
         return isEnabled(level, marker);
     }
 
     @Override
-    public boolean isEnabled(final Level level, final Marker marker, final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3,
-            final Object p4) {
+    public boolean isEnabled(final Level level, final Marker marker, final String message, final @Nullable Object p0,
+            final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3,
+            final @Nullable Object p4) {
         return isEnabled(level, marker);
     }
 
     @Override
-    public boolean isEnabled(final Level level, final Marker marker, final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5) {
+    public boolean isEnabled(final Level level, final Marker marker, final String message, final @Nullable Object p0,
+            final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3,
+            final @Nullable Object p4, final @Nullable Object p5) {
         return isEnabled(level, marker);
     }
 
     @Override
-    public boolean isEnabled(final Level level, final Marker marker, final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5, final Object p6) {
+    public boolean isEnabled(final Level level, final Marker marker, final String message, final @Nullable Object p0,
+            final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3,
+            final @Nullable Object p4, final @Nullable Object p5, final @Nullable Object p6) {
         return isEnabled(level, marker);
     }
 
     @Override
-    public boolean isEnabled(final Level level, final Marker marker, final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5, final Object p6,
-            final Object p7) {
+    public boolean isEnabled(final Level level, final Marker marker, final String message, final @Nullable Object p0,
+            final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3,
+            final @Nullable Object p4, final @Nullable Object p5, final @Nullable Object p6,
+            final @Nullable Object p7) {
         return isEnabled(level, marker);
     }
 
     @Override
-    public boolean isEnabled(final Level level, final Marker marker, final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5, final Object p6,
-            final Object p7, final Object p8) {
+    public boolean isEnabled(final Level level, final Marker marker, final String message, final @Nullable Object p0,
+            final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3,
+            final @Nullable Object p4, final @Nullable Object p5, final @Nullable Object p6,
+            final @Nullable Object p7, final @Nullable Object p8) {
         return isEnabled(level, marker);
     }
 
     @Override
-    public boolean isEnabled(final Level level, final Marker marker, final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5, final Object p6,
-            final Object p7, final Object p8, final Object p9) {
+    public boolean isEnabled(final Level level, final Marker marker, final String message, final @Nullable Object p0,
+            final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3,
+            final @Nullable Object p4, final @Nullable Object p5, final @Nullable Object p6,
+            final @Nullable Object p7, final @Nullable Object p8, final @Nullable Object p9) {
         return isEnabled(level, marker);
     }
 
     @Override
-    public boolean isEnabled(final Level level, final Marker marker, final CharSequence message, final Throwable t) {
+    public boolean isEnabled(final Level level, final Marker marker, final CharSequence message, final @Nullable Throwable t) {
         return isEnabled(level, marker);
     }
 
     @Override
-    public boolean isEnabled(final Level level, final Marker marker, final Object message, final Throwable t) {
+    public boolean isEnabled(final Level level, final Marker marker, final Object message, final @Nullable Throwable t) {
         return isEnabled(level, marker);
     }
 
     @Override
-    public boolean isEnabled(final Level level, final Marker marker, final Message message, final Throwable t) {
+    public boolean isEnabled(final Level level, final Marker marker, final Message message, final @Nullable Throwable t) {
         return isEnabled(level, marker);
     }
 

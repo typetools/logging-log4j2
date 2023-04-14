@@ -77,8 +77,8 @@ public final class SmtpAppender extends AbstractAppender {
     /** The SMTP Manager */
     private final MailManager manager;
 
-    private SmtpAppender(final String name, final Filter filter, final Layout<? extends Serializable> layout,
-            final MailManager manager, final boolean ignoreExceptions, final Property[] properties) {
+    private SmtpAppender(final String name, final @Nullable Filter filter, final @Nullable Layout<? extends Serializable> layout,
+            final MailManager manager, final boolean ignoreExceptions, final Property @Nullable [] properties) {
         super(name, filter, layout, ignoreExceptions, properties);
         this.manager = manager;
     }
@@ -243,7 +243,7 @@ public final class SmtpAppender extends AbstractAppender {
         /**
          * Specifies an SSL configuration for smtps connections.
          */
-        public Builder setSslConfiguration(final SslConfiguration sslConfiguration) {
+        public Builder setSslConfiguration(final @Nullable SslConfiguration sslConfiguration) {
             this.sslConfiguration = sslConfiguration;
             return this;
         }
@@ -253,7 +253,7 @@ public final class SmtpAppender extends AbstractAppender {
          * {@linkplain HtmlLayout#createDefaultLayout() default HTML layout}.
          */
         @Override
-        public Builder setLayout(final Layout<? extends Serializable> layout) {
+        public Builder setLayout(final @Nullable Layout<? extends Serializable> layout) {
             return super.setLayout(layout);
         }
 
@@ -262,7 +262,7 @@ public final class SmtpAppender extends AbstractAppender {
          * ERROR.
          */
         @Override
-        public Builder setFilter(final Filter filter) {
+        public Builder setFilter(final @Nullable Filter filter) {
             return super.setFilter(filter);
         }
 
@@ -293,6 +293,7 @@ public final class SmtpAppender extends AbstractAppender {
                 return null;
             }
 
+            // getLayout() returns non-null at this point
             return new SmtpAppender(getName(), getFilter(), getLayout(), smtpManager, isIgnoreExceptions(), getPropertyArray());
         }
     }

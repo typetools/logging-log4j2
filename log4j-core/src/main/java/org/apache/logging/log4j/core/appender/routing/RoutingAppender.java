@@ -157,9 +157,9 @@ public final class RoutingAppender extends AbstractAppender {
     private final AbstractScript defaultRouteScript;
     private final ConcurrentMap<Object, Object> scriptStaticVariables = new ConcurrentHashMap<>();
 
-    private RoutingAppender(final String name, final Filter filter, final boolean ignoreExceptions, final Routes routes,
+    private RoutingAppender(final String name, final @Nullable Filter filter, final boolean ignoreExceptions, final Routes routes,
             final RewritePolicy rewritePolicy, final Configuration configuration, final PurgePolicy purgePolicy,
-            final AbstractScript defaultRouteScript, final Property[] properties) {
+            final AbstractScript defaultRouteScript, final Property @Nullable [] properties) {
         super(name, filter, null, ignoreExceptions, properties);
         this.routes = routes;
         this.configuration = configuration;
@@ -377,7 +377,7 @@ public final class RoutingAppender extends AbstractAppender {
             final Configuration config,
             final RewritePolicy rewritePolicy,
             final PurgePolicy purgePolicy,
-            final Filter filter) {
+            final @Nullable Filter filter) {
 
         final boolean ignoreExceptions = Booleans.parseBoolean(ignore, true);
         if (name == null) {

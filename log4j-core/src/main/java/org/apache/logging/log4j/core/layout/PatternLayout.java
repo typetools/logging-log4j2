@@ -657,6 +657,7 @@ public final class PatternLayout extends AbstractStringLayout {
         @PluginBuilderAttribute
         private @Nullable String footer;
 
+        @SuppressWarnings("initialization.fields.uninitialized") // no support for @PluginConfiguration yet
         private Builder() {
         }
 

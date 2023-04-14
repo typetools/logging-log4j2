@@ -1986,6 +1986,7 @@
               <compilerArgs>
                 <!-- <arg>-Awarns</arg> --> <!-- -Awarns turns type-checking errors into warnings. -->
                 <arg>-AwarnUnneededSuppressions</arg>
+		<arg>-AskipUses=(org.apache.logging.log4j.Logger|org.apache.logging.log4j.status.StatusLogger)</arg>
                 <!-- <arg>-AshowSuppressWarningsStrings</arg> -->
                 <arg>-nowarn</arg>
                 <arg>-Xlint:none</arg>

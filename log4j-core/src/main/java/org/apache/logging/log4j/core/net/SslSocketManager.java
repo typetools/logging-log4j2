@@ -91,7 +91,7 @@ public class SslSocketManager extends TcpSocketManager {
     private static class SslFactoryData extends FactoryData {
         protected SslConfiguration sslConfiguration;
 
-        public SslFactoryData(final SslConfiguration sslConfiguration, final String host, final int port,
+        public SslFactoryData(final @Nullable SslConfiguration sslConfiguration, final String host, final int port,
                 final int connectTimeoutMillis, final int reconnectDelayMillis, final boolean immediateFail,
                 final Layout<? extends Serializable> layout, final int bufferSize, final SocketOptions socketOptions) {
             super(host, port, connectTimeoutMillis, reconnectDelayMillis, immediateFail, layout, bufferSize,
@@ -183,7 +183,7 @@ public class SslSocketManager extends TcpSocketManager {
     }
 
     static Socket createSocket(final @Nullable InetSocketAddress socketAddress, final int connectTimeoutMillis,
-            final SslConfiguration sslConfiguration, final SocketOptions socketOptions) throws IOException {
+            final @Nullable SslConfiguration sslConfiguration, final SocketOptions socketOptions) throws IOException {
         final SSLSocketFactory socketFactory = createSslSocketFactory(sslConfiguration);
         final SSLSocket socket = (SSLSocket) socketFactory.createSocket();
         if (socketOptions != null) {

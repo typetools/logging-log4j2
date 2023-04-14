@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.db;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
@@ -62,7 +63,7 @@ public abstract class AbstractDatabaseAppender<T extends AbstractDatabaseManager
      * @deprecated Use {@link #AbstractDatabaseAppender(String, Filter, Layout, boolean, Property[], AbstractDatabaseManager)}.
      */
     @Deprecated
-    protected AbstractDatabaseAppender(final String name, final Filter filter, final boolean ignoreExceptions,
+    protected AbstractDatabaseAppender(final String name, final @Nullable Filter filter, final boolean ignoreExceptions,
                                        final T manager) {
         super(name, filter, null, ignoreExceptions, Property.EMPTY_ARRAY);
         this.manager = manager;
@@ -78,9 +79,9 @@ public abstract class AbstractDatabaseAppender<T extends AbstractDatabaseManager
      *                         they are propagated to the caller.
      * @param manager The matching {@link AbstractDatabaseManager} implementation.
      */
-    protected AbstractDatabaseAppender(final String name, final Filter filter,
+    protected AbstractDatabaseAppender(final String name, final @Nullable Filter filter,
             final Layout<? extends Serializable> layout, final boolean ignoreExceptions,
-            final Property[] properties, final T manager) {
+            final Property @Nullable [] properties, final T manager) {
         super(name, filter, layout, ignoreExceptions, properties);
         this.manager = manager;
     }
@@ -97,7 +98,7 @@ public abstract class AbstractDatabaseAppender<T extends AbstractDatabaseManager
      * @deprecated Use {@link #AbstractDatabaseAppender(String, Filter, Layout, boolean, Property[], AbstractDatabaseManager)}
      */
     @Deprecated
-    protected AbstractDatabaseAppender(final String name, final Filter filter,
+    protected AbstractDatabaseAppender(final String name, final @Nullable Filter filter,
             final Layout<? extends Serializable> layout, final boolean ignoreExceptions, final T manager) {
         super(name, filter, layout, ignoreExceptions, Property.EMPTY_ARRAY);
         this.manager = manager;

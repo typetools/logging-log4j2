@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.message;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -86,7 +87,7 @@ public class FormattedMessage implements Message {
      * @param throwable The throwable
      * @since 2.6
      */
-    public FormattedMessage(final Locale locale, final String messagePattern, final Object[] arguments, final Throwable throwable) {
+    public FormattedMessage(final Locale locale, final String messagePattern, final Object[] arguments, final @Nullable Throwable throwable) {
         this.locale = locale;
         this.messagePattern = messagePattern;
         this.argArray = arguments;
@@ -127,7 +128,7 @@ public class FormattedMessage implements Message {
      * @param arguments The parameter.
      * @param throwable The throwable
      */
-    public FormattedMessage(final String messagePattern, final Object[] arguments, final Throwable throwable) {
+    public FormattedMessage(final String messagePattern, final Object[] arguments, final @Nullable Throwable throwable) {
         this.locale = Locale.getDefault(Locale.Category.FORMAT);
         this.messagePattern = messagePattern;
         this.argArray = arguments;
@@ -136,7 +137,7 @@ public class FormattedMessage implements Message {
 
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (this == o) {
             return true;
         }

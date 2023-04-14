@@ -17,6 +17,7 @@
 package org.apache.logging.log4j.core.appender;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.SideEffectFree;
 import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.Objects;
@@ -54,7 +55,7 @@ public abstract class AbstractAppender extends AbstractFilterable implements App
         private boolean ignoreExceptions = true;
 
         @PluginElement("Layout")
-        private @Nullable Layout<? extends Serializable> layout;
+        private @MonotonicNonNull Layout<? extends Serializable> layout;
 
         @PluginBuilderAttribute
         @Required(message = "No appender name provided")
@@ -75,6 +76,7 @@ public abstract class AbstractAppender extends AbstractFilterable implements App
             return name;
         }
 
+        @SideEffectFree
         public Layout<? extends Serializable> getOrCreateLayout() {
             if (layout == null) {
                 return PatternLayout.createDefaultLayout(configuration);
@@ -82,6 +84,7 @@ public abstract class AbstractAppender extends AbstractFilterable implements App
             return layout;
         }
 
+        @SideEffectFree
         public Layout<? extends Serializable> getOrCreateLayout(final Charset charset) {
             if (layout == null) {
                 return PatternLayout.newBuilder().withCharset(charset).withConfiguration(configuration).build();
@@ -103,7 +106,7 @@ public abstract class AbstractAppender extends AbstractFilterable implements App
             return asBuilder();
         }
 
-        public B setLayout(final Layout<? extends Serializable> layout) {
+        public B setLayout(final @Nullable Layout<? extends Serializable> layout) {
             this.layout = layout;
             return asBuilder();
         }
@@ -134,7 +137,7 @@ public abstract class AbstractAppender extends AbstractFilterable implements App
          * @deprecated use {@link #setLayout(Layout)}.
          */
         @Deprecated
-        public B withLayout(final Layout<? extends Serializable> layout) {
+        public B withLayout(final @Nullable Layout<? extends Serializable> layout) {
             return setLayout(layout);
         }
 
@@ -168,7 +171,7 @@ public abstract class AbstractAppender extends AbstractFilterable implements App
     }
     private final String name;
     private final boolean ignoreExceptions;
-    private final Layout<? extends Serializable> layout;
+    private final Layout<? extends Serializable> layout;  // toSerializable() checks `layout` before using it, but I think every 
 
     private ErrorHandler handler = new DefaultErrorHandler(this);
 
@@ -186,7 +189,7 @@ public abstract class AbstractAppender extends AbstractFilterable implements App
      * @deprecated Use {@link #AbstractAppender(String, Filter, Layout, boolean, Property[])}.
      */
     @Deprecated
-    protected AbstractAppender(final String name, final Filter filter, final Layout<? extends Serializable> layout) {
+    protected AbstractAppender(final String name, final @Nullable Filter filter, final @Nullable Layout<? extends Serializable> layout) {
         this(name, filter, layout, true, Property.EMPTY_ARRAY);
     }
 
@@ -201,7 +204,7 @@ public abstract class AbstractAppender extends AbstractFilterable implements App
      * @deprecated Use {@link #AbstractAppender(String, Filter, Layout, boolean, Property[])}
      */
     @Deprecated
-    protected AbstractAppender(final String name, final Filter filter, final Layout<? extends Serializable> layout,
+    protected AbstractAppender(final String name, final @Nullable Filter filter, final @Nullable Layout<? extends Serializable> layout,
             final boolean ignoreExceptions) {
         this(name, filter, layout, ignoreExceptions, Property.EMPTY_ARRAY);
     }
@@ -216,8 +219,8 @@ public abstract class AbstractAppender extends AbstractFilterable implements App
      *            then passed to the application.
      * @since 2.11.2
      */
-    protected AbstractAppender(final String name, final Filter filter, final Layout<? extends Serializable> layout,
-            final boolean ignoreExceptions, final Property[] properties) {
+    protected AbstractAppender(final String name, final @Nullable Filter filter, final @Nullable Layout<? extends Serializable> layout,
+            final boolean ignoreExceptions, final Property @Nullable [] properties) {
         super(filter, properties);
         this.name = Objects.requireNonNull(name, "name");
         this.layout = layout;
@@ -271,7 +274,7 @@ public abstract class AbstractAppender extends AbstractFilterable implements App
      * @return The Layout used to format the event.
      */
     @Override
-    public Layout<? extends Serializable> getLayout() {
+    public @Nullable Layout<? extends Serializable> getLayout() {
         return layout;
     }
 

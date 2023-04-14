@@ -100,9 +100,9 @@ public class AsyncLoggerConfig extends LoggerConfig {
     private final AsyncLoggerConfigDelegate delegate;
 
     protected AsyncLoggerConfig(final String name,
-            final List<AppenderRef> appenders, final Filter filter,
+            final List<AppenderRef> appenders, final @Nullable Filter filter,
             final Level level, final boolean additive,
-            final Property[] properties, final Configuration config,
+            final Property @Nullable [] properties, final Configuration config,
             final boolean includeLocation) {
         super(name, appenders, filter, level, additive, properties, config,
                 includeLocation);
@@ -244,9 +244,9 @@ public class AsyncLoggerConfig extends LoggerConfig {
             final String loggerName,
             final String includeLocation,
             final AppenderRef[] refs,
-            final Property[] properties,
+            final Property @Nullable [] properties,
             final Configuration config,
-            final Filter filter) {
+            final @Nullable Filter filter) {
         if (loggerName == null) {
             LOGGER.error("Loggers cannot be configured without a name");
             return null;
@@ -335,9 +335,9 @@ public class AsyncLoggerConfig extends LoggerConfig {
                 final String levelName,
                 final String includeLocation,
                 final AppenderRef[] refs,
-                final Property[] properties,
+                final Property @Nullable [] properties,
                 final Configuration config,
-                final Filter filter) {
+                final @Nullable Filter filter) {
             final List<AppenderRef> appenderRefs = Arrays.asList(refs);
             Level level = null;
             try {

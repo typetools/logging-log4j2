@@ -104,7 +104,7 @@ public final class PropertiesLookup implements StrLookup {
                 '}';
     }
 
-    private static Map<String, ConfigurationPropertyResult> createConfigurationPropertyMap(Property[] props) {
+    private static Map<String, ConfigurationPropertyResult> createConfigurationPropertyMap(Property @Nullable [] props) {
         // The raw property values must be used without the substitution handled by the plugin framework
         // which calls this method, otherwise we risk re-interpolating through unexpected data.
         // The PropertiesLookup is unique in that results from this lookup support recursive evaluation.

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.message.Message;
 import org.apache.logging.log4j.util.Supplier;
 
@@ -138,7 +139,7 @@ public interface LogBuilder {
      *
      * @see org.apache.logging.log4j.util.Unbox
      */
-    default void log(String message, Object p0) {
+    default void log(String message, @Nullable Object p0) {
     }
 
     /**
@@ -150,7 +151,7 @@ public interface LogBuilder {
      *
      * @see org.apache.logging.log4j.util.Unbox
      */
-    default void log(String message, Object p0, Object p1) {
+    default void log(String message, @Nullable Object p0, @Nullable Object p1) {
     }
 
     /**
@@ -163,7 +164,7 @@ public interface LogBuilder {
      *
      * @see org.apache.logging.log4j.util.Unbox
      */
-    default void log(String message, Object p0, Object p1, Object p2) {
+    default void log(String message, @Nullable Object p0, @Nullable Object p1, @Nullable Object p2) {
     }
 
     /**
@@ -177,7 +178,7 @@ public interface LogBuilder {
      *
      * @see org.apache.logging.log4j.util.Unbox
      */
-    default void log(String message, Object p0, Object p1, Object p2, Object p3) {
+    default void log(String message, @Nullable Object p0, @Nullable Object p1, @Nullable Object p2, @Nullable Object p3) {
     }
 
     /**
@@ -192,7 +193,7 @@ public interface LogBuilder {
      *
      * @see org.apache.logging.log4j.util.Unbox
      */
-    default void log(String message, Object p0, Object p1, Object p2, Object p3, Object p4) {
+    default void log(String message, @Nullable Object p0, @Nullable Object p1, @Nullable Object p2, @Nullable Object p3, @Nullable Object p4) {
     }
 
     /**
@@ -208,7 +209,7 @@ public interface LogBuilder {
      *
      * @see org.apache.logging.log4j.util.Unbox
      */
-    default void log(String message, Object p0, Object p1, Object p2, Object p3, Object p4, Object p5) {
+    default void log(String message, @Nullable Object p0, @Nullable Object p1, @Nullable Object p2, @Nullable Object p3, @Nullable Object p4, @Nullable Object p5) {
     }
 
     /**
@@ -225,7 +226,7 @@ public interface LogBuilder {
      *
      * @see org.apache.logging.log4j.util.Unbox
      */
-    default void log(String message, Object p0, Object p1, Object p2, Object p3, Object p4, Object p5, Object p6) {
+    default void log(String message, @Nullable Object p0, @Nullable Object p1, @Nullable Object p2, @Nullable Object p3, @Nullable Object p4, @Nullable Object p5, @Nullable Object p6) {
     }
 
     /**
@@ -243,8 +244,8 @@ public interface LogBuilder {
      *
      * @see org.apache.logging.log4j.util.Unbox
      */
-    default void log(String message, Object p0, Object p1, Object p2, Object p3, Object p4, Object p5, Object p6,
-            Object p7) {
+    default void log(String message, @Nullable Object p0, @Nullable Object p1, @Nullable Object p2, @Nullable Object p3, @Nullable Object p4, @Nullable Object p5, @Nullable Object p6,
+            @Nullable Object p7) {
     }
 
     /**
@@ -263,8 +264,8 @@ public interface LogBuilder {
      *
      * @see org.apache.logging.log4j.util.Unbox
      */
-    default void log(String message, Object p0, Object p1, Object p2, Object p3, Object p4, Object p5, Object p6,
-            Object p7, Object p8) {
+    default void log(String message, @Nullable Object p0, @Nullable Object p1, @Nullable Object p2, @Nullable Object p3, @Nullable Object p4, @Nullable Object p5, @Nullable Object p6,
+            @Nullable Object p7, @Nullable Object p8) {
     }
 
     /**
@@ -284,8 +285,8 @@ public interface LogBuilder {
      *
      * @see org.apache.logging.log4j.util.Unbox
      */
-    default void log(String message, Object p0, Object p1, Object p2, Object p3, Object p4, Object p5, Object p6,
-            Object p7, Object p8, Object p9) {
+    default void log(String message, @Nullable Object p0, @Nullable Object p1, @Nullable Object p2, @Nullable Object p3, @Nullable Object p4, @Nullable Object p5, @Nullable Object p6,
+            @Nullable Object p7, @Nullable Object p8, @Nullable Object p9) {
     }
 
     /**

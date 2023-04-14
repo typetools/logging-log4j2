@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -47,14 +48,14 @@ public class HttpURLConnectionManager extends HttpManager {
     private final int connectTimeoutMillis;
     private final int readTimeoutMillis;
     private final Property[] headers;
-    private final SslConfiguration sslConfiguration;
+    private final @Nullable SslConfiguration sslConfiguration;
     private final boolean verifyHostname;
 
     public HttpURLConnectionManager(final Configuration configuration, final LoggerContext loggerContext, final String name,
                                     final URL url, final String method, final int connectTimeoutMillis,
                                     final int readTimeoutMillis,
-                                    final Property[] headers,
-                                    final SslConfiguration sslConfiguration,
+                                    final Property @Nullable [] headers,
+                                    final @Nullable SslConfiguration sslConfiguration,
                                     final boolean verifyHostname) {
         super(configuration, loggerContext, name);
         this.url = url;

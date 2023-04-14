@@ -63,12 +63,12 @@ public class PosixViewAttributeAction extends AbstractPathAction {
     /**
      * File group.
      */
-    private final String fileGroup;
+    private final @Nullable String fileGroup;
 
     private PosixViewAttributeAction(final String basePath, final boolean followSymbolicLinks,
             final int maxDepth, final PathCondition[] pathConditions, final StrSubstitutor subst,
             final Set<PosixFilePermission> filePermissions,
-            final String fileOwner, final String fileGroup) {
+            final String fileOwner, final @Nullable String fileGroup) {
         super(basePath, followSymbolicLinks, maxDepth, pathConditions, subst);
         this.filePermissions = filePermissions;
         this.fileOwner = fileOwner;
@@ -242,7 +242,7 @@ public class PosixViewAttributeAction extends AbstractPathAction {
          * @param fileGroup File group
          * @return This builder
          */
-        public Builder withFileGroup(final String fileGroup) {
+        public Builder withFileGroup(final @Nullable String fileGroup) {
             this.fileGroup = fileGroup;
             return this;
         }

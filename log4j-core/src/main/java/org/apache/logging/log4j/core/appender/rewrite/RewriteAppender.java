@@ -48,9 +48,9 @@ public final class RewriteAppender extends AbstractAppender {
     private final RewritePolicy rewritePolicy;
     private final AppenderRef[] appenderRefs;
 
-    private RewriteAppender(final String name, final Filter filter, final boolean ignoreExceptions,
+    private RewriteAppender(final String name, final @Nullable Filter filter, final boolean ignoreExceptions,
                             final AppenderRef[] appenderRefs, final RewritePolicy rewritePolicy,
-                            final Configuration config, final Property[] properties) {
+                            final Configuration config, final Property @Nullable [] properties) {
         super(name, filter, null, ignoreExceptions, properties);
         this.config = config;
         this.rewritePolicy = rewritePolicy;
@@ -63,7 +63,7 @@ public final class RewriteAppender extends AbstractAppender {
             final String name = ref.getRef();
             final Appender appender = config.getAppender(name);
             if (appender != null) {
-                final Filter filter = appender instanceof AbstractAppender ?
+                final @Nullable Filter filter = appender instanceof AbstractAppender ?
                     ((AbstractAppender) appender).getFilter() : null;
                 appenders.put(name, new AppenderControl(appender, ref.getLevel(), filter));
             } else {

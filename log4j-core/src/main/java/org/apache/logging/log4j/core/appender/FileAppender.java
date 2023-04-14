@@ -184,7 +184,7 @@ public final class FileAppender extends AbstractOutputStreamAppender<FileManager
             return asBuilder();
         }
 
-        public B withFileGroup(final String fileGroup) {
+        public B withFileGroup(final @Nullable String fileGroup) {
             this.fileGroup = fileGroup;
             return asBuilder();
         }
@@ -226,7 +226,7 @@ public final class FileAppender extends AbstractOutputStreamAppender<FileManager
             final String ignoreExceptions,
             final String bufferedIo,
             final String bufferSizeStr,
-            final Layout<? extends Serializable> layout,
+            final @Nullable Layout<? extends Serializable> layout,
             final Filter filter,
             final String advertise,
             final String advertiseUri,
@@ -256,12 +256,13 @@ public final class FileAppender extends AbstractOutputStreamAppender<FileManager
 
     private final Object advertisement;
 
-    private FileAppender(final String name, final Layout<? extends Serializable> layout, final Filter filter,
+    private FileAppender(final String name, final @Nullable Layout<? extends Serializable> layout, final @Nullable Filter filter,
             final FileManager manager, final String filename, final boolean ignoreExceptions,
-            final boolean immediateFlush, final Advertiser advertiser, final Property[] properties) {
+            final boolean immediateFlush, final Advertiser advertiser, final Property @Nullable [] properties) {
 
         super(name, layout, filter, ignoreExceptions, immediateFlush, properties, manager);
         if (advertiser != null) {
+            @SuppressWarnings("nullness:dereference.of.nullable")  // BUG: layout
             final Map<String, String> configuration = new HashMap<>(layout.getContentFormat());
             configuration.putAll(manager.getContentFormat());
             configuration.put("contentType", layout.getContentType());

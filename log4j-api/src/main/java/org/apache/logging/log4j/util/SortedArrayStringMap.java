@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -440,7 +441,7 @@ public class SortedArrayStringMap implements IndexedStringMap {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(final @Nullable Object obj) {
         if (obj == this) {
             return true;
         }

@@ -99,7 +99,7 @@ public final class JdbcAppender extends AbstractDatabaseAppender<JdbcDatabaseMan
             if (manager == null) {
                 return null;
             }
-            return new JdbcAppender(getName(), getFilter(), getLayout(), isIgnoreExceptions(), getPropertyArray(),
+            return new JdbcAppender(getName(), getFilter(), getOrCreateLayout(), isIgnoreExceptions(), getPropertyArray(),
                     manager);
         }
 
@@ -188,7 +188,7 @@ public final class JdbcAppender extends AbstractDatabaseAppender<JdbcDatabaseMan
      */
     @Deprecated
     public static <B extends Builder<B>> JdbcAppender createAppender(final String name, final String ignore,
-                                                                     final Filter filter,
+                                                                     final @Nullable Filter filter,
                                                                      final ConnectionSource connectionSource,
                                                                      final String bufferSize, final String tableName,
                                                                      final ColumnConfig[] columnConfigs) {
@@ -215,8 +215,8 @@ public final class JdbcAppender extends AbstractDatabaseAppender<JdbcDatabaseMan
 
     private final String description;
 
-    private JdbcAppender(final String name, final Filter filter, final Layout<? extends Serializable> layout,
-            final boolean ignoreExceptions, final Property[] properties, final JdbcDatabaseManager manager) {
+    private JdbcAppender(final String name, final @Nullable Filter filter, final Layout<? extends Serializable> layout,
+            final boolean ignoreExceptions, final Property @Nullable [] properties, final JdbcDatabaseManager manager) {
         super(name, filter, layout, ignoreExceptions, properties, manager);
         this.description = this.getName() + "{ manager=" + this.getManager() + " }";
     }

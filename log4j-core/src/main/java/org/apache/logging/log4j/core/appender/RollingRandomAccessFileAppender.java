@@ -17,6 +17,7 @@
 package org.apache.logging.log4j.core.appender;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Deterministic;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -189,7 +190,7 @@ public final class RollingRandomAccessFileAppender extends AbstractOutputStreamA
             return asBuilder();
         }
 
-        public B withFileGroup(final String fileGroup) {
+        public B withFileGroup(final @Nullable String fileGroup) {
             this.fileGroup = fileGroup;
             return asBuilder();
         }
@@ -202,9 +203,9 @@ public final class RollingRandomAccessFileAppender extends AbstractOutputStreamA
     private final Advertiser advertiser;
 
     private RollingRandomAccessFileAppender(final String name, final Layout<? extends Serializable> layout,
-            final Filter filter, final RollingRandomAccessFileManager manager, final String fileName,
+            final @Nullable Filter filter, final RollingRandomAccessFileManager manager, final String fileName,
             final String filePattern, final boolean ignoreExceptions, final boolean immediateFlush,
-            final int bufferSize, final Advertiser advertiser, final Property[] properties) {
+            final int bufferSize, final Advertiser advertiser, final Property @Nullable [] properties) {
         super(name, layout, filter, ignoreExceptions, immediateFlush, properties, manager);
         if (advertiser != null) {
             final Map<String, String> configuration = new HashMap<>(layout.getContentFormat());
@@ -266,6 +267,7 @@ public final class RollingRandomAccessFileAppender extends AbstractOutputStreamA
      * Returns the size of the file manager's buffer.
      * @return the buffer size
      */
+    @Deterministic
     public int getBufferSize() {
         return getManager().getBufferSize();
     }
@@ -309,7 +311,7 @@ public final class RollingRandomAccessFileAppender extends AbstractOutputStreamA
             final TriggeringPolicy policy,
             final RolloverStrategy strategy,
             final Layout<? extends Serializable> layout,
-            final Filter filter,
+            final @Nullable Filter filter,
             final String ignoreExceptions,
             final String advertise,
             final String advertiseURI,

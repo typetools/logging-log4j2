@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.message;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.status.StatusLogger;
 
 /**
@@ -50,7 +51,7 @@ public final class ParameterizedNoReferenceMessageFactory extends AbstractMessag
         private final String formattedMessage;
         private final Throwable throwable;
 
-        public StatusMessage(final String formattedMessage, final Throwable throwable) {
+        public StatusMessage(final String formattedMessage, final @Nullable Throwable throwable) {
             this.formattedMessage = formattedMessage;
             this.throwable = throwable;
         }

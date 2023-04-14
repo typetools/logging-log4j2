@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.core.appender.rolling;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Deterministic;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -65,7 +67,7 @@ public class RollingRandomAccessFileManager extends RollingFileManager {
             final boolean immediateFlush, final int bufferSize, final long size, final long initialTime,
             final TriggeringPolicy policy, final RolloverStrategy strategy, final String advertiseURI,
             final Layout<? extends Serializable> layout,
-            final String filePermissions, final String fileOwner, final String fileGroup,
+            final String filePermissions, final String fileOwner, final @Nullable String fileGroup,
             final boolean writeHeader) {
         super(loggerContext, fileName, pattern, os, append, false, size, initialTime, policy, strategy, advertiseURI,
                 layout, filePermissions, fileOwner, fileGroup, writeHeader, ByteBuffer.wrap(new byte[bufferSize]));
@@ -97,7 +99,7 @@ public class RollingRandomAccessFileManager extends RollingFileManager {
     public static RollingRandomAccessFileManager getRollingRandomAccessFileManager(final String fileName,
             final String filePattern, final boolean isAppend, final boolean immediateFlush, final int bufferSize,
             final TriggeringPolicy policy, final RolloverStrategy strategy, final String advertiseURI,
-            final Layout<? extends Serializable> layout, final String filePermissions, final String fileOwner, final String fileGroup,
+            final Layout<? extends Serializable> layout, final String filePermissions, final String fileOwner, final @Nullable String fileGroup,
             final Configuration configuration) {
         if (strategy instanceof DirectWriteRolloverStrategy && fileName != null) {
             LOGGER.error("The fileName attribute must not be specified with the DirectWriteRolloverStrategy");
@@ -193,6 +195,7 @@ public class RollingRandomAccessFileManager extends RollingFileManager {
      *
      * @return the buffer size
      */
+    @Deterministic
     @Override
     public int getBufferSize() {
         return byteBuffer.capacity();
@@ -277,7 +280,7 @@ public class RollingRandomAccessFileManager extends RollingFileManager {
         private final Layout<? extends Serializable> layout;
         private final String filePermissions;
         private final String fileOwner;
-        private final String fileGroup;
+        private final @Nullable String fileGroup;
 
         /**
          * Create the data for the factory.
@@ -299,7 +302,7 @@ public class RollingRandomAccessFileManager extends RollingFileManager {
         public FactoryData(final String fileName, final String pattern, final boolean append, final boolean immediateFlush,
                 final int bufferSize, final TriggeringPolicy policy, final RolloverStrategy strategy,
                 final String advertiseURI, final Layout<? extends Serializable> layout,
-                final String filePermissions, final String fileOwner, final String fileGroup,
+                final String filePermissions, final String fileOwner, final @Nullable String fileGroup,
                 final Configuration configuration) {
             super(configuration);
             this.fileName = fileName;

@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  * Exposes methods to add and remove key-value pairs to and from {@code ReadOnlyStringMap}.
  *
@@ -42,7 +44,7 @@ public interface StringMap extends ReadOnlyStringMap {
      * @see #hashCode()
      */
     @Override
-    boolean equals(final Object obj);
+    boolean equals(final @Nullable Object obj);
 
     /**
      * Makes this collection immutable. Attempts to modify the collection after the {@code freeze()} method was called

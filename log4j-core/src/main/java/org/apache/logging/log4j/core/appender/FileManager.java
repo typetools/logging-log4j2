@@ -17,6 +17,7 @@
 package org.apache.logging.log4j.core.appender;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Deterministic;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -119,7 +120,7 @@ public class FileManager extends OutputStreamManager {
      */
     protected FileManager(final LoggerContext loggerContext, final String fileName, final OutputStream os, final boolean append, final boolean locking,
             final boolean createOnDemand, final String advertiseURI, final Layout<? extends Serializable> layout,
-            final @Nullable String filePermissions, final String fileOwner, final String fileGroup, final boolean writeHeader,
+            final @Nullable String filePermissions, final @Nullable String fileOwner, final @Nullable String fileGroup, final boolean writeHeader,
             final ByteBuffer buffer) {
         super(loggerContext, os, fileName, createOnDemand, layout, writeHeader, buffer);
         this.isAppend = append;
@@ -175,7 +176,7 @@ public class FileManager extends OutputStreamManager {
     public static FileManager getFileManager(final String fileName, final boolean append, boolean locking,
             final boolean bufferedIo, final boolean createOnDemand, final @Nullable String advertiseUri,
             final Layout<? extends Serializable> layout,
-            final int bufferSize, final @Nullable String filePermissions, final @Nullable String fileOwner, final String fileGroup,
+            final int bufferSize, final @Nullable String filePermissions, final @Nullable String fileOwner, final @Nullable String fileGroup,
             final Configuration configuration) {
 
         if (locking && bufferedIo) {
@@ -316,6 +317,7 @@ public class FileManager extends OutputStreamManager {
      * number.
      * @return the buffer size, or a negative number if the output stream is not buffered
      */
+    @Deterministic
     public int getBufferSize() {
         return bufferSize;
     }
@@ -382,9 +384,9 @@ public class FileManager extends OutputStreamManager {
         private final boolean createOnDemand;
         private final String advertiseURI;
         private final Layout<? extends Serializable> layout;
-        private final String filePermissions;
+        private final @Nullable String filePermissions;
         private final @Nullable String fileOwner;
-        private final String fileGroup;
+        private final @Nullable String fileGroup;
 
         /**
          * Constructor.
@@ -402,7 +404,7 @@ public class FileManager extends OutputStreamManager {
          */
         public FactoryData(final boolean append, final boolean locking, final boolean bufferedIo, final int bufferSize,
                 final boolean createOnDemand, final String advertiseURI, final Layout<? extends Serializable> layout,
-                final String filePermissions, final @Nullable String fileOwner, final String fileGroup,
+                final @Nullable String filePermissions, final @Nullable String fileOwner, final @Nullable String fileGroup,
                 final Configuration configuration) {
             super(configuration);
             this.append = append;

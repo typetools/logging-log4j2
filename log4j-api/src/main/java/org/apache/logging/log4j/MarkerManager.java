@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -347,7 +348,7 @@ public final class MarkerManager {
         }
 
         @Override
-        public boolean equals(final Object o) {
+        public boolean equals(final @Nullable Object o) {
             if (this == o) {
                 return true;
             }

@@ -16,6 +16,8 @@
  */
 package org.apache.logging.log4j.message;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 /**
  * Creates messages. Implementations can provide different message format syntaxes.
  *
@@ -39,7 +41,7 @@ public interface MessageFactory2 extends MessageFactory {
      * @return a new message
      * @see ParameterizedMessageFactory
      */
-    Message newMessage(String message, Object p0);
+    Message newMessage(String message, @Nullable Object p0);
 
     /**
      * Creates a new parameterized message.
@@ -50,7 +52,7 @@ public interface MessageFactory2 extends MessageFactory {
      * @return a new message
      * @see ParameterizedMessageFactory
      */
-    Message newMessage(String message, Object p0, Object p1);
+    Message newMessage(String message, @Nullable Object p0, @Nullable Object p1);
 
     /**
      * Creates a new parameterized message.
@@ -62,7 +64,7 @@ public interface MessageFactory2 extends MessageFactory {
      * @return a new message
      * @see ParameterizedMessageFactory
      */
-    Message newMessage(String message, Object p0, Object p1, Object p2);
+    Message newMessage(String message, @Nullable Object p0, @Nullable Object p1, @Nullable Object p2);
 
     /**
      * Creates a new parameterized message.
@@ -75,7 +77,7 @@ public interface MessageFactory2 extends MessageFactory {
      * @return a new message
      * @see ParameterizedMessageFactory
      */
-    Message newMessage(String message, Object p0, Object p1, Object p2, Object p3);
+    Message newMessage(String message, @Nullable Object p0, @Nullable Object p1, @Nullable Object p2, @Nullable Object p3);
 
     /**
      * Creates a new parameterized message.
@@ -89,7 +91,7 @@ public interface MessageFactory2 extends MessageFactory {
      * @return a new message
      * @see ParameterizedMessageFactory
      */
-    Message newMessage(String message, Object p0, Object p1, Object p2, Object p3, Object p4);
+    Message newMessage(String message, @Nullable Object p0, @Nullable Object p1, @Nullable Object p2, @Nullable Object p3, @Nullable Object p4);
 
     /**
      * Creates a new parameterized message.
@@ -104,7 +106,7 @@ public interface MessageFactory2 extends MessageFactory {
      * @return a new message
      * @see ParameterizedMessageFactory
      */
-    Message newMessage(String message, Object p0, Object p1, Object p2, Object p3, Object p4, Object p5);
+    Message newMessage(String message, @Nullable Object p0, @Nullable Object p1, @Nullable Object p2, @Nullable Object p3, @Nullable Object p4, @Nullable Object p5);
 
     /**
      * Creates a new parameterized message.
@@ -120,7 +122,7 @@ public interface MessageFactory2 extends MessageFactory {
      * @return a new message
      * @see ParameterizedMessageFactory
      */
-    Message newMessage(String message, Object p0, Object p1, Object p2, Object p3, Object p4, Object p5, Object p6);
+    Message newMessage(String message, @Nullable Object p0, @Nullable Object p1, @Nullable Object p2, @Nullable Object p3, @Nullable Object p4, @Nullable Object p5, @Nullable Object p6);
 
     /**
      * Creates a new parameterized message.
@@ -137,8 +139,8 @@ public interface MessageFactory2 extends MessageFactory {
      * @return a new message
      * @see ParameterizedMessageFactory
      */
-    Message newMessage(String message, Object p0, Object p1, Object p2, Object p3, Object p4, Object p5, Object p6,
-            Object p7);
+    Message newMessage(String message, @Nullable Object p0, @Nullable Object p1, @Nullable Object p2, @Nullable Object p3, @Nullable Object p4, @Nullable Object p5, @Nullable Object p6,
+            @Nullable Object p7);
 
     /**
      * Creates a new parameterized message.
@@ -156,8 +158,8 @@ public interface MessageFactory2 extends MessageFactory {
      * @return a new message
      * @see ParameterizedMessageFactory
      */
-    Message newMessage(String message, Object p0, Object p1, Object p2, Object p3, Object p4, Object p5, Object p6,
-            Object p7, Object p8);
+    Message newMessage(String message, @Nullable Object p0, @Nullable Object p1, @Nullable Object p2, @Nullable Object p3, @Nullable Object p4, @Nullable Object p5, @Nullable Object p6,
+            @Nullable Object p7, @Nullable Object p8);
 
     /**
      * Creates a new parameterized message.
@@ -176,6 +178,6 @@ public interface MessageFactory2 extends MessageFactory {
      * @return a new message
      * @see ParameterizedMessageFactory
      */
-    Message newMessage(String message, Object p0, Object p1, Object p2, Object p3, Object p4, Object p5, Object p6,
-            Object p7, Object p8, Object p9);
+    Message newMessage(String message, @Nullable Object p0, @Nullable Object p1, @Nullable Object p2, @Nullable Object p3, @Nullable Object p4, @Nullable Object p5, @Nullable Object p6,
+            @Nullable Object p7, @Nullable Object p8, @Nullable Object p9);
 }

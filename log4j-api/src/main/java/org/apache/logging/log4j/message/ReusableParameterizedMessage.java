@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.message;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Arrays;
 
 import org.apache.logging.log4j.util.Constants;
@@ -151,20 +152,20 @@ public class ReusableParameterizedMessage implements ReusableMessage, ParameterV
         return this;
     }
 
-    ReusableParameterizedMessage set(final String messagePattern, final Object p0) {
+    ReusableParameterizedMessage set(final String messagePattern, final @Nullable Object p0) {
         params[0] = p0;
         init(messagePattern, 1, params);
         return this;
     }
 
-    ReusableParameterizedMessage set(final String messagePattern, final Object p0, final Object p1) {
+    ReusableParameterizedMessage set(final String messagePattern, final @Nullable Object p0, final @Nullable Object p1) {
         params[0] = p0;
         params[1] = p1;
         init(messagePattern, 2, params);
         return this;
     }
 
-    ReusableParameterizedMessage set(final String messagePattern, final Object p0, final Object p1, final Object p2) {
+    ReusableParameterizedMessage set(final String messagePattern, final @Nullable Object p0, final @Nullable Object p1, final @Nullable Object p2) {
         params[0] = p0;
         params[1] = p1;
         params[2] = p2;
@@ -172,7 +173,7 @@ public class ReusableParameterizedMessage implements ReusableMessage, ParameterV
         return this;
     }
 
-    ReusableParameterizedMessage set(final String messagePattern, final Object p0, final Object p1, final Object p2, final Object p3) {
+    ReusableParameterizedMessage set(final String messagePattern, final @Nullable Object p0, final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3) {
         params[0] = p0;
         params[1] = p1;
         params[2] = p2;
@@ -181,7 +182,7 @@ public class ReusableParameterizedMessage implements ReusableMessage, ParameterV
         return this;
     }
 
-    ReusableParameterizedMessage set(final String messagePattern, final Object p0, final Object p1, final Object p2, final Object p3, final Object p4) {
+    ReusableParameterizedMessage set(final String messagePattern, final @Nullable Object p0, final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3, final @Nullable Object p4) {
         params[0] = p0;
         params[1] = p1;
         params[2] = p2;
@@ -191,7 +192,7 @@ public class ReusableParameterizedMessage implements ReusableMessage, ParameterV
         return this;
     }
 
-    ReusableParameterizedMessage set(final String messagePattern, final Object p0, final Object p1, final Object p2, final Object p3, final Object p4, final Object p5) {
+    ReusableParameterizedMessage set(final String messagePattern, final @Nullable Object p0, final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3, final @Nullable Object p4, final @Nullable Object p5) {
         params[0] = p0;
         params[1] = p1;
         params[2] = p2;
@@ -202,8 +203,8 @@ public class ReusableParameterizedMessage implements ReusableMessage, ParameterV
         return this;
     }
 
-    ReusableParameterizedMessage set(final String messagePattern, final Object p0, final Object p1, final Object p2, final Object p3, final Object p4, final Object p5,
-            final Object p6) {
+    ReusableParameterizedMessage set(final String messagePattern, final @Nullable Object p0, final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3, final @Nullable Object p4, final @Nullable Object p5,
+            final @Nullable Object p6) {
         params[0] = p0;
         params[1] = p1;
         params[2] = p2;
@@ -215,8 +216,8 @@ public class ReusableParameterizedMessage implements ReusableMessage, ParameterV
         return this;
     }
 
-    ReusableParameterizedMessage set(final String messagePattern, final Object p0, final Object p1, final Object p2, final Object p3, final Object p4, final Object p5,
-            final Object p6, final Object p7) {
+    ReusableParameterizedMessage set(final String messagePattern, final @Nullable Object p0, final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3, final @Nullable Object p4, final @Nullable Object p5,
+            final @Nullable Object p6, final @Nullable Object p7) {
         params[0] = p0;
         params[1] = p1;
         params[2] = p2;
@@ -229,8 +230,8 @@ public class ReusableParameterizedMessage implements ReusableMessage, ParameterV
         return this;
     }
 
-    ReusableParameterizedMessage set(final String messagePattern, final Object p0, final Object p1, final Object p2, final Object p3, final Object p4, final Object p5,
-            final Object p6, final Object p7, final Object p8) {
+    ReusableParameterizedMessage set(final String messagePattern, final @Nullable Object p0, final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3, final @Nullable Object p4, final @Nullable Object p5,
+            final @Nullable Object p6, final @Nullable Object p7, final @Nullable Object p8) {
         params[0] = p0;
         params[1] = p1;
         params[2] = p2;
@@ -244,8 +245,8 @@ public class ReusableParameterizedMessage implements ReusableMessage, ParameterV
         return this;
     }
 
-    ReusableParameterizedMessage set(final String messagePattern, final Object p0, final Object p1, final Object p2, final Object p3, final Object p4, final Object p5,
-            final Object p6, final Object p7, final Object p8, final Object p9) {
+    ReusableParameterizedMessage set(final String messagePattern, final @Nullable Object p0, final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3, final @Nullable Object p4, final @Nullable Object p5,
+            final @Nullable Object p6, final @Nullable Object p7, final @Nullable Object p8, final @Nullable Object p9) {
         params[0] = p0;
         params[1] = p1;
         params[2] = p2;

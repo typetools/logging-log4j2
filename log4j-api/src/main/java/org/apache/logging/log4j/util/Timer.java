@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.util;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 
@@ -242,7 +243,7 @@ public class Timer implements Serializable, StringBuilderFormattable
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (this == o) {
             return true;
         }

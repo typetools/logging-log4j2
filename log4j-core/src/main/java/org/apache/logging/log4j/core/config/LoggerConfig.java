@@ -198,7 +198,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
             return properties;
         }
 
-        public B withProperties(Property[] properties) {
+        public B withProperties(Property @Nullable [] properties) {
             this.properties = properties;
             return asBuilder();
         }
@@ -267,8 +267,8 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
         this.reliabilityStrategy = new DefaultReliabilityStrategy(this);
     }
 
-    protected LoggerConfig(final String name, final List<AppenderRef> appenders, final Filter filter,
-            final Level level, final boolean additive, final Property[] properties, final Configuration config,
+    protected LoggerConfig(final String name, final List<AppenderRef> appenders, final @Nullable Filter filter,
+            final Level level, final boolean additive, final Property @Nullable [] properties, final Configuration config,
             final boolean includeLocation) {
         super(filter);
         this.logEventFactory = LOG_EVENT_FACTORY;
@@ -288,7 +288,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
         this.reliabilityStrategy = config.getReliabilityStrategy(this);
     }
 
-    private static boolean containsPropertyRequiringLookup(final Property[] properties) {
+    private static boolean containsPropertyRequiringLookup(final Property @Nullable [] properties) {
         if (properties == null) {
             return false;
         }
@@ -713,9 +713,9 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
             @PluginAttribute("name") final @Nullable String loggerName,
             final String includeLocation,
             final AppenderRef[] refs,
-            final Property[] properties,
+            final Property @Nullable [] properties,
             @PluginConfiguration final Configuration config,
-            final Filter filter) {
+            final @Nullable Filter filter) {
             // @formatter:on
         if (loggerName == null) {
             LOGGER.error("Loggers cannot be configured without a name");
@@ -875,7 +875,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
                 return properties;
             }
 
-            public B withProperties(Property[] properties) {
+            public B withProperties(Property @Nullable [] properties) {
                 this.properties = properties;
                 return asBuilder();
             }
@@ -893,7 +893,7 @@ public class LoggerConfig extends AbstractFilterable implements LocationAware {
                 return filter;
             }
 
-            public B withtFilter(Filter filter) {
+            public B withtFilter(@Nullable Filter filter) {
                 this.filter = filter;
                 return asBuilder();
             }

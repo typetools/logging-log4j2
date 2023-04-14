@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.message;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Arrays;
 
 import org.apache.logging.log4j.util.Constants;
@@ -88,7 +89,7 @@ public class ParameterizedMessage implements Message, StringBuilderFormattable {
      * @deprecated Use constructor ParameterizedMessage(String, Object[], Throwable) instead
      */
     @Deprecated
-    public ParameterizedMessage(final String messagePattern, final String[] arguments, final Throwable throwable) {
+    public ParameterizedMessage(final String messagePattern, final String[] arguments, final @Nullable Throwable throwable) {
         this.argArray = arguments;
         this.throwable = throwable;
         init(messagePattern);
@@ -101,7 +102,7 @@ public class ParameterizedMessage implements Message, StringBuilderFormattable {
      * @param arguments The arguments for substitution.
      * @param throwable A Throwable.
      */
-    public ParameterizedMessage(final String messagePattern, final Object[] arguments, final Throwable throwable) {
+    public ParameterizedMessage(final String messagePattern, final Object[] arguments, final @Nullable Throwable throwable) {
         this.argArray = arguments;
         this.throwable = throwable;
         init(messagePattern);
@@ -240,7 +241,7 @@ public class ParameterizedMessage implements Message, StringBuilderFormattable {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (this == o) {
             return true;
         }

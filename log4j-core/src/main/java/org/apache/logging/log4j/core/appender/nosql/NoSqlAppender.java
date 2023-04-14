@@ -83,7 +83,7 @@ public final class NoSqlAppender extends AbstractDatabaseAppender<NoSqlDatabaseM
                 return null;
             }
 
-            return new NoSqlAppender(name, getFilter(), getLayout(), isIgnoreExceptions(), getPropertyArray(), manager);
+            return new NoSqlAppender(name, getFilter(), getOrCreateLayout(), isIgnoreExceptions(), getPropertyArray(), manager);
         }
 
         /**
@@ -136,7 +136,7 @@ public final class NoSqlAppender extends AbstractDatabaseAppender<NoSqlDatabaseM
         // @formatter:off
             final String name,
             final String ignore,
-            final Filter filter,
+            final @Nullable Filter filter,
             final String bufferSize,
             final NoSqlProvider<?> provider) {
         // @formatter:on
@@ -165,8 +165,8 @@ public final class NoSqlAppender extends AbstractDatabaseAppender<NoSqlDatabaseM
 
     private final String description;
 
-    private NoSqlAppender(final String name, final Filter filter, final Layout<? extends Serializable> layout,
-            final boolean ignoreExceptions, final Property[] properties, final NoSqlDatabaseManager<?> manager) {
+    private NoSqlAppender(final String name, final @Nullable Filter filter, final Layout<? extends Serializable> layout,
+            final boolean ignoreExceptions, final Property @Nullable [] properties, final NoSqlDatabaseManager<?> manager) {
         super(name, filter, layout, ignoreExceptions, properties, manager);
         this.description = this.getName() + "{ manager=" + this.getManager() + " }";
     }

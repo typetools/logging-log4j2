@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -40,7 +41,7 @@ public class CountingNoOpAppender extends AbstractAppender  {
         super(name, null, layout, true, Property.EMPTY_ARRAY);
     }
 
-    private CountingNoOpAppender(final String name, final Layout<?> layout, final Property[] properties) {
+    private CountingNoOpAppender(final String name, final Layout<?> layout, final Property @Nullable [] properties) {
         super(name, null, layout, true, properties);
     }
 

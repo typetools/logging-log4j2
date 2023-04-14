@@ -8,6 +8,13 @@ git clone https://github.com/typetools/logging-log4j.git --branch nullness
 cd logging-log4j
 ```
 
+2. Build the Log4J API:
+
+```
+(cd log4j-api-java9 && mvn -e -B compile install -P checkerframework)
+(cd log4j-api && mvn -e -B compile install -P checkerframework)
+```
+
 3. Run the Nullness Checker:
 
 ```

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.message;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 
 import org.apache.logging.log4j.util.PerformanceSensitive;
@@ -110,59 +111,59 @@ public final class ReusableMessageFactory implements MessageFactory2, Serializab
     }
 
     @Override
-    public Message newMessage(final String message, final Object p0) {
+    public Message newMessage(final String message, final @Nullable Object p0) {
         return getParameterized().set(message, p0);
     }
 
     @Override
-    public Message newMessage(final String message, final Object p0, final Object p1) {
+    public Message newMessage(final String message, final @Nullable Object p0, final @Nullable Object p1) {
         return getParameterized().set(message, p0, p1);
     }
 
     @Override
-    public Message newMessage(final String message, final Object p0, final Object p1, final Object p2) {
+    public Message newMessage(final String message, final @Nullable Object p0, final @Nullable Object p1, final @Nullable Object p2) {
         return getParameterized().set(message, p0, p1, p2);
     }
 
     @Override
-    public Message newMessage(final String message, final Object p0, final Object p1, final Object p2,
-            final Object p3) {
+    public Message newMessage(final String message, final @Nullable Object p0, final @Nullable Object p1, final @Nullable Object p2,
+            final @Nullable Object p3) {
         return getParameterized().set(message, p0, p1, p2, p3);
     }
 
     @Override
-    public Message newMessage(final String message, final Object p0, final Object p1, final Object p2, final Object p3,
-            final Object p4) {
+    public Message newMessage(final String message, final @Nullable Object p0, final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3,
+            final @Nullable Object p4) {
         return getParameterized().set(message, p0, p1, p2, p3, p4);
     }
 
     @Override
-    public Message newMessage(final String message, final Object p0, final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5) {
+    public Message newMessage(final String message, final @Nullable Object p0, final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3,
+            final @Nullable Object p4, final @Nullable Object p5) {
         return getParameterized().set(message, p0, p1, p2, p3, p4, p5);
     }
 
     @Override
-    public Message newMessage(final String message, final Object p0, final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5, final Object p6) {
+    public Message newMessage(final String message, final @Nullable Object p0, final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3,
+            final @Nullable Object p4, final @Nullable Object p5, final @Nullable Object p6) {
         return getParameterized().set(message, p0, p1, p2, p3, p4, p5, p6);
     }
 
     @Override
-    public Message newMessage(final String message, final Object p0, final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5, final Object p6, final Object p7) {
+    public Message newMessage(final String message, final @Nullable Object p0, final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3,
+            final @Nullable Object p4, final @Nullable Object p5, final @Nullable Object p6, final @Nullable Object p7) {
         return getParameterized().set(message, p0, p1, p2, p3, p4, p5, p6, p7);
     }
 
     @Override
-    public Message newMessage(final String message, final Object p0, final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5, final Object p6, final Object p7, final Object p8) {
+    public Message newMessage(final String message, final @Nullable Object p0, final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3,
+            final @Nullable Object p4, final @Nullable Object p5, final @Nullable Object p6, final @Nullable Object p7, final @Nullable Object p8) {
         return getParameterized().set(message, p0, p1, p2, p3, p4, p5, p6, p7, p8);
     }
 
     @Override
-    public Message newMessage(final String message, final Object p0, final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5, final Object p6, final Object p7, final Object p8, final Object p9) {
+    public Message newMessage(final String message, final @Nullable Object p0, final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3,
+            final @Nullable Object p4, final @Nullable Object p5, final @Nullable Object p6, final @Nullable Object p7, final @Nullable Object p8, final @Nullable Object p9) {
         return getParameterized().set(message, p0, p1, p2, p3, p4, p5, p6, p7, p8, p9);
     }
 

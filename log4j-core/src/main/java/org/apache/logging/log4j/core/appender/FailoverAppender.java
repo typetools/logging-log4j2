@@ -65,7 +65,7 @@ public final class FailoverAppender extends AbstractAppender {
 
     private FailoverAppender(final String name, final @Nullable Filter filter, final String primary, final String[] failovers,
             final int intervalMillis, final Configuration config, final boolean ignoreExceptions,
-            final Property[] properties) {
+            final Property @Nullable [] properties) {
         super(name, filter, null, ignoreExceptions, properties);
         this.primaryRef = primary;
         this.failovers = failovers;

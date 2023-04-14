@@ -329,9 +329,9 @@ public class SyslogAppender extends SocketAppender {
 
     protected static final String RFC5424 = "RFC5424";
 
-    protected SyslogAppender(final String name, final Layout<? extends Serializable> layout, final Filter filter,
+    protected SyslogAppender(final String name, final @Nullable Layout<? extends Serializable> layout, final @Nullable Filter filter,
                              final boolean ignoreExceptions, final boolean immediateFlush,
-                             final AbstractSocketManager manager, final Advertiser advertiser, final Property[] properties) {
+                             final AbstractSocketManager manager, final Advertiser advertiser, final Property @Nullable [] properties) {
         super(name, layout, filter, manager, ignoreExceptions, immediateFlush, advertiser, properties);
     }
 
@@ -340,7 +340,7 @@ public class SyslogAppender extends SocketAppender {
      * {@link #SyslogAppender(String, Layout, Filter, boolean, boolean, AbstractSocketManager, Advertiser, Property[])}.
      */
     @Deprecated
-    protected SyslogAppender(final String name, final Layout<? extends Serializable> layout, final Filter filter,
+    protected SyslogAppender(final String name, final @Nullable Layout<? extends Serializable> layout, final @Nullable Filter filter,
             final boolean ignoreExceptions, final boolean immediateFlush, final AbstractSocketManager manager,
             final Advertiser advertiser) {
         super(name, layout, filter, manager, ignoreExceptions, immediateFlush, advertiser, Property.EMPTY_ARRAY);
@@ -391,7 +391,7 @@ public class SyslogAppender extends SocketAppender {
             final String host,
             final int port,
             final String protocolStr,
-            final SslConfiguration sslConfiguration,
+            final @Nullable SslConfiguration sslConfiguration,
             final int connectTimeoutMillis,
             final int reconnectDelayMillis,
             final boolean immediateFail,
@@ -413,7 +413,7 @@ public class SyslogAppender extends SocketAppender {
             final String includes,
             final String required,
             final String format,
-            final Filter filter,
+            final @Nullable Filter filter,
             final Configuration configuration,
             final Charset charset,
             final String exceptionPattern,

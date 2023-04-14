@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.util.AbstractCollection;
 import java.util.Collection;
@@ -88,7 +89,7 @@ public final class ThreadContext {
         }
 
         @Override
-        public boolean equals(final Object o) {
+        public boolean equals(final @Nullable Object o) {
             // Similar to java.util.Collections.EmptyList.equals(Object)
             return (o instanceof Collection) && ((Collection<?>) o).isEmpty();
         }

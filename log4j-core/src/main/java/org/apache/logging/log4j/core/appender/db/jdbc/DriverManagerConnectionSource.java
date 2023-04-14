@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.db.jdbc;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.sql.DriverManager;
 
 import org.apache.logging.log4j.core.Core;
@@ -57,7 +58,7 @@ public class DriverManagerConnectionSource extends AbstractDriverManagerConnecti
     }
 
     public DriverManagerConnectionSource(final String driverClassName, final String connectionString,
-            final String actualConnectionString, final char[] userName, final char[] password, final Property[] properties) {
+            final String actualConnectionString, final char[] userName, final char[] password, final Property @Nullable [] properties) {
         super(driverClassName, connectionString, actualConnectionString, userName, password, properties);
     }
 

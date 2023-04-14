@@ -76,7 +76,7 @@ public class MutableThreadContextMapFilter extends AbstractFilter {
     private final List<FilterConfigUpdateListener> listeners = new ArrayList<>();
     private @MonotonicNonNull ScheduledFuture<?> future = null;
 
-    private MutableThreadContextMapFilter(final Filter filter, final @Nullable LastModifiedSource source,
+    private MutableThreadContextMapFilter(final @Nullable Filter filter, final @Nullable LastModifiedSource source,
             final long pollInterval, final @Nullable AuthorizationProvider authorizationProvider,
             final Result onMatch, final Result onMismatch, final Configuration configuration) {
         super(onMatch, onMismatch);

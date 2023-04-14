@@ -39,7 +39,7 @@ public final class AppenderRef {
     private final @Nullable Level level;
     private final @Nullable Filter filter;
 
-    private AppenderRef(final String ref, final Level level, final Filter filter) {
+    private AppenderRef(final String ref, final Level level, final @Nullable Filter filter) {
         this.ref = ref;
         this.level = level;
         this.filter = filter;

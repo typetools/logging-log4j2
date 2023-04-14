@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender.mom.kafka;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Properties;
@@ -61,12 +62,12 @@ public class KafkaManager extends AbstractManager {
      * by the internal factory;
      */
     public KafkaManager(final LoggerContext loggerContext, final String name, final String topic,
-            final boolean syncSend, final Property[] properties, final String key) {
+            final boolean syncSend, final Property @Nullable [] properties, final String key) {
         this(loggerContext, name, topic, syncSend, false, properties, key);
     }
 
     private KafkaManager(final LoggerContext loggerContext, final String name, final String topic, final boolean syncSend,
-            final boolean sendTimestamp, final Property[] properties, final String key) {
+            final boolean sendTimestamp, final Property @Nullable [] properties, final String key) {
         super(loggerContext, name);
         this.topic = Objects.requireNonNull(topic, "topic");
         this.syncSend = syncSend;
@@ -163,12 +164,12 @@ public class KafkaManager extends AbstractManager {
 
     @Deprecated
     public static KafkaManager getManager(final LoggerContext loggerContext, final String name, final String topic,
-            final boolean syncSend, final Property[] properties, final String key) {
+            final boolean syncSend, final Property @Nullable [] properties, final String key) {
         return getManager(loggerContext, name, topic, syncSend, false, properties, key);
     }
 
     static KafkaManager getManager(final LoggerContext loggerContext, final String name, final String topic,
-            final boolean syncSend, final boolean sendTimestamp, final Property[] properties, final String key) {
+            final boolean syncSend, final boolean sendTimestamp, final Property @Nullable [] properties, final String key) {
         StringBuilder sb = new StringBuilder(name);
         sb.append(" ")
             .append(topic)
@@ -188,11 +189,11 @@ public class KafkaManager extends AbstractManager {
         private final String topic;
         private final boolean syncSend;
         private final boolean sendTimestamp;
-        private final Property[] properties;
+        private final Property @Nullable [] properties;
         private final String key;
 
         public FactoryData(final LoggerContext loggerContext, final String topic, final boolean syncSend,
-                final boolean sendTimestamp, final Property[] properties, final String key) {
+                final boolean sendTimestamp, final Property @Nullable [] properties, final String key) {
             this.loggerContext = loggerContext;
             this.topic = topic;
             this.syncSend = syncSend;

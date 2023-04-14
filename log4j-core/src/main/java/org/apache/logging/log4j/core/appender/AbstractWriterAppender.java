@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -59,8 +60,8 @@ public abstract class AbstractWriterAppender<M extends WriterManager> extends Ab
      * @param manager
      *            The OutputStreamManager.
      */
-    protected AbstractWriterAppender(final String name, final StringLayout layout, final Filter filter,
-            final boolean ignoreExceptions, final boolean immediateFlush, final Property[] properties, final M manager) {
+    protected AbstractWriterAppender(final String name, final StringLayout layout, final @Nullable Filter filter,
+            final boolean ignoreExceptions, final boolean immediateFlush, final Property @Nullable [] properties, final M manager) {
         super(name, filter, layout, ignoreExceptions, properties);
         this.manager = manager;
         this.immediateFlush = immediateFlush;
@@ -78,7 +79,7 @@ public abstract class AbstractWriterAppender<M extends WriterManager> extends Ab
      * @deprecated Use {@link #AbstractWriterAppender(String, StringLayout, Filter, boolean, boolean, Property[], WriterManager)}.
      */
     @Deprecated
-    protected AbstractWriterAppender(final String name, final StringLayout layout, final Filter filter,
+    protected AbstractWriterAppender(final String name, final StringLayout layout, final @Nullable Filter filter,
             final boolean ignoreExceptions, final boolean immediateFlush, final M manager) {
         super(name, filter, layout, ignoreExceptions, Property.EMPTY_ARRAY);
         this.manager = manager;
@@ -122,6 +123,7 @@ public abstract class AbstractWriterAppender<M extends WriterManager> extends Ab
         return manager;
     }
 
+    @SuppressWarnings("return")  // start() ensures that getLayout() returns true
     public StringLayout getStringLayout() {
         return (StringLayout) getLayout();
     }

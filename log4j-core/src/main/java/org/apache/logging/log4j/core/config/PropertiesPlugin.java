@@ -50,7 +50,7 @@ public final class PropertiesPlugin {
                                                  @PluginConfiguration final Configuration config) {
         // For backwards compatibility, we unescape all escaped lookups when properties are parsed.
         // This matches previous behavior for escaped components which were meant to be executed later on.
-        Property[] unescapedProperties = new Property[properties == null ? 0 : properties.length];
+        Property @Nullable [] unescapedProperties = new Property[properties == null ? 0 : properties.length];
         for (int i = 0; i < unescapedProperties.length; i++) {
             unescapedProperties[i] = unescape(properties[i]);
         }

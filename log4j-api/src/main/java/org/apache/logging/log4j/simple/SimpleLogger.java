@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.simple;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.PrintStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -101,17 +102,17 @@ public class SimpleLogger extends AbstractLogger {
     }
 
     @Override
-    public boolean isEnabled(final Level testLevel, final Marker marker, final Message msg, final Throwable t) {
+    public boolean isEnabled(final Level testLevel, final Marker marker, final Message msg, final @Nullable Throwable t) {
         return this.level.intLevel() >= testLevel.intLevel();
     }
 
     @Override
-    public boolean isEnabled(final Level testLevel, final Marker marker, final CharSequence msg, final Throwable t) {
+    public boolean isEnabled(final Level testLevel, final Marker marker, final CharSequence msg, final @Nullable Throwable t) {
         return this.level.intLevel() >= testLevel.intLevel();
     }
 
     @Override
-    public boolean isEnabled(final Level testLevel, final Marker marker, final Object msg, final Throwable t) {
+    public boolean isEnabled(final Level testLevel, final Marker marker, final Object msg, final @Nullable Throwable t) {
         return this.level.intLevel() >= testLevel.intLevel();
     }
 
@@ -126,81 +127,81 @@ public class SimpleLogger extends AbstractLogger {
     }
 
     @Override
-    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final Object p0) {
+    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final @Nullable Object p0) {
         return this.level.intLevel() >= testLevel.intLevel();
     }
 
     @Override
-    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final Object p0,
-            final Object p1) {
+    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final @Nullable Object p0,
+            final @Nullable Object p1) {
         return this.level.intLevel() >= testLevel.intLevel();
     }
 
     @Override
-    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final Object p0,
-            final Object p1, final Object p2) {
+    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final @Nullable Object p0,
+            final @Nullable Object p1, final @Nullable Object p2) {
         return this.level.intLevel() >= testLevel.intLevel();
     }
 
     @Override
-    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3) {
+    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final @Nullable Object p0,
+            final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3) {
         return this.level.intLevel() >= testLevel.intLevel();
     }
 
     @Override
-    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3,
-            final Object p4) {
+    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final @Nullable Object p0,
+            final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3,
+            final @Nullable Object p4) {
         return this.level.intLevel() >= testLevel.intLevel();
     }
 
     @Override
-    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5) {
+    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final @Nullable Object p0,
+            final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3,
+            final @Nullable Object p4, final @Nullable Object p5) {
         return this.level.intLevel() >= testLevel.intLevel();
     }
 
     @Override
-    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5, final Object p6) {
+    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final @Nullable Object p0,
+            final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3,
+            final @Nullable Object p4, final @Nullable Object p5, final @Nullable Object p6) {
         return this.level.intLevel() >= testLevel.intLevel();
     }
 
     @Override
-    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5, final Object p6,
-            final Object p7) {
+    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final @Nullable Object p0,
+            final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3,
+            final @Nullable Object p4, final @Nullable Object p5, final @Nullable Object p6,
+            final @Nullable Object p7) {
         return this.level.intLevel() >= testLevel.intLevel();
     }
 
     @Override
-    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5, final Object p6,
-            final Object p7, final Object p8) {
+    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final @Nullable Object p0,
+            final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3,
+            final @Nullable Object p4, final @Nullable Object p5, final @Nullable Object p6,
+            final @Nullable Object p7, final @Nullable Object p8) {
         return this.level.intLevel() >= testLevel.intLevel();
     }
 
     @Override
-    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final Object p0,
-            final Object p1, final Object p2, final Object p3,
-            final Object p4, final Object p5, final Object p6,
-            final Object p7, final Object p8, final Object p9) {
+    public boolean isEnabled(final Level testLevel, final Marker marker, final String message, final @Nullable Object p0,
+            final @Nullable Object p1, final @Nullable Object p2, final @Nullable Object p3,
+            final @Nullable Object p4, final @Nullable Object p5, final @Nullable Object p6,
+            final @Nullable Object p7, final @Nullable Object p8, final @Nullable Object p9) {
         return this.level.intLevel() >= testLevel.intLevel();
     }
 
     @Override
-    public boolean isEnabled(final Level testLevel, final Marker marker, final String msg, final Throwable t) {
+    public boolean isEnabled(final Level testLevel, final Marker marker, final String msg, final @Nullable Throwable t) {
         return this.level.intLevel() >= testLevel.intLevel();
     }
 
     @Override
     public void logMessage(final String fqcn, final Level mgsLevel, final Marker marker, final Message msg,
-            final Throwable throwable) {
+            final @Nullable Throwable throwable) {
         final StringBuilder sb = new StringBuilder();
         // Append date-time if so configured
         if (showDateTime) {

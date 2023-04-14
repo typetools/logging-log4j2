@@ -17,6 +17,7 @@
 package org.apache.logging.log4j.core.jmx;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Deterministic;
 import javax.management.ObjectName;
 
 import com.lmax.disruptor.RingBuffer;
@@ -52,6 +53,7 @@ public class RingBufferAdmin implements RingBufferAdminMBean {
         }
     }
 
+    @Deterministic
     @Override
     public long getBufferSize() {
         return ringBuffer == null ? 0 : ringBuffer.getBufferSize();

@@ -76,7 +76,7 @@ public final class HttpAppender extends AbstractAppender {
             final HttpManager httpManager = new HttpURLConnectionManager(getConfiguration(),
                     getConfiguration().getLoggerContext(), getName(), url, method, connectTimeoutMillis,
                     readTimeoutMillis, headers, sslConfiguration, verifyHostname);
-            return new HttpAppender(getName(), getLayout(), getFilter(), isIgnoreExceptions(), httpManager,
+            return new HttpAppender(getName(), getOrCreateLayout(), getFilter(), isIgnoreExceptions(), httpManager,
                     getPropertyArray());
         }
 
@@ -128,12 +128,12 @@ public final class HttpAppender extends AbstractAppender {
             return asBuilder();
         }
 
-        public B setHeaders(final Property[] headers) {
+        public B setHeaders(final Property @Nullable [] headers) {
             this.headers = headers;
             return asBuilder();
         }
 
-        public B setSslConfiguration(final SslConfiguration sslConfiguration) {
+        public B setSslConfiguration(final @Nullable SslConfiguration sslConfiguration) {
             this.sslConfiguration = sslConfiguration;
             return asBuilder();
         }
@@ -154,8 +154,8 @@ public final class HttpAppender extends AbstractAppender {
 
     private final HttpManager manager;
 
-    private HttpAppender(final String name, final Layout<? extends Serializable> layout, final Filter filter,
-            final boolean ignoreExceptions, final HttpManager manager, final Property[] properties) {
+    private HttpAppender(final String name, final Layout<? extends Serializable> layout, final @Nullable Filter filter,
+            final boolean ignoreExceptions, final HttpManager manager, final Property @Nullable [] properties) {
         super(name, filter, layout, ignoreExceptions, properties);
         Objects.requireNonNull(layout, "layout");
         this.manager = Objects.requireNonNull(manager, "manager");

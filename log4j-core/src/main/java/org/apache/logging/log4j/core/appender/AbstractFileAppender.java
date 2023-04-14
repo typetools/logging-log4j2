@@ -146,7 +146,7 @@ public abstract class AbstractFileAppender<M extends OutputStreamManager> extend
             return asBuilder();
         }
 
-        public B withFileGroup(final String fileGroup) {
+        public B withFileGroup(final @Nullable String fileGroup) {
             this.fileGroup = fileGroup;
             return asBuilder();
         }
@@ -159,9 +159,9 @@ public abstract class AbstractFileAppender<M extends OutputStreamManager> extend
 
     private final Object advertisement;
 
-    private AbstractFileAppender(final String name, final Layout<? extends Serializable> layout, final Filter filter,
+    private AbstractFileAppender(final String name, final /*@NonNull because of dereference below*/ Layout<? extends Serializable> layout, final @Nullable Filter filter,
             final M manager, final String filename, final boolean ignoreExceptions,
-            final boolean immediateFlush, final Advertiser advertiser, final Property[] properties) {
+            final boolean immediateFlush, final Advertiser advertiser, final Property @Nullable [] properties) {
 
         super(name, layout, filter, ignoreExceptions, immediateFlush, properties, manager);
         if (advertiser != null) {

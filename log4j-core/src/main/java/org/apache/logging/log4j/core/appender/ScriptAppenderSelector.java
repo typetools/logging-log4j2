@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -139,8 +140,8 @@ public class ScriptAppenderSelector extends AbstractAppender {
         return new Builder();
     }
 
-    private ScriptAppenderSelector(final String name, final Filter filter, final Layout<? extends Serializable> layout,
-            final Property[] properties) {
+    private ScriptAppenderSelector(final String name, final @Nullable Filter filter, final Layout<? extends Serializable> layout,
+            final Property @Nullable [] properties) {
         super(name, filter, layout, true, Property.EMPTY_ARRAY);
     }
 

@@ -60,12 +60,12 @@ public abstract class AbstractFilterable extends AbstractLifeCycle implements Fi
             return propertyArray;
         }
 
-        public B setFilter(final Filter filter) {
+        public B setFilter(final @Nullable Filter filter) {
             this.filter = filter;
             return asBuilder();
         }
 
-        public B setPropertyArray(final Property[] properties) {
+        public B setPropertyArray(final Property @Nullable [] properties) {
             this.propertyArray = properties;
             return asBuilder();
         }

@@ -96,7 +96,7 @@ public class SmtpManager extends MailManager {
                                              final String subject, String protocol, final String host,
                                              final int port, final String username, final String password,
                                              final boolean isDebug, final String filterName, final int numElements,
-                                             final SslConfiguration sslConfiguration) {
+                                             final @Nullable SslConfiguration sslConfiguration) {
         final Serializer subjectSerializer = PatternLayout.newSerializerBuilder()
                 .setConfiguration(config)
                 .setPattern(subject)

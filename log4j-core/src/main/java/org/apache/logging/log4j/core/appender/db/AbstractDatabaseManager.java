@@ -17,6 +17,7 @@
 
 package org.apache.logging.log4j.core.appender.db;
 
+import org.checkerframework.dataflow.qual.Deterministic;
 import java.io.Flushable;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -69,6 +70,7 @@ public abstract class AbstractDatabaseManager extends AbstractManager implements
          *
          * @return the buffer size.
          */
+        @Deterministic
         public int getBufferSize() {
             return bufferSize;
         }

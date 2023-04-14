@@ -17,6 +17,7 @@
 package org.apache.logging.log4j.core.appender;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Deterministic;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -118,9 +119,9 @@ public final class RandomAccessFileAppender extends AbstractOutputStreamAppender
     private final Advertiser advertiser;
 
     private RandomAccessFileAppender(final String name, final Layout<? extends Serializable> layout,
-            final Filter filter, final RandomAccessFileManager manager, final String filename,
+            final @Nullable Filter filter, final RandomAccessFileManager manager, final String filename,
             final boolean ignoreExceptions, final boolean immediateFlush, final Advertiser advertiser,
-            final Property[] properties) {
+            final Property @Nullable [] properties) {
 
         super(name, layout, filter, ignoreExceptions, immediateFlush, properties, manager);
         if (advertiser != null) {
@@ -159,6 +160,7 @@ public final class RandomAccessFileAppender extends AbstractOutputStreamAppender
      * Returns the size of the file manager's buffer.
      * @return the buffer size
      */
+    @Deterministic
     public int getBufferSize() {
         return getManager().getBufferSize();
     }
@@ -197,7 +199,7 @@ public final class RandomAccessFileAppender extends AbstractOutputStreamAppender
             final String bufferSizeStr,
             final String ignore,
             final Layout<? extends Serializable> layout,
-            final Filter filter,
+            final @Nullable Filter filter,
             final String advertise,
             final String advertiseURI,
             final Configuration configuration) {

@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.appender;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.io.Writer;
 
@@ -134,7 +135,7 @@ public final class WriterAppender extends AbstractWriterAppender<WriterManager> 
      * @return The ConsoleAppender.
      */
     @PluginFactory
-    public static WriterAppender createAppender(StringLayout layout, final Filter filter, final Writer target,
+    public static WriterAppender createAppender(StringLayout layout, final @Nullable Filter filter, final Writer target,
             final String name, final boolean follow, final boolean ignore) {
         if (name == null) {
             LOGGER.error("No name provided for WriterAppender");
@@ -158,8 +159,8 @@ public final class WriterAppender extends AbstractWriterAppender<WriterManager> 
         return new Builder<B>().asBuilder();
     }
 
-    private WriterAppender(final String name, final StringLayout layout, final Filter filter,
-            final WriterManager manager, final boolean ignoreExceptions, final Property[] properties) {
+    private WriterAppender(final String name, final StringLayout layout, final @Nullable Filter filter,
+            final WriterManager manager, final boolean ignoreExceptions, final Property @Nullable [] properties) {
         super(name, layout, filter, ignoreExceptions, true, properties, manager);
     }
 

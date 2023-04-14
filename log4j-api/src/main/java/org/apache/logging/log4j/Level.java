@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.Serializable;
 import java.util.Locale;
 import java.util.Objects;
@@ -222,7 +223,7 @@ public final class Level implements Comparable<Level>, Serializable {
     }
 
     @Override
-    public boolean equals(final Object other) {
+    public boolean equals(final @Nullable Object other) {
         return other instanceof Level && other == this;
     }
 

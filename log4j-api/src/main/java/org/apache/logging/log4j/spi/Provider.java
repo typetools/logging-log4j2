@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.spi;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.Properties;
@@ -220,7 +221,7 @@ public class Provider {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (this == o) {
             return true;
         }

@@ -63,13 +63,13 @@ public final class JeroMqAppender extends AbstractAppender {
     private int sendRcFalse;
     private int sendRcTrue;
 
-    private JeroMqAppender(final String name, final Filter filter, final Layout<? extends Serializable> layout,
+    private JeroMqAppender(final String name, final @Nullable Filter filter, final @Nullable Layout<? extends Serializable> layout,
             final boolean ignoreExceptions, final List<String> endpoints, final long affinity, final long backlog,
             final boolean delayAttachOnConnect, final byte[] identity, final boolean ipv4Only, final long linger,
             final long maxMsgSize, final long rcvHwm, final long receiveBufferSize, final int receiveTimeOut,
             final long reconnectIVL, final long reconnectIVLMax, final long sendBufferSize, final int sendTimeOut,
             final long sndHWM, final int tcpKeepAlive, final long tcpKeepAliveCount, final long tcpKeepAliveIdle,
-            final long tcpKeepAliveInterval, final boolean xpubVerbose, final Property[] properties) {
+            final long tcpKeepAliveInterval, final boolean xpubVerbose, final Property @Nullable [] properties) {
         super(name, filter, layout, ignoreExceptions, properties);
         this.manager = JeroMqManager.getJeroMqManager(name, affinity, backlog, delayAttachOnConnect, identity, ipv4Only,
             linger, maxMsgSize, rcvHwm, receiveBufferSize, receiveTimeOut, reconnectIVL, reconnectIVLMax,

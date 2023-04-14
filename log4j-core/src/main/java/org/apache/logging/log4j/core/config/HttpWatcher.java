@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.core.config;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,7 +50,7 @@ public class HttpWatcher extends AbstractWatcher {
 
     private final Logger LOGGER = StatusLogger.getLogger();
 
-    private final SslConfiguration sslConfiguration;
+    private final @Nullable SslConfiguration sslConfiguration;
     private AuthorizationProvider authorizationProvider;
     private URL url;
     private volatile long lastModifiedMillis;

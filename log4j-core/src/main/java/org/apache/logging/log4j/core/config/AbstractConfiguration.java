@@ -898,7 +898,7 @@ public abstract class AbstractConfiguration extends AbstractFilterable implement
      * @param filter The Filter.
      */
     @Override
-    public synchronized void addLoggerFilter(final org.apache.logging.log4j.core.Logger logger, final Filter filter) {
+    public synchronized void addLoggerFilter(final org.apache.logging.log4j.core.Logger logger, final @Nullable Filter filter) {
         final String loggerName = logger.getName();
         final LoggerConfig lc = getLoggerConfig(loggerName);
         if (lc.getName().equals(loggerName)) {

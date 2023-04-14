@@ -16,6 +16,7 @@
  */
 package org.apache.logging.log4j.message;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.apache.logging.log4j.util.StringBuilderFormattable;
 
 import java.io.IOException;
@@ -89,7 +90,7 @@ public class SimpleMessage implements Message, StringBuilderFormattable, CharSeq
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(final @Nullable Object o) {
         if (this == o) {
             return true;
         }
