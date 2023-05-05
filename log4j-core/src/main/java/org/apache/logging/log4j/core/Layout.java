@@ -58,13 +58,13 @@ public interface Layout<T extends Serializable> extends Encoder<LogEvent> {
      * Returns the format for the layout format.
      * @return The footer.
      */
-    byte[] getFooter();
+    byte @Nullable [] getFooter();
 
     /**
      * Returns the header for the layout format.
      * @return The header.
      */
-    byte[] getHeader();
+    byte @Nullable [] getHeader();
 
     /**
      * Formats the event suitable for display.
